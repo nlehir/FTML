@@ -23,4 +23,15 @@ This folder contains the slides of the courses.
 
 This folder contains the practical sessions.
 
-- Reminders/Introduction to Python 3
+- Reminders/Introduction to Python 3, polynomial regression, Ordinary least
+  squares
+- Ridge regression, logistic regression
+- First-order optimization methods (Gradient descent, Stochastic gradient
+  descent)
+- Kernel density estimation, kernel regression, cross validation.
+- Bayesian learning
+- Lasso
+- Model selection, PCA, kernel PCA
+- Neural networks
+- Nonlinear dimensionality reduction
+- Modern topics on gradient descent
