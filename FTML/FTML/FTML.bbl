@@ -1,0 +1,20 @@
+\begin{thebibliography}{}
+
+\bibitem[Allaire, 2012]{Allaire2012}
+Allaire, G. (2012).
+\newblock {Analyse num{\'{e}}rique et optimisation Une introduction {\`{a}} la
+  mod{\'{e}}lisation math{\'{e}}m{\'{e}}tique et {\`{a}} la simulation
+  num{\'{e}}rique}.
+\newblock {\em {\'{E}}ditions de l'{\'{E}}cole Polytechnique}, (2):480.
+
+\bibitem[Bach, 2021]{Bach2021}
+Bach, F. (2021).
+\newblock {Learning Theory from First Principles Draft}.
+\newblock {\em Book Draft}, page 229.
+
+\bibitem[Schmidt et~al., 2013]{Schmidt2013}
+Schmidt, M., {Le Roux}, N., and Bach, F. (2013).
+\newblock {Minimizing finite sums with the stochastic average gradient}.
+\newblock {\em Mathematical Programming}, 162(1-2):83--112.
+
+\end{thebibliography}
