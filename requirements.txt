@@ -1,0 +1,14 @@
+graphviz
+ipdb
+jupyter
+matplotlib
+numpy
+networkx
+pandas
+plotly
+scipy
+seaborn
+sklearn
+squarify
+termcolor
+wikipedia
