@@ -113,10 +113,10 @@ def ols_risk(n, d, n_tests):
 
     """
     # design matrix
-    # X = r.rand(n, d)
+    X = r.rand(n, d)
     # Different design matrix
-    X = np.load("data/design_matrix.npy")
-    n, d = X.shape
+    # X = np.load("data/design_matrix.npy")
+    # n, d = X.shape
 
     # Bayes predictor
     theta_star = r.rand(d).reshape(d, 1)
