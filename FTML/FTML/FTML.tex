@@ -1525,7 +1525,7 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
     where we have used \ref{ssec:linalg}. We deduce that the gradient of $R_n$ in $\theta$ writes
     \begin{equation}
 	\label{eq:olseq}
-	\nabla_{\theta} R_n = X^TX\theta-X^TY
+        \nabla_{\theta} R_n = \frac{2}{n} (X^TX\theta-X^TY)
     \end{equation}
 
     Let us show that $X^TX$ is \textbf{{inversible.}} As it is a square matrix $\in \mathbb{R}^{d\times d}$, we only need to show that it is injective. Let $u\in \mathbb{R}^d$, such that $X^TXu = 0$. Then $ \langle X^TXu, u \rangle=0$, but this inner product equals $\langle Xu, Xu \rangle = ||Xu||^2$. Hence $Xu=0$, but as $X$ is injective, $u=0$, which completes the proof.
