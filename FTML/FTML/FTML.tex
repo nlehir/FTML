@@ -376,6 +376,23 @@ We say that we have \textbf{{convergence in probability}}.
     \end{itemize}
 \end{remark}
 
+The following theorem gives a result that applies to a different type of 
+convergence of random variables (convergence in distribution). As convergence
+in probability implies convergence in distribution, we say that convergence in
+distribution is a \textbf{{weaker}} convergence.
+
+\begin{theorem}{Central limit theorem}
+    Let $(X_n)_{n\in \mathbb{N} }$ be a sequence of i.i.d. variables that have
+    a moment of order $2$. We note $m$ their expected value, and $ \sigma^2$
+    their variance. If we consider the following random variable:
+
+    \begin{equation}
+        T_n = \frac{ \sqrt{n} }{\sigma} (S_n-m)
+    \end{equation}
+
+    then $T_n$ converges in distribution to $ \mathcal{N}(0, 1)$.
+\end{theorem}
+
 
 \subsubsection{\large\color{Periwinkle}Concentration inequalities}
 
@@ -1463,6 +1480,13 @@ The vector of predictions of the estimator writes $Y = X\theta$.  Hence,
 	&= \frac{1}{n} ||Y-X\theta||_2^2
     \end{aligned}
 \end{equation*}
+
+\begin{remark}
+    A \textbf{{linear model}}, such as the OLS, can often be interpreted as
+    predicting an output value (dependent variable) from combining the contributions from the $d$
+    \textbf{{features}} (independent variables) of the input data, in a linear
+    way. This can be useful for classification as well as regression.
+\end{remark}
 
 \subsubsection{\large\color{Periwinkle}OLS estimator}
 
