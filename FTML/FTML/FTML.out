@@ -47,41 +47,43 @@
 \BOOKMARK [2][-]{subsection.3.4}{3.4 MidnightBlueRidge regression}{section.3}% 47
 \BOOKMARK [3][-]{subsubsection.3.4.1}{3.4.1 PeriwinkleContext}{subsection.3.4}% 48
 \BOOKMARK [3][-]{subsubsection.3.4.2}{3.4.2 PeriwinkleRidge regression estimator}{subsection.3.4}% 49
-\BOOKMARK [2][-]{subsection.3.5}{3.5 MidnightBlueLasso}{section.3}% 50
-\BOOKMARK [3][-]{subsubsection.3.5.1}{3.5.1 PeriwinkleContext}{subsection.3.5}% 51
-\BOOKMARK [3][-]{subsubsection.3.5.2}{3.5.2 PeriwinkleLASSO estimator}{subsection.3.5}% 52
-\BOOKMARK [3][-]{subsubsection.3.5.3}{3.5.3 PeriwinkleNumerical resolutions}{subsection.3.5}% 53
-\BOOKMARK [2][-]{subsection.3.6}{3.6 MidnightBlueLogistic regression}{section.3}% 54
-\BOOKMARK [3][-]{subsubsection.3.6.1}{3.6.1 PeriwinkleContext}{subsection.3.6}% 55
-\BOOKMARK [3][-]{subsubsection.3.6.2}{3.6.2 PeriwinkleLogistic regression estimator}{subsection.3.6}% 56
-\BOOKMARK [2][-]{subsection.3.7}{3.7 MidnightBlueStochastic Gradient Descent \(SGD\)}{section.3}% 57
-\BOOKMARK [3][-]{subsubsection.3.7.1}{3.7.1 PeriwinkleContext}{subsection.3.7}% 58
-\BOOKMARK [3][-]{subsubsection.3.7.2}{3.7.2 PeriwinkleSGD updates}{subsection.3.7}% 59
-\BOOKMARK [3][-]{subsubsection.3.7.3}{3.7.3 PeriwinkleSGD as an estimation of GD}{subsection.3.7}% 60
-\BOOKMARK [3][-]{subsubsection.3.7.4}{3.7.4 PeriwinkleConvergence for a convex objective}{subsection.3.7}% 61
-\BOOKMARK [3][-]{subsubsection.3.7.5}{3.7.5 PeriwinkleConvergence for a strongly convex objective}{subsection.3.7}% 62
-\BOOKMARK [3][-]{subsubsection.3.7.6}{3.7.6 PeriwinkleConvergence for a strongly convex L-smooth objective}{subsection.3.7}% 63
-\BOOKMARK [3][-]{subsubsection.3.7.7}{3.7.7 PeriwinkleComputational complexity of GD and SGD}{subsection.3.7}% 64
-\BOOKMARK [2][-]{subsection.3.8}{3.8 MidnightBlueKernels}{section.3}% 65
-\BOOKMARK [3][-]{subsubsection.3.8.1}{3.8.1 PeriwinkleContext}{subsection.3.8}% 66
-\BOOKMARK [3][-]{subsubsection.3.8.2}{3.8.2 PeriwinkleRepresenter theorem}{subsection.3.8}% 67
-\BOOKMARK [3][-]{subsubsection.3.8.3}{3.8.3 PeriwinkleConsequence}{subsection.3.8}% 68
-\BOOKMARK [1][-]{section.4}{4 BlueUnsupervised learning}{}% 69
-\BOOKMARK [2][-]{subsection.4.1}{4.1 MidnightBlueDefinitions}{section.4}% 70
-\BOOKMARK [3][-]{subsubsection.4.1.1}{4.1.1 PeriwinkleSetup}{subsection.4.1}% 71
-\BOOKMARK [2][-]{subsection.4.2}{4.2 MidnightBlueK-means clustering}{section.4}% 72
-\BOOKMARK [3][-]{subsubsection.4.2.1}{4.2.1 PeriwinkleContext}{subsection.4.2}% 73
-\BOOKMARK [3][-]{subsubsection.4.2.2}{4.2.2 PeriwinkleDistorsion}{subsection.4.2}% 74
-\BOOKMARK [2][-]{subsection.4.3}{4.3 MidnightBluePrincipal Component Analysis \(PCA\)}{section.4}% 75
-\BOOKMARK [3][-]{subsubsection.4.3.1}{4.3.1 PeriwinkleContext}{subsection.4.3}% 76
-\BOOKMARK [3][-]{subsubsection.4.3.2}{4.3.2 PeriwinkleOptimal projection}{subsection.4.3}% 77
-\BOOKMARK [3][-]{subsubsection.4.3.3}{4.3.3 PeriwinkleAlgorithm}{subsection.4.3}% 78
-\BOOKMARK [2][-]{subsection.4.4}{4.4 MidnightBlueDensity etimation}{section.4}% 79
-\BOOKMARK [3][-]{subsubsection.4.4.1}{4.4.1 PeriwinkleContext}{subsection.4.4}% 80
-\BOOKMARK [3][-]{subsubsection.4.4.2}{4.4.2 PeriwinkleKernel density estimation \(KDE\) and Convolution}{subsection.4.4}% 81
-\BOOKMARK [1][-]{section.5}{5 BlueProbabilistic modeling}{}% 82
-\BOOKMARK [2][-]{subsection.5.1}{5.1 MidnightBlueContext}{section.5}% 83
-\BOOKMARK [2][-]{subsection.5.2}{5.2 MidnightBlueMaximum likelihood estimation}{section.5}% 84
-\BOOKMARK [3][-]{subsubsection.5.2.1}{5.2.1 PeriwinkleLink with empirical risk minimization}{subsection.5.2}% 85
-\BOOKMARK [3][-]{subsubsection.5.2.2}{5.2.2 PeriwinkleLink with Kullback-Leibler divergence}{subsection.5.2}% 86
-\BOOKMARK [3][-]{subsubsection.5.2.3}{5.2.3 PeriwinkleConditional modeling}{subsection.5.2}% 87
+\BOOKMARK [3][-]{subsubsection.3.4.3}{3.4.3 PeriwinkleStatistical analysis of Ridge regression}{subsection.3.4}% 50
+\BOOKMARK [3][-]{subsubsection.3.4.4}{3.4.4 PeriwinkleChoice of }{subsection.3.4}% 51
+\BOOKMARK [2][-]{subsection.3.5}{3.5 MidnightBlueLasso}{section.3}% 52
+\BOOKMARK [3][-]{subsubsection.3.5.1}{3.5.1 PeriwinkleContext}{subsection.3.5}% 53
+\BOOKMARK [3][-]{subsubsection.3.5.2}{3.5.2 PeriwinkleLASSO estimator}{subsection.3.5}% 54
+\BOOKMARK [3][-]{subsubsection.3.5.3}{3.5.3 PeriwinkleNumerical resolutions}{subsection.3.5}% 55
+\BOOKMARK [2][-]{subsection.3.6}{3.6 MidnightBlueLogistic regression}{section.3}% 56
+\BOOKMARK [3][-]{subsubsection.3.6.1}{3.6.1 PeriwinkleContext}{subsection.3.6}% 57
+\BOOKMARK [3][-]{subsubsection.3.6.2}{3.6.2 PeriwinkleLogistic regression estimator}{subsection.3.6}% 58
+\BOOKMARK [2][-]{subsection.3.7}{3.7 MidnightBlueStochastic Gradient Descent \(SGD\)}{section.3}% 59
+\BOOKMARK [3][-]{subsubsection.3.7.1}{3.7.1 PeriwinkleContext}{subsection.3.7}% 60
+\BOOKMARK [3][-]{subsubsection.3.7.2}{3.7.2 PeriwinkleSGD updates}{subsection.3.7}% 61
+\BOOKMARK [3][-]{subsubsection.3.7.3}{3.7.3 PeriwinkleSGD as an estimation of GD}{subsection.3.7}% 62
+\BOOKMARK [3][-]{subsubsection.3.7.4}{3.7.4 PeriwinkleConvergence for a convex objective}{subsection.3.7}% 63
+\BOOKMARK [3][-]{subsubsection.3.7.5}{3.7.5 PeriwinkleConvergence for a strongly convex objective}{subsection.3.7}% 64
+\BOOKMARK [3][-]{subsubsection.3.7.6}{3.7.6 PeriwinkleConvergence for a strongly convex L-smooth objective}{subsection.3.7}% 65
+\BOOKMARK [3][-]{subsubsection.3.7.7}{3.7.7 PeriwinkleComputational complexity of GD and SGD}{subsection.3.7}% 66
+\BOOKMARK [2][-]{subsection.3.8}{3.8 MidnightBlueKernels}{section.3}% 67
+\BOOKMARK [3][-]{subsubsection.3.8.1}{3.8.1 PeriwinkleContext}{subsection.3.8}% 68
+\BOOKMARK [3][-]{subsubsection.3.8.2}{3.8.2 PeriwinkleRepresenter theorem}{subsection.3.8}% 69
+\BOOKMARK [3][-]{subsubsection.3.8.3}{3.8.3 PeriwinkleConsequence}{subsection.3.8}% 70
+\BOOKMARK [1][-]{section.4}{4 BlueUnsupervised learning}{}% 71
+\BOOKMARK [2][-]{subsection.4.1}{4.1 MidnightBlueDefinitions}{section.4}% 72
+\BOOKMARK [3][-]{subsubsection.4.1.1}{4.1.1 PeriwinkleSetup}{subsection.4.1}% 73
+\BOOKMARK [2][-]{subsection.4.2}{4.2 MidnightBlueK-means clustering}{section.4}% 74
+\BOOKMARK [3][-]{subsubsection.4.2.1}{4.2.1 PeriwinkleContext}{subsection.4.2}% 75
+\BOOKMARK [3][-]{subsubsection.4.2.2}{4.2.2 PeriwinkleDistorsion}{subsection.4.2}% 76
+\BOOKMARK [2][-]{subsection.4.3}{4.3 MidnightBluePrincipal Component Analysis \(PCA\)}{section.4}% 77
+\BOOKMARK [3][-]{subsubsection.4.3.1}{4.3.1 PeriwinkleContext}{subsection.4.3}% 78
+\BOOKMARK [3][-]{subsubsection.4.3.2}{4.3.2 PeriwinkleOptimal projection}{subsection.4.3}% 79
+\BOOKMARK [3][-]{subsubsection.4.3.3}{4.3.3 PeriwinkleAlgorithm}{subsection.4.3}% 80
+\BOOKMARK [2][-]{subsection.4.4}{4.4 MidnightBlueDensity etimation}{section.4}% 81
+\BOOKMARK [3][-]{subsubsection.4.4.1}{4.4.1 PeriwinkleContext}{subsection.4.4}% 82
+\BOOKMARK [3][-]{subsubsection.4.4.2}{4.4.2 PeriwinkleKernel density estimation \(KDE\) and Convolution}{subsection.4.4}% 83
+\BOOKMARK [1][-]{section.5}{5 BlueProbabilistic modeling}{}% 84
+\BOOKMARK [2][-]{subsection.5.1}{5.1 MidnightBlueContext}{section.5}% 85
+\BOOKMARK [2][-]{subsection.5.2}{5.2 MidnightBlueMaximum likelihood estimation}{section.5}% 86
+\BOOKMARK [3][-]{subsubsection.5.2.1}{5.2.1 PeriwinkleLink with empirical risk minimization}{subsection.5.2}% 87
+\BOOKMARK [3][-]{subsubsection.5.2.2}{5.2.2 PeriwinkleLink with Kullback-Leibler divergence}{subsection.5.2}% 88
+\BOOKMARK [3][-]{subsubsection.5.2.3}{5.2.3 PeriwinkleConditional modeling}{subsection.5.2}% 89

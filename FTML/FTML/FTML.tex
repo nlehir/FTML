@@ -189,6 +189,8 @@ The \textbf{{expected value}} of the vector writes
 \end{pmatrix}
 \end{equation*}
 
+Note that we could similarly define the expected value of a matrix.
+
     The \textbf{{variance matrix}} (or \textbf{{covariance matrix, variance-covariance, dispersion matrix}})  $Var(X)$ is defined as
 
     \begin{equation*}
@@ -196,14 +198,31 @@ The \textbf{{expected value}} of the vector writes
     \end{equation*}
 \end{definition}
 
+\begin{remark}
+    It is useful to note that
+
+    \begin{equation}
+	Var(X) = E\Big[ (X-E[X])(X-E[X])^T\Big]
+    \end{equation}
+\end{remark}
+
 \begin{lemma}
-    If $A\in \mathbb{R}^{n,d}$, and $X = (X_1, \dots, X_d)^T$, $AX\in \mathbb{R}^n$, then we have
+    Let $X \in \mathbb{R}^{d, p}$.
+
+    If $A\in \mathbb{R}^{n,d}$, $AX\in \mathbb{R}^{n,p}$, and we have
 
     \begin{equation*}
 	E(AX)=AE(X)
     \end{equation*}
-    and
+    
+    If $B\in \mathbb{R}^{p, m}$, $XB \in \mathbb{R}^{d, m}$ and we have
+    \begin{equation*}
+	E(XB)=E(X)B
+    \end{equation*}
+\end{lemma}
 
+
+\begin{lemma}
     \begin{equation*}
 	Var(AX) = AVar(X)A^T\in \mathbb{R}^{n, n}
     \end{equation*}
@@ -1032,9 +1051,9 @@ Since $D_n$ is a random variable, and since $ \tilde{f}_n$ depends on $D_n$, $ \
 
 \subsubsection{\large\color{Periwinkle}Definitions}
 
-\begin{definition}{Loss}
+\begin{definition}{Loss function}
 
-    A \textbf{{loss}} $l$ is an application that measures the discrepancy between to elements of a set (for instance of a linear space).
+    A \textbf{{loss function}} $l$ is an application that measures the discrepancy between to elements of a set (for instance of a linear space).
 $$
 l: \left\{
     \begin{array}{ll}
@@ -1045,6 +1064,25 @@ l: \left\{
 $$
 
 \end{definition}
+
+\textbf{{Examples:}} The most common loss functions are the following:
+\begin{itemize}
+    \item["0-1" loss] for \textbf{{classification.}} $ \mathcal{Y}  = \{0, 1\}$ or $ \mathcal{Y}  = \{-1, 1\}$.
+
+	\begin{equation}
+	    l(y,z) = 1_{y\neq z}
+	\end{equation}
+    \item[square loss] for \textbf{{regression}}. $ \mathcal{Y}  = \mathbb{R} $. 
+
+	\begin{equation}
+	    l(y,z) = (y-z)^2
+	\end{equation}
+    \item[absolute loss] for \textbf{{regression}}. $ \mathcal{Y}  = \mathbb{R} $. 
+
+	\begin{equation}
+	    l(y,z) = |y-z|
+	\end{equation}
+\end{itemize}
 
 \begin{definition}{Risks}
 
@@ -1502,6 +1540,22 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
     \end{equation}
 \end{proposition}
 
+\begin{remark}
+
+    We consider the non-centerd empirical covariance matrix:
+
+    \begin{equation}
+	\hat{\Sigma} = \frac{1}{n} X^TX\in \mathbb{R}^{d, d}
+    \end{equation}
+
+    Then,
+
+    \begin{equation}
+	\hat{\theta} = \frac{1}{n} \hat{\Sigma}^{-1} X^TY
+    \end{equation}
+    
+\end{remark}
+
 \begin{proof}
 
     $R_n(\theta)$ is coercive, continuous, and in a finite dimensional space. Hence, it admits at least a minimizer. It is also differentiable and convex, so the minimizers are the points cancelling the gradient.
@@ -1586,7 +1640,7 @@ The cost of inverting $X^TX$ is $ \mathcal{O} (d^3)$ by the Gauss-Jordan method 
 
 \subsubsection{\large\color{Periwinkle}Statistical analysis of OLS}
 
-We are interested in quantitative garantees on the quality of the OLS estimator.
+We are interested in quantitative garantees on the generalization error of the OLS estimator. In order to compute such garantees, it is necessary to make some assumptions about the way the data are generated.
 
 \begin{definition}{Linear model}
 
@@ -1621,23 +1675,31 @@ All expectations are then with respect to the law of $X$ and of $Z$.
     In this setting, $X$ is random, so the expectations are with respect to $X$ and $Z$.
 \end{definition}
 
-We will give results for the \textbf{{fixed design}} setting in the linear model.
+\textbf{{Comment:}} We will give results for the \textbf{{fixed design}} setting in the linear model. The fixed design setting is a \textbf{{simplifying assumption.}}  In that respect, it allows to have garantees on the \textbf{{fixed design risk}} $R_X(\theta)$ , not the generalization error directly, with
+
+\begin{equation}
+    R_X(\theta) = E_y[ \frac{1}{n} ||y-X\theta||_2^2]
+\end{equation}
+
+where the expectation if only over $y$, and the index $X$ noting that this depends on the input matrix $X$. The fixed design setting can also be seen as a method that allows the learning of the optimal prediction vector, given some inputs.
+
+However, it is also possible to have similar results in the random design setting.
 
 \begin{proposition}{Risk decomposition}
 
-Let $\Sigma = X^TX\in \mathbb{R}^{d\times d}$ and $||\theta||_{\Sigma}^2 = \theta^T\Sigma \theta$.  Under the linear model with fixed design, for any fixed $\theta \in \mathbb{R}^d$, we have:
+    Let $||\theta||_{\Sigma}^2 = \theta^T\hat{\Sigma} \theta$ (it is called the \textit{{Mahalanobis distance norm}}).  Under the linear model with fixed design, for any fixed $\theta \in \mathbb{R}^d$, we have:
     \begin{equation*}
-	R_X(\theta)-R_X( \theta^*) = ||\theta-\theta^*||_{\Sigma}^2
+	R_X(\theta)-R_X( \theta^*) = ||\theta-\theta^*||_{\hat{\Sigma}}^2
     \end{equation*}
 
-    and
+    and, if $\theta$ is a random variable,
 
     \begin{equation*}
-	E[R_X(\theta)]-R_X(\theta^*) = ||E[\theta]-\theta^*||_{\Sigma}^2+E[||\theta-E[\theta]||_{\Sigma}^2
+	E[R_X(\theta)]-R_X(\theta^*) = ||E[\theta]-\theta^*||_{\hat{\Sigma}}^2+E\Big[||\theta-E[\theta]||_{\hat{\Sigma}}^2\Big]
     \end{equation*}
     \begin{itemize}
-        \item $||E[\theta]-\theta^*||_{\Sigma}^2$: Bias term
-	\item $E[||\theta-E[\theta]||_{\Sigma}^2$: Variance term
+	\item $||E[\theta]-\theta^*||_{\hat{\Sigma}}^2$: Bias term
+	\item $E\Big[||\theta-E[\theta]||_{\hat{\Sigma}}^2\Big]$: Variance term
     \end{itemize}
 \end{proposition}
 
@@ -1647,17 +1709,19 @@ Let $\Sigma = X^TX\in \mathbb{R}^{d\times d}$ and $||\theta||_{\Sigma}^2 = \thet
 
     \begin{itemize}
 	\item $ \hat{\theta}$ is \textbf{{unbiased}} : $ E[ \hat{\theta}] = \theta^*$.
-	\item $ Var( \hat{\theta}) = \frac{\sigma^2}{n} \Sigma^{-1}$.
+	\item $ Var( \hat{\theta}) = \frac{\sigma^2}{n} \hat{\Sigma}^{-1}$.
     \end{itemize}
-    
 \end{proposition}
+    
+
+$ \hat{\Sigma}^{-1}$ is often called the \textit{{precision matrix.}} 
 
 \begin{corollary}{Distance to optimal parameter, excess risk of OLS}
 
     Still with the same hypothesis
 
     \begin{equation*}
-	Var(|| \hat{\theta}-\theta^*||^2) = \frac{d\sigma^2}{n} Tr(\Sigma^{-1})
+	Var(|| \hat{\theta}-\theta^*||^2) = \frac{d\sigma^2}{n} Tr(\hat{\Sigma}^{-1})
     \end{equation*}
 
     and
@@ -1669,12 +1733,35 @@ Let $\Sigma = X^TX\in \mathbb{R}^{d\times d}$ and $||\theta||_{\Sigma}^2 = \thet
     We note that both these quantities increase linearly with the dimension.
 \end{corollary}
 
+\begin{proposition}
+    The expected value of the empirical risk of $ \hat{\theta}$ writes:
+
+    \begin{equation}
+	E[ R_n( \hat{\theta})] = \frac{n-d}{n} \sigma^2
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+Not stated here, the proof is obtained by direct calculations and useful matricial tricks.
+\end{proof}
+
+
+\begin{remark}
+    In this expected value, both the dataset and $ \hat{\theta}$ are random variables.
+\end{remark}
 
 \subsection{\large\color{MidnightBlue}Ridge regression}
 
 \subsubsection{\large\color{Periwinkle}Context}
 
-When $X^TX$ is not inversible, the OLS estimator is not unique. The problem is said to be \textbf{{poorly posed}} or \textbf{{unidentifiable.}}  \textbf{{Regularizing}} the problem is an approach to enforce the unicity of the solution at the cost of introducing a \textbf{{bias}} in the estimator. The unicity is garanteed by the \textbf{{strong convexity}} of the new loss function.
+When the dimension $d$ becomes larger (i.e. $ \frac{d}{n} $ approaches $1$ or becomes larger), several undesirable phenomena can appear:
+\begin{itemize}
+    \item the excess risk is of order $ \sigma^2$.
+    \item the training data can be perfectly fit, and this often leads to a bad generalization performance.
+    \item if $d>n$, $X^TX$ is not invertible and there is a linear subspace of points cancelling the gradient of the objective function. The problem is said to be \textbf{{poorly posed}} or \textbf{{unidentifiable.}}
+\end{itemize}
+
+\textbf{{Regularizing}} the problem is an approach to enforce the unicity of the solution at the cost of introducing a \textbf{{bias}} in the estimator. The unicity is garanteed by the \textbf{{strong convexity}} of the new loss function.
 
 \subsubsection{\large\color{Periwinkle}Ridge regression estimator}
 
@@ -1692,30 +1779,87 @@ When $X^TX$ is not inversible, the OLS estimator is not unique. The problem is s
 
     The Ridge regression estimator is unique even if $X^TX$ is not inversible and is given by
     \begin{equation*}
-	\hat{ \theta}_{\lambda} = (X^TX +n\lambda I_d)^{-1}X^TY
+	\hat{ \theta}_{\lambda} = \frac{1}{n} ( \hat{\Sigma} +\lambda I_d)^{-1}X^TY
     \end{equation*}
 \end{proposition}
 
 \begin{proof}
-We can show that the loss \ref{risk:ridge} is strongly convex.  Indeed,
+We can show that the loss \ref{risk:ridge} is strongly convex. To do so, it is sufficient to show that $x\mapsto ||\theta||^2$ is $2$-convex on $ \mathbb{R}^d$. We have
 \begin{equation*}
     \forall u, v\in \mathbb{R}, ( \frac{u+v}{2} )^2= \frac{u^2}{2} + \frac{v^2}{2} - \frac{1}{4} (u-v)^2
 \end{equation*}
 
-    Hence in $\mathbb{R} $, $ u\mapsto u^2$ is $2$-convex. By summing linear mappings (the projections $x\mapsto x_i$) and $2$-convex applications ($x_i\mapsto x_i^2$), $x\mapsto ||x||^2$ is $2$-convex in $ \mathbb{R}^n$. By summation $ \tilde{R}_n(\theta)$ is $2\lambda$-convex. Hence there exists a unique minimizer for $R_n$. As it is differentiable, the minimizer is uniquely defined by cancellation of the gradient.
+    Hence in $\mathbb{R} $, $ u\mapsto u^2$ is $2$-convex. By summing linear mappings (the projections $\theta\mapsto \theta_i$) and $2$-convex applications ($\theta_i\mapsto \theta_i^2$), $\theta\mapsto ||\theta||^2$ is $2$-convex in $ \mathbb{R}^n$.
+
+    By summation with $ \theta \mapsto \frac{1}{n} ||Y-X\theta||$, which is a convex function,  $\theta \mapsto \tilde{R}_n(\theta)$ is $2\lambda$-convex.
+
+    Hence there exists a unique minimizer for $R_n$. As it is differentiable, the minimizer is uniquely defined by cancellation of the gradient. The gradient in $\theta$ writes
+    \begin{equation*}
+	\frac{2}{n} (X^TX\theta - X^Ty)+2\lambda \theta
+    \end{equation*}
+    The equation of the cancellation of the gradient is
+    \begin{equation*}
+	(\frac{2}{n} n \hat{\Sigma} + 2\lambda I_d)\theta_{\lambda} = \frac{2}{n} X^Ty
+    \end{equation*}
+    which we can write
+
+    \begin{equation*}
+	n(\hat{\Sigma}+\lambda I_d)\theta_{\lambda} = X^ty
+    \end{equation*}
+
+    $ \hat{\Sigma}+2\lambda I_d$ is a symmetric matrix with all eigenvalues $\geq 2\lambda$. Thus, it is invertible. Also, $\forall a\in \mathbb{R}^* $ and $ A\in GL_d\mathbb{R} $, $(aA)^{-1} = \frac{1}{a} A^{-1}$, which concludes the proof.
 \end{proof}
     
-% \subsubsection{\large\color{Periwinkle}Statistical analysis of Ridge regression}
-% 
-% 
-% On compare la décroissance des \textbf{{Excess risk bound}} 
-% \begin{itemize}
-%     \item OLS en $ \mathcal{O}( \frac{1}{n} )$ et Ridge en $ \mathcal{O} ( \frac{1}{ \sqrt{n} }) $.
-%     \item Mais OLS en $ \sigma^2$ alors que Ridge en $ \sqrt{ \sigma} $.
-%     \item Si les normes des entrées sont uniformément bornées, $ max(||x_i||^2\leq R$, alors $ Tr( \Sigma ) \leq R$. Dans ce cas l'excès de risque est indépendant de la dimension $d$, qui peut même être infinie. On parle de \textbf{{dimension free bound}}.
-% \end{itemize}
-% 
-% Comme on ne connaît pas $ \sigma^2$, $ ||\theta^*||$, il est difficile de calibrer $ \lambda$ analytiquement. En pratique on utilise des ensembles de test, et la validation croisée.
+\subsubsection{\large\color{Periwinkle}Statistical analysis of Ridge regression}
+
+We can also analyse the statistical properties of the ridge estimator, with the same hypotheses as before: linear model, fixed design. It is also possible to do it in the random design and potentially infinite $d$.
+
+\begin{proposition}
+    
+    Under the linear model assumption, with fixed design setting, the ridge regression estimator has the following excess risk
+
+    \begin{equation}
+	E[ R( \hat{\theta}_{\lambda}]-R^* = \lambda^2\theta^{*T} ( \hat{\Sigma}+\lambda I_d)^{-2} \hat{\Sigma} \theta^*+ \frac{\sigma^2}{n} tr[ \hat{\Sigma}^2( \hat{\Sigma}+\lambda I_d)^{-2} ]
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+As for OLS, the proof is obtained by direct calculation and useful matricial tricks.
+\end{proof}
+
+
+\textbf{{Comments:}} 
+\begin{itemize}
+    \item We observe again a bias / variance decomposition.
+    \item The bias term $B$ is equal to $0$ when $\lambda =0$ and $ \hat{\Sigma}$ is invertible. When $\lambda \rightarrow +\infty$, $B\rightarrow \theta^{*T} \hat{\Sigma}\theta^*$. It is an approximation error and does not depend on the $n$.
+    \item The variance term $V$ increases in $\lambda$. It is equal to $ \frac{\sigma^2d}{n} $ when $\lambda = 0$ and $ \hat{\Sigma}$ is invertible, which corresponds to OLS. When $n\rightarrow +\infty$, $V\rightarrow 0$. It is an estimation error.
+    \item In most cases, it is preferrable to have a biased estimation ($\lambda >0$).
+\end{itemize}
+
+\subsubsection{\large\color{Periwinkle}Choice of $\lambda$}
+
+A natural question is whether it is possible to have a lower excess risk with Ridge regression than with OLS, which means an excess risk smaller than $ \frac{\sigma^2d}{n} $.
+
+\begin{proposition}
+    With the choice 
+
+    \begin{equation}
+	\label{eq:lambdaopt}
+	\lambda^* = \frac{\sigma \sqrt{tr( \hat{\Sigma})}}{||\theta^*||_2 \sqrt{n} } 
+    \end{equation}
+    then
+
+    \begin{equation}
+	\label{ref:ridgeopt}
+	E[ R( \hat{\theta}_{\lambda}]-R^*\leq \frac{\sigma \sqrt{tr( \hat{\Sigma})}||\theta^*||_2 }{ \sqrt{n} } 
+    \end{equation}
+\end{proposition}
+
+\begin{itemize}
+    \item If the the norms of all $x_i$ are uniformly bounded by $R$, then we can observe by direct calculation that $tr( \Sigma)\leq R^2$, independently of $d$. If $R$ and $||\theta^*||_2$ remain finite, then $d$ plays no role in  the bound in \ref{ref:ridgeopt}. This is called a \textit{{dimension-free}} bound.
+    \item The convergence to $0$ in OLS is in $ \frac{1}{n} $, while it is  in $ \frac{1}{ \sqrt{n} }$ for the ridge. However, for the ridge regression, the dependence in the noise if in $\sigma$, whereas it is $\sigma^2$ for OLS. Which one is preferrable will depend on the value of the constants, and will not necessary be the "fast" rate in $ \mathcal{O} ( \frac{1}{n} )$.
+    \item In practical situations, the quantities involved in the computation of $\lambda^*$ in  \ref{eq:lambdaopt} are typically unknown. However this equation show that there may exist a $\lambda$ with a good prediction performance, which can be found by cross validation in practice.
+\end{itemize}
 
 \subsection{\large\color{MidnightBlue}Lasso}
 
@@ -1733,7 +1877,7 @@ It is defined as
 
 \subsubsection{\large\color{Periwinkle}Numerical resolutions}
 
-The problem is convex, so the solution can be obtained effitiently. Pupolar methods include \textbf{{Coordinate desent, Fista, LARS}}.
+The problem is convex, so the solution can be obtained effitiently. Popular methods include \textbf{{Coordinate desent, Fista, LARS}}.
 
 \subsection{\large\color{MidnightBlue}Logistic regression}
 
@@ -2343,7 +2487,7 @@ If we assume that the data were generated from some $p_{\theta^*}\in \mathcal{P}
 
 \begin{definition}{Likelihood}
 
-    Let $\mathcal{P}  = \{p_{\theta},\theta \in \Theta \}$ be a parametric model. Give $y\in \mathcal{Y} $, the \textbf{{likelihood}} of $\theta$ is defined as the function $ \theta\mapsto p_{\theta}(y)$.
+    Let $\mathcal{P}  = \{p_{\theta},\theta \in \Theta \}$ be a parametric model. Given $y\in \mathcal{Y} $, the \textbf{{likelihood}} of $\theta$ is defined as the function $ \theta\mapsto p_{\theta}(y)$.
 
     The likelihood $L(.|D_n)$ of a dataset $D_n = (y_1, \dots, y_n)$ is defined as
 

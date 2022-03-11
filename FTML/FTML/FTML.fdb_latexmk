@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex FTML"] 1646154096 "FTML.aux" "FTML.bbl" "FTML" 1646351345
+["bibtex FTML"] 1646846059 "FTML.aux" "FTML.bbl" "FTML" 1646963928
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/apalike.bst" 1480098433 24635 604dafcc79f521a11ea73e506e1fbd98 ""
-  "FTML.aux" 1646244022 18781 01dcf9c2a04f8f0ad2dde9c4e6bc50b6 ""
+  "FTML.aux" 1646963927 19260 dd97ca785f81c2ff6ea46d8980f19fbc ""
   "epitheoremes.bib" 1644321251 3599 e891923dfad8cf94fa1b16416e84ef7a ""
   (generated)
-  "FTML.bbl"
   "FTML.blg"
-["pdflatex"] 1646244021 "FTML.tex" "FTML.pdf" "FTML" 1646351345
+  "FTML.bbl"
+["pdflatex"] 1646963926 "FTML.tex" "FTML.pdf" "FTML" 1646963928
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/iwona/ec-iwona-sc.enc" 1480098667 2452 388b1f44dfda03ab19527677af70e7fb ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/iwona/ec-iwona.enc" 1480098667 2027 f8708480c25b8150843bb94b8b39c93f ""
@@ -49,8 +49,11 @@
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1480098701 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm" 1480098701 1336 3125ccb448c1a09074e3aa4a9832f130 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmex10.tfm" 1480098701 992 662f679a0b3d2d53c1b94050fdaa3f50 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm" 1480098701 1528 abec98dbc43e172678c11b3b9031252a ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmmi7.tfm" 1480098701 1528 e2423ae06dc7dee599cceb79d1c9dc32 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr10.tfm" 1480098701 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr7.tfm" 1480098701 1300 53d07721103816e093902637bc167021 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1480098701 1124 6c73e740cf17375f03eec0ee63599741 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsy7.tfm" 1480098701 1120 2b3f9b25605010c69bc328bea6ac000f ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/eulervm/zeuex10.tfm" 1480098705 1100 df4a2e32feb1018ab7cadccbd3b36cc5 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/eulervm/zeurm10.tfm" 1480098705 1408 5ab706b0cf7ada23e6d5ade78caa495e ""
@@ -213,16 +216,16 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1503686867 4129592 6129c680c4a6fee257d8010e376a4f1b ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "FTML.aux" 1646244022 18781 01dcf9c2a04f8f0ad2dde9c4e6bc50b6 ""
-  "FTML.bbl" 1646154096 720 a6945fb010acda696bfc12f6649c4a65 "bibtex FTML"
-  "FTML.out" 1646244022 8288 3c479cd70454f22583dfd107924e6d89 ""
-  "FTML.tex" 1646347272 93328 b6c79109609800d026377b9d0d5170b7 ""
-  "FTML.toc" 1646244022 13258 ff4b4c4f265bda2f56f59ebab3b5525a ""
+  "FTML.aux" 1646963927 19260 dd97ca785f81c2ff6ea46d8980f19fbc ""
+  "FTML.bbl" 1646846059 720 a6945fb010acda696bfc12f6649c4a65 "bibtex FTML"
+  "FTML.out" 1646963927 8490 89b44a70799620c44f37318d52ed03ce ""
+  "FTML.tex" 1646961147 99563 d4a0de349470d50fb37b1deefb50c285 ""
+  "FTML.toc" 1646963927 13582 3be5b3697772ade1421fd86542323145 ""
   "Figures/knn.pdf" 1645538903 71602 bd0f80c24add65348f58e86079457f5b ""
   "stru/structure.tex" 1645735889 3409 faf0cf93c184e127353640aa7d778d14 ""
   (generated)
-  "FTML.aux"
   "FTML.out"
+  "FTML.toc"
+  "FTML.aux"
   "FTML.log"
   "FTML.pdf"
-  "FTML.toc"
