@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.8.25)  11 MAR 2022 02:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.8.25)  13 MAR 2022 13:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1158,8 +1158,11 @@ Package: amsthm 2015/03/04 v2.20.2
 Package: varioref 2016/02/16 v1.5c package for extended references (FMi)
 \c@vrcnt=\count146
 )
-\c@definition=\count147
-\c@theorem=\count148
+\c@proposition=\count147
+\c@corollary=\count148
+\c@lemma=\count149
+\c@definition=\count150
+\c@theorem=\count151
 Package hyperref Info: Option `colorlinks' set `true' on input line 89.
 Package hyperref Info: Option `breaklinks' set `true' on input line 89.
 
@@ -1202,7 +1205,7 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count149
+\c@section@level=\count152
 LaTeX Info: Redefining \Ref on input line 515.
 )
 LaTeX Info: Redefining \ref on input line 15.
@@ -1217,16 +1220,16 @@ LaTeX Info: Redefining \Ref on input line 15.
 
 (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count150
+\scratchcounter=\count153
 \scratchdimen=\dimen170
 \scratchbox=\box66
-\nofMPsegments=\count151
-\nofMParguments=\count152
+\nofMPsegments=\count154
+\nofMParguments=\count155
 \everyMPshowfont=\toks40
-\MPscratchCnt=\count153
+\MPscratchCnt=\count156
 \MPscratchDim=\dimen171
-\MPnumerator=\count154
-\makeMPintoPDFobject=\count155
+\MPnumerator=\count157
+\makeMPintoPDFobject=\count158
 \everyMPtoPDFconversion=\toks41
 ) (/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -1748,11 +1751,11 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\@ifnextchar' on input line 2201.
 
 [30]
-Overfull \hbox (32.14929pt too wide) in paragraph at lines 2228--2229
-[]\T1/pplj/b/n/10 Corollary. []\T1/pplj/m/it/10 As a di-rect conse-quence, the 
-mi-ni-mum of loss [][]26[][] is at-tai-ned at $\U/zeur/m/n/10 ^^R \U/zeus/m/n/1
-0 ½ [][] \U/zeur/m/n/10 []^^^\U/zeus/m/n/10 ¨\U/zeur/m/n/10 x[]\U/zeus/m/n/10 
-©\OT1/pplj/m/n/10 , \U/zeur/m/n/10 [] \U/zeus/m/n/10 2
+Overfull \hbox (40.27931pt too wide) in paragraph at lines 2228--2229
+[][]\T1/pplj/b/n/10 Corollary 5. []\T1/pplj/m/it/10 As a di-rect conse-quence, 
+the mi-ni-mum of loss [][]28[][] is at-tai-ned at $\U/zeur/m/n/10 ^^R \U/zeus/m
+/n/10 ½ [][] \U/zeur/m/n/10 []^^^\U/zeus/m/n/10 ¨\U/zeur/m/n/10 x[]\U/zeus/m/n
+/10 ©\OT1/pplj/m/n/10 , \U/zeur/m/n/10 [] \U/zeus/m/n/10 2
  []
 
 
@@ -1866,10 +1869,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2642.
  ) 
 Here is how much of TeX's memory you used:
- 17802 strings out of 492995
- 310599 string characters out of 6132704
- 654722 words of memory out of 5000000
- 20758 multiletter control sequences out of 15000+600000
+ 17854 strings out of 492995
+ 311189 string characters out of 6132704
+ 654842 words of memory out of 5000000
+ 20773 multiletter control sequences out of 15000+600000
  115037 words of font info for 160 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  66i,23n,92p,8841b,790s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1900,10 +1903,10 @@ am7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb
 ></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></usr
 /local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/
 texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on FTML.pdf (37 pages, 463456 bytes).
+Output written on FTML.pdf (37 pages, 465232 bytes).
 PDF statistics:
- 933 PDF objects out of 1000 (max. 8388607)
- 820 compressed objects within 9 object streams
- 214 named destinations out of 1000 (max. 500000)
+ 979 PDF objects out of 1000 (max. 8388607)
+ 866 compressed objects within 9 object streams
+ 251 named destinations out of 1000 (max. 500000)
  23246 words of extra memory for PDF output out of 24883 (max. 10000000)
 

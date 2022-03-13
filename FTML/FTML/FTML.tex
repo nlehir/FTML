@@ -1688,15 +1688,15 @@ However, it is also possible to have similar results in the random design settin
 \begin{proposition}{Risk decomposition}
 
     Let $||\theta||_{\Sigma}^2 = \theta^T\hat{\Sigma} \theta$ (it is called the \textit{{Mahalanobis distance norm}}).  Under the linear model with fixed design, for any fixed $\theta \in \mathbb{R}^d$, we have:
-    \begin{equation*}
+    \begin{equation}
 	R_X(\theta)-R_X( \theta^*) = ||\theta-\theta^*||_{\hat{\Sigma}}^2
-    \end{equation*}
+    \end{equation}
 
     and, if $\theta$ is a random variable,
 
-    \begin{equation*}
+    \begin{equation}
 	E[R_X(\theta)]-R_X(\theta^*) = ||E[\theta]-\theta^*||_{\hat{\Sigma}}^2+E\Big[||\theta-E[\theta]||_{\hat{\Sigma}}^2\Big]
-    \end{equation*}
+    \end{equation}
     \begin{itemize}
 	\item $||E[\theta]-\theta^*||_{\hat{\Sigma}}^2$: Bias term
 	\item $E\Big[||\theta-E[\theta]||_{\hat{\Sigma}}^2\Big]$: Variance term
@@ -1904,7 +1904,7 @@ $$
     \end{equation*}
 \end{definition}
 
-However it is extremely harg to minimize the binary loss as it is neither differentiable nor convex in $\theta$. We can replace it by a \textbf{{convex, differentiable surrogate loss}} (\textbf{{substitut convexe}}). Several possibilities exist instead of using $ \mathbb{1}_{y_i\neq \hat{f}(x_i)}    $ as $l$ (binary loss). The \textbf{{logistic loss}} is one of them 
+However it is hard to minimize the binary loss as it is neither differentiable nor convex in $\theta$. We can replace it by a \textbf{{convex, differentiable surrogate loss}} (\textbf{{substitut convexe}}). Several possibilities exist instead of using $ \mathbb{1}_{y_i\neq \hat{f}(x_i)}    $ as $l$ (binary loss). The \textbf{{logistic loss}} is one of them 
 
 \begin{definition}{Logistic loss}
     \label{loss:logistic}
