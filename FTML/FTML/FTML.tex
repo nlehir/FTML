@@ -1542,7 +1542,7 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
 
 \begin{remark}
 
-    We consider the non-centerd empirical covariance matrix:
+    We consider the non-centered empirical covariance matrix:
 
     \begin{equation}
 	\hat{\Sigma} = \frac{1}{n} X^TX\in \mathbb{R}^{d, d}
@@ -1733,6 +1733,8 @@ $ \hat{\Sigma}^{-1}$ is often called the \textit{{precision matrix.}}
     We note that both these quantities increase linearly with the dimension.
 \end{corollary}
 
+This corollary is illustrated in figure \ref{fig:olsrisk}.
+
 \begin{proposition}
     The expected value of the empirical risk of $ \hat{\theta}$ writes:
 
@@ -1749,6 +1751,14 @@ Not stated here, the proof is obtained by direct calculations and useful matrici
 \begin{remark}
     In this expected value, both the dataset and $ \hat{\theta}$ are random variables.
 \end{remark}
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=1\linewidth]{ols_risks}
+    \caption{Dependence of the excess risk on $n$ and $d$, in the setting used
+    in TP1.}
+    \label{fig:olsrisk}
+\end{figure}
 
 \subsection{\large\color{MidnightBlue}Ridge regression}
 
@@ -1831,8 +1841,29 @@ As for OLS, the proof is obtained by direct calculation and useful matricial tri
 \textbf{{Comments:}} 
 \begin{itemize}
     \item We observe again a bias / variance decomposition.
-    \item The bias term $B$ is equal to $0$ when $\lambda =0$ and $ \hat{\Sigma}$ is invertible. When $\lambda \rightarrow +\infty$, $B\rightarrow \theta^{*T} \hat{\Sigma}\theta^*$. It is an approximation error and does not depend on the $n$.
-    \item The variance term $V$ increases in $\lambda$. It is equal to $ \frac{\sigma^2d}{n} $ when $\lambda = 0$ and $ \hat{\Sigma}$ is invertible, which corresponds to OLS. When $n\rightarrow +\infty$, $V\rightarrow 0$. It is an estimation error.
+    \item We consider the bias term $B$:
+
+        \begin{equation}
+           B =  \lambda^2\theta^{*T} ( \hat{\Sigma}+\lambda I_d)^{-2} \hat{\Sigma} \theta^*
+        \end{equation}
+        \begin{itemize}
+            \item The bias $B$ increases when $\lambda$ increases. It is an approximation error and does not depend on $n$.
+            \item When $\lambda = 0$ and $ \hat{\Sigma}$ is invertible (which corresponds to OLS), $B=0$. 
+            \item When $\lambda \rightarrow +\infty$, $B\rightarrow \theta^{*T} \hat{\Sigma}\theta^*$. 
+        \end{itemize}
+
+    \item We consider the variance term $V$:
+
+        \begin{equation}
+            V=\frac{\sigma^2}{n} tr[ \hat{\Sigma}^2( \hat{\Sigma}+\lambda I_d)^{-2} ]
+        \end{equation}
+        \begin{itemize}
+            \item The variance $V$ decreases when $\lambda$ increases. It is an estimation error and depends on $n$
+            \item When $\lambda = 0$ and $ \hat{\Sigma}$ is invertible (which corresponds to OLS), $V= \frac{\sigma^2d}{n} $.
+            \item When $\lambda\rightarrow +\infty$, $V\rightarrow 0$. 
+            \item When $n\rightarrow +\infty$, $V\rightarrow 0$. 
+        \end{itemize}
+
     \item In most cases, it is preferrable to have a biased estimation ($\lambda >0$).
 \end{itemize}
 
@@ -1855,11 +1886,21 @@ A natural question is whether it is possible to have a lower excess risk with Ri
     \end{equation}
 \end{proposition}
 
+Thi proposition is illustrated in figure \ref{fig:ridge_risks_n=30}.
+
 \begin{itemize}
     \item If the the norms of all $x_i$ are uniformly bounded by $R$, then we can observe by direct calculation that $tr( \Sigma)\leq R^2$, independently of $d$. If $R$ and $||\theta^*||_2$ remain finite, then $d$ plays no role in  the bound in \ref{ref:ridgeopt}. This is called a \textit{{dimension-free}} bound.
     \item The convergence to $0$ in OLS is in $ \frac{1}{n} $, while it is  in $ \frac{1}{ \sqrt{n} }$ for the ridge. However, for the ridge regression, the dependence in the noise if in $\sigma$, whereas it is $\sigma^2$ for OLS. Which one is preferrable will depend on the value of the constants, and will not necessary be the "fast" rate in $ \mathcal{O} ( \frac{1}{n} )$.
     \item In practical situations, the quantities involved in the computation of $\lambda^*$ in  \ref{eq:lambdaopt} are typically unknown. However this equation show that there may exist a $\lambda$ with a good prediction performance, which can be found by cross validation in practice.
 \end{itemize}
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=1\linewidth]{ridge_risks_n=30}
+    \caption{Comparison of OLS and Ridge performance for a specific setting
+    used in TP2.}
+    \label{fig:ridge_risks_n=30}
+\end{figure}
 
 \subsection{\large\color{MidnightBlue}Lasso}
 
@@ -1881,12 +1922,16 @@ The problem is convex, so the solution can be obtained effitiently. Popular meth
 
 \subsection{\large\color{MidnightBlue}Logistic regression}
 
+Despite its name, \textbf{{logistic regression}} is a classification method. It
+is sometimes called logistic classification.
+
 \subsubsection{\large\color{Periwinkle}Context}
 
-We want to perform a binary classification from $d$-dimensional inputs, using a \textbf{{linear predictor}}, parametrized by $\theta\in \mathbb{R}^d$. The inputs are $x_i \in \mathbb{R}^d$, $1\leq i \leq n$ and the outputs: $y_i\in \{0, 1\}$. The estimator writes:
+We want to perform a binary classification from $d$-dimensional inputs, using a
+\textbf{{linear predictor}} $\hat{f}_{\theta}$, parametrized by $\theta\in \mathbb{R}^d$. The inputs are $x_i \in \mathbb{R}^d$, $1\leq i \leq n$ and the outputs: $y_i\in \{0, 1\}$. The estimator writes:
 
 $$
-\hat{y}_i = \hat{f}(x_i)=\left\{
+\hat{y}_i = \hat{f}_{\theta}(x_i)=\left\{
     \begin{array}{ll}
 	1 \text{ if } \theta^Tx_i \geq 0 & \\
         0 \text{ if } \theta^Tx_i < 0& 
@@ -1900,7 +1945,7 @@ $$
 
 \begin{definition}{Binary loss function}
     \begin{equation*}
-	\hat{R}_n(\theta) = \frac{1}{n} \sum^{n}_{i=1} \mathbb{1}_{y_i\neq \hat{f}(x_i)}    
+	\hat{R}_n(\theta) = \frac{1}{n} \sum^{n}_{i=1} \mathbb{1}_{y_i\neq \hat{f}_{\theta}(x_i)}    
     \end{equation*}
 \end{definition}
 
