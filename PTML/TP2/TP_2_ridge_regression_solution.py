@@ -58,7 +58,12 @@ def Ridge_estimator(X, Y, llambda):
         Returns:
             Ridge regression estimator (float vector): (d, 1) vector
     """
-    return r.uniform(-1, 1, size=(d, 1))
+    n, d = X.shape
+    # non centered covariance matrix
+    Sigma = 1/n*np.matmul(np.transpose(X), X)
+    inverse_matrix = np.linalg.inv(Sigma+llambda*np.identity(d))
+    theta_hat_llambda = 1/n*np.matmul(inverse_matrix, np.matmul(np.transpose(X), Y))
+    return theta_hat_llambda
 
 
 def error(theta_hat, X, Y):
@@ -96,7 +101,12 @@ def compute_lambda_star_and_risk_star(sigma, X, theta_star, n):
             risk_star (float)
 
     """
-    return 1, 1
+    Sigma = 1/n*np.matmul(np.transpose(X), X)
+    trace = np.trace(Sigma)
+    # print(f"n={n}, d={d}, trace={trace}")
+    llambda_star = sigma*math.sqrt(trace)/(np.linalg.norm(theta_star)*math.sqrt(n))
+    risk_star  = sigma**2+(sigma*math.sqrt(trace)*np.linalg.norm(theta_star))/math.sqrt(n)
+    return llambda_star, risk_star
 
 
 def ridge_risk(theta_star, llambda, n, d, n_tests, X, plot=True):
@@ -155,11 +165,11 @@ bayes_risk = sigma**2
 llambda_list = [10**(n) for n in np.arange(-8, 5, 0.2)]
 
 # use a seed to have consistent resutls
-r_state = 6
+r_state = 10
 r = np.random.RandomState(r_state)
 
 # number of tests to estimate the excess risk
-n_tests = 100
+n_tests = 500
 
 # Assess the influence of lambda in several dimensions
 risks = dict()
@@ -172,7 +182,16 @@ for llambda in llambda_list:
         n = X.shape[0]
 
         # lecun initialisation of theta_star
-        theta_star = r.uniform(-1, 1, size=(d, 1))
+        # theta_star_range = 1/math.sqrt(d)
+        # theta_star = r.uniform(-theta_star_range, theta_star_range, size=(d, 1))
+
+        # initialisation of theta_star with eigenvalues
+        Sigma = 1/n*np.matmul(np.transpose(X), X)
+        eigenvalues, eigenvectors = np.linalg.eig(Sigma)
+        largest_eigenvalue_index = np.argmax(eigenvalues)
+        largest_eigenvalue = eigenvalues[largest_eigenvalue_index]
+        largest_eigenvector = eigenvectors[:, largest_eigenvalue_index]
+        theta_star = largest_eigenvector.reshape(d, 1)
 
         # compute risk of the ridge estimator
         risks[(llambda, d)] = ridge_risk(theta_star, llambda, n, d, n_tests, X, plot=True)
@@ -181,8 +200,9 @@ for llambda in llambda_list:
         llambda_stars_risks[d] = compute_lambda_star_and_risk_star(sigma, X, theta_star, n)
 
         # compute bias limit when llambda is large
-        infinity_bias = 1
-        infinity_biases[d] = infinity_bias
+        Sigma = 1/n*np.matmul(np.transpose(X), X)
+        infinity_bias = np.matmul(np.matmul(np.transpose(theta_star), Sigma), theta_star)
+        infinity_biases[d] = infinity_bias[0]
 
 
 colors = ["blue", "green", "darkred", "mediumvioletred", "darkmagenta"]
@@ -215,4 +235,4 @@ plt.plot(llambda_list, [bayes_risk]*len(llambda_list), label="Bayes risk: "+r"$\
 plt.title("Ridge regression: risks as a function of " + r"$\lambda$" + f" and d\nn={n}")
 plt.legend(loc="best", prop={"size": 6})
 plt.tight_layout()
-plt.savefig(f"{image_directory}/ridge/tp_set_1_risks_n={n}.pdf")
+plt.savefig(f"{image_directory}/ridge/set_1_risks_n={n}_r_state_{r_state}.pdf")
