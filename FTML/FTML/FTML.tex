@@ -451,7 +451,7 @@ Let $u_1, \dots, u_n$ be i.i.d. random variables, such that $E(u)=0$ and $|u|\le
 \begin{definition}{Differentiable function}
     \label{def:diff}
 
-    Let $V$ and $W$ be real Hilbert spaces (complete vector space with an inner product). Let $f: V\rightarrow W $. We say that $f$ is differentiable in $x\in V$ if there exsists a continuous linear application $L_x:V\rightarrow \mathbb{R} $ such that
+    Let $V$ and $W$ be real Hilbert spaces (complete vector space with an inner product). Let $f: V\rightarrow W $. We say that $f$ is differentiable in $x\in V$ if there exsists a continuous linear map $L_x:V\rightarrow \mathbb{R} $ such that
 
     \begin{equation*}
 	f(x+h)=f(x)+L_x(h)+o(h)
@@ -468,7 +468,7 @@ Let $u_1, \dots, u_n$ be i.i.d. random variables, such that $E(u)=0$ and $|u|\le
 
 \begin{definition}{Two times differentiable function}
 
-    We keep the same hypotheses as in \ref{def:diff} and assume that $W= \mathbb{R}$. If the application $x\mapsto \nabla_xf $ is differentiable in $x$, the we say that $f$ is two times differentiable in $x$. In that case we note $f"(x)$ the second-order derivative, that satisfies:
+    We keep the same hypotheses as in \ref{def:diff} and assume that $W= \mathbb{R}$. If the map $x\mapsto \nabla_xf $ is differentiable in $x$, the we say that $f$ is two times differentiable in $x$. In that case we note $f"(x)$ the second-order derivative, that satisfies:
 
     \begin{equation*}
 	\nabla_{x+h}f=\nabla_xf+f"(x)(h)+o(h)
@@ -488,7 +488,7 @@ Let $u_1, \dots, u_n$ be i.i.d. random variables, such that $E(u)=0$ and $|u|\le
 In this paragraph, we consider the case when $V= \mathbb{R}^d$, which is the most frequent situation encountered in machine learning.
 \\
 
-\textbf{{Jacobian matrix:}} If $f: \mathbb{R}^d\rightarrow \mathbb{R}^p$ is differentiable on $ \mathbb{R}^d$ we note $L^f_x$ the differential in $x$. It is an application from $ \mathbb{R}^d$ to $ \mathbb{R}^p$. We can then equivalently consider its matrix, that can be noted also $L^f_x\in \mathbb{R}^{p, d}$. 
+\textbf{{Jacobian matrix:}} If $f: \mathbb{R}^d\rightarrow \mathbb{R}^p$ is differentiable on $ \mathbb{R}^d$ we note $L^f_x$ the differential in $x$. It is an map from $ \mathbb{R}^d$ to $ \mathbb{R}^p$. We can then equivalently consider its matrix, that can be noted also $L^f_x\in \mathbb{R}^{p, d}$. 
 
 \begin{equation*}
     f(x+h)=f(x)+L^f_xh+o(h)
@@ -505,7 +505,7 @@ $L^f_x$ is called the \textbf{{Jacobian matrix}}  of $f$ in $x$.
 
 \textbf{{Jacobian of a product.}} 
 
-If we now consider $g: \mathbb{R}^p\rightarrow \mathbb{R}^q$ another differentiable application, and note its matrix / differential in $f(x)$ as $L^g_{f(x)}\in \mathbb{R}^{q, p}$, we have:
+If we now consider $g: \mathbb{R}^p\rightarrow \mathbb{R}^q$ another differentiable map, and note its matrix / differential in $f(x)$ as $L^g_{f(x)}\in \mathbb{R}^{q, p}$, we have:
 
 \begin{equation*}
     \begin{aligned}
@@ -546,7 +546,7 @@ With the same functions $g$ and $f$ and if $q=1$, we deduce from \ref{eq:jacobpr
     \end{aligned}
 \end{equation*}
 
-\textbf{{Hessian}}: if $f: \mathbb{R}^d\rightarrow \mathbb{R} $ is two times differentiable in $x$, then the application $\nabla f: \mathbb{R}^d\rightarrow \mathbb{R}^d$, $x\mapsto\nabla_xf$ has a matrix $H^f_x\in \mathbb{R}^{d,d}$, called the Hessian.
+\textbf{{Hessian}}: if $f: \mathbb{R}^d\rightarrow \mathbb{R} $ is two times differentiable in $x$, then the map $\nabla f: \mathbb{R}^d\rightarrow \mathbb{R}^d$, $x\mapsto\nabla_xf$ has a matrix $H^f_x\in \mathbb{R}^{d,d}$, called the Hessian.
 
 \begin{equation*}
     \nabla_{x+h}f=\nabla_xf+H^f_xh+o(h)
@@ -660,6 +660,31 @@ H^f_x=
 \begin{lemma}
     $f$ is $L$-smooth if and only if it has $L$-Lipshitz continuous gradients.
 \end{lemma}
+
+\begin{proof}
+    We consider, for $x$ and $y$ fixed $\in \mathbb{R}^d$, the map:
+
+$$
+u  : \left\{
+    \begin{array}{ll}
+	t\rightarrow f\big(x+t(y-x)\big) & \\
+        \mathbb{R}  \mapsto \mathbb{R} & 
+    \end{array}
+\right.
+$$
+
+    $u$ is differentiable in $ \mathbb{R} $ and $u'(t) = \langle\nabla_{x+t(y-x)}f, y-x \rangle$. Hence, 
+
+    \begin{equation}
+	\begin{aligned}
+	    \label{eq:}
+	    f(y)-f(x) &= u(1)-u(0)\\
+	    &= \int^{1}_{0} u'(t)  dt \\
+	    &= \int^{1}_{0}  \langle\nabla_{x+t(y-x)}f, y-x \rangle dt \\
+	\end{aligned}
+    \end{equation}
+
+\end{proof}
 
 \begin{lemma}
     
@@ -1036,7 +1061,7 @@ We assume that there exists an \textbf{{unknown distribution}} $\rho$ for the jo
     (x_i,y_i)\sim \rho, \forall i\in[1, n]
 \end{equation*}
 
-A \textbf{{learning rule}} $ \mathcal{A} $ is a application that associates a \textbf{{prediction function}}, or \textbf{{estimator}}  $ \tilde{f}_n$, to $D_n$.
+A \textbf{{learning rule}} $ \mathcal{A} $ is a map ("application" in french) that associates a \textbf{{prediction function}}, or \textbf{{estimator}}  $ \tilde{f}_n$, to $D_n$.
 
 $$
 \mathcal{A}  : \left\{
@@ -1053,7 +1078,7 @@ Since $D_n$ is a random variable, and since $ \tilde{f}_n$ depends on $D_n$, $ \
 
 \begin{definition}{Loss function}
 
-    A \textbf{{loss function}} $l$ is an application that measures the discrepancy between to elements of a set (for instance of a linear space).
+    A \textbf{{loss function}} $l$ is an map that measures the discrepancy between to elements of a set (for instance of a linear space).
 $$
 l: \left\{
     \begin{array}{ll}
@@ -1798,7 +1823,7 @@ We can show that the loss \ref{risk:ridge} is strongly convex. To do so, it is s
     \forall u, v\in \mathbb{R}, ( \frac{u+v}{2} )^2= \frac{u^2}{2} + \frac{v^2}{2} - \frac{1}{4} (u-v)^2
 \end{equation*}
 
-    Hence in $\mathbb{R} $, $ u\mapsto u^2$ is $2$-convex. By summing linear mappings (the projections $\theta\mapsto \theta_i$) and $2$-convex applications ($\theta_i\mapsto \theta_i^2$), $\theta\mapsto ||\theta||^2$ is $2$-convex in $ \mathbb{R}^n$.
+    Hence in $\mathbb{R} $, $ u\mapsto u^2$ is $2$-convex. By summing linear mappings (the projections $\theta\mapsto \theta_i$) and $2$-convex maps ($\theta_i\mapsto \theta_i^2$), $\theta\mapsto ||\theta||^2$ is $2$-convex in $ \mathbb{R}^n$.
 
     By summation with $ \theta \mapsto \frac{1}{n} ||Y-X\theta||$, which is a convex function,  $\theta \mapsto \tilde{R}_n(\theta)$ is $2\lambda$-convex.
 

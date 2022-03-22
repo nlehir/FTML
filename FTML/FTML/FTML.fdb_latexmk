@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex FTML"] 1647447883 "FTML.aux" "FTML.bbl" "FTML" 1647692978
+["bibtex FTML"] 1647966776 "FTML.aux" "FTML.bbl" "FTML" 1647966778
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/apalike.bst" 1480098433 24635 604dafcc79f521a11ea73e506e1fbd98 ""
-  "FTML.aux" 1647689399 19846 ae7f9597ce73f161176db5c8cd06a8f4 ""
+  "FTML.aux" 1647966778 19924 15e56856f51ce33d246f13e128d5554d ""
   "epitheoremes.bib" 1644321251 3599 e891923dfad8cf94fa1b16416e84ef7a ""
   (generated)
-  "FTML.bbl"
   "FTML.blg"
-["pdflatex"] 1647689398 "FTML.tex" "FTML.pdf" "FTML" 1647692978
+  "FTML.bbl"
+["pdflatex"] 1647966776 "FTML.tex" "FTML.pdf" "FTML" 1647966778
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/iwona/ec-iwona-sc.enc" 1480098667 2452 388b1f44dfda03ab19527677af70e7fb ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/iwona/ec-iwona.enc" 1480098667 2027 f8708480c25b8150843bb94b8b39c93f ""
@@ -220,11 +220,11 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1503686867 4129592 6129c680c4a6fee257d8010e376a4f1b ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "FTML.aux" 1647689399 19846 ae7f9597ce73f161176db5c8cd06a8f4 ""
-  "FTML.bbl" 1647447883 720 a6945fb010acda696bfc12f6649c4a65 "bibtex FTML"
-  "FTML.out" 1647689399 8490 89b44a70799620c44f37318d52ed03ce ""
-  "FTML.tex" 1647689397 100971 2d485eb420b042701f94beac5cbc3022 ""
-  "FTML.toc" 1647689399 13582 752e3602c5c0db0d9674b4580549a6fc ""
+  "FTML.aux" 1647966778 19924 15e56856f51ce33d246f13e128d5554d ""
+  "FTML.bbl" 1647966776 720 a6945fb010acda696bfc12f6649c4a65 "bibtex FTML"
+  "FTML.out" 1647966778 8490 89b44a70799620c44f37318d52ed03ce ""
+  "FTML.tex" 1647966771 101504 d0359925cbd60df8edafdb6d848999a8 ""
+  "FTML.toc" 1647966778 13582 d9a2fdeac8b247dd4a28871bb243a27c ""
   "Figures/knn.pdf" 1645538903 71602 bd0f80c24add65348f58e86079457f5b ""
   "Figures/ols_risks.pdf" 1646233497 23843 0f8c26c48baf95ad25204b2647306bd3 ""
   "Figures/ridge_risks_n=30.pdf" 1647440070 27061 599abe94e5e1e4a8c14a2151999d46ae ""
@@ -232,6 +232,6 @@
   (generated)
   "FTML.pdf"
   "FTML.out"
-  "FTML.log"
   "FTML.toc"
   "FTML.aux"
+  "FTML.log"
