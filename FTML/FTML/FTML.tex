@@ -1480,13 +1480,13 @@ For some \textbf{{fixed}} $h\in H$, $R_n(h)$ is a random variable, as it depends
 The OLS is an important supervised learning problem. In the least squares problem, the loss $l$ writes 
 
 \begin{equation*}
-    l(y,y') = ||y-y'||^2
+    l(y,y') = (y-y')^2
 \end{equation*}
 
 In the Ordinary Least Squares (OLS) setup, $ \mathcal{X} = \mathbb{R}^d$, $ \mathcal{Y}  = \mathbb{R} $, and the estimator is a \textbf{{linear function}} parametrized by $ \theta\in \mathbb{R}^d$.
 
 \begin{equation*}
-    F = \{ x\mapsto \theta^T x, \theta \in \mathbb{R}^d\}
+    F = \{ x\mapsto x^T \theta, \theta \in \mathbb{R}^d\}
 \end{equation*}
 
 The dataset is stored in the \textbf{{design matrix}} $X\in \mathbb{R}^{n\times d}$.
@@ -1746,7 +1746,6 @@ This corollary is illustrated in figure \ref{fig:olsrisk}.
 \begin{proof}
 Not stated here, the proof is obtained by direct calculations and useful matricial tricks.
 \end{proof}
-
 
 \begin{remark}
     In this expected value, both the dataset and $ \hat{\theta}$ are random variables.
