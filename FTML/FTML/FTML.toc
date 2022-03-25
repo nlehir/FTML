@@ -13,78 +13,78 @@
 \contentsline {subsubsection}{\numberline {1.3.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Lipshitz continuity}{10}{subsubsection.1.3.3}
 \contentsline {subsubsection}{\numberline {1.3.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Smoothness}{10}{subsubsection.1.3.4}
 \contentsline {subsection}{\numberline {1.4}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Algorithmic complexities}{11}{subsection.1.4}
-\contentsline {section}{\numberline {2}\relax \fontsize {12}{14}\selectfont \color {Blue}Optimization}{11}{section.2}
-\contentsline {subsection}{\numberline {2.1}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Definitions}{11}{subsection.2.1}
+\contentsline {section}{\numberline {2}\relax \fontsize {12}{14}\selectfont \color {Blue}Optimization}{12}{section.2}
+\contentsline {subsection}{\numberline {2.1}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Definitions}{12}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Existence result}{12}{subsection.2.2}
 \contentsline {subsection}{\numberline {2.3}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Convex analysis}{12}{subsection.2.3}
 \contentsline {subsubsection}{\numberline {2.3.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Definitions}{12}{subsubsection.2.3.1}
 \contentsline {subsubsection}{\numberline {2.3.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Differential formulation of convexity}{13}{subsubsection.2.3.2}
-\contentsline {subsubsection}{\numberline {2.3.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Minima of convex functions}{13}{subsubsection.2.3.3}
+\contentsline {subsubsection}{\numberline {2.3.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Minima of convex functions}{14}{subsubsection.2.3.3}
 \contentsline {subsubsection}{\numberline {2.3.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Existence of a global minima for convex functions}{14}{subsubsection.2.3.4}
 \contentsline {subsubsection}{\numberline {2.3.5}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Local minimum of a two-times differentiable function}{14}{subsubsection.2.3.5}
 \contentsline {subsubsection}{\numberline {2.3.6}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Expected values and convex functions}{14}{subsubsection.2.3.6}
-\contentsline {subsection}{\numberline {2.4}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Gradient Descent (GD)}{14}{subsection.2.4}
-\contentsline {subsubsection}{\numberline {2.4.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{14}{subsubsection.2.4.1}
-\contentsline {subsubsection}{\numberline {2.4.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Minimisation of a strongly convex function}{14}{subsubsection.2.4.2}
-\contentsline {subsubsection}{\numberline {2.4.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Minimization of a convex function}{15}{subsubsection.2.4.3}
-\contentsline {section}{\numberline {3}\relax \fontsize {12}{14}\selectfont \color {Blue}Supervised Learning}{15}{section.3}
-\contentsline {subsection}{\numberline {3.1}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}General definitions and bounds}{15}{subsection.3.1}
-\contentsline {subsubsection}{\numberline {3.1.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Setup}{15}{subsubsection.3.1.1}
+\contentsline {subsection}{\numberline {2.4}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Gradient Descent (GD)}{15}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{15}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Minimisation of a strongly convex function}{15}{subsubsection.2.4.2}
+\contentsline {subsubsection}{\numberline {2.4.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Minimization of a convex function}{16}{subsubsection.2.4.3}
+\contentsline {section}{\numberline {3}\relax \fontsize {12}{14}\selectfont \color {Blue}Supervised Learning}{16}{section.3}
+\contentsline {subsection}{\numberline {3.1}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}General definitions and bounds}{16}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Setup}{16}{subsubsection.3.1.1}
 \contentsline {subsubsection}{\numberline {3.1.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Definitions}{16}{subsubsection.3.1.2}
-\contentsline {subsubsection}{\numberline {3.1.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bayes predictor and conditional expectation}{17}{subsubsection.3.1.3}
+\contentsline {subsubsection}{\numberline {3.1.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bayes predictor and conditional expectation}{18}{subsubsection.3.1.3}
 \contentsline {subsubsection}{\numberline {3.1.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bias-Variance decomposition}{18}{subsubsection.3.1.4}
 \contentsline {subsubsection}{\numberline {3.1.5}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Expected value of empirical risk}{19}{subsubsection.3.1.5}
-\contentsline {subsubsection}{\numberline {3.1.6}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Deterministic bound on the estimation error}{19}{subsubsection.3.1.6}
-\contentsline {subsection}{\numberline {3.2}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Probably Approximately Correct Learning: PAC bounds}{19}{subsection.3.2}
-\contentsline {subsubsection}{\numberline {3.2.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Definition}{19}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.1.6}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Deterministic bound on the estimation error}{20}{subsubsection.3.1.6}
+\contentsline {subsection}{\numberline {3.2}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Probably Approximately Correct Learning: PAC bounds}{20}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Definition}{20}{subsubsection.3.2.1}
 \contentsline {subsubsection}{\numberline {3.2.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bound in probability on the fluctuation error}{20}{subsubsection.3.2.2}
 \contentsline {subsubsection}{\numberline {3.2.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Probabilistic bound on the generalization error for a decaying approximation error}{20}{subsubsection.3.2.3}
-\contentsline {subsubsection}{\numberline {3.2.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Approximation error bound}{20}{subsubsection.3.2.4}
+\contentsline {subsubsection}{\numberline {3.2.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Approximation error bound}{21}{subsubsection.3.2.4}
 \contentsline {subsubsection}{\numberline {3.2.5}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Curse of dimensionality}{21}{subsubsection.3.2.5}
 \contentsline {subsection}{\numberline {3.3}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Ordinary Least Squares (OLS)}{21}{subsection.3.3}
 \contentsline {subsubsection}{\numberline {3.3.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{21}{subsubsection.3.3.1}
-\contentsline {subsubsection}{\numberline {3.3.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}OLS estimator}{21}{subsubsection.3.3.2}
-\contentsline {subsubsection}{\numberline {3.3.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Statistical analysis of OLS}{22}{subsubsection.3.3.3}
-\contentsline {subsection}{\numberline {3.4}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Ridge regression}{24}{subsection.3.4}
-\contentsline {subsubsection}{\numberline {3.4.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{24}{subsubsection.3.4.1}
-\contentsline {subsubsection}{\numberline {3.4.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Ridge regression estimator}{24}{subsubsection.3.4.2}
-\contentsline {subsubsection}{\numberline {3.4.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Statistical analysis of Ridge regression}{25}{subsubsection.3.4.3}
+\contentsline {subsubsection}{\numberline {3.3.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}OLS estimator}{22}{subsubsection.3.3.2}
+\contentsline {subsubsection}{\numberline {3.3.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Statistical analysis of OLS}{23}{subsubsection.3.3.3}
+\contentsline {subsection}{\numberline {3.4}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Ridge regression}{25}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{25}{subsubsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Ridge regression estimator}{25}{subsubsection.3.4.2}
+\contentsline {subsubsection}{\numberline {3.4.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Statistical analysis of Ridge regression}{26}{subsubsection.3.4.3}
 \contentsline {subsubsection}{\numberline {3.4.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Choice of $\lambda $}{26}{subsubsection.3.4.4}
 \contentsline {subsection}{\numberline {3.5}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Lasso}{27}{subsection.3.5}
 \contentsline {subsubsection}{\numberline {3.5.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{27}{subsubsection.3.5.1}
 \contentsline {subsubsection}{\numberline {3.5.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}LASSO estimator}{27}{subsubsection.3.5.2}
 \contentsline {subsubsection}{\numberline {3.5.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Numerical resolutions}{27}{subsubsection.3.5.3}
-\contentsline {subsection}{\numberline {3.6}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Logistic regression}{27}{subsection.3.6}
-\contentsline {subsubsection}{\numberline {3.6.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{27}{subsubsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Logistic regression}{28}{subsection.3.6}
+\contentsline {subsubsection}{\numberline {3.6.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{28}{subsubsection.3.6.1}
 \contentsline {subsubsection}{\numberline {3.6.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Logistic regression estimator}{28}{subsubsection.3.6.2}
 \contentsline {subsection}{\numberline {3.7}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Stochastic Gradient Descent (SGD)}{28}{subsection.3.7}
 \contentsline {subsubsection}{\numberline {3.7.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{28}{subsubsection.3.7.1}
 \contentsline {subsubsection}{\numberline {3.7.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}SGD updates}{29}{subsubsection.3.7.2}
-\contentsline {subsubsection}{\numberline {3.7.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}SGD as an estimation of GD}{29}{subsubsection.3.7.3}
-\contentsline {subsubsection}{\numberline {3.7.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Convergence for a convex objective}{29}{subsubsection.3.7.4}
+\contentsline {subsubsection}{\numberline {3.7.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}SGD as an estimation of GD}{30}{subsubsection.3.7.3}
+\contentsline {subsubsection}{\numberline {3.7.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Convergence for a convex objective}{30}{subsubsection.3.7.4}
 \contentsline {subsubsection}{\numberline {3.7.5}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Convergence for a strongly convex objective}{30}{subsubsection.3.7.5}
-\contentsline {subsubsection}{\numberline {3.7.6}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Convergence for a strongly convex L-smooth objective}{30}{subsubsection.3.7.6}
-\contentsline {subsubsection}{\numberline {3.7.7}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Computational complexity of GD and SGD}{30}{subsubsection.3.7.7}
-\contentsline {subsection}{\numberline {3.8}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Kernels}{31}{subsection.3.8}
-\contentsline {subsubsection}{\numberline {3.8.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{31}{subsubsection.3.8.1}
-\contentsline {subsubsection}{\numberline {3.8.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Representer theorem}{31}{subsubsection.3.8.2}
-\contentsline {subsubsection}{\numberline {3.8.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Consequence}{32}{subsubsection.3.8.3}
-\contentsline {section}{\numberline {4}\relax \fontsize {12}{14}\selectfont \color {Blue}Unsupervised learning}{33}{section.4}
-\contentsline {subsection}{\numberline {4.1}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Definitions}{33}{subsection.4.1}
-\contentsline {subsubsection}{\numberline {4.1.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Setup}{33}{subsubsection.4.1.1}
+\contentsline {subsubsection}{\numberline {3.7.6}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Convergence for a strongly convex L-smooth objective}{31}{subsubsection.3.7.6}
+\contentsline {subsubsection}{\numberline {3.7.7}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Computational complexity of GD and SGD}{31}{subsubsection.3.7.7}
+\contentsline {subsection}{\numberline {3.8}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Kernels}{32}{subsection.3.8}
+\contentsline {subsubsection}{\numberline {3.8.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{32}{subsubsection.3.8.1}
+\contentsline {subsubsection}{\numberline {3.8.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Representer theorem}{32}{subsubsection.3.8.2}
+\contentsline {subsubsection}{\numberline {3.8.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Consequence}{33}{subsubsection.3.8.3}
+\contentsline {section}{\numberline {4}\relax \fontsize {12}{14}\selectfont \color {Blue}Unsupervised learning}{34}{section.4}
+\contentsline {subsection}{\numberline {4.1}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Definitions}{34}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Setup}{34}{subsubsection.4.1.1}
 \contentsline {subsection}{\numberline {4.2}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}K-means clustering}{34}{subsection.4.2}
 \contentsline {subsubsection}{\numberline {4.2.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{34}{subsubsection.4.2.1}
 \contentsline {subsubsection}{\numberline {4.2.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Distorsion}{34}{subsubsection.4.2.2}
-\contentsline {subsection}{\numberline {4.3}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Principal Component Analysis (PCA)}{34}{subsection.4.3}
-\contentsline {subsubsection}{\numberline {4.3.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{34}{subsubsection.4.3.1}
-\contentsline {subsubsection}{\numberline {4.3.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Optimal projection}{34}{subsubsection.4.3.2}
-\contentsline {subsubsection}{\numberline {4.3.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Algorithm}{34}{subsubsection.4.3.3}
-\contentsline {subsection}{\numberline {4.4}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Density etimation}{35}{subsection.4.4}
-\contentsline {subsubsection}{\numberline {4.4.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{35}{subsubsection.4.4.1}
-\contentsline {subsubsection}{\numberline {4.4.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Kernel density estimation (KDE) and Convolution}{35}{subsubsection.4.4.2}
-\contentsline {section}{\numberline {5}\relax \fontsize {12}{14}\selectfont \color {Blue}Probabilistic modeling}{35}{section.5}
-\contentsline {subsection}{\numberline {5.1}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Context}{35}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Maximum likelihood estimation}{36}{subsection.5.2}
-\contentsline {subsubsection}{\numberline {5.2.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Link with empirical risk minimization}{36}{subsubsection.5.2.1}
-\contentsline {subsubsection}{\numberline {5.2.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Link with Kullback-Leibler divergence}{36}{subsubsection.5.2.2}
-\contentsline {subsubsection}{\numberline {5.2.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Conditional modeling}{36}{subsubsection.5.2.3}
+\contentsline {subsection}{\numberline {4.3}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Principal Component Analysis (PCA)}{35}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{35}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Optimal projection}{35}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Algorithm}{35}{subsubsection.4.3.3}
+\contentsline {subsection}{\numberline {4.4}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Density etimation}{36}{subsection.4.4}
+\contentsline {subsubsection}{\numberline {4.4.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{36}{subsubsection.4.4.1}
+\contentsline {subsubsection}{\numberline {4.4.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Kernel density estimation (KDE) and Convolution}{36}{subsubsection.4.4.2}
+\contentsline {section}{\numberline {5}\relax \fontsize {12}{14}\selectfont \color {Blue}Probabilistic modeling}{36}{section.5}
+\contentsline {subsection}{\numberline {5.1}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Context}{36}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Maximum likelihood estimation}{37}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Link with empirical risk minimization}{37}{subsubsection.5.2.1}
+\contentsline {subsubsection}{\numberline {5.2.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Link with Kullback-Leibler divergence}{37}{subsubsection.5.2.2}
+\contentsline {subsubsection}{\numberline {5.2.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Conditional modeling}{37}{subsubsection.5.2.3}

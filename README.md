@@ -1,5 +1,5 @@
 # Fondamentaux théoriques du machine learning / Python & machine learning
-This repository contains slides and exercices for Epita students of the FTML
+This repository contains slides and exercises for Epita students of the FTML
 and PTML courses.
 
 ## FTML
@@ -11,7 +11,7 @@ This folder contains the slides of the courses.
 - Risk decomposition, Optimization in ML, Ordinary least squares.
 - Ridge regression, Classification, Logistic regression
 - Unsupervised learning, gradient algorithms
-- Probabilistic modelling, metrics, curse of dimensionality
+- Probabilistic modelling, local averaging, feature selection
 - Kernel methods, Support vector machines
 - Decision tree learning, Ensemble learning
 - Bayesian learning, latent variables

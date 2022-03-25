@@ -245,7 +245,7 @@ We observe a dataset $ \{x_i\in \mathbb{R}^d, i\in [1, n]\}$ of $n$ i.i.d sample
 
 \begin{definition}{Sample mean vector}
     \begin{equation*}
-	\bar{x} = \frac{1}{n} \sum^{n}_{i=1} x_i\in \mathbb{R}^d
+	\overline{x} = \frac{1}{n} \sum^{n}_{i=1} x_i\in \mathbb{R}^d
     \end{equation*}
 \end{definition}
 
@@ -253,7 +253,7 @@ We observe a dataset $ \{x_i\in \mathbb{R}^d, i\in [1, n]\}$ of $n$ i.i.d sample
 The sample mean vector is an \textbf{{unbiased estimator}} of the expected value.
 
 \begin{equation*}
-    E( \bar{x}) = m
+    E( \overline{x}) = m
 \end{equation*}
 \end{remark}
 
@@ -262,7 +262,7 @@ The sample mean vector is an \textbf{{unbiased estimator}} of the expected value
     If $d=1$, we define the \textbf{{unbiased sample variance}} by
 
     \begin{equation*}
-	s^2= \frac{1}{n-1}  \sum^{n}_{i=1} (x_i- \bar{x})^2
+	s^2= \frac{1}{n-1}  \sum^{n}_{i=1} (x_i- \overline{x})^2
     \end{equation*}
 \end{definition}
 
@@ -677,11 +677,41 @@ $$
 
     \begin{equation}
 	\begin{aligned}
-	    \label{eq:}
+	    \label{eq:application}
 	    f(y)-f(x) &= u(1)-u(0)\\
 	    &= \int^{1}_{0} u'(t)  dt \\
 	    &= \int^{1}_{0}  \langle\nabla_{x+t(y-x)}f, y-x \rangle dt \\
 	\end{aligned}
+    \end{equation}
+
+    $\Rightarrow$ \textbf{{)}}  We assume that $f$ has $L$-Lipshitz continuous gradients.  For all $t\in [0, 1]$, we can write that
+
+    \begin{equation}
+	\label{eq:difference}
+	\nabla_{x+t(y-x)}f, y-x = \nabla_{x}f, y-x +(\nabla_{x+t(y-x)}f- \nabla_{x}f) 
+    \end{equation}
+
+    Inserting \ref{eq:difference} in \ref{eq:application}, we get that
+
+    \begin{equation}
+	\begin{aligned}
+	    \label{eq:}
+	    f(y)-f(x) &= \int^{1}_{0} \langle\nabla_{x}f, y-x \rangle dt +\int^{1}_{0}  \langle(\nabla_{x+t(y-x)}f- \nabla_{x}f) , y-x \rangle   dt \\
+	    &= \langle\nabla_{x}f, y-x \rangle +\int^{1}_{0}  \langle(\nabla_{x+t(y-x)}f- \nabla_{x}f) , y-x \rangle   dt \\
+	\end{aligned}
+    \end{equation}
+
+    and that
+
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+	    |f(y)-f(x)-\langle\nabla_{x}f, y-x \rangle| &= |\int^{1}_{0}  \langle(\nabla_{x+t(y-x)}f- \nabla_{x}f) , y-x \rangle   dt |\\
+	    &\leq  \int^{1}_{0}  ||\nabla_{x+t(y-x)}f- \nabla_{x}f||\times || y-x|| dt \\
+	    &\leq  \int^{1}_{0}  L||t(y-x)||\times|| y-x|| dt \\
+	    &\leq  ||y-x||^2\int^{1}_{0}  Ltdt\\
+	    &= \frac{L}{2} ||y-x||^2
+        \end{aligned}
     \end{equation}
 
 \end{proof}
@@ -1708,7 +1738,7 @@ All expectations are then with respect to the law of $X$ and of $Z$.
 
 where the expectation if only over $y$, and the index $X$ noting that this depends on the input matrix $X$. The fixed design setting can also be seen as a method that allows the learning of the optimal prediction vector, given some inputs.
 
-However, it is also possible to have similar results in the random design setting.
+However, it is also possible to have similar results in the random design setting, which corresponds to a generalization error, assuming the data are generated according to the corresponding distribution.
 
 \begin{proposition}{Risk decomposition}
 
@@ -2216,7 +2246,7 @@ Roughly speaking, in most situations the computational complexity of one
 iteration of GD will be $n$ times that of one iteration of SGD. For instance, in the case of least-squares regression, computing a batch gradient (GD) costs $ \mathcal{O} (nd)$. Computing a SGD gradient estimate costs $ \mathcal{O} (d)$. For example, in the case of Ridge regression, the loss is $\mu$-strongly convex and $L$-smooth, with a condition number $\kappa = \frac{L}{\mu} $. If $t$ denotes de number of iterations, then
 \begin{itemize}
     \item GD has a convergence rate of $\mathcal{O} (\exp( - \frac{t}{\kappa} ))$. To get an error of $\epsilon$, we must have $ t= \mathcal{O} ( \kappa \log \frac{1}{\epsilon} )$. Since each iteration requires $ \mathcal{O} (nd)$ computations, the computation time will be $ \mathcal{O} (\kappa nd\log\frac{1}{\epsilon}) $.
-    \item SGD has a convergence rate of $ \mathcal{O} ( \frac{\kappa}{t} )$. To get an error of $\epsilon$, we must have $ t = \mathcal{O}( \frac{\kappa}{\epsilon} ) $. Since each itération is $ \mathcal{O} (d)$, we have a computation time of $ \mathcal{O} ( \frac{\kappa d}{\epsilon} )$.
+    \item SGD has a convergence rate of $ \mathcal{O} ( \frac{\kappa}{t} )$. To get an error of $\epsilon$, we must have $ t = \mathcal{O}( \frac{\kappa}{\epsilon} ) $. Since each iteration is $ \mathcal{O} (d)$, we have a computation time of $ \mathcal{O} ( \frac{\kappa d}{\epsilon} )$.
 
 \end{itemize}
 
@@ -2238,7 +2268,7 @@ As a consequence:
 
 To conclude, for low precision and large $n$, SGD is a preferable. Also, in
 machine learning, due to the estimation error that is $ \mathcal{O} (
-\frac{1}{\sqrt{n} } $, a very high precision os often not needed. Improvements
+\frac{1}{\sqrt{n} }) $, a very high precision is often not needed. Improvements
 of the method exist, such as variance reduction methods, SAG or SAGA \cite[]{Schmidt2013}. 
 
 \subsection{\large\color{MidnightBlue}Kernels}
@@ -2441,36 +2471,58 @@ The $K$-means minimizes the distorsion by \textbf{{Expectatoin-maximization algo
 
 \subsubsection{\large\color{Periwinkle}Context}
 
-The PCA is a linear dimension reduction technique. Points in $ \mathbb{R}^d$ are linearly projeced on a well chosen affine subspace.
+The PCA is a linear dimension reduction technique. Points in $ \mathbb{R}^d$ are linearly projected on a well chosen affine subspace.
 
 \subsubsection{\large\color{Periwinkle}Optimal projection}
 
-Without loss of generality, we assume the data are \textbf{{centered}}. $ \sum^{n}_{i=1} x_n=0$. $X$ is the design matrix as in \ref{con:ols}.
+Without loss of generality, we assume the data are \textbf{{centered}}, which means that
 
-We look for $w\in \mathbb{R}^d$, with $||w||=1$, such that $ \hat{Var}(w^Tx)$ is maximal. Here, $ \hat{Var}$ denotes the empirical variance (see \ref{sec:empstats}).
+\begin{equation}
+\bar{x} = \sum^{n}_{i=1} x_n=0\in \mathbb{R}^d
+\end{equation}
+
+We note $X$ is the design matrix as in \ref{con:ols}. We look for $w\in \mathbb{R}^d$, with $||w||=1$, such that $ \hat{Var}(w^Tx)$ is maximal, where $ \hat{Var}$ denotes the empirical variance (see \ref{sec:empstats}).
 
 \begin{proposition}
-
     $w$ is the eigenvector of $X^TX$ with largest eigenvalue $\lambda_{max}$.
 \end{proposition}
 
 \begin{proof}
-    We want to maximize $ \hat{Var}(w^Tx)$, which is equivalent to maximizing
+    We want to maximize $ \hat{Var}(w^Tx)$. But as the data are centered, 
+
+    \begin{equation}
+            \label{eq:}
+            \overline{w^Tx} = w^T \overline{x} = 0
+    \end{equation}
+
+    Hence,
+
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+	    \hat{Var}(w^Tx) &= \frac{1}{n-1}  \sum^{n}_{i=1} \big((w^Tx)_i- \overline{w^Tx}  \big)^2\\
+	    &= \frac{1}{n-1}  \sum^{n}_{i=1} \big(w^Tx_i \big)^2\\
+        \end{aligned}
+    \end{equation}
+
+    We thus want to maximize
 
     \begin{equation*}
         \begin{aligned}
-	    \sum^{n}_{i=1} (w^Tx_i)^2 &=  w^T(X^TX)w\\
+	    \sum^{n}_{i=1} (w^Tx_i)^2 &= ||Xw||^2\\
+	    &= \langle Xw, Xw \rangle\\
 	    &= \langle (X^TX)w, w \rangle
-	    \leq \lambda_{max}
         \end{aligned}
     \end{equation*}
+
+    This quantity is always smaller that $\lambda_{max}$, and it attained for an eigenvector in the eigenspace with norm $1$, since we impose that $||w||=1$.
 
 \end{proof}
 
 Another point of view on the problem is to define $w$ as
 
 \begin{equation*}
-    w = \argmin_{||w||=1} \sum^{n}_{i=1} d(x_n, \{\lambda w, \lambda\in \mathbb{B} \})^2
+    w = \argmin_{||w||=1} \sum^{n}_{i=1} d(x_n, \text{Vect}(w))^2
 \end{equation*}
 
 \subsubsection{\large\color{Periwinkle}Algorithm}
