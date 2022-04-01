@@ -688,7 +688,7 @@ $$
 
     \begin{equation}
 	\label{eq:difference}
-	\nabla_{x+t(y-x)}f, y-x = \nabla_{x}f, y-x +(\nabla_{x+t(y-x)}f- \nabla_{x}f) 
+	\nabla_{x+t(y-x)}f = \nabla_{x}f +\Big(\nabla_{x+t(y-x)}f- \nabla_{x}f\Big) 
     \end{equation}
 
     Inserting \ref{eq:difference} in \ref{eq:application}, we get that
@@ -1021,7 +1021,7 @@ The following lemma shows that if the step size is small enough, then GD is a \t
 
 \begin{theorem}{Convergence of GD for a strongly convex function}
 
-    Let $f: \mathbb{R}^d\Rightarrow \mathbb{R}	$ be a  $\mu$-strongly convex unction with $L$-Lipshitz continuous gradients. Let $x^*$ be the global minimum of $f$ (which we know exists since $f$ is strongly convex), $x_0\in \mathbb{R} $, $T\in \mathbb{N}$.
+    Let $f: \mathbb{R}^d\Rightarrow \mathbb{R}	$ be a  $\mu$-strongly convex function with $L$-Lipshitz continuous gradients. Let $x^*$ be the global minimum of $f$ (which we know exists since $f$ is strongly convex), $x_0\in \mathbb{R} $, $T\in \mathbb{N}$.
 
     \begin{itemize}
 	\item With constant step size $\gamma_t = \frac{1}{L} $, we have
@@ -1069,7 +1069,9 @@ Hence, $\mu\leq L$, so $\mu\gamma < \frac{1}{2} $.
 
 \begin{theorem}{Convergence of GD for a smooth convex function}
 
-    Let $f: \mathbb{R}^d\rightarrow \mathbb{R} $, with global minimiser $x^*$. With constant step-size $\gamma_t = \frac{1}{L} $, the iterates $x_t$ of GD satisfie:
+    Let $f: \mathbb{R}^d\rightarrow \mathbb{R} $, with global minimiser $x^*$.
+    With constant step-size $\gamma_t = \frac{1}{L} $, the iterates $x_t$ of GD
+    satisfy:
 
     \begin{equation*}
 	f(x_t)-f(\eta^*)\leq \frac{L}{2t} ||x_0-\eta^*||^2
@@ -2195,7 +2197,7 @@ Now, the SGD iteration reads:
     We use the same hypotheses as \ref{th:sgdconvex}, adding the assumption that $g$ admits a (necessary unique) mininizer $\theta^*$. Then, with $\gamma_t =  \frac{1}{\mu t} $.
 
     \begin{equation*}
-	E[f( \hat{\theta}_t)-f(\theta^*)]\leq \frac{2L^2 (1+\log t)}{\mu t} 
+	E[g( \hat{\theta}_t)-g(\theta^*)]\leq \frac{2L^2 (1+\log t)}{\mu t} 
     \end{equation*}
 
     where 
@@ -2659,7 +2661,7 @@ The Kullback-Leibler divergence is a quantity used to compare two probability di
     Given two distributions $p$ and $q$, the KL divergence from $p$ to $q$ is defined as:
 
     \begin{equation*}
-	KL(p||q) = E_{Y\sim p} [\log \frac{p(Y)}{q(Y)} ]
+	KL(p||q) = E_{Y\sim p} \Big[\log \frac{p(Y)}{q(Y)} \Big]
     \end{equation*}
 \end{definition}
 

@@ -4,34 +4,34 @@ and PTML courses.
 
 ## FTML
 
-This folder contains the slides of the courses.
+This folder contains the slides of the courses and some related exercises.
 
-- Introduction
-- Mathematical tools for ML, Supervised learning, 
-- Risk decomposition, Optimization in ML, Ordinary least squares.
-- Ridge regression, Classification, Logistic regression
-- Unsupervised learning, gradient algorithms
-- Probabilistic modelling, local averaging, feature selection
-- Kernel methods, Support vector machines
-- Decision tree learning, Ensemble learning
-- Bayesian learning, latent variables
-- Variable selection, neural networks
-- Statistical learning
-- Nonlinear dimensionality reduction
+- 1) Introduction
+- 2) Mathematical tools for ML, Supervised learning, 
+- 3) Risk decomposition, Optimization in ML, Ordinary least squares.
+- 4) Ridge regression, Classification, Logistic regression
+- 5) Unsupervised learning: clustering, dimensionality reduction
+- 6) Unsupervised learning: density estimation. Gradient algorithms, probabilistic modelling
+- 7) Local averaging, Kernel methods, Support vector machines
+- 8) Decision tree learning, Ensemble learning
+- 9) Bayesian learning, latent variables
+- 10) Variable selection, neural networks I
+- 11) Statistical learning, neural networks II
+- 12) Sparse methods, nonlinear dimensionality reduction
 
 ## PTML
 
 This folder contains the practical sessions.
 
-- Reminders/Introduction to Python 3, polynomial regression, Ordinary least
-  squares
-- Ridge regression, logistic regression
-- First-order optimization methods (Gradient descent, Stochastic gradient
-  descent)
-- Kernel density estimation, kernel regression, cross validation.
-- Bayesian learning
-- Lasso
-- Model selection, PCA, kernel PCA
-- Neural networks
-- Nonlinear dimensionality reduction
-- Modern topics on gradient descent
+- 1) Reminders/Introduction to Python 3, polynomial regression, Ordinary least
+  2) squares
+- 3) Ridge regression, logistic regression, cross validation I
+- 4) First-order optimization methods (Gradient descent, Stochastic gradient
+  5) descent)
+- 6) Kernel density estimation, kernel regression, cross validation.
+- 7) Bayesian learning
+- 8) Lasso
+- 9) Model selection, PCA, kernel PCA
+- 10) Neural networks
+- 11) Nonlinear dimensionality reduction
+- 12) Modern topics on gradient descent
