@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.8.25)  1 APR 2022 01:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.8.25)  6 APR 2022 13:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**FTML.tex
-(./FTML.tex
+**"lecture notes.tex"
+(./lecture notes.tex
 LaTeX2e <2017-04-15>
 Babel <3.10> and hyphenation patterns for 84 language(s) loaded.
 (/usr/local/texlive/2017/texmf-dist/tex/latex/koma-script/scrartcl.cls
@@ -1171,7 +1171,7 @@ Package hyperref Warning: Option `bookmarks' has already been used,
 (hyperref)                setting the option has no effect on input line 89.
 
 Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 89.
-) (./FTML.aux
+) (./lecture notes.aux
 
 LaTeX Warning: Label `eq:' multiply defined.
 
@@ -1188,7 +1188,7 @@ LaTeX Warning: Label `eq:' multiply defined.
 LaTeX Warning: Label `eq:' multiply defined.
 
 )
-\openout1 = `FTML.aux'.
+\openout1 = `"lecture notes.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
 LaTeX Font Info:    ... okay on input line 15.
@@ -1224,9 +1224,9 @@ LaTeX Info: Redefining \ref on input line 15.
 LaTeX Info: Redefining \pageref on input line 15.
 LaTeX Info: Redefining \nameref on input line 15.
 
-(./FTML.out) (./FTML.out)
+(./lecture notes.out) (./lecture notes.out)
 \@outlinefile=\write3
-\openout3 = `FTML.out'.
+\openout3 = `"lecture notes.out"'.
 
 LaTeX Info: Redefining \Ref on input line 15.
 
@@ -1350,7 +1350,7 @@ Package pdftex.def Info: Figures/knn.pdf used on input line 24.
 Package tocbasic Info: character protrusion at toc deactivated on input line 28
 .
 
-(./FTML.toc
+(./lecture notes.toc
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/pplj/m/sc/10'.
 (microtype)             Ignoring protrusion settings for this character.
@@ -1362,7 +1362,7 @@ LaTeX Font Info:    Font shape `T1/pplj/bx/n' in size <10> not available
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./Figur
 es/knn.pdf>] [2])
 \tf@toc=\write4
-\openout4 = `FTML.toc'.
+\openout4 = `"lecture notes.toc"'.
 
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/iwona/m/sc/14.4'.
@@ -1885,15 +1885,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 2712--2714
 
  []
 
-[38] (./FTML.bbl)
+[38] (./lecture notes.bbl)
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2765.
  [39]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 2765.
- (./FTML.aux)
+ (./lecture notes.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2765.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2765.
 
-Package rerunfilecheck Info: File `FTML.out' has not changed.
+Package rerunfilecheck Info: File `"lecture notes".out' has not changed.
 (rerunfilecheck)             Checksum: 89B44A70799620C44F37318D52ED03CE;8490.
 
 
@@ -1903,12 +1903,12 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2765.
  ) 
 Here is how much of TeX's memory you used:
  17926 strings out of 492995
- 312284 string characters out of 6132704
- 654842 words of memory out of 5000000
+ 312505 string characters out of 6132704
+ 654864 words of memory out of 5000000
  20818 multiletter control sequences out of 15000+600000
  128244 words of font info for 179 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 66i,23n,92p,8841b,790s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 66i,23n,92p,8852b,790s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
 exlive/2017/texmf-dist/fonts/enc/dvips/iwona/ec-iwona.enc}{/usr/local/texlive/2
 017/texmf-dist/fonts/enc/dvips/iwona/ec-iwona-sc.enc}</usr/local/texlive/2017/t
@@ -1936,7 +1936,7 @@ am7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb
 ></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></usr
 /local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/
 texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on FTML.pdf (39 pages, 511494 bytes).
+Output written on "lecture notes.pdf" (39 pages, 511494 bytes).
 PDF statistics:
  1119 PDF objects out of 1200 (max. 8388607)
  910 compressed objects within 10 object streams

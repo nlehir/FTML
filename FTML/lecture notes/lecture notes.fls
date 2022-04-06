@@ -1,9 +1,9 @@
-PWD /Users/nico/Desktop/enseignement/epita/github/FTML/FTML
+PWD /Users/nico/Desktop/enseignement/epita/github/FTML/lecture notes
 INPUT /usr/local/texlive/2017/texmf.cnf
 INPUT /usr/local/texlive/2017/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT FTML.tex
-OUTPUT FTML.log
+INPUT lecture notes.tex
+OUTPUT lecture notes.log
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/koma-script/scrartcl.cls
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/koma-script/scrartcl.cls
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/koma-script/scrkbase.sty
@@ -186,9 +186,9 @@ INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/amscls/amsthm.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/amscls/amsthm.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/tools/varioref.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/tools/varioref.sty
-INPUT FTML.aux
-INPUT FTML.aux
-OUTPUT FTML.aux
+INPUT lecture notes.aux
+INPUT lecture notes.aux
+OUTPUT lecture notes.aux
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/t1pplj.fd
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/t1pplj.fd
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplr9d.tfm
@@ -196,14 +196,14 @@ INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
-INPUT FTML.out
-INPUT FTML.out
-INPUT FTML.out
-INPUT FTML.out
-OUTPUT FTML.pdf
-INPUT ./FTML.out
-INPUT ./FTML.out
-OUTPUT FTML.out
+INPUT lecture notes.out
+INPUT lecture notes.out
+INPUT lecture notes.out
+INPUT lecture notes.out
+OUTPUT lecture notes.pdf
+INPUT ./lecture notes.out
+INPUT ./lecture notes.out
+OUTPUT lecture notes.out
 INPUT /usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
@@ -266,8 +266,8 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/nowacki/iwona/ec-iwonar-sc.tf
 INPUT Figures/knn.pdf
 INPUT ./Figures/knn.pdf
 INPUT ./Figures/knn.pdf
-INPUT FTML.toc
-INPUT FTML.toc
+INPUT lecture notes.toc
+INPUT lecture notes.toc
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplrc9d.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplr9d.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplb9d.tfm
@@ -324,7 +324,7 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
-OUTPUT FTML.toc
+OUTPUT lecture notes.toc
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/nowacki/iwona/ec-iwonar-sc.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/nowacki/iwona/ec-iwonar-sc.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/nowacki/iwona/ec-iwonab-sc.tfm
@@ -433,11 +433,11 @@ INPUT ./Figures/ridge_risks_n=30.pdf
 INPUT ./Figures/ridge_risks_n=30.pdf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplr9d.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplr9d.tfm
-INPUT FTML.bbl
-INPUT FTML.bbl
-INPUT FTML.aux
-INPUT ./FTML.out
-INPUT ./FTML.out
+INPUT lecture notes.bbl
+INPUT lecture notes.bbl
+INPUT lecture notes.aux
+INPUT ./lecture notes.out
+INPUT ./lecture notes.out
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/iwona/ec-iwona.enc
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/iwona/ec-iwona-sc.enc
