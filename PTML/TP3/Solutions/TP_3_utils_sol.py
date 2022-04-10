@@ -57,8 +57,6 @@ def loss_ridge(theta, X, Y, nu):
 
 def gradient(theta, H, X, y):
     """
-        EDIT THIS FUNCTION
-
         Compute the gradient of the empirical risk
         as a function of theta, X, y
 
@@ -70,43 +68,36 @@ def gradient(theta, H, X, y):
         Returns:
             gradient of the objective function
     """
-    return theta
+    n = y.shape[0]
+    return np.matmul(H, theta)-1/n*np.matmul(np.transpose(X), y)
 
 
 def upper_bound_strongly_convex(t, kappa, theta_0, eta_star):
-    """
-        EDIT THIS FUNCTION
-
-        Compute the upper bound of the convergence rate
-        for a strongly convex function
-    """
-    return 1
+    initial_square_norm = np.linalg.norm(theta_0-eta_star)**2
+    rate = math.exp(-2*t/kappa)
+    return initial_square_norm*rate
 
 
 def compute_gamma_star(H, gradient):
     """
-        EDIT THIS FUNCTION
-
         Line search gamma
     """
-    return 1
+    square_norm = np.linalg.norm(gradient)**2
+    d = gradient.shape[0]
+    Hgrad = np.matmul(H, gradient).reshape(d)
+    grad_reshape = gradient.reshape(d)
+    inner_product = np.dot(Hgrad, grad_reshape)
+    return square_norm/inner_product
 
 
 def upper_bound_convex(t, theta_0, eta_star, gamma):
-    """
-        EDIT THIS FUNCTION
-
-        Compute the upper bound of the convergence rate
-        for a strongly convex function
-    """
-    return 1
+    initial_square_norm = np.linalg.norm(theta_0-eta_star)**2
+    rate = 1/(4*t*gamma)
+    return initial_square_norm*rate
 
 
 def square_distance_to_optimal_parameter(theta, eta_star):
-    """
-        EDIT THIS FUNCTION
-    """
-    return 1
+    return np.linalg.norm(theta-eta_star)**2
 
 
 def generate_output_data(X, theta_star, sigma, r):
