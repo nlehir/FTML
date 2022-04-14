@@ -1602,6 +1602,7 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
     We consider the non-centered empirical covariance matrix:
 
     \begin{equation}
+	\label{eq:Sigma}
 	\hat{\Sigma} = \frac{1}{n} X^TX\in \mathbb{R}^{d, d}
     \end{equation}
 
@@ -2273,55 +2274,98 @@ machine learning, due to the estimation error that is $ \mathcal{O} (
 \frac{1}{\sqrt{n} }) $, a very high precision is often not needed. Improvements
 of the method exist, such as variance reduction methods, SAG or SAGA \cite[]{Schmidt2013}. 
 
-\subsection{\large\color{MidnightBlue}Kernels}
+\subsection{\large\color{MidnightBlue}Kernel methods}
 
 \subsubsection{\large\color{Periwinkle}Context}
 
-Kernel methods replace inputs $x$ by a function $\phi(x)\in \mathbb{R}^d$ and then perform linear predictions on $\phi(x)$: $f(x) = \theta^T\phi(x)$. $\phi(x)$ is called the \textbf{{feature}} associated to $x$. The reason why they are called "kernel" is not obvious at first glance but will be justified after some calculations.
+When using \textbf{{Kernel methods}}, we replace inputs $x\in  \mathcal{X} $ by a function $\phi(x)\in \mathcal{H}$, with $ \mathcal{H} $ a $ \mathbb{R} $-Hilbert space. We then perform linear predictions on $\phi(x)$. This means that estimators have the form: 
 
-\textbf{{Examples:}} 
+\begin{equation}
+    f(x) = \langle\theta, \phi(x) \rangle_{ \mathcal{H} }
+\end{equation}
 
 \begin{itemize}
-    \item \textbf{{Polynomial regression of degree d.}} $x\in \mathbb{R}$, $\phi(x) = (1, x, x^2, \dots, x^d)$. If $\theta\in \mathbb{R}^d$, 
+    \item $ \langle ., . \rangle_{ \mathcal{H} }$ is the inner product defined on $ \mathcal{H} $. When there is no ambiguity, we will note $ \langle ., . \rangle= \langle ., . \rangle_{ \mathcal{H} }$.
+    \item $ \theta\in  \mathcal{H} $
+    \item $ \phi(x)$ is called the \textbf{{feature}} associated to $x$, and $ \mathcal{H} $ is called the feature space.
+\end{itemize}
+
+Often, $ \mathcal{H} = \mathbb{R}^d $, but importantly, we will see that $d$ can even be \textbf{{infinite}}, thanks to a computation trick called the \textbf{{kernel trick}}. The reason why these methods are called "kernel methods" is not obvious at first glance but will be also justified after some calculations.  A \textit{{kernel}} will be a function of the form
+
+
+$$
+k  : \left\{
+    \begin{array}{ll}
+	\mathcal{H}^2  \rightarrow \mathbb{R}  \\
+	(x,y) \mapsto \langle \phi(x), \phi(y) \rangle_{ \mathcal{H} } & 
+    \end{array}
+\right.
+$$
+\\
+
+
+\textbf{{Examples of feature maps:}} 
+
+\begin{itemize}
+    \item \textbf{{Polynomial regression of degree d.}}
+
+	$x\in \mathbb{R}$, $ \mathcal{H}  = \mathbb{R}^d$, 
+	\begin{equation}
+	    \phi(x) = (1, x, x^2, \dots, x^d)
+	\end{equation}
+
+	If $\theta\in \mathbb{R}^d$, 
 	\begin{equation*}
 	    f(x) = \theta^T\phi(x) = \sum^{r}_{j=1} \theta_jx^j
 	\end{equation*}
-    \item \textbf{{Polynmial multivariate regression of degree r.}} $x\in \mathbb{R}^p$.
+    \item \textbf{{Polynomial multivariate regression of degree r.}}
+
+	$x\in \mathbb{R}^p$, $ \mathcal{H}  = \mathbb{R}^d$.
 
 	\begin{equation*}
 	    \phi(x) = \{(x_1^{\alpha_1}\dots x_p^{\alpha_p}),{ \sum^{p}_{i=1} \alpha_i = r}\}
 	\end{equation*}
 	In that case, $d = \binom{d+r-1}{r}$.
-    \item \textbf{{Fourier Basis}}. $\phi_1, \dots, \phi_d: \mathbb{R}^p\rightarrow \mathbb{R} $ with $\phi_k(x) = e^{i \frac{2\pi kx}{T}} $.
+    % \item \textbf{{Fourier Basis}}.
 
-	\begin{equation*}
-	    f(x) = \sum^{d}_{i=1} w_j\phi_j(x)
-	\end{equation*}
+	% $\phi_1, \dots, \phi_d: \mathbb{R}^p\rightarrow \mathbb{R} $ with $\phi_k(x) = e^{i \frac{2\pi kx}{T}} $.
+
+	% \begin{equation*}
+	    % f(x) = \sum^{d}_{i=1} w_j\phi_j(x)
+	% \end{equation*}
 \end{itemize}
+
+\subsubsection{\large\color{Periwinkle}Interests of kernel methods}
+
+Kernel methods provide stable algorithms, with theoretical convergence guarantees. Importantly, they can benefit from the smoothness (regularity) of the target function, whereas local averaging methods cannot. They can be applied in high dimension.
+
+Furthermore, using feature vectors allows us to process inputs that are not necessary vectors (for instance, texts).
+
+In some supervised learning problems with many observations, such as computer vision and natural language processing, they are now outperformed by neural networks.
 
 \subsubsection{\large\color{Periwinkle}Representer theorem}
 
-We place ourselves in a general framework where we want to study the minimizer $ \hat{\theta}$ of a loss such as
+We consider a framework where we look for a minimizer $ \hat{\theta}$ of a loss such as
 
 \begin{equation}
     \label{eq:genloss}
-    L(w) = \frac{1}{n} \sum^{n}_{i=1} l(y_i, \theta^T\phi(x_i))+\lambda ||\theta||^2
+    L( \theta) = \frac{1}{n} \sum^{n}_{i=1} l(y_i, \langle\theta,\phi(x_i)\rangle+\lambda ||\theta||^2
 \end{equation}
 
-With $\lambda>0$ and $\phi(x_i)\in \mathbb{R}^d$. The following theorem states that the minimizer belongs to the span of $\phi(x_i)$ (espace engendré), which is a subspace of $ \mathbb{R}^d$. This will have important consequences.
+With $\lambda>0$ and $\phi(x_i)\in \mathbb{R}^d$. The following theorem states that the minimizer belongs to the linear span of $\phi(x_i)$ (espace engendré), which is a subspace of $ \mathbb{R}^d$. This will have important consequences.
 
 \begin{theorem}{Representer theorem}
 
     Let $\Psi : \mathbb{R}^{n+1}\rightarrow \mathbb{R} $ be a strictly increasing function with respect to the last variable. Then, the minimum of 
 
     \begin{equation*}
-	L(\theta)  =\Psi(\theta^T\phi(x_i), \dots, \theta^T\phi(x_n), ||\theta||^2)
+	L(\theta)  =\Psi(\langle\theta,\phi(x_i) \rangle, \dots, \langle\theta, \phi(x_n) \rangle, ||\theta||^2)
     \end{equation*}
 
     is attained for $ \hat{\theta}\in Vect(\{\phi(x_i)\}$. We can write
     
     \begin{equation*}
-	\theta = \sum^{n}_{i=1} \alpha_i\phi(x_i), \alpha_i\in \mathbb{R}
+	\theta = \sum^{n}_{i=1} \alpha_i\phi(x_i), \alpha\in \mathbb{R}^n
     \end{equation*}
 \end{theorem}
 
@@ -2331,6 +2375,40 @@ With $\lambda>0$ and $\phi(x_i)\in \mathbb{R}^d$. The following theorem states t
     We note that no convexity hypothesis on $l$ is required.
 \end{corollary}
 
+\begin{proof}
+    Let $ \mathcal{H}_D = \{  \sum^{n}_{i=1} \alpha_i\phi(x_i), \alpha\in \mathbb{R}^n\}$. For all $ \theta\in \mathcal{H} $, we have a decomposition $ \theta = \theta_D+ \theta_{D^{\perp}}$, with $ \theta_D \in \mathcal{H}_D $ and $ \theta_{D^{\perp}} \in \mathcal{H}_D^{\perp} $.
+
+    We then know that $\forall i\in \{1, \dots, n\}$,
+    
+    \begin{equation}
+	\begin{aligned}
+	    \langle \theta, \phi(x_i) \rangle &= \langle \theta_D, \phi(x_i) \rangle+ \langle \theta_{D^{\perp}}, \phi(x_i) \rangle\\
+	    &= \langle \theta_D, \phi(x_i) \rangle
+	\end{aligned}
+    \end{equation}
+    Furthermore,
+    \begin{equation}
+	|| \theta||^2 = || \theta_D||^2+ || \theta_{D^{\perp}}||^2
+    \end{equation}
+
+    Hence
+
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+	    \Psi(\langle\theta,\phi(x_i) \rangle, \dots, \langle\theta, \phi(x_n) \rangle, ||\theta||^2)&=\Psi(\langle\theta_D,\phi(x_i) \rangle, \dots, \langle\theta_D, \phi(x_n) \rangle, || \theta_D||^2+ || \theta_{D^{\perp}}||^2)\\
+	    &\geq \Psi(\langle\theta_D,\phi(x_i) \rangle, \dots, \langle\theta_D, \phi(x_n) \rangle, || \theta_D||^2)\\
+        \end{aligned}
+    \end{equation}
+
+    This means that
+
+    \begin{equation}
+	\inf_{ \theta\in \mathcal{H} }\Psi(\langle\theta,\phi(x_i) \rangle, \dots, \langle\theta, \phi(x_n) \rangle, ||\theta||^2)  = \inf_{ \theta\in \mathcal{H}_D }\Psi(\langle\theta,\phi(x_i) \rangle, \dots, \langle\theta, \phi(x_n) \rangle, ||\theta||^2)
+    \end{equation}
+    
+\end{proof}
+
 \subsubsection{\large\color{Periwinkle}Consequence}
 
 We note
@@ -2338,7 +2416,7 @@ We note
     \item $\alpha$ the vector such that $\theta = \sum^{n}_{i=1} \alpha_i\phi(x_i)$.
     \item $K\in \mathbb{R}^{n ,n}$ the matrix defined by
 	\begin{equation*}
-	    K_{ij} = \phi(x_i)^T\phi(x_j) = \langle\phi(x_i), \phi(x_j) \rangle
+	    K_{ij} = \langle\phi(x_i), \phi(x_j) \rangle 
 	\end{equation*}
 \end{itemize}
 
@@ -2357,7 +2435,7 @@ Now, we remark that
 And that $\forall i\in [1, n]$,
 \begin{equation*}
     \begin{aligned}
-	\theta^T\phi(x_i)&= \sum^{n}_{j=1} \alpha_j\phi(x_j)^T\phi(x_i)\\
+	\langle\theta, \phi(x_i) \rangle&= \sum^{n}_{j=1} \alpha_j \langle\phi(x_j),\phi(x_i) \rangle\\
 	&= \sum^{n}_{j=1} \alpha_j K_{ij}\\
 	&= (K\alpha)_{i}
     \end{aligned}
@@ -2372,14 +2450,89 @@ Finally
 Hence, the loss can be written \textbf{{only with }} $K$ and $\alpha$, instead of the explicit $\phi(x_i)$. At first glance, this could seem like a deceitful statement, since we should need to know $\phi(x_i)$ and $\phi(x_j)$ in order to compute $k(x_i, x_j)$. \textbf{{However}}, in some situations, it is possible to compute $k(x_i, x_j)$ \textbf{{without explicit knowledge}} of $\phi$. This is known as the \textbf{{kernel trick}}.
 \\
 
+We can then define an alternate, equivalent minimization problem:
+
+    \begin{equation}
+	\begin{aligned}
+	    \label{eq:}
+	\inf_{ \theta\in \mathcal{H} } \frac{1}{n} \sum^{n}_{i=1} l(y_i, \langle\theta,\phi(x_i)\rangle+\lambda ||\theta||^2= \inf_{ \alpha\in \mathbb{R}^n} \frac{1}{n} \sum^{n}_{i=1} l(y_i, (K\alpha)_i)+\lambda \alpha^TK\alpha
+	\end{aligned}
+    \end{equation}
+
+\textbf{{Consequences :}}
+\begin{itemize}
+    \item The initial optimization problem on $\theta$ can be replaced as an optimization problem on $\alpha$.
+    \item If $d>>n$ (or even if $d$ is infinite, which can happen as we will see below), and if it is relatively fast to compute $k$, it might be easier to optimize on $\alpha \in \mathbb{R}^n$.  However, computing the matrix $K$ requires at least $ \mathcal{O} (n^2)$ operations.
+    \item This allows to separate the representation problem (choice of the kernel) and the optimization problem (which uses the matrix $K$ as an input).
+\end{itemize}
+
+We can also write the evaluation function using $K$
+
+\begin{equation*}
+    f(x) = \theta^T\phi(x) = \sum^{n}_{i=1} \alpha_ik(x_i,x)
+\end{equation*}
+
+
+\subsubsection{\large\color{Periwinkle}Gram matrix}
+
+The kernel matrix is a matrix of inner products. It is often called a Gram matrix. If we note the design matrix 
+
+\begin{equation*}
+\phi=
+\begin{pmatrix}
+    \phi(x_{1})^T\\
+...\\
+    \phi(x_{i})^T\\
+...\\
+    \phi(x_{n})^T
+\end{pmatrix}
+\end{equation*}
+
+Then
+
+\begin{equation}
+    K = \phi \phi^T\in \mathbb{R}^{n, n}
+\end{equation}
+
+We can quickly show that it is a symmetric positive semi-definite matrix, as for all $\alpha\in \mathbb{R}^n$, 
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	\alpha K \alpha &= \alpha \phi \phi^T \alpha \\
+	&= ( \phi^T \alpha)^T ( \phi^T \alpha)\\
+	&= ||\phi^T \alpha||^2
+    \end{aligned}
+\end{equation}
+
+Then, if $\lambda$ is an eigenvalue of $ K$, with eigenvector $\alpha_{\lambda}$, 
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	\alpha_{\lambda} K \alpha_{\lambda} &= \alpha_{\lambda} \lambda \alpha_{\lambda}\\
+	&= \lambda ||\alpha_{\lambda}||^2
+    \end{aligned}
+\end{equation}
+
+which shows that $\lambda\geq 0$.
+
+Be careful not to mix $K = \phi \phi^T$ with the empirical covariance matrix \ref{eq:Sigma}
+
+\begin{equation}
+    \Sigma = \frac{1}{n}\phi^T \phi\in \mathbb{R}^{d, d}
+\end{equation}
+
+Note that in this definition, $d$ might still be infinite. With the same proof, $ \Sigma$ is positive semi-definite.
+
+\subsubsection{\large\color{Periwinkle}Kernel functions}
+
 More generally, we define \textbf{{kernel functions}}.
 
 \begin{definition}{Kernel function}
 
-    Let $ \mathcal{X} $ be a non-empty set. A function $k: \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}$ is called a \textbf{{positive-definite kernel}}  if there exists a $ \mathbb{R} $-Hilbert space $ \mathcal{H} $, with an inner product $ \langle .,. \rangle_{ \mathcal{H} }$, and a map $\phi: \mathcal{X} \rightarrow \mathcal{H} $ such that $\forall x, x'\in \mathcal{H} $,
-    \begin{equation*}
-	k(x,x') = \langle\phi(x),\phi(x') \rangle_{ \mathcal{H} }
-    \end{equation*}
+    Let $ \mathcal{X} $ be a non-empty set. A function $k: \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}$ is called a \textbf{{positive-definite kernel}} if and only if all kernel matrices are symmetric positive semi-definite.
+
 \end{definition}
 
 \begin{remark}
@@ -2388,17 +2541,19 @@ More generally, we define \textbf{{kernel functions}}.
     
 \end{remark}
 
-We come back to our example. We can rewrite the evaluation function as:
+\begin{theorem}
+    \label{th:aronszajn}
+    A function $k: \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R} $ is a positive definite kernel if and only if there exists a $ \mathbb{R} $-Hilbert space $ \mathcal{H} $, with an inner product $ \langle .,. \rangle_{ \mathcal{H} }$, and a map $\phi: \mathcal{X} \rightarrow \mathcal{H} $ such that $\forall x, x'\in \mathcal{H} $,
 
-\begin{equation*}
-    f(x) = \theta^T\phi(x) = \sum^{n}_{i=1} \alpha_ik(x_i,x)
-\end{equation*}
+    \begin{equation*}
+	k(x,x') = \langle\phi(x),\phi(x') \rangle_{ \mathcal{H} }
+    \end{equation*}
+\end{theorem}
 
-\textbf{{Consequences :}}
-\begin{itemize}
-    \item The initial optimization problem on $\theta$ can be replaced as an optimization problem on $\alpha$.
-    \item If $d>>n$ (or even if $d$ is infinite, which can happen as we will see below), and if it is relatively fast to compute $k$, this can be a computationnal improvement.  However, computing the matrix $K$ requires at least $ \mathcal{O} (n^2)$ operations.
-\end{itemize}
+\begin{remark}
+    Sometimes, the  property stated in theorem \ref{th:aronszajn} is used as a definition of a kernel function.
+\end{remark}
+
 
 \textbf{{Example:}} here is an example  where we can compute $k(x,x')$ without computing $\phi(x)$ explicitely. We consider $x\in ]-1, 1[$, and 
 \begin{equation*}
@@ -2417,6 +2572,14 @@ Then,
 \end{equation*}
 
 Although $\phi(x)$ is \textbf{{infinite dimensional}}, we can compute $k(x,x')$ without evaluating and storing $\phi(x)$ in memory (which would be impossible anyways).
+
+\subsubsection{\large\color{Periwinkle}Famous kernels}
+
+\textbf{{Linear kernel}} 
+
+\begin{equation}
+    k(x,x') = x^Tx'
+\end{equation}
 
 % \subsubsection{\large\color{Periwinkle}Properties of kernels}
 % 
