@@ -6,7 +6,7 @@
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-from TP_3_utils import OLS_estimator, gradient, error, square_distance_to_optimal_parameter, generate_output_data, upper_bound_convex, upper_bound_strongly_convex
+from TP4_utils import OLS_estimator, gradient, error, square_distance_to_optimal_parameter, generate_output_data, upper_bound_convex, upper_bound_strongly_convex
 
 """
     Load the data
@@ -68,6 +68,9 @@ theta_GD = theta_0.copy()
 theta_HB = theta_0.copy()
 theta_HB_before = theta_0.copy()
 theta_HB-=gamma_HB*gradient(theta_HB, H, X, y)
+"""
+    Add code here
+"""
 
 
 """

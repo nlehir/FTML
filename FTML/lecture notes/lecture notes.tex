@@ -999,6 +999,9 @@ GD is an important first-order algorithm for optimization. First-order means tha
     x_{t+1} = x_t - \gamma_t \nabla f(x_t)
 \end{equation*}
 
+GD is sometimes also called \textit{{determinisitic}} of \textit{{full
+gradient}} descent, as opposed to Stocahstic Gradient Descent (SGD, see \ref{sec:sgd}).
+
 \subsubsection{\large\color{Periwinkle}Minimisation of a strongly convex function}
 
 The following lemma shows that if the step size is small enough, then GD is a \textbf{{descent algorithm.}} 
@@ -2041,10 +2044,11 @@ Another often used possibility is the \textbf{{Hinge loss}}.
 \textbf{{Regularization}}: To avoid overfitting, we may also add regularization to the logistic loss, for instance with a term $ \lambda || \theta||_2^2$.
 
 \subsection{\large\color{MidnightBlue}Stochastic Gradient Descent (SGD)}
+\label{sec:sgd}
 
 \subsubsection{\large\color{Periwinkle}Context}
 
-The SGD is the standard optimization algorithm for large scale machine learning, as its computationnal complexity is lower than that of GD, while keeping good convergence speed. We want to minimise a function of the form
+SGD is the standard optimization algorithm for large scale machine learning, as its computationnal complexity is lower than that of GD, while keeping good convergence speed. We want to minimise a function of the form
 
 \begin{equation*}
     f(\theta)=  E_z L(\theta, z)
@@ -2067,7 +2071,14 @@ where
 \end{equation*}
 \end{itemize}
 
-The idea of SGD is to use at each time $t$ an \textbf{{unbiased estimator}} $g_t$  of the gradient of $f$, instead of computing the full gradient. Indeed, for large problems, this can be prohibitive computationally. Hence, for large-scale machine learning, SGD and its variants are the most widely used omtimization algorithms. Let us discuss this on two examples.
+The idea of SGD is to use at each time $t$ an \textbf{{unbiased estimator}}
+$g_t$  of the gradient of $f$, instead of computing the full gradient. Indeed,
+for large problems, this can be prohibitive computationally. Note that GD is
+sometimes called \textit{{deterministic}} or \textit{{full gradient}}, as
+opposed to SGD.
+
+For large-scale machine learning, SGD and its variants are the most widely used
+omtimization algorithms. Let us discuss this on two examples. 
 \\
 
 \textbf{{1] Empirical risk minimisation (ERM)}}
@@ -2181,21 +2192,24 @@ Reference: \cite[]{Bach2021}
 
 \subsubsection{\large\color{Periwinkle}Convergence for a strongly convex objective}
 
-We replace $f$ by $g$ to obtain a strongly convex objective and consider the minimization of $g$.
+We replace $f$ by $g$ to obtain a strongly convex objective and consider the minimization of $u$.
 
 \begin{equation*}
-    g(\theta) = f(\theta)+ \frac{\mu}{2} ||\theta||_2^2
+    u(\theta) = f(\theta)+ \frac{\mu}{2} ||\theta||_2^2
 \end{equation*}
 
-Now, the SGD iteration reads:
+Now, the SGD iteration for $u$ reads:
 
-\begin{equation*}
+\begin{equation}
+    \label{eq:udate}
     \theta_t = \theta_{t-1}- \gamma_t\big(g_t(\theta_{t-1})+\mu \theta_{t-1}\big)
-\end{equation*}
+\end{equation}
 
 \begin{theorem}{Convergence of a strongly convex objective}
 
-    We use the same hypotheses as \ref{th:sgdconvex}, adding the assumption that $g$ admits a (necessary unique) mininizer $\theta^*$. Then, with $\gamma_t =  \frac{1}{\mu t} $.
+    We use the same hypotheses as \ref{th:sgdconvex}, adding the assumption
+    that $u$ admits a (necessary unique) mininizer $\theta^*$. Then, with
+    $\gamma_t =  \frac{1}{\mu t} $ and the update \ref{eq:udate}, we have
 
     \begin{equation*}
 	E[g( \hat{\theta}_t)-g(\theta^*)]\leq \frac{2L^2 (1+\log t)}{\mu t} 
