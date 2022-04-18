@@ -1,14 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-d = 1000
-mu_1 = np.random.randint(0, 5, d)
-mu_2 = np.random.randint(0, 5, d)
-# offset = np.array([[4, 4]])
-# mu_2 = mu_1+offset
-std = [20 for k in range(d)]
+d = 80
+mu_1 = np.random.randint(2, 10, d)
+mu_2 = np.random.randint(2, 10, d)
+std = [14 for k in range(d)]
 
-n_samples = 1000
+n_samples = 1e5
 half_n_samples = int(n_samples/2)
 
 data_1 = np.random.normal(mu_1, scale=std, size=(half_n_samples, d))
@@ -22,6 +20,6 @@ np.save("data/logistic_regression/labels", labels)
 plt.plot(data_1[:, 0], data_1[:, 1], "o", label="class 1", alpha=0.7)
 plt.plot(data_2[:, 0], data_2[:, 1], "o", label="class 2", alpha=0.7)
 plt.xlabel("")
-plt.title("Data")
+plt.title(f"Data\nn={n_samples}, d={d}")
 plt.legend(loc="best")
 plt.savefig("images_LR/classification_data.pdf")

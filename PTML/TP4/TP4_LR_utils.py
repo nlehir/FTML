@@ -14,14 +14,9 @@ def add_bias(data):
     n = data.shape[0]
     return np.hstack((data, np.ones((n, 1))))
 
-"""
-    Test accuracy
-    empirical risk
-"""
 
-
-def logistic_loss(z, y):
-    return np.log(1 + np.exp(-z*y))
+def sigmoid(x):
+    return 1 / (1+np.exp(-x))
 
 
 def sign(x):
@@ -31,12 +26,16 @@ def sign(x):
         return 0
 
 
-def empirical_risk(theta, X, Y):
+def empirical_risk(theta, X, y):
     n_samples = X.shape[0]
     estimations = (X @ theta).reshape(n_samples, 1)
-    losses = logistic_loss(estimations, Y)
+    # print(f"theta norm: {np.linalg.norm(theta):.2f}")
+    # print(f"estimations norm: {np.linalg.norm(estimations):.2f}")
+    # print(f"max estimations: {np.max(np.abs(estimations)):.2f}")
+    losses = np.log(1 + np.exp(-estimations*y))
     emp_risk = 1/n_samples*losses.sum()
     return emp_risk
+
 
 
 def compute_accuracy(theta, X, Y):
