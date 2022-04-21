@@ -10,11 +10,11 @@ This folder contains the slides of the courses and some related exercises.
 2. Mathematical tools for ML, Supervised learning, 
 3. Risk decomposition, Optimization in ML, Ordinary least squares.
 4. Ridge regression, Classification, Logistic regression
-5. Unsupervised learning: clustering, dimensionality reduction
+5. Unsupervised learning: clustering, dimensionality reduction (PCA)
 6. Gradient algorithms, probabilistic modelling
 7. Support vector machines, Kernel methods
-8. Decision tree learning, Ensemble learning, Local averaging
-9. Neural networks I, variable selection
+8. Decision tree learning, Ensemble learning
+9. Local averaging, Neural networks I, variable selection
 10. Statistical learning, neural networks II
 11. Sparse methods, Adaptivity, nonlinear dimensionality reduction
 12. Bayesian learning, latent variables
