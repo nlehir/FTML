@@ -14,7 +14,7 @@ This folder contains the slides of the courses and some related exercises.
 6. Gradient algorithms, probabilistic modelling
 7. Support vector machines, Kernel methods
 8. Decision tree learning, Ensemble learning
-9. Scoring and cross-validation, local averaging, neural networks I
+9. Scoring and cross-validation, local methods, neural networks I
 10. Statistical learning, neural networks II
 11. Sparse methods and variable selection, Adaptivity, nonlinear dimensionality reduction
 12. Bayesian learning, latent variables

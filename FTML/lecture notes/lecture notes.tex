@@ -1092,9 +1092,13 @@ Given some \textbf{{observations}} $(x_i,y_i)\in \mathcal{X} \times \mathcal{Y}$
 
 We assume that there exists an \textbf{{unknown distribution}} $\rho$ for the joint variable $(X,Y)$.  In most theoretical frameworks used to study Supervised Learning, each sample $(x_i,y_i)$ is assumed to be drawn independently from this law. Hence, $D_n$ is a \textbf{{random variable.}} 
 
-\begin{equation*}
+\begin{equation}
     (x_i,y_i)\sim \rho, \forall i\in[1, n]
-\end{equation*}
+\end{equation}
+
+\begin{equation}
+    D_n = \{ (x_i,y_i),  i\in[1, n]\}
+\end{equation}
 
 A \textbf{{learning rule}} $ \mathcal{A} $ is a map ("application" in french) that associates a \textbf{{prediction function}}, or \textbf{{estimator}}  $ \tilde{f}_n$, to $D_n$.
 
@@ -1144,37 +1148,46 @@ $$
 	\end{equation}
 \end{itemize}
 
+\begin{definition}{Empirical distribution}
+
+    We note $\rho_n$ the empirical distribution of the data, that represents the drawn dataset.
+
+    \begin{equation}
+	\rho_n = \frac{1}{n} \sum^{n}_{i=1} \delta_{(x_i, y_i)}
+    \end{equation}
+\end{definition}
+
 \begin{definition}{Risks}
 
-    Let $l$ be a loss.
+    Let $l$ be a loss. The \textbf{{risk}} (or \textbf{{statistical risk, generalization error, test error)}} of estimator $f$ writes
 
-    The \textbf{{risk}} (or \textbf{{statistical risk, generalization error, test error)}} of estimator $f$ writes
-
-    \begin{equation*}
+    \begin{equation}
 	E_{(X,Y)\sim \rho}[l(Y,f(X)]
-    \end{equation*}
+    \end{equation}
 
     The \textbf{{empirical risk (ER)}} of an estimator $f$ writes
 
-    \begin{equation*}
+    \begin{equation}
 	R_n(f) = \frac{1}{n} \sum^{n}_{i=1} l(y_i, f(x_i))
-    \end{equation*}
+    \end{equation}
 
     We emphasize that the risks depends on the loss $l$.
 \end{definition}
 
 \begin{remark}
 
-    \begin{equation*}
+    The empirical risk can be expressed with the empirical distribution.
+
+    \begin{equation}
 	R_n(f)=E_{(X,Y)\sim \rho_n}[l(Y,f(X)]
-    \end{equation*}
+    \end{equation}
 \end{remark}
 
 We define the \textbf{{target function}} $f^*$ by
 
-\begin{equation*}
+\begin{equation}
     f^*\in \argmin_{f:X\rightarrow Y} R(f)
-\end{equation*}
+\end{equation}
 
 with $f:X\rightarrow Y$ set of measurable functions.
 
@@ -1189,9 +1202,9 @@ with $f:X\rightarrow Y$ set of measurable functions.
 
     The \textbf{{excess risk}} $ \mathcal{R} ( \tilde{f}_n)$ measures how close  $ \tilde{f}_n$ (predictor obtained by ERM) is to the best possible $f^*$, in terms of expected risk (average / expecter) error on new examples.
 
-    \begin{equation*}
+    \begin{equation}
 	\mathcal{R} ( \tilde{f}_n) = R( \tilde{f}_n)-R(f^*)
-    \end{equation*}
+    \end{equation}
 
     We also define the \textbf{{excess probability}} as
     \begin{equation*}

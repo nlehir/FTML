@@ -32,34 +32,34 @@
 \contentsline {subsubsection}{\numberline {3.1.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Setup}{16}{subsubsection.3.1.1}
 \contentsline {subsubsection}{\numberline {3.1.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Definitions}{16}{subsubsection.3.1.2}
 \contentsline {subsubsection}{\numberline {3.1.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bayes predictor and conditional expectation}{18}{subsubsection.3.1.3}
-\contentsline {subsubsection}{\numberline {3.1.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bias-Variance decomposition}{18}{subsubsection.3.1.4}
+\contentsline {subsubsection}{\numberline {3.1.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bias-Variance decomposition}{19}{subsubsection.3.1.4}
 \contentsline {subsubsection}{\numberline {3.1.5}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Expected value of empirical risk}{19}{subsubsection.3.1.5}
 \contentsline {subsubsection}{\numberline {3.1.6}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Deterministic bound on the estimation error}{20}{subsubsection.3.1.6}
 \contentsline {subsection}{\numberline {3.2}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Probably Approximately Correct Learning: PAC bounds}{20}{subsection.3.2}
 \contentsline {subsubsection}{\numberline {3.2.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Definition}{20}{subsubsection.3.2.1}
 \contentsline {subsubsection}{\numberline {3.2.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bound in probability on the fluctuation error}{20}{subsubsection.3.2.2}
-\contentsline {subsubsection}{\numberline {3.2.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Probabilistic bound on the generalization error for a decaying approximation error}{20}{subsubsection.3.2.3}
+\contentsline {subsubsection}{\numberline {3.2.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Probabilistic bound on the generalization error for a decaying approximation error}{21}{subsubsection.3.2.3}
 \contentsline {subsubsection}{\numberline {3.2.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Approximation error bound}{21}{subsubsection.3.2.4}
 \contentsline {subsubsection}{\numberline {3.2.5}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Curse of dimensionality}{21}{subsubsection.3.2.5}
 \contentsline {subsection}{\numberline {3.3}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Ordinary Least Squares (OLS)}{21}{subsection.3.3}
 \contentsline {subsubsection}{\numberline {3.3.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{21}{subsubsection.3.3.1}
 \contentsline {subsubsection}{\numberline {3.3.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}OLS estimator}{22}{subsubsection.3.3.2}
 \contentsline {subsubsection}{\numberline {3.3.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Statistical analysis of OLS}{23}{subsubsection.3.3.3}
-\contentsline {subsection}{\numberline {3.4}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Ridge regression}{25}{subsection.3.4}
-\contentsline {subsubsection}{\numberline {3.4.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{25}{subsubsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Ridge regression}{24}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{24}{subsubsection.3.4.1}
 \contentsline {subsubsection}{\numberline {3.4.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Ridge regression estimator}{25}{subsubsection.3.4.2}
 \contentsline {subsubsection}{\numberline {3.4.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Statistical analysis of Ridge regression}{26}{subsubsection.3.4.3}
 \contentsline {subsubsection}{\numberline {3.4.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Choice of $\lambda $}{26}{subsubsection.3.4.4}
 \contentsline {subsection}{\numberline {3.5}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Lasso}{27}{subsection.3.5}
 \contentsline {subsubsection}{\numberline {3.5.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{27}{subsubsection.3.5.1}
 \contentsline {subsubsection}{\numberline {3.5.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}LASSO estimator}{27}{subsubsection.3.5.2}
-\contentsline {subsubsection}{\numberline {3.5.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Numerical resolutions}{27}{subsubsection.3.5.3}
+\contentsline {subsubsection}{\numberline {3.5.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Numerical resolutions}{28}{subsubsection.3.5.3}
 \contentsline {subsection}{\numberline {3.6}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Logistic regression}{28}{subsection.3.6}
 \contentsline {subsubsection}{\numberline {3.6.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{28}{subsubsection.3.6.1}
 \contentsline {subsubsection}{\numberline {3.6.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Logistic regression estimator}{28}{subsubsection.3.6.2}
-\contentsline {subsection}{\numberline {3.7}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Stochastic Gradient Descent (SGD)}{28}{subsection.3.7}
-\contentsline {subsubsection}{\numberline {3.7.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{28}{subsubsection.3.7.1}
-\contentsline {subsubsection}{\numberline {3.7.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}SGD updates}{29}{subsubsection.3.7.2}
+\contentsline {subsection}{\numberline {3.7}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Stochastic Gradient Descent (SGD)}{29}{subsection.3.7}
+\contentsline {subsubsection}{\numberline {3.7.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{29}{subsubsection.3.7.1}
+\contentsline {subsubsection}{\numberline {3.7.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}SGD updates}{30}{subsubsection.3.7.2}
 \contentsline {subsubsection}{\numberline {3.7.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}SGD as an estimation of GD}{30}{subsubsection.3.7.3}
 \contentsline {subsubsection}{\numberline {3.7.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Convergence for a convex objective}{30}{subsubsection.3.7.4}
 \contentsline {subsubsection}{\numberline {3.7.5}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Convergence for a strongly convex objective}{30}{subsubsection.3.7.5}
