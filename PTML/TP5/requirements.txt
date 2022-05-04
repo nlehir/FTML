@@ -1,0 +1,6 @@
+numpy
+seaborn
+ipdb
+scikit-learn
+sklearn
+matplotlib

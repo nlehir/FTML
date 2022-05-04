@@ -1,0 +1,24 @@
+         145725 function calls in 0.494 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    20000    0.208    0.000    0.375    0.000 TP5_algorithms.py:16(gradient_one_sample)
+    20000    0.120    0.000    0.120    0.000 TP5_algorithms.py:12(sigmoid)
+    20000    0.103    0.000    0.103    0.000 {method 'randint' of 'numpy.random.mtrand.RandomState' objects}
+    22640    0.030    0.000    0.030    0.000 {method 'dot' of 'numpy.ndarray' objects}
+    20040    0.014    0.000    0.014    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+       40    0.006    0.000    0.013    0.000 TP5_LR_utils.py:44(compute_accuracy)
+     2640    0.006    0.000    0.006    0.000 TP5_LR_utils.py:29(sign)
+    40000    0.004    0.000    0.004    0.000 {built-in method builtins.len}
+       42    0.001    0.000    0.001    0.000 {built-in method builtins.print}
+       40    0.001    0.000    0.002    0.000 TP5_LR_utils.py:36(empirical_risk)
+       40    0.001    0.000    0.001    0.000 TP5_LR_utils.py:25(logistic_loss)
+       40    0.000    0.000    0.000    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+       40    0.000    0.000    0.000    0.000 {method 'sum' of 'numpy.ndarray' objects}
+      120    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
+       40    0.000    0.000    0.000    0.000 _methods.py:46(_sum)
+        2    0.000    0.000    0.000    0.000 {built-in method time.time}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
