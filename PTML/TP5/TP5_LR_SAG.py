@@ -4,10 +4,11 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from TP5_LR_utils import compute_accuracy, visualise_predictions, add_bias, empirical_risk
-from TP5_algorithms import GD, SGD, SAG
+from TP5_LR_algorithms import GD, SGD, SAG
 import os
 import cProfile
 import sys
+from read_params import read_params
 
 
 data = np.load("./data/logistic_regression/data.npy")
@@ -26,7 +27,8 @@ n_test = X_test.shape[0]
     Regularization parameter
     enforce strong convexity
 """
-mu = 0.1
+params = read_params()
+mu = float(params[2])
 
 """
     Scikit
@@ -66,15 +68,23 @@ print(f"scikit empirical risk: {scikit_empirical_risk:.2E}")
 max_n_iterations = int(2e4)
 # max_n_iterations = int(1e2)
 
+# constants important for the convergence guarantees
+# uniform bound on the datapoints
+R2 = max(np.linalg.norm(data, axis=1)) ** 2
+# smoothness: see TP4.pdf
+L = R2
+# condition number
+kappa = L/mu
+print(f"kappa: {kappa:.2E}")
+# __import__('ipdb').set_trace()
+
 """
     GD
 """
 theta_gd = np.zeros((d+1, 1))
-# uniform bound on the datapoints
-R2 = max(np.linalg.norm(data, axis=1)) ** 2
-gamma_GD_theory = 1/R2
-gamma_GD = gamma_GD_theory
-gamma_GD = 0.05
+gamma_GD = 1/L
+# gamma_GD = gamma_GD_theory
+# gamma_GD = 0.01
 theta_gd, empirical_risks_gd, test_errors_gd, gd_time, risk_computations_gd = GD(
     theta_gd, gamma_GD, X_train, y_train, X_test, y_test, max_n_iterations, scikit_empirical_risk, mu)
 
@@ -83,8 +93,8 @@ theta_gd, empirical_risks_gd, test_errors_gd, gd_time, risk_computations_gd = GD
     SGD
 """
 theta_sgd = np.zeros((d+1, 1))
-gamma_SGD = gamma_GD_theory
-gamma_SGD = 0.00001
+gamma_SGD = 1/L
+# gamma_SGD = 0.00001
 theta_sgd, empirical_risks_sgd, test_errors_sgd, sgd_time, risk_computations_sgd = SGD(
     theta_sgd, gamma_SGD, X_train, y_train, X_test, y_test, max_n_iterations, scikit_empirical_risk, mu)
 
@@ -93,9 +103,12 @@ theta_sgd, empirical_risks_sgd, test_errors_sgd, sgd_time, risk_computations_sgd
     SAG
 """
 theta_sag = np.zeros((d+1, 1))
-gamma_SAG = 1/(16 * R2)
-gamma_SAG = gamma_GD_theory
-gamma_SAG = 0.00001
+gamma_SAG = 1/(2 * L)
+# gamma_SAG = 1/(16 * L)
+gamma_SAG = 1/L
+# gamma_SAG = gamma_SGD
+# gamma_SAG = gamma_GD_theory
+# gamma_SAG = 0.00005
 theta_sag, empirical_risks_sag, test_errors_sag, sag_time, risk_computations_sag = SAG(
     theta_sag, gamma_SAG, X_train, y_train, X_test, y_test, max_n_iterations, scikit_empirical_risk, mu)
 
@@ -150,7 +163,7 @@ plt.plot(np.log10(sample_queries_gd), np.log10(diff_risk_gd),
 plt.plot(np.log10(sample_queries_sgd), np.log10(diff_risk_sgd),
          label=f"SGD empirical risk ({sgd_time:.3f}s)", alpha=0.7, color="green")
 plt.plot(np.log10(sample_queries_sag), np.log10(diff_risk_sag),
-         label=f"sag empirical risk ({sag_time:.3f}s)", alpha=0.7, color="red")
+         label=f"SAG empirical risk ({sag_time:.3f}s)", alpha=0.7, color="red")
 plt.xlabel("log10 number of sample queries (computation time)")
 plt.ylabel("log10 excess empirical risk (train loss)")
 plt.title(f"Logistic regression: log of train loss with GD, SGD, SAG, scikit\n" +
@@ -191,7 +204,7 @@ plt.plot(np.log10(sample_queries_gd),  test_errors_gd,
 plt.plot(np.log10(sample_queries_sgd), test_errors_sgd,
          label=f"SGD accuracy ({sgd_time:.3f}s)", alpha=0.7)
 plt.plot(np.log10(sample_queries_sag), test_errors_sag,
-         label=f"sag accuracy ({sag_time:.3f}s)", alpha=0.7)
+         label=f"SAG accuracy ({sag_time:.3f}s)", alpha=0.7)
 plt.xlabel("log10 number of sample queries (computation time)")
 plt.ylabel("test accuracy")
 plt.ylim([-0.1, 1.1])

@@ -4,10 +4,10 @@ import os
 import cProfile
 import sys
 from time import time
-
 from TP5_LR_utils import empirical_risk, compute_accuracy
 
 conv_tolerance = 0.99
+nbplot = 30
 
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
@@ -16,14 +16,14 @@ def sigmoid(x):
 def gradient_one_sample(theta, x, y, mu):
     d = len(theta)
     n = len(x)
-    grad = -(x * y * sigmoid(-x.dot(theta) * y)).reshape(d, 1) + 1 / n * mu * theta
+    grad = - (x * y * sigmoid(-x.dot(theta) * y)).reshape(d, 1)+mu*theta
     return grad
 
 
 def batch_gradient(theta, X, Y, mu):
     n, d = X.shape
-    products = (X @ theta) * Y
-    gradient = 1 / n * (X.T) @ (-Y * sigmoid(-products)) + mu * theta
+    products = (X@theta)*Y
+    gradient = 1/n*(X.T)@(-Y*sigmoid(-products))+mu*theta
     return gradient
 
 
@@ -47,7 +47,7 @@ def GD(
     tic = time()
     # setup iterations where we monitor empirical risk
     # we dont do it at each iteration to save time
-    nb_empirical_risk_computations = 40
+    nb_empirical_risk_computations = nbplot
     step = int(n_iterations / nb_empirical_risk_computations)
     n_empirical_risk_computations = [step * k for k in range(int(n_iterations / step))]
     print("\nGD")
@@ -70,7 +70,7 @@ def GD(
     print("exit GD")
     # log profile
     profiler.disable()
-    stats_file = open(f"profiling/profiling_GD.txt", "w")
+    stats_file = open(f"profiling_GD.txt", "w")
     sys.stdout = stats_file
     profiler.print_stats(sort="time")
     sys.stdout = sys.__stdout__
@@ -94,7 +94,7 @@ def SGD(
     risk_computations = list()
     # setup iterations where we monitor empirical risk
     # we dont do it at each iteration to save time
-    nb_empirical_risk_computations = 40
+    nb_empirical_risk_computations = nbplot
     step = int(n_iterations / nb_empirical_risk_computations)
     n_empirical_risk_computations = [step * k for k in range(int(n_iterations / step))]
     # setup profiler
@@ -148,10 +148,10 @@ def SAG(
     risk_computations = list()
     n_train, d_train = X_train.shape
     estimates = np.zeros((d_train, n_train))
-    gradient_estimate = np.zeros((d_train, 1))
+    full_gradient_estimate_non_normalized = np.zeros((d_train, 1))
     # setup iterations where we monitor empirical risk
     # we dont do it at each iteration to save time
-    nb_empirical_risk_computations = 40
+    nb_empirical_risk_computations = nbplot
     step = int(n_iterations / nb_empirical_risk_computations)
     n_empirical_risk_computations = [step * k for k in range(int(n_iterations / step))]
     # setup profiler
@@ -171,9 +171,17 @@ def SAG(
             if empirical_risk_iter < conv_tolerance * scikit_empirical_risk:
                 print(f"attained {conv_tolerance:.2f}X scikit risk in {iteration} iterations")
                 break
-        """
-            EDIT HERE TO PERFORM THE ALGORITHM
-        """
+        index = np.random.randint(n_train)
+        x = X_train[index]
+        y = y_train[index]
+        gradient_i_most_recent = gradient_one_sample(theta_sag, x, y, mu)
+        full_gradient_estimate_non_normalized = (
+            full_gradient_estimate_non_normalized
+            - estimates[:, index].reshape(d_train, 1)
+            + gradient_i_most_recent
+        )
+        estimates[:, index] = gradient_i_most_recent.ravel()
+        theta_sag = theta_sag - gamma / n_train * full_gradient_estimate_non_normalized
     toc = time()
     sag_time = toc - tic
     print("exit sag")
