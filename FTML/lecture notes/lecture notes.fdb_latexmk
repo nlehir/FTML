@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex lecture notes"] 1651517095 "lecture notes.aux" "lecture notes.bbl" "lecture notes" 1651524466
+["bibtex lecture notes"] 1651769869 "lecture notes.aux" "lecture notes.bbl" "lecture notes" 1651769922
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/apalike.bst" 1480098433 24635 604dafcc79f521a11ea73e506e1fbd98 ""
   "epitheoremes.bib" 1644321251 3599 e891923dfad8cf94fa1b16416e84ef7a ""
-  "lecture notes.aux" 1651517137 21704 4e53caac3684303b4c7b648275110d69 ""
+  "lecture notes.aux" 1651769922 22432 4329784acc098a05d8ab9fa08ca9e229 ""
   (generated)
   "lecture notes.bbl"
   "lecture notes.blg"
-["pdflatex"] 1651517136 "lecture notes.tex" "lecture notes.pdf" "lecture notes" 1651524466
+["pdflatex"] 1651769920 "lecture notes.tex" "lecture notes.pdf" "lecture notes" 1651769922
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/iwona/ec-iwona-sc.enc" 1480098667 2452 388b1f44dfda03ab19527677af70e7fb ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/iwona/ec-iwona.enc" 1480098667 2027 f8708480c25b8150843bb94b8b39c93f ""
@@ -223,15 +223,15 @@
   "Figures/knn.pdf" 1645538903 71602 bd0f80c24add65348f58e86079457f5b ""
   "Figures/ols_risks.pdf" 1646233497 23843 0f8c26c48baf95ad25204b2647306bd3 ""
   "Figures/ridge_risks_n=30.pdf" 1647440070 27061 599abe94e5e1e4a8c14a2151999d46ae ""
-  "lecture notes.aux" 1651517137 21704 4e53caac3684303b4c7b648275110d69 ""
-  "lecture notes.bbl" 1651517095 720 a6945fb010acda696bfc12f6649c4a65 "bibtex lecture notes"
-  "lecture notes.out" 1651517137 8869 c2beda9a8d6155ad5a3f80a676082590 ""
-  "lecture notes.tex" 1651517135 109939 ffd488216bfb15129afc95231119cd02 ""
-  "lecture notes.toc" 1651517137 14185 3099f31378e14390a26312e10b41d500 ""
+  "lecture notes.aux" 1651769922 22432 4329784acc098a05d8ab9fa08ca9e229 ""
+  "lecture notes.bbl" 1651769869 720 a6945fb010acda696bfc12f6649c4a65 "bibtex lecture notes"
+  "lecture notes.out" 1651769922 9117 465a234ac091e66c36784e74e6d24635 ""
+  "lecture notes.tex" 1651769920 112813 b0d518f37aa600611503cfe158d52002 ""
+  "lecture notes.toc" 1651769922 14545 0f62d58a94d898cef66bd7260bc2ea58 ""
   "stru/structure.tex" 1647175663 3406 48a95603d4e1a73bcf0c057b04bf9701 ""
   (generated)
   "lecture notes.toc"
-  "lecture notes.pdf"
   "lecture notes.out"
-  "lecture notes.aux"
   "lecture notes.log"
+  "lecture notes.pdf"
+  "lecture notes.aux"

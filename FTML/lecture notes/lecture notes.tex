@@ -1162,7 +1162,7 @@ $$
     Let $l$ be a loss. The \textbf{{risk}} (or \textbf{{statistical risk, generalization error, test error)}} of estimator $f$ writes
 
     \begin{equation}
-	E_{(X,Y)\sim \rho}[l(Y,f(X)]
+        E_{(X,Y)\sim \rho}[l(Y,f(X))]
     \end{equation}
 
     The \textbf{{empirical risk (ER)}} of an estimator $f$ writes
@@ -1179,7 +1179,7 @@ $$
     The empirical risk can be expressed with the empirical distribution.
 
     \begin{equation}
-	R_n(f)=E_{(X,Y)\sim \rho_n}[l(Y,f(X)]
+        R_n(f)=E_{(X,Y)\sim \rho_n}[l(Y,f(X))]
     \end{equation}
 \end{remark}
 
@@ -1190,6 +1190,23 @@ We define the \textbf{{target function}} $f^*$ by
 \end{equation}
 
 with $f:X\rightarrow Y$ set of measurable functions.
+
+\begin{remark}
+    With the \textbf{{law of total expectation}}, we can write the risk as a the
+    expectation of a conditional expectation.
+
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+            R(f) &= E_{(X,Y)\sim \rho}[l(Y,f(X))]\\
+            &= E_{X}\Big[E[l(Y,f(X))|X]\Big]\\
+        \end{aligned}
+    \end{equation}
+
+    $E\big(l(X,Y)|X \big) $ is the expectation of $l(X, Y)$ given $X$.
+
+    \url{https://en.wikipedia.org/wiki/Law_of_total_expectation} 
+\end{remark}
 
 
 \begin{definition}{Fundamental problem of Supervised Learning}
@@ -1261,7 +1278,12 @@ Since $ \tilde{f}_n$ is a random variable $D_n$, $R_n( \tilde{f})$ and thus $ \m
 
     \subsubsection{\large\color{Periwinkle}Bayes predictor and conditional expectation}
 
-    Under some conditions, we can give an explicit formulation of $f^*$, the best predictor in $ \mathcal{Y}^{ \mathcal{X} }$, although we can not compute it without the knowledge of the distribution of $(X,Y)$. In this paragraph we ignore the measurability issues that were mentioned earlier.
+    Under some conditions, that are most often satisfied in a machine learning
+    context, we can give an explicit formulation of $f^*$, the best predictor
+    in $ \mathcal{Y}^{ \mathcal{X} }$, although we can not compute it without
+    the knowledge of the distribution of $(X,Y)$. In this paragraph we ignore
+    the measurability issues that were mentioned earlier, as it is often not an
+    important issue for machine learning problems.
 
     \begin{theorem}{Bayes predictor}
         
@@ -1269,7 +1291,7 @@ Since $ \tilde{f}_n$ is a random variable $D_n$, $R_n( \tilde{f})$ and thus $ \m
 
 	\begin{equation}
 	    \label{eq:bayes}
-	    f^*(x) = \argmin_{y\in \mathcal{Y} }E[ l(Y, y)|X=x]
+	    f^*(x) = \argmin_{y\in \mathcal{Y} }E\big[ l(Y, y)|X=x\big]
 	\end{equation}
 
 	almost everywhere. $E[q(Y)|X=x]$ denotes the conditional expectation of $q(Y)$ given that $X=x$, with $ q:Y\mapsto \mathbb{R} $. $f^*$ is also called the \textbf{{Bayes}} predictor.
@@ -1279,23 +1301,28 @@ Since $ \tilde{f}_n$ is a random variable $D_n$, $R_n( \tilde{f})$ and thus $ \m
 
 	The Bayes risk is the risk of the Bayes predictor.
 
-	\begin{equation*}
-	    R^* = E_X\Big( \inf_{y\in \mathcal{Y} }E\big( l(Y, y)|X\big) \Big)
-	\end{equation*}
+	\begin{equation}
+        \begin{aligned}
+            \label{eq:}
+            R^* &= E_X\Big( \inf_{y\in \mathcal{Y} }E\big( l(Y, y)|X\big) \Big)\\
+            %&= E_X\Big( E\big( l(Y, f^*(X))|X\big) \Big)\\
+        \end{aligned}
+	\end{equation}
     \end{definition}
 
 
     \begin{remark}
 	\begin{itemize}
-	    \item $Y$ is a random variable while the parameter $y$ in \ref{eq:bayes} is a scalar.
+	    \item $Y$ is a random variable while the parameter $y$ in \ref{eq:bayes} is a value.
 	    \item As we do not know the joint distribution $\rho$, it is not possible to compute the Bayes predictor from this expression.
 	    \item Here, each possible value $x$  taken by $X$ is considered independently, as we do not require any regularity in $f^*: \mathcal{X}\rightarrow \mathcal{Y} $.
 	\end{itemize}
     \end{remark}
 
-    \textbf{{Bayes estimator for regression and squared loss}} 
 
-    In that case, we can be more precise on the value of the Bayes predictor. We assume that $ \mathcal{X} = \mathbb{R}^d$ and $ \mathcal{Y}= \mathbb{R} $, and that we use the square loss $l(y,z)=(y-z)^2$. Hence, for each $x\in \mathcal{X} $,
+    \subsubsection{\large\color{Periwinkle}Bayes estimator for regression and squared loss}
+
+    In that case, we can be even more precise on the value of the Bayes predictor. We assume that $ \mathcal{X} = \mathbb{R}^d$ and $ \mathcal{Y}= \mathbb{R} $, and that we use the square loss $l(y,z)=(y-z)^2$. Hence, for each $x\in \mathcal{X} $,
 
 \begin{equation*}
     f^*(x)= \argmin_{y\in \mathcal{Y} }E\big((y-Y)^2 |X=x\big)
@@ -1321,7 +1348,64 @@ We also have that
     E\big(2(y-E(Y|X=x))(E(Y|X=x)-Y)\big)=2(y-E(Y|X=x))E\big(E((Y|X=x)-Y)\big)=0
 \end{equation*}
 
-As a consequence, the value that minimizes $E\big((y-Y)^2 |X=x\big)$ is $E(Y|X=x)$.
+As a consequence, the value that minimizes $E\big((y-Y)^2 |X=x\big)$ is
+\begin{equation}
+    f^*(x)=E(Y|X=x)
+\end{equation}
+
+\begin{remark}
+    In order to be able to compute $E(Y|X=x)$, we need the conditional law
+    $P(Y|X=x)$, or equivalently  the joint law $P(X,Y)$ \textbf{{and}} the prior
+    distribution $P(X)$. But again, in practical situations this is not the
+    case.
+\end{remark}
+
+\subsubsection{\large\color{Periwinkle}Bayes predictor for classification and "0-1" loss}
+
+In this situation, we can also express the Bayes predictor $f^*(x)$ as a
+function of the probabilities. This time, $ \mathcal{X} = \mathbb{R}^d$ and $
+\mathcal{Y}  = \{-1, 1\}$ or $ \mathcal{Y}  = \{0, 1\}$ (we use the latter
+setting). We use the "0-1" loss $l(y,z) = 1_{y\neq z}$. In this setting, given a fixed value $X=x$ and a prediction $z\in \{0, 1\}$,
+the computation of $E\Big[l(Y,z)|X=x\Big]$ is
+straightforward.
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+        E\Big[l(Y,z)|X=x\Big] &= 1 \times P(Y\neq z|X=x)+0\times P(Y=z|X=x)\\
+        &=  P(Y\neq z|X=x)
+    \end{aligned}
+\end{equation}
+
+
+Now, we have
+
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+	    f^*(x)&= \argmin_{z\in \mathcal{Y} }E\Big[l(Y,z)|X=x\Big]\\
+	    &= \argmin_{z\in \mathcal{Y} }P(Y\neq z|X=x)\\
+	    &= \argmin_{z\in \mathcal{Y} }1-P(Y=z|X=x)\\
+	    &= \argmax_{z\in \mathcal{Y} }P(Y=z|X=x)
+        \end{aligned}
+    \end{equation}
+
+    The optimal classifier selects the most probable output given $X=x$. We can
+    now formulate the Bayes risk more explicitely, as a function of the
+    probabilities. We note $\eta(x) = P(Y=1|X=x)$. Then, 
+    \begin{itemize}
+        \item If $ \eta(x)> \frac{1}{2} $, then $f^*(x)=1$, and $P\big( Y\neq f^*(x)\big) =   P\big( Y=0\big)=1-\eta(x)$
+	\item If $ \eta(x)< \frac{1}{2} $, then $f^*(x)=0$, and $P\big( Y\neq f^*(x)\big) =   P\big( Y=1\big)=\eta(x)$
+    \end{itemize}
+
+    In both cases, $P\big( Y\neq f^*(x)\big)= \min(\eta(x), 1-\eta(x))$.
+    \\
+
+    Finally,
+
+    \begin{equation}
+	R^* = E_X\Big[ \min(\eta(X), 1-\eta(X))\Big]
+    \end{equation}
 
 \subsubsection{\large\color{Periwinkle}Bias-Variance decomposition}
 
