@@ -2048,7 +2048,9 @@ Thi proposition is illustrated in figure \ref{fig:ridge_risks_n=30}.
 \begin{itemize}
     \item If the the norms of all $x_i$ are uniformly bounded by $R$, then we can observe by direct calculation that $tr( \Sigma)\leq R^2$, independently of $d$. If $R$ and $||\theta^*||_2$ remain finite, then $d$ plays no role in  the bound in \ref{ref:ridgeopt}. This is called a \textit{{dimension-free}} bound.
     \item The convergence to $0$ in OLS is in $ \frac{1}{n} $, while it is  in $ \frac{1}{ \sqrt{n} }$ for the ridge. However, for the ridge regression, the dependence in the noise if in $\sigma$, whereas it is $\sigma^2$ for OLS. Which one is preferrable will depend on the value of the constants, and will not necessary be the "fast" rate in $ \mathcal{O} ( \frac{1}{n} )$.
-    \item In practical situations, the quantities involved in the computation of $\lambda^*$ in  \ref{eq:lambdaopt} are typically unknown. However this equation show that there may exist a $\lambda$ with a good prediction performance, which can be found by cross validation in practice.
+    \item In practical situations, the quantities involved in the computation
+        of $\lambda^*$ in  \ref{eq:lambdaopt} are typically unknown. However
+        this equation shows that there may exist a $\lambda$ with a good prediction performance, which can be found by cross validation in practice.
 \end{itemize}
 
 \begin{figure}[htpb]
