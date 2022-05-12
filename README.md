@@ -15,7 +15,7 @@ This folder contains the slides of the courses and some related exercises.
 7. Support vector machines, Kernel methods
 8. Decision tree learning, Ensemble learning
 9. Scoring and cross-validation, neural networks I
-10. Neural networks II, local methods, statistical learning
+10. Neural networks II, statistical learning, local methods
 11. Sparse methods and variable selection, nonlinear dimensionality reduction, adaptivity
 12. Bayesian learning, latent variables
 
