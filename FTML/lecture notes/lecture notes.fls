@@ -327,6 +327,9 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 OUTPUT lecture notes.toc
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/nowacki/iwona/ec-iwonar-sc.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/nowacki/iwona/ec-iwonar-sc.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/bera/t1fvm.fd
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/bera/t1fvm.fd
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/bera/fvmr8t.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/nowacki/iwona/ec-iwonab-sc.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/nowacki/iwona/ec-iwonab.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/nowacki/iwona/ec-iwonabi.tfm
@@ -336,6 +339,9 @@ INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/ufplmbb.fd
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/mathpazo/fplmbb.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/mathpazo/fplmbb.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/mathpazo/fplmbb.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/public/bera/fvmr8t.vf
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/bera/fvmr8r.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplri9d.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/nowacki/iwona/ec-iwonar.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/nowacki/iwona/ec-iwonar-sc.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/nowacki/iwona/ec-iwonar-sc.tfm
@@ -357,7 +363,6 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/adobe/palatino/pplr9o.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/public/eulervm/zeusm7.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/euler/eufm7.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/euler/eusm7.tfm
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplri9d.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/adobe/palatino/pplb9d.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplb8r.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/mathpazo/fplmb.tfm
@@ -369,17 +374,17 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/adobe/palatino/pplri9d.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplri8r.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/mathpazo/fplmri.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplrij8r.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplbi9d.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/adobe/palatino/pplr9o.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/mathpazo/fplmr.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplr8r.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplrc8r.tfm
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplbi9d.tfm
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplri9d.tfm
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplri9d.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/adobe/palatino/pplbi9d.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplbi8r.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/mathpazo/fplmbi.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplbij8r.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplri9d.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplri9d.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/adobe/palatino/pplri9d.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/palatino/pplri8r.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/mathpazo/fplmri.tfm
@@ -393,14 +398,9 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr7.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/public/eulervm/zeusm7.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/euler/eufm7.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/euler/eusm7.tfm
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/bera/t1fvm.fd
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/bera/t1fvm.fd
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/bera/fvmro8t.tfm
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/bera/fvmr8t.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/public/bera/fvmro8t.vf
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/bera/fvmro8r.tfm
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/vf/public/bera/fvmr8t.vf
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/bera/fvmr8r.tfm
 INPUT Figures/ols_risks.pdf
 INPUT ./Figures/ols_risks.pdf
 INPUT ./Figures/ols_risks.pdf

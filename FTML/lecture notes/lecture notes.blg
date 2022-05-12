@@ -2,47 +2,53 @@ This is BibTeX, Version 0.99d (TeX Live 2017)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: lecture notes.aux
 The style file: apalike.bst
-Database file #1: epitheoremes.bib.bib
+Database file #1: ../../../epita.bib.bib
 Warning--there's a number but no volume in Allaire2012
-You've used 3 entries,
+Warning--empty year in Alpaydin
+Warning--empty journal in Alpaydin
+Warning--empty journal in Azencott2022
+Warning--can't use both volume and number fields in Cornuejols2003
+Warning--empty publisher in Cornuejols2003
+Warning--empty publisher in Shalev-Shwartz2013
+You've used 8 entries,
             1935 wiz_defined-function locations,
-            494 strings with 4214 characters,
-and the built_in function-call counts, 1108 in all, are:
-= -- 108
-> -- 32
-< -- 3
-+ -- 10
-- -- 10
-* -- 87
-:= -- 195
-add.period$ -- 9
-call.type$ -- 3
-change.case$ -- 20
-chr.to.int$ -- 3
-cite$ -- 4
-duplicate$ -- 49
-empty$ -- 82
-format.name$ -- 13
-if$ -- 219
+            526 strings with 4892 characters,
+and the built_in function-call counts, 2709 in all, are:
+= -- 255
+> -- 90
+< -- 9
++ -- 28
+- -- 28
+* -- 220
+:= -- 480
+add.period$ -- 20
+call.type$ -- 8
+change.case$ -- 52
+chr.to.int$ -- 8
+cite$ -- 15
+duplicate$ -- 117
+empty$ -- 197
+format.name$ -- 40
+if$ -- 522
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 3
-newline$ -- 18
-num.names$ -- 9
-pop$ -- 16
+missing$ -- 10
+newline$ -- 39
+num.names$ -- 24
+pop$ -- 55
 preamble$ -- 1
-purify$ -- 20
+purify$ -- 54
 quote$ -- 0
-skip$ -- 39
+skip$ -- 91
 stack$ -- 0
-substring$ -- 73
-swap$ -- 10
-text.length$ -- 1
+substring$ -- 158
+swap$ -- 16
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 18
-warning$ -- 1
-while$ -- 10
+type$ -- 44
+warning$ -- 7
+while$ -- 22
 width$ -- 0
-write$ -- 41
-(There was 1 warning)
+write$ -- 95
+(There were 7 warnings)

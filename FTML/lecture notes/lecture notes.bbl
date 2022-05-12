@@ -7,14 +7,37 @@ Allaire, G. (2012).
   num{\'{e}}rique}.
 \newblock {\em {\'{E}}ditions de l'{\'{E}}cole Polytechnique}, (2):480.
 
+\bibitem[Alpaydin, ]{Alpaydin}
+Alpaydin, E.
+\newblock {Introduction to Machine Learning, Fourth Edition}.
+
+\bibitem[Azencott, 2022]{Azencott2022}
+Azencott, C.-A. (2022).
+\newblock {Introduction au Machine Learning - 2e {\'{e}}d.}
+
 \bibitem[Bach, 2021]{Bach2021}
 Bach, F. (2021).
 \newblock {Learning Theory from First Principles Draft}.
 \newblock {\em Book Draft}, page 229.
 
+\bibitem[Cornu{\'{e}}jols and Miclet, 2003]{Cornuejols2003}
+Cornu{\'{e}}jols, A. and Miclet, L. (2003).
+\newblock {\em {Apprentissage artificiel : Concepts et algorithmes}},
+  volume~50.
+
+\bibitem[Hastie et~al., 2009]{Hastie2009}
+Hastie, T., Tibshirani, R., and Friedman, J. (2009).
+\newblock {The Elements of Statistical Learning}.
+\newblock {\em Elements}, 1:337--387.
+
 \bibitem[Schmidt et~al., 2013]{Schmidt2013}
 Schmidt, M., {Le Roux}, N., and Bach, F. (2013).
 \newblock {Minimizing finite sums with the stochastic average gradient}.
 \newblock {\em Mathematical Programming}, 162(1-2):83--112.
+
+\bibitem[Shalev-Shwartz and Ben-David, 2013]{Shalev-Shwartz2013}
+Shalev-Shwartz, S. and Ben-David, S. (2013).
+\newblock {\em {Understanding machine learning: From theory to algorithms}},
+  volume 9781107057.
 
 \end{thebibliography}
