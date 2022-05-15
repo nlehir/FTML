@@ -1131,7 +1131,7 @@ $$
 
 Since $D_n$ is a random variable, and since $ \tilde{f}_n$ depends on $D_n$, $ \tilde{f}_n$ is also a random variable.
 
-\subsubsection{\large\color{Periwinkle}Definitions}
+\subsubsection{\large\color{Periwinkle}Loss functions}
 
 \begin{definition}{Loss function}
 
@@ -1165,6 +1165,10 @@ $$
 	    l(y,z) = |y-z|
 	\end{equation}
 \end{itemize}
+
+In section \ref{subsec:logistic}, we will introduce other loss functions, that are necessary to solve classification problems.
+
+\subsubsection{\large\color{Periwinkle}Risks}
 
 \begin{definition}{Empirical distribution}
 
@@ -2098,14 +2102,15 @@ It is defined as
 The problem is convex, so the solution can be obtained effitiently. Popular methods include \textbf{{Coordinate desent, Fista, LARS}}.
 
 \subsection{\large\color{MidnightBlue}Logistic regression}
+\label{subsec:logistic}
 
 Despite its name, \textbf{{logistic regression}} is a classification method. It
-is sometimes called logistic classification.
+is thus sometimes called logistic classification.
 
 \subsubsection{\large\color{Periwinkle}Context}
 
 We want to perform a binary classification from $d$-dimensional inputs, using a
-\textbf{{linear predictor}} $\hat{f}_{\theta}$, parametrized by $\theta\in \mathbb{R}^d$. The inputs are $x_i \in \mathbb{R}^d$, $1\leq i \leq n$ and the outputs: $y_i\in \{0, 1\}$. The estimator writes:
+\textbf{{linear predictor}} $\hat{f}_{\theta}$, parametrized by $\theta\in \mathbb{R}^d$. The inputs are $x_i \in \mathbb{R}^d$, $1\leq i \leq n$ and the outputs: $y_i\in \{0, 1\}$. With this estimator, the decision function writes:
 
 $$
 \hat{y}_i = \hat{f}_{\theta}(x_i)=\left\{
@@ -2120,39 +2125,57 @@ $$
     It is not always possible to separate the data in a linear way. Often we work with \textbf{{transformations}} of the data, $\phi(x)$ instead of $x$, where $\phi(x)$ is in a high dimensional space (Kernel methods).
 \end{remark}
 
-\begin{definition}{Binary loss function}
-    \begin{equation*}
-	\hat{R}_n(\theta) = \frac{1}{n} \sum^{n}_{i=1} \mathbb{1}_{y_i\neq \hat{f}_{\theta}(x_i)}    
-    \end{equation*}
+
+\subsubsection{\large\color{Periwinkle}Risk convexification}
+
+\begin{definition}{Binary classification empirical risk}
+    \begin{equation}
+	\begin{aligned}
+	    \label{eq:}
+	    \hat{R}_n(\theta) &= \frac{1}{n} \sum^{n}_{i=1} \mathbb{1}_{y_i\neq \hat{f}_{\theta}(x_i)}    \\
+	    &=\frac{1}{n} \sum^{n}_{i=1} l_{"0-1"}(y_i,\hat{f}_{\theta}(x_i))  
+	\end{aligned}
+    \end{equation}
 \end{definition}
 
-However it is hard to minimize the binary loss as it is neither differentiable nor convex in $\theta$. We can replace it by a \textbf{{convex, differentiable surrogate loss}} (\textbf{{substitut convexe}}). Several possibilities exist instead of using $ \mathbb{1}_{y_i\neq \hat{f}(x_i)}    $ as $l$ (binary loss). The \textbf{{logistic loss}} is one of them 
+However it is hard to minimize this empirical risk as it is neither differentiable nor convex in $\theta$. We can replace it by a \textbf{{convex, differentiable surrogate loss}} (\textbf{{substitut convexe}}). Several possibilities exist instead of using $ \mathbb{1}_{y_i\neq \hat{f}(x_i)}    $ as $l$ (binary loss). The \textbf{{logistic loss}} and \textbf{{cross-enropy loss}} are frequently used options.
 
-\begin{definition}{Logistic loss}
-    \label{loss:logistic}
+\begin{definition}{Cross-entropy loss}
+
+    When $ \mathcal{Y}  = \{0, 1\}$, the cross-entropy loss can be used as a convex surrogate:
+    \label{loss:cross}
 	\begin{equation}
 	    l(\hat{y}, y) = y\log(1+e^{- \hat{y}})+ (1-y)\log(1+e^{ \hat{y}})
 	\end{equation}
 \end{definition}
 
-\begin{remark}
-    If $Y\in \{-1, 1\}$, we sometimes encounter the following formulation:
-	\begin{equation*}
+\begin{definition}
+
+    When $Y\in \{-1, 1\}$, the logistic loss can be used as a convex surrogate: 
+	\begin{equation}
+	    \label{loss:logistic}
 	    l(\hat{y}, y) = \log(1+e^{- \hat{y}\times y})
-	\end{equation*}
+	\end{equation}
+\end{definition}
+
+\begin{remark}
+    \begin{itemize}
+	\item Sometimes the naming of these two losses is used interchangeably.
+        \item The choice of $ \mathcal{Y} $ will depend on the context, the most convenient choice should be used.
+	\item Another often used possibility is the \textbf{{hinge loss}}. It used the loss used for optimizing \textbf{{Support vector machines.}} 
+    \end{itemize}
 \end{remark}
 
-Another often used possibility is the \textbf{{Hinge loss}}.
 
 \subsubsection{\large\color{Periwinkle}Logistic regression estimator}
 
 \begin{definition}{Logistic regression estimator}
     \label{def:logicest}
 
-    If $l$ is the logistic loss, it is defined as
+    If $l$ is the logistic loss or the cross-entropy loss, it is defined as
 
     \begin{equation*}
-	\hat{\theta}_{logit} = \argmin_{\theta\in \mathbb{R}^d} \frac{1}{n} \sum^{n}_{i=1} l(X_i^T\theta, Y_i) 
+	\hat{\theta}_{logit} = \argmin_{\theta\in \mathbb{R}^d} \frac{1}{n} \sum^{n}_{i=1} l(x_i^T\theta, y_i) 
     \end{equation*}
 \end{definition}
 
@@ -2976,7 +2999,9 @@ The likelihood can also be used to estimate the density of an output $Y$ given a
     R_n(\theta) = - \frac{1}{n} \sum^{n}_{i=1} \log\big(p_{\theta}(y_i|x_i)\big)
 \end{equation*}
 
-\textbf{{Link with linear regression.}} We consider $D_n = \{(x_1, y_1), \dots, (x_n, y_n)\}\in (\mathcal{X}\times \mathcal{Y})^n$, with $ \mathcal{X} = \mathbb{R}^d$, and $ \mathcal{Y} = \mathbb{R} $. We can define a probabilistic model such that finding the maximum likelihood estimator for this model is equivalent to doing least square regression.
+\subsubsection{\large\color{Periwinkle}Link with linear regression}
+
+We consider $D_n = \{(x_1, y_1), \dots, (x_n, y_n)\}\in (\mathcal{X}\times \mathcal{Y})^n$, with $ \mathcal{X} = \mathbb{R}^d$, and $ \mathcal{Y} = \mathbb{R} $. We can define a probabilistic model such that finding the maximum likelihood estimator for this model is equivalent to doing least square regression.
 
 This model, called the \textbf{{Gaussian model}}, assumes that the outputs $y_i$ are independently generated from a Gaussian distribution of mean $w_*^Tx_i$ and variance $\sigma_*$. Out optimal parameter is thus $\theta^* =(w_*, \sigma_*)$. This writes:
 
@@ -3006,7 +3031,9 @@ This means that the maximum likelihood estimator $ \hat{w}_n$ in the Gaussian mo
 \end{equation*}
 \\
 
-\textbf{{Link with logistic regression.}} In a similar way, in a binary classification problem, we can introduce a model for which the maximum likelihood estimator is the logistic regression estimator $\hat{\theta}_{logit}$ defined in \ref{def:logicest}. This time, $ \mathcal{Y} = \{0, 1\}$, while we still have $ \mathcal{X}=\mathbb{R}^d$.
+\subsubsection{\large\color{Periwinkle}Link with logistic regression}
+
+In a similar way, in a binary classification problem, we can introduce a model for which the maximum likelihood estimator is the logistic regression estimator $\hat{\theta}_{logit}$ defined in \ref{def:logicest}. This time, $ \mathcal{Y} = \{0, 1\}$, while we still have $ \mathcal{X}=\mathbb{R}^d$.
 
 \begin{definition}{Sigmoid function}
 $$
@@ -3051,7 +3078,7 @@ Hence
     \end{aligned}
 \end{equation*}
 
-where $l$ is the logistic loss defined in \ref{loss:logistic}. We find that the problems of empirical risk minimization for the log-likelihood in this model and the logistic regression are the same.
+where $l$ is the cross-entropy loss defined in \ref{loss:cross}. We find that the problems of empirical risk minimization for the log-likelihood in this model and the logistic regression with this formulation are the same.
 
 \bibliographystyle{apalike}
 \bibliography{../../../epita.bib} 

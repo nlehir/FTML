@@ -30,13 +30,14 @@
 \contentsline {section}{\numberline {3}\relax \fontsize {12}{14}\selectfont \color {Blue}Supervised Learning}{16}{section.3}
 \contentsline {subsection}{\numberline {3.1}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}General definitions and bounds}{16}{subsection.3.1}
 \contentsline {subsubsection}{\numberline {3.1.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Setup}{16}{subsubsection.3.1.1}
-\contentsline {subsubsection}{\numberline {3.1.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Definitions}{17}{subsubsection.3.1.2}
-\contentsline {subsubsection}{\numberline {3.1.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bayes predictor and conditional expectation}{19}{subsubsection.3.1.3}
-\contentsline {subsubsection}{\numberline {3.1.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bayes estimator for regression and squared loss}{19}{subsubsection.3.1.4}
-\contentsline {subsubsection}{\numberline {3.1.5}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bayes predictor for classification and "0-1" loss}{20}{subsubsection.3.1.5}
-\contentsline {subsubsection}{\numberline {3.1.6}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bias-Variance decomposition}{20}{subsubsection.3.1.6}
-\contentsline {subsubsection}{\numberline {3.1.7}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Expected value of empirical risk}{21}{subsubsection.3.1.7}
-\contentsline {subsubsection}{\numberline {3.1.8}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Deterministic bound on the estimation error}{21}{subsubsection.3.1.8}
+\contentsline {subsubsection}{\numberline {3.1.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Loss functions}{17}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Risks}{17}{subsubsection.3.1.3}
+\contentsline {subsubsection}{\numberline {3.1.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bayes predictor and conditional expectation}{19}{subsubsection.3.1.4}
+\contentsline {subsubsection}{\numberline {3.1.5}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bayes estimator for regression and squared loss}{19}{subsubsection.3.1.5}
+\contentsline {subsubsection}{\numberline {3.1.6}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bayes predictor for classification and "0-1" loss}{20}{subsubsection.3.1.6}
+\contentsline {subsubsection}{\numberline {3.1.7}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bias-Variance decomposition}{20}{subsubsection.3.1.7}
+\contentsline {subsubsection}{\numberline {3.1.8}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Expected value of empirical risk}{21}{subsubsection.3.1.8}
+\contentsline {subsubsection}{\numberline {3.1.9}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Deterministic bound on the estimation error}{21}{subsubsection.3.1.9}
 \contentsline {subsection}{\numberline {3.2}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Probably Approximately Correct Learning: PAC bounds}{22}{subsection.3.2}
 \contentsline {subsubsection}{\numberline {3.2.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Definition}{22}{subsubsection.3.2.1}
 \contentsline {subsubsection}{\numberline {3.2.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Bound in probability on the fluctuation error}{22}{subsubsection.3.2.2}
@@ -58,10 +59,11 @@
 \contentsline {subsubsection}{\numberline {3.5.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Numerical resolutions}{29}{subsubsection.3.5.3}
 \contentsline {subsection}{\numberline {3.6}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Logistic regression}{30}{subsection.3.6}
 \contentsline {subsubsection}{\numberline {3.6.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{30}{subsubsection.3.6.1}
-\contentsline {subsubsection}{\numberline {3.6.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Logistic regression estimator}{30}{subsubsection.3.6.2}
-\contentsline {subsection}{\numberline {3.7}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Stochastic Gradient Descent (SGD)}{30}{subsection.3.7}
-\contentsline {subsubsection}{\numberline {3.7.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{30}{subsubsection.3.7.1}
-\contentsline {subsubsection}{\numberline {3.7.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}SGD updates}{31}{subsubsection.3.7.2}
+\contentsline {subsubsection}{\numberline {3.6.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Risk convexification}{30}{subsubsection.3.6.2}
+\contentsline {subsubsection}{\numberline {3.6.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Logistic regression estimator}{30}{subsubsection.3.6.3}
+\contentsline {subsection}{\numberline {3.7}\relax \fontsize {12}{14}\selectfont \color {MidnightBlue}Stochastic Gradient Descent (SGD)}{31}{subsection.3.7}
+\contentsline {subsubsection}{\numberline {3.7.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Context}{31}{subsubsection.3.7.1}
+\contentsline {subsubsection}{\numberline {3.7.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}SGD updates}{32}{subsubsection.3.7.2}
 \contentsline {subsubsection}{\numberline {3.7.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}SGD as an estimation of GD}{32}{subsubsection.3.7.3}
 \contentsline {subsubsection}{\numberline {3.7.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Convergence for a convex objective}{32}{subsubsection.3.7.4}
 \contentsline {subsubsection}{\numberline {3.7.5}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Convergence for a strongly convex objective}{32}{subsubsection.3.7.5}
@@ -94,3 +96,5 @@
 \contentsline {subsubsection}{\numberline {5.2.1}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Link with empirical risk minimization}{41}{subsubsection.5.2.1}
 \contentsline {subsubsection}{\numberline {5.2.2}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Link with Kullback-Leibler divergence}{41}{subsubsection.5.2.2}
 \contentsline {subsubsection}{\numberline {5.2.3}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Conditional modeling}{41}{subsubsection.5.2.3}
+\contentsline {subsubsection}{\numberline {5.2.4}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Link with linear regression}{42}{subsubsection.5.2.4}
+\contentsline {subsubsection}{\numberline {5.2.5}\relax \fontsize {12}{14}\selectfont \color {Periwinkle}Link with logistic regression}{42}{subsubsection.5.2.5}
