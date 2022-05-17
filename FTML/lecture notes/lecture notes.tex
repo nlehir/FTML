@@ -130,9 +130,9 @@ Indeed,
     \begin{itemize}
         \item If $X$ has a moment of order $1$, it is called the \textbf{{expected value}} 
 	\item If $X$ has a moment of order $2$, then $X-E(X)$ also has a moment of order $2$. This moment is called the variance of $X$.
-	    \begin{equation*}
+	    \begin{equation}
 		V(X)=E\big((X-E(X))^2\big)
-	    \end{equation*}
+	    \end{equation}
 	    We often note $\sigma(X)= \sqrt{Var(X)}$. 
     \end{itemize}
 
@@ -142,9 +142,9 @@ Indeed,
     \label{prop:var}
 
     Let $a$ and $b$ be real numbers, and $X$ a random variable that admits a moment of order $2$. Then
-    \begin{equation*}
+    \begin{equation}
 	Var(aX+b)=a^2Var(X)
-    \end{equation*}
+    \end{equation}
 
 \end{proposition}
 
@@ -172,15 +172,15 @@ Indeed,
 \end{lemma}
 
 \begin{proposition}
-    Let $(X_1, \dots, X_n)$ be $n$ mutually independent real random variables. Then if they all admit a moment of order $1$, then the product $X_1X_2\dots X_n$ also does admit a moment of order $1$ and 
-    \begin{equation*}
+    Let $(X_1, \dots, X_n)$ be $n$ mutually \textbf{{independent}}  real random variables. Then if they all admit a moment of order $1$, then the product $X_1X_2\dots X_n$ also does admit a moment of order $1$ and 
+    \begin{equation}
 	E(X_1X_2\dots X_n) = \prod^{n}_{i=1} E(X_i)
-    \end{equation*}
+    \end{equation}
     If they also admit moments of order $2$, then
     
-    \begin{equation*}
+    \begin{equation}
 	Var( \sum^{n}_{i=1} X_i ) = \sum^{n}_{i=1} Var(X_i)
-    \end{equation*}
+    \end{equation}
 \end{proposition}
 
 \begin{definition}{Expected value for vectors, variance matrix}
@@ -225,24 +225,23 @@ Note that we could similarly define the expected value of a matrix.
 \end{remark}
 
 \begin{lemma}
-    Let $X \in \mathbb{R}^{d, p}$.
+    Let $X \in \mathbb{R}^{d, p}$ be a random vector.
 
-    If $A\in \mathbb{R}^{n,d}$, $AX\in \mathbb{R}^{n,p}$, and we have
+    If $A\in \mathbb{R}^{n,d}$ is a fixed matrix, $AX\in \mathbb{R}^{n,p}$ is a random vector and we have
 
     \begin{equation*}
 	E(AX)=AE(X)
     \end{equation*}
+
+    and 
+
+        \begin{equation*}
+	Var(AX) = AVar(X)A^T\in \mathbb{R}^{n, n}
+    \end{equation*}
     
-    If $B\in \mathbb{R}^{p, m}$, $XB \in \mathbb{R}^{d, m}$ and we have
+    Similarly, if $B\in \mathbb{R}^{p, m}$ is a fixed matrix, $XB \in \mathbb{R}^{d, m}$ is a random vector and we have
     \begin{equation*}
 	E(XB)=E(X)B
-    \end{equation*}
-\end{lemma}
-
-
-\begin{lemma}
-    \begin{equation*}
-	Var(AX) = AVar(X)A^T\in \mathbb{R}^{n, n}
     \end{equation*}
 \end{lemma}
 
@@ -347,7 +346,7 @@ The sample mean vector is an \textbf{{unbiased estimator}} of the expected value
 \end{pmatrix}
     \end{equation*}
 
-    Then, the sample covariance matrix writes:
+    Then, the \textbf{{centered}} sample covariance matrix writes:
 
     \begin{equation*}
 	S^2 = \frac{1}{n-1} X_{\text{centered}}^TX_{\text{centered}}
@@ -360,18 +359,18 @@ The sample mean vector is an \textbf{{unbiased estimator}} of the expected value
 
     Let $X$ ba a real non-negative random variable (variable aléatoire réelle positive), such that $E(|X|)<+\infty$. Let $a>0$. Then
 
-    \begin{equation*}
+    \begin{equation}
 	P(X\geq a)\leq \frac{E(X)}{a} 
-    \end{equation*}
+    \end{equation}
     
 \end{proposition}
 
 \begin{proposition}{Chebyshev inequality}
     Let $X$ ba a real random variable, such that $E(|X|^2)<+\infty$. Let $a>0$. Then
 
-    \begin{equation*}
+    \begin{equation}
 	P(|X-E[X]|>a)\leq \frac{Var(X)}{a^2} 
-    \end{equation*}
+    \end{equation}
 \end{proposition}
 
 
@@ -379,16 +378,16 @@ The sample mean vector is an \textbf{{unbiased estimator}} of the expected value
 
     Let $(X_i)_{i\in \mathbb{N} }$ be a sequence of i.i.d. variables that have a moment of order $2$. We note $m$ their expected value. Then
 
-    \begin{equation*}
+    \begin{equation}
 	\forall \epsilon > 0, \lim_{n\rightarrow+\infty}P\big( |\frac{1}{n} \sum^{n}_{i=1} X_i-m|\geq \epsilon \big)= 0
-    \end{equation*}
+    \end{equation}
 
 We say that we have \textbf{{convergence in probability}}.
 \end{theorem}
 
 \begin{proof}
 
-    Let $S_n= \frac{1}{n} \sum^{n}_{i=1} X_i$. By linearity of the expected value, $E(S_n)=m$. We note $\sigma^2=Var(X_1)$. By independence of the sequence $(X_n)_{n\in \mathbb{N} }$, we have that $Var(S_n)= \sum^{n}_{i=1} Var( \frac{1}{n}  X_i)$, which is equal to $ \frac{1}{n^2} \sum^{n}_{i=1} Var(X_i)= \frac{\sigma^2}{n} $ with \ref{prop:var}.
+    Let $S_n= \frac{1}{n} \sum^{n}_{i=1} X_i$. By linearity of the expected value, $E(S_n)=m$. We note $\sigma^2=Var(X_1)$. By independence of the sequence $(X_n)_{n\in \mathbb{N} }$, we have that $Var(S_n)= \sum^{n}_{i=1} Var( \frac{1}{n}  X_i)$, which is equal to $ \frac{1}{n^2} \sum^{n}_{i=1} Var(X_i)= \frac{\sigma^2}{n} $ with equation \ref{prop:var}.
 
     Using the Chebychev inequality, 
 
@@ -407,9 +406,9 @@ We say that we have \textbf{{convergence in probability}}.
 	\item $\lim_{n\rightarrow +\infty}Var(S_n)=0$.
 	\item More precisely, we have a probabilistic bound on the magnitude of the difference between the average $S_n$ and $m$.
 
-	    \begin{equation*}
+	    \begin{equation}
 		\sqrt{Var\Big( S_n-m \Big)} = \frac{\sigma}{ \sqrt{n} } 
-	    \end{equation*}
+	    \end{equation}
     \end{itemize}
 \end{remark}
 
@@ -1574,9 +1573,9 @@ For some \textbf{{fixed}} $h\in H$, $R_n(h)$ is a random variable, as it depends
         
 	With probability $ 1-\delta$, we have
 
-	\begin{equation*}
+	\begin{equation}
 	    R( \tilde{f})\leq R(f_a)+2 \sqrt{ \frac{ \log(|F|)+ \log( \frac{2}{\delta} )}{2n} } 
-	\end{equation*}
+	\end{equation}
     \end{corollary}
 
     \begin{remark}
@@ -1827,7 +1826,7 @@ We are interested in quantitative garantees on the generalization error of the O
     The assumption that there exists a vector $ \theta^*\in \mathbb{R}^d$ such that 
 
     \begin{equation*}
-	Y_i = \theta^{*T}x_i+Z_i, \forall i\in [1, n]
+	y_i = \theta^{*T}x_i+z_i, \forall i\in [1, n]
     \end{equation*}
     and $Z_i$ is a centered noise (or error)  ($E[Z_i]=0$) with variance $ \sigma^2$, is called the \textbf{{linear model.}} 
 \end{definition}
@@ -1842,12 +1841,16 @@ All expectations are then with respect to the law of $X$ and of $Z$.
 
 \begin{definition}{Fixed design}
 
-    In this setting, $X$ is assumed to be deterministic, so the expectations are with respect to $Z$ only.  We can thus define
+    In this setting, $X$ is assumed to be deterministic (fixed, hence the name), so the expectations are with respect to $z$ only. In this context, we define the \textbf{{fixed design risk}} 
 
-    \begin{equation*}
-	R_X(\theta)    = E[ \frac{1}{n} \sum^{n}_{i=1} (Y_i-\theta^Tx_i)^2]
-    \end{equation*}
-    For instance $ R_X(\theta^*) = \sigma^2$.
+    \begin{equation}
+	\begin{aligned}
+	    \label{eq:}
+	    R_X(\theta)    &= E_y[ \frac{1}{n} \sum^{n}_{i=1} (y_i-\theta^Tx_i)^2]\\
+	    &= E_y[ \frac{1}{n} ||y-X\theta||_2^2]
+	\end{aligned}
+    \end{equation}
+    The index $X$ denotes that this quantity depends on the fixed input matrix $X$. For instance $ R_X(\theta^*) = \sigma^2$. 
 \end{definition}
 
 \begin{definition}{Random design}
@@ -1855,15 +1858,9 @@ All expectations are then with respect to the law of $X$ and of $Z$.
     In this setting, $X$ is random, so the expectations are with respect to $X$ and $Z$.
 \end{definition}
 
-\textbf{{Comment:}} We will give results for the \textbf{{fixed design}} setting in the linear model. The fixed design setting is a \textbf{{simplifying assumption.}}  In that respect, it allows to have garantees on the \textbf{{fixed design risk}} $R_X(\theta)$ , not the generalization error directly, with
+We will give statistical results only for the \textbf{{fixed design}} setting in the linear model. The fixed design setting is a \textbf{{simplifying assumption}}, that allows to have guarantees on the \textbf{{fixed design risk}} $R_X(\theta)$, not on the generalization error directly. The fixed design setting can also be seen as a method that allows the learning of the optimal prediction vector, given some inputs.
 
-\begin{equation}
-    R_X(\theta) = E_y[ \frac{1}{n} ||y-X\theta||_2^2]
-\end{equation}
-
-where the expectation if only over $y$, and the index $X$ noting that this depends on the input matrix $X$. The fixed design setting can also be seen as a method that allows the learning of the optimal prediction vector, given some inputs.
-
-However, it is also possible to have similar results in the random design setting, which corresponds to a generalization error, assuming the data are generated according to the corresponding distribution.
+However, it is also possible to have similar results in the random design setting, but the proofs are harder.
 
 \begin{proposition}{Risk decomposition}
 
@@ -1900,15 +1897,15 @@ $ \hat{\Sigma}^{-1}$ is often called the \textit{{precision matrix.}}
 
     Still with the same hypothesis
 
-    \begin{equation*}
+    \begin{equation}
 	Var(|| \hat{\theta}-\theta^*||^2) = \frac{d\sigma^2}{n} Tr(\hat{\Sigma}^{-1})
-    \end{equation*}
+    \end{equation}
 
     and
 
-    \begin{equation*}
+    \begin{equation}
 	E[R_X( \hat{\theta})]-R_X( \theta^*) = \frac{\sigma ^2d}{n} 
-    \end{equation*}
+    \end{equation}
 
     We note that both these quantities increase linearly with the dimension.
 \end{corollary}
@@ -2093,9 +2090,9 @@ The \textbf{{Lasso}}  is another regularization method for OLS. The original ide
 
 It is defined as
 
-\begin{equation*}
+\begin{equation}
     \tilde{\theta}_{\lambda}\in \argmin_{\theta\in \mathbb{R}^d}\{||Y-X\theta||^2+\lambda ||\theta||_1\}
-\end{equation*}
+\end{equation}
 
 \subsubsection{\large\color{Periwinkle}Numerical resolutions}
 
@@ -2174,9 +2171,9 @@ However it is hard to minimize this empirical risk as it is neither differentiab
 
     If $l$ is the logistic loss or the cross-entropy loss, it is defined as
 
-    \begin{equation*}
+    \begin{equation}
 	\hat{\theta}_{logit} = \argmin_{\theta\in \mathbb{R}^d} \frac{1}{n} \sum^{n}_{i=1} l(x_i^T\theta, y_i) 
-    \end{equation*}
+    \end{equation}
 \end{definition}
 
 \textbf{{Numerical resolution}} : The ER is differentiable and stricly convex and thus has a unique minimizer. However, the equation obtained by cancellation of the gradient has \textbf{{no closed form solution}}. To solve it, we need to use iterative algorithms such as gradient descent or Newton's method.
@@ -2318,15 +2315,15 @@ Reference: \cite[]{Bach2021}
 
     Let $\gamma_t = \frac{D}{L \sqrt{t} } $, $\forall t\in \mathbb{N} $. Then, the iterates of SGD satisfy:
 
-    \begin{equation*}
+    \begin{equation}
 	E[f( \hat{\theta}_t)-f(\theta^*)]\leq DL \frac{2+\log(t)}{2 \sqrt{t} }
-    \end{equation*}
+    \end{equation}
 
     where 
 
-    \begin{equation*}
+    \begin{equation}
 	\hat{\theta}_t = \frac{ \sum^{t}_{s=1} \gamma_s\theta_{s-1}}{ \sum^{t}_{s=1} \gamma_s} 
-    \end{equation*}
+    \end{equation}
 
 \end{theorem}
 
@@ -2351,15 +2348,15 @@ Now, the SGD iteration for $u$ reads:
     that $u$ admits a (necessary unique) mininizer $\theta^*$. Then, with
     $\gamma_t =  \frac{1}{\mu t} $ and the update \ref{eq:udate}, we have
 
-    \begin{equation*}
+    \begin{equation}
 	E[g( \hat{\theta}_t)-g(\theta^*)]\leq \frac{2L^2 (1+\log t)}{\mu t} 
-    \end{equation*}
+    \end{equation}
 
     where 
 
-    \begin{equation*}
+    \begin{equation}
 	\hat{\theta}_t = \frac{1}{t} \sum^{t}_{s=1} \theta_{s-1}
-    \end{equation*}
+    \end{equation}
 
 \end{theorem}
 
@@ -2369,9 +2366,9 @@ Now, the SGD iteration for $u$ reads:
 
     We define the \textbf{{variance}} of the estimator of the gradient as
 
-    \begin{equation*}
+    \begin{equation}
 	\sigma^2(\theta) = E_{z}|| \nabla_{\theta} f(\theta)- \nabla_{\theta}L(\theta, z)||^2
-    \end{equation*}
+    \end{equation}
 
     We note that $\sigma $ depends on $ \theta$.
     
@@ -2388,9 +2385,9 @@ Now, the SGD iteration for $u$ reads:
     \end{itemize}
     Let $\gamma_t = \gamma$, $\forall t\in \mathbb{N} $ and $ 0<\gamma < \frac{1}{2L} $. Then
 
-    \begin{equation*}
+    \begin{equation}
 	E_{z_1, \dots, z_T}||\theta_T-\theta^*||\leq (1-\mu\gamma)^T||\theta_0-\theta^*|| + \frac{ \gamma}{\mu} \sigma^2
-    \end{equation*}
+    \end{equation}
 \end{theorem}
 
 \begin{remark}
@@ -2411,15 +2408,15 @@ As a consequence:
 \begin{itemize}
     \item When $n$ is large and $\epsilon$ not too small, GD will need more computation time to reach error $\epsilon$. An order of magnitude can be obtained by studying the value $\epsilon^*$ such that
 
-	\begin{equation*}
+	\begin{equation}
 	   \kappa nd \log \frac{1}{\epsilon^*}  = \frac{\kappa d}{\epsilon^*} 
-	\end{equation*}
+	\end{equation}
 
 	Which translates to
 
-	\begin{equation*}
+	\begin{equation}
 	    \epsilon^* \log \epsilon^* = -\frac{1}{n}  
-	\end{equation*}
+	\end{equation}
     \item When $\epsilon \rightarrow 0$, GD becomes faster than SGD to reach this precision.
 \end{itemize}
 
@@ -2534,32 +2531,32 @@ With $\lambda>0$ and $\phi(x_i)\in \mathbb{R}^d$. The following theorem states t
 
     We then know that $\forall i\in \{1, \dots, n\}$,
     
-    \begin{equation}
+    \begin{equation*}
 	\begin{aligned}
 	    \langle \theta, \phi(x_i) \rangle &= \langle \theta_D, \phi(x_i) \rangle+ \langle \theta_{D^{\perp}}, \phi(x_i) \rangle\\
 	    &= \langle \theta_D, \phi(x_i) \rangle
 	\end{aligned}
-    \end{equation}
+    \end{equation*}
     Furthermore,
-    \begin{equation}
+    \begin{equation*}
 	|| \theta||^2 = || \theta_D||^2+ || \theta_{D^{\perp}}||^2
-    \end{equation}
+    \end{equation*}
 
     Hence
 
-    \begin{equation}
+    \begin{equation*}
         \begin{aligned}
             \label{eq:}
 	    \Psi(\langle\theta,\phi(x_i) \rangle, \dots, \langle\theta, \phi(x_n) \rangle, ||\theta||^2)&=\Psi(\langle\theta_D,\phi(x_i) \rangle, \dots, \langle\theta_D, \phi(x_n) \rangle, || \theta_D||^2+ || \theta_{D^{\perp}}||^2)\\
 	    &\geq \Psi(\langle\theta_D,\phi(x_i) \rangle, \dots, \langle\theta_D, \phi(x_n) \rangle, || \theta_D||^2)\\
         \end{aligned}
-    \end{equation}
+    \end{equation*}
 
     This means that
 
-    \begin{equation}
+    \begin{equation*}
 	\inf_{ \theta\in \mathcal{H} }\Psi(\langle\theta,\phi(x_i) \rangle, \dots, \langle\theta, \phi(x_n) \rangle, ||\theta||^2)  = \inf_{ \theta\in \mathcal{H}_D }\Psi(\langle\theta,\phi(x_i) \rangle, \dots, \langle\theta, \phi(x_n) \rangle, ||\theta||^2)
-    \end{equation}
+    \end{equation*}
     
 \end{proof}
 
@@ -2569,9 +2566,9 @@ We note
 \begin{itemize}
     \item $\alpha$ the vector such that $\theta = \sum^{n}_{i=1} \alpha_i\phi(x_i)$.
     \item $K\in \mathbb{R}^{n ,n}$ the matrix defined by
-	\begin{equation*}
+	\begin{equation}
 	    K_{ij} = \langle\phi(x_i), \phi(x_j) \rangle 
-	\end{equation*}
+	\end{equation}
 \end{itemize}
 
 Now, we remark that
@@ -2597,9 +2594,9 @@ And that $\forall i\in [1, n]$,
 
 Finally
 
-\begin{equation*}
+\begin{equation}
     L(\theta) = \frac{1}{n} \sum^{n}_{i=1} l(y_i, (K\alpha)_i)+\lambda \alpha^TK\alpha
-\end{equation*}
+\end{equation}
 
 Hence, the loss can be written \textbf{{only with }} $K$ and $\alpha$, instead of the explicit $\phi(x_i)$. At first glance, this could seem like a deceitful statement, since we should need to know $\phi(x_i)$ and $\phi(x_j)$ in order to compute $k(x_i, x_j)$. \textbf{{However}}, in some situations, it is possible to compute $k(x_i, x_j)$ \textbf{{without explicit knowledge}} of $\phi$. This is known as the \textbf{{kernel trick}}.
 \\
@@ -2622,9 +2619,9 @@ We can then define an alternate, equivalent minimization problem:
 
 We can also write the evaluation function using $K$
 
-\begin{equation*}
+\begin{equation}
     f(x) = \theta^T\phi(x) = \sum^{n}_{i=1} \alpha_ik(x_i,x)
-\end{equation*}
+\end{equation}
 
 
 \subsubsection{\large\color{Periwinkle}Gram matrix}
@@ -3084,4 +3081,3 @@ where $l$ is the cross-entropy loss defined in \ref{loss:cross}. We find that th
 \bibliography{../../../epita.bib} 
 
 \end{document}
-
