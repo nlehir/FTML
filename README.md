@@ -25,10 +25,10 @@ This folder contains the practical sessions.
 
 1. Reminders/Introduction to Python 3, polynomial regression, Ordinary least squares
 2. Ridge regression, logistic regression, cross validation I
-3. Gradient descent (GD) and extensions
-4. Stochastic gradient descent (SGD) and extensions
-5. Bayesian learning
-6. Lasso, Kernel density estimation, kernel regression
+3. Gradient descent (GD) and extensions (on OLS)
+4. Stochastic gradient descent (SGD) and extensions (on logistic regression)
+5. Stochastic average gradient (SAG) (on logistic regression)
+6. Bayesian learning
 7. Model selection, PCA, kernel PCA
 8. Neural networks
 9. Nonlinear dimensionality reduction
