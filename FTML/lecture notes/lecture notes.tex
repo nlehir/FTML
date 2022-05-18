@@ -790,6 +790,7 @@ Reference: \cite[]{Allaire2012}
 \subsection{\large\color{MidnightBlue}Existence result}
 
 \begin{theorem}{Existence of a global minimum in $\mathbb{R}^d$}
+    \label{th:dimfinie}
 
     Let $K$ be a closed non-empty subset of $ \mathbb{R}^d$, and $f: \mathbb{R}^d\rightarrow \mathbb{R} $ a continuous coercive function. Then, there exists at least a global minimum of $f$ on $K$.
 \end{theorem}
@@ -956,7 +957,7 @@ Convexity is a key property of function, that allows to have theoretical proofs 
     Let $K$ be a closed non-empty subset of the Hilbert space $H$, and $f: \mathbb{R}^d\rightarrow \mathbb{R} $ a continuous $\mu$-strongly convex function. Then, there exists a unique a global minimum $u$ of $f$ on $K$, and
 
     \begin{equation*}
-	\forall y\in K, ||y-x||^2\leq \frac{ \alpha}{4} [ f(y)-f(x)]
+	\forall y\in K, ||y-x||^2\leq \frac{4}{\mu} [ f(y)-f(x)]
     \end{equation*}
 \end{theorem}
 
@@ -994,7 +995,7 @@ If $x$ is a local minimizer of $f$, then
 
 \subsubsection{\large\color{Periwinkle}Expected values and convex functions}
 
-Let $D$ be a convex set. If $f$ is convex, then if $p: S\Rightarrow D$ is such that $p(x)\geq 0$ and $ \int_{S} p(x)  dx =1$, then
+Let $D$ be a convex set. If $f$ is convex, then if $p: S\rightarrow D$ is such that $p(x)\geq 0$ and $ \int_{S} p(x)  dx =1$, then
 
 \begin{equation*}
     f( \int_{S} p(x)x  dx)\leq \int_{S} p(x)f(x)  dx
@@ -1010,7 +1011,7 @@ Let $D$ be a convex set. If $X$ is a random variable such that $ X\in D$ almost 
 
 \subsubsection{\large\color{Periwinkle}Context}
 
-GD is an important first-order algorithm for optimization. First-order means that it is based on the first-order derivative. For well-conditioned convex problems, it converges exponentially fast. We want to minimize a differentiable function $f$. The \textbf{{gradient descent (GD)}}  update reads:
+GD is an important first-order algorithm for optimization. A first-order iterative algorithm only has access to the first-order derivative of the current iterate. For well-conditioned convex problems, it converges exponentially fast. We want to minimize a differentiable function $f$. The \textbf{{gradient descent (GD)}}  update reads:
 
 \begin{equation*}
     x_{t+1} = x_t - \gamma_t \nabla f(x_t)
@@ -1041,7 +1042,7 @@ The following lemma shows that if the step size is small enough, then GD is a \t
 
 \begin{theorem}{Convergence of GD for a strongly convex function}
 
-    Let $f: \mathbb{R}^d\Rightarrow \mathbb{R}	$ be a  $\mu$-strongly convex function with $L$-Lipshitz continuous gradients. Let $x^*$ be the global minimum of $f$ (which we know exists since $f$ is strongly convex), $x_0\in \mathbb{R} $, $T\in \mathbb{N}$.
+    Let $f: \mathbb{R}^d\rightarrow \mathbb{R}	$ be a  $\mu$-strongly convex function with $L$-Lipshitz continuous gradients. Let $x^*$ be the global minimum of $f$ (which we know exists since $f$ is strongly convex), $x_0\in \mathbb{R} $, $T\in \mathbb{N}$.
 
     \begin{itemize}
 	\item With constant step size $\gamma_t = \frac{1}{L} $, we have
@@ -1113,10 +1114,6 @@ We assume that there exists an \textbf{{unknown distribution}} $\rho$ for the jo
     (x_i,y_i)\sim \rho, \forall i\in[1, n]
 \end{equation}
 
-\begin{equation}
-    D_n = \{ (x_i,y_i),  i\in[1, n]\}
-\end{equation}
-
 A \textbf{{learning rule}} $ \mathcal{A} $ is a map ("application" in french) that associates a \textbf{{prediction function}}, or \textbf{{estimator}}  $ \tilde{f}_n$, to $D_n$.
 
 $$
@@ -1134,7 +1131,7 @@ Since $D_n$ is a random variable, and since $ \tilde{f}_n$ depends on $D_n$, $ \
 
 \begin{definition}{Loss function}
 
-    A \textbf{{loss function}} $l$ is an map that measures the discrepancy between to elements of a set (for instance of a linear space).
+    A \textbf{{loss function}} $l$ is a map that measures the discrepancy between to elements of a set (for instance of a linear space).
 $$
 l: \left\{
     \begin{array}{ll}
@@ -1176,6 +1173,8 @@ In section \ref{subsec:logistic}, we will introduce other loss functions, that a
     \begin{equation}
 	\rho_n = \frac{1}{n} \sum^{n}_{i=1} \delta_{(x_i, y_i)}
     \end{equation}
+
+    where $\delta_{(x_i, y_i)}$ is the Dirac mass in $(x_i, y_i)$ (\url{https://fr.wikipedia.org/wiki/Mesure_de_Dirac}).
 \end{definition}
 
 \begin{definition}{Risks}
@@ -1238,7 +1237,7 @@ with $f:X\rightarrow Y$ set of measurable functions.
 
 \begin{definition}{Excess risk}
 
-    The \textbf{{excess risk}} $ \mathcal{R} ( \tilde{f}_n)$ measures how close  $ \tilde{f}_n$ (predictor obtained by ERM) is to the best possible $f^*$, in terms of expected risk (average / expecter) error on new examples.
+    The \textbf{{excess risk}} $ \mathcal{R} ( \tilde{f}_n)$ measures how close  $ \tilde{f}_n$ (predictor obtained by ERM) is to the best possible $f^*$, in terms of expected risk (generalization error) on new examples.
 
     \begin{equation}
 	\mathcal{R} ( \tilde{f}_n) = R( \tilde{f}_n)-R(f^*)
@@ -1251,7 +1250,7 @@ with $f:X\rightarrow Y$ set of measurable functions.
 \end{definition}
 
 \begin{remark}
-Since $ \tilde{f}_n$ is a random variable $D_n$, $R_n( \tilde{f})$ and thus $ \mathcal{R} ( \tilde{f}_n)$ are also random variables.
+Since $ \tilde{f}_n$ is a random variable, $R_n( \tilde{f}_n)$ and thus $ \mathcal{R} (\tilde{f}_n)$ are also random variables.
 \end{remark}
 
 
@@ -1282,7 +1281,7 @@ Since $ \tilde{f}_n$ is a random variable $D_n$, $R_n( \tilde{f})$ and thus $ \m
     The sequence $(e_n)_{n \in \mathbb{R} } $ is a learning rate in expectation if
 
     \begin{equation*}
-	E_{D_n} [\mathcal{R} ( \tilde{f}_n)]\leq e_n, \forall n\in \mathbb{N} 
+	E_{D_n} \big[\mathcal{R} ( \tilde{f}_n)\big]\leq e_n, \forall n\in \mathbb{N} 
     \end{equation*}
     
 \end{definition}
@@ -1292,7 +1291,7 @@ Since $ \tilde{f}_n$ is a random variable $D_n$, $R_n( \tilde{f})$ and thus $ \m
     Let $\delta \in ]0, 1]$.  The  sequence $(p_{n, \delta})_{n\in \mathbb{N} }$ is a learning rate in probability if
 
     \begin{equation*}
-	P_{D_n}( \mathcal{R} ( \tilde{f}_n)\geq p_{n,\delta})\leq \delta, \forall n\in \mathbb{N} 
+	P_{D_n}( \mathcal{R} ( \tilde{f}_n)\geq \delta)\leq p_{n,\delta}, \forall n\in \mathbb{N} 
     \end{equation*}
 \end{definition}
 
@@ -1325,7 +1324,7 @@ Since $ \tilde{f}_n$ is a random variable $D_n$, $R_n( \tilde{f})$ and thus $ \m
 	\begin{equation}
         \begin{aligned}
             \label{eq:}
-            R^* &= E_X\Big( \inf_{y\in \mathcal{Y} }E\big( l(Y, y)|X\big) \Big)\\
+	    R^* &= E_X\Big[ \inf_{y\in \mathcal{Y} }E_Y\big[ l(Y, y)|X\big] \Big]\\
             %&= E_X\Big( E\big( l(Y, f^*(X))|X\big) \Big)\\
         \end{aligned}
 	\end{equation}
@@ -1346,36 +1345,36 @@ Since $ \tilde{f}_n$ is a random variable $D_n$, $R_n( \tilde{f})$ and thus $ \m
     In that case, we can be even more precise on the value of the Bayes predictor. We assume that $ \mathcal{X} = \mathbb{R}^d$ and $ \mathcal{Y}= \mathbb{R} $, and that we use the square loss $l(y,z)=(y-z)^2$. Hence, for each $x\in \mathcal{X} $,
 
 \begin{equation*}
-    f^*(x)= \argmin_{y\in \mathcal{Y} }E\big((y-Y)^2 |X=x\big)
+    f^*(x)= \argmin_{y\in \mathcal{Y} }E\Big[(y-Y)^2 |X=x\Big]
 \end{equation*}
 
-However, given $y$,
+We can develop this expression 
 
 \begin{equation*}
     \begin{aligned}
-	E\big((y-Y)^2 |X=x\big)&= E\big((y-E(Y|X=x)+E(Y|X=x)-Y)^2 |X=x\big)\\
-	&=E\big((y-E(Y|X=x))^2+2(y-E(Y|X=x))(E(Y|X=x)-Y)+(E(Y|X=x)-Y)^2 |X=x\big)\\
+	E\Big[(y-Y)^2 |X=x\Big]&= E\Big[\big(y-E(Y|X=x)+E(Y|X=x)-Y\big)^2 |X=x\Big]\\
+	&=E\Big[\big(y-E(Y|X=x)\big)^2+2\big(y-E(Y|X=x)\big)\big(E(Y|X=x)-Y\big)+\big(E(Y|X=x)-Y\big)^2 |X=x\Big]\\
     \end{aligned}
 \end{equation*}
 
-    $(y-E(Y|X=x))^2$  is a scalar, so 
+However, given $y$, $(y-E(Y|X=x))^2$  is a fixed scalar, and not a random variable, so 
 
 \begin{equation*}
-    E(y-E(Y|X=x))^2=(y-E(Y|X=x))^2
+    E\Big[\big(y-E(Y|X=x)\big)^2\Big]=\big(y-E(Y|X=x)\big)^2
 \end{equation*}
 
 We also have that
 \begin{equation*}
-    E\big(2(y-E(Y|X=x))(E(Y|X=x)-Y)\big)=2(y-E(Y|X=x))E\big(E((Y|X=x)-Y)\big)=0
+    E\Big[2\big(y-E(Y|X=x)\big)\big(E(Y|X=x)-Y\big)|X=x\Big]=2\big(y-E(Y|X=x)\big)E\Big[\big(E(Y|X=x)-Y\big)|X=x\Big]=0
 \end{equation*}
 
-As a consequence, the value that minimizes $E\big((y-Y)^2 |X=x\big)$ is
+As a consequence, the value that minimizes $E\big[(y-Y)^2 |X=x\big]$ is
 \begin{equation}
-    f^*(x)=E(Y|X=x)
+    f^*(x)=E\big[Y|X=x\big]
 \end{equation}
 
 \begin{remark}
-    In order to be able to compute $E(Y|X=x)$, we need the conditional law
+    As stated before, remember that in order to be able to compute $E\big[Y|X=x\big]$, we need the conditional law
     $P(Y|X=x)$, or equivalently  the joint law $P(X,Y)$ \textbf{{and}} the prior
     distribution $P(X)$. But again, in practical situations this is not the
     case.
@@ -1430,10 +1429,10 @@ Now, we have
 
 \subsubsection{\large\color{Periwinkle}Bias-Variance decomposition}
 
-There are several possible \textbf{{risk decompositions}} that can be written. All these decompositions aim at making a distinction between different, often antagonist contributions to the excess risk. We remember that as $ \tilde{f}_n$ is a random variable, $ R(\tilde{f}_n)$ is also a random variable. On possible risk decomposition is the following one.
+Several methods and conventions exist in order to perform \textbf{{risk decompositions}}. All these decompositions aim at making a distinction between different, often antagonist contributions to the excess risk. We remember that as $ \tilde{f}_n$ is a random variable, $ R(\tilde{f}_n)$ is also a random variable. One possible risk decomposition is the following one.
 
 \begin{equation*}
-    E[R( \tilde{f}_n)]-R^* = \Big(E[R( \tilde{f}_n)]- \inf_{f\in F}R(f)\Big) +\Big(\inf_{f\in F}R(f)-R^* \Big)
+    E\big[R( \tilde{f}_n)\big]-R^* = \Big(E\big[R( \tilde{f}_n)\big]- \inf_{f\in F}R(f)\Big) +\Big(\inf_{f\in F}R(f)-R^* \Big)
 \end{equation*}
 
 We note that both terms are positive.
@@ -1446,12 +1445,12 @@ We note that both terms are positive.
 	It is sometimes also defined as $\inf_{f\in F}R(f)$.
     \item \textbf{{Estimation error (variance term, fluctuation error, stochastic error)}}: depends on $D_n$, $F$, $ \tilde{f}_n$. To bound this term we need assumptions on the distribution $P$.
 	\begin{equation*}
-	    E(R( \tilde{f}_n))- \inf_{f\in F}R(f)
+	    E\big[R( \tilde{f}_n)\big]- \inf_{f\in F}R(f)
 	\end{equation*}
 \end{itemize}
 
 
-When the algorithm is \textbf{{underfitting}}, the capacity of the hypothesis space is too small, the functions are not able to approximate $f^*$ well and the variance is small. On the contraty, if $F$ is too large, there likely exists a function $f\in F$ close to $f^*$, inducing a small bias, but the variance is large (\textbf{{overfitting}}).
+When the algorithm is \textbf{{underfitting}}, the capacity of the hypothesis space is too small, the functions are not able to approximate $f^*$ well and the variance is small. On the contraty, if $F$ is too large, there likely exists a function $f\in F$ close to $f^*$, inducing a small bias, but the variance might be large (\textbf{{overfitting}}).
 
 \begin{remark}
 
@@ -1471,7 +1470,7 @@ When the algorithm is \textbf{{underfitting}}, the capacity of the hypothesis sp
 
 \subsubsection{\large\color{Periwinkle}Expected value of empirical risk}
 
-For some \textbf{{fixed}} $h\in H$, $R_n(h)$ is a random variable, as it depends on the dataset $D_n$. let us show that $ R_n(h)$ is an \textbf{{unbiased estimator}} of the real risk $R$. We assume that the samples $(X_i, Y_i)$ are i.i.d, with the distribution of $(X,Y)$, noted $\rho$. 
+For some \textbf{{fixed}} $h\in H$, $R_n(h)$ is a random variable, as it depends on the dataset $D_n$. Let us show that $ R_n(h)$ is an \textbf{{unbiased estimator}} of the real risk $R$. We assume that the samples $(X_i, Y_i)$ are i.i.d, with the distribution of $(X,Y)$, noted $\rho$. 
 
     \begin{equation*}
 	    \begin{aligned}
@@ -1482,16 +1481,16 @@ For some \textbf{{fixed}} $h\in H$, $R_n(h)$ is a random variable, as it depends
 	    \end{aligned}
     \end{equation*}
 
-    However, this is not true for $ \tilde{f}_n$, as $ \tilde{f}_n$ depends on the training dataset $ D_n$. We cannot say that for all $i\in [1, n]$, $E_{D_n\sim \rho}(r( \tilde{f}_n(X_i), Y_i)) = E_{(X,Y)\sim\rho}(r( \tilde{f}_n(X), Y))$.
+    However, this is not true for $ \tilde{f}_n$, as $ \tilde{f}_n$ depends on the training dataset $ D_n$. We cannot say that for all $i\in [1, n]$, $E_{D_n\sim \rho}(l( \tilde{f}_n(X_i), Y_i)) = E_{(X,Y)\sim\rho}(l( \tilde{f}_n(X), Y))$.
     \\
 
-    For instance, let us consider the following situation. $X$ follows a uniform law on $]0, 1]$, and $Y=3X+\sigma\epsilon$, with $\epsilon$ being a standard Gaussian random variable independent from $X$, hence $ \mathcal{X} = ]0, 1]$ and $ \mathcal{Y} = \mathbb{R} $. We assume that $n=1$, and $D_1 = \{(X_1, Y_1)\}=\{(\alpha, \beta)\}$. We assume that $F$, the space of available functions for $ \tilde{f}_n$, is the space of linear functions, of the form $ x\mapsto ax$, with $a\in \mathbb{R}$. If our learning rule is empirical risk minimization, with quadratic loss, then the estimator $ \tilde{f}_n$ writes $ \tilde{f}_n(x)= \frac{\beta}{\alpha}x$, and $l( \tilde{f}_n(\alpha), \beta)=0$. Hence,
+    For instance, let us consider the following situation. $X$ follows a uniform law on $]0, 1]$, and $Y=3X+\sigma\epsilon$, with $\epsilon$ being a standard Gaussian random variable independent from $X$, hence $ \mathcal{X} = ]0, 1]$ and $ \mathcal{Y} = \mathbb{R} $. We assume that $n=1$, and $D_1 = \{(x_1, y_1)\}=\{(\alpha, \beta)\}$. We assume that $F$, the space of available functions for $ \tilde{f}_n$, is the space of linear functions, of the form $ x\mapsto ax$, with $a\in \mathbb{R}$. If our learning rule is empirical risk minimization, with quadratic loss, then the estimator $ \tilde{f}_n$ writes $ \tilde{f}_n(x)= \frac{\beta}{\alpha}x$, and $l( \tilde{f}_n(\alpha), \beta)=0$. Hence,
 
     \begin{equation}
 	E_{D_1\sim \rho}(l( \tilde{f}_n(X_1), Y_1))=0
     \end{equation}
 
-    However, we do not have $E_{(X,Y)\sim \rho}(l( \tilde{f}_n(X), Y))=0$.
+    However, we can show that $E_{(X,Y)\sim \rho}(l( \tilde{f}_n(X), Y))=0$. Indeed,
 
     \begin{equation*}
         \begin{aligned}
@@ -1582,8 +1581,8 @@ For some \textbf{{fixed}} $h\in H$, $R_n(h)$ is a random variable, as it depends
 	\begin{itemize}
 	    \item We say that the estimation error is $ \mathcal{O} ( \frac{1}{ \sqrt{n} } )$.
 	    \item This bound does not depend on de law $p$ from which the samples are drawn. Thus, it is a bound that is \textbf{{uniform}} with regards to the law of $ (X,Y)$.
-	    \item $\log(|F|)$ can be seen as the entropy of the class $H$, if the probability distribution if uniform on that class.
-	    \item theoretically, $H$ is often an \textbf{{infinite set.}} However, it can be discretized. If $H$ has $m$ parameters quantified on $N$ values, then $ |F| = N^m$, hence $\log(H)=m\log(N)$. In order to control the term $ \frac{\log(|F|)}{2n} $, then we should have $ n >> m$.
+	    \item $\log(|F|)$ can be seen as the entropy of the class $F$, if the probability distribution if uniform on that class.
+	    \item theoretically, $F$ is often an \textbf{{infinite set.}} However, it can be discretized. If $F$ has $m$ parameters quantified on $N$ values, then $ |F| = N^m$, hence $\log(|F|)=m\log(N)$. In order to control the term $ \frac{\log(|F|)}{2n} $, then we should have $ n >> m$.
 	    \item To have results for infinite sets, the Vapnik-Chervonenkis theory is required.
 	\end{itemize}
     \end{remark}
@@ -1655,16 +1654,16 @@ For some \textbf{{fixed}} $h\in H$, $R_n(h)$ is a random variable, as it depends
 \subsubsection{\large\color{Periwinkle}Context}
 \label{con:ols}
 
-The OLS is an important supervised learning problem. In the least squares problem, the loss $l$ writes 
-
-\begin{equation*}
-    l(y,y') = (y-y')^2
-\end{equation*}
-
-In the Ordinary Least Squares (OLS) setup, $ \mathcal{X} = \mathbb{R}^d$, $ \mathcal{Y}  = \mathbb{R} $, and the estimator is a \textbf{{linear function}} parametrized by $ \theta\in \mathbb{R}^d$.
+The OLS is an important supervised learning problem. $ \mathcal{X} = \mathbb{R}^d$, $ \mathcal{Y}  = \mathbb{R} $, and the estimator is a \textbf{{linear function}} parametrized by $ \theta\in \mathbb{R}^d$.
 
 \begin{equation*}
     F = \{ x\mapsto x^T \theta, \theta \in \mathbb{R}^d\}
+\end{equation*}
+
+In a least squares problem, the loss $l$ writes 
+
+\begin{equation*}
+    l(y,y') = (y-y')^2
 \end{equation*}
 
 The dataset is stored in the \textbf{{design matrix}} $X\in \mathbb{R}^{n\times d}$.
@@ -1710,7 +1709,7 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
 
 \begin{proposition}{Closed form solution}
     
-    We $X$ is injective, there exists a unique minimiser of $R_n(\theta)$, called the \textbf{{OLS estimator}}, given by
+    If $X$ is injective, there exists a unique minimiser of $R_n(\theta)$, called the \textbf{{OLS estimator}}, given by
 
     \begin{equation}
 	\label{def:ols}
@@ -1727,7 +1726,7 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
 	\hat{\Sigma} = \frac{1}{n} X^TX\in \mathbb{R}^{d, d}
     \end{equation}
 
-    Then,
+    Then $ \hat{\Sigma}$ is invertible and
 
     \begin{equation}
 	\hat{\theta} = \frac{1}{n} \hat{\Sigma}^{-1} X^TY
@@ -1737,7 +1736,7 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
 
 \begin{proof}
 
-    $R_n(\theta)$ is coercive, continuous, and in a finite dimensional space. Hence, it admits at least a minimizer. It is also differentiable and convex, so the minimizers are the points cancelling the gradient.
+    $R_n(\theta)$ is coercive, continuous, and in a finite dimensional space. Hence, it admits at least a minimizer, according to theorem \ref{th:dimfinie}.  It is also differentiable and convex, so the minimizers are the points cancelling the gradient.
 
     Let $u:x\mapsto ||u||_2^2$. If $du_x$ is de differential of $u$ in $x$, for all $x\in \mathbb{R}^d$, we have
 
@@ -1761,7 +1760,7 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
         \nabla_{\theta} R_n = \frac{2}{n} (X^TX\theta-X^TY)
     \end{equation}
 
-    Let us show that $X^TX$ is \textbf{{inversible.}} As it is a square matrix $\in \mathbb{R}^{d\times d}$, we only need to show that it is injective. Let $u\in \mathbb{R}^d$, such that $X^TXu = 0$. Then $ \langle X^TXu, u \rangle=0$, but this inner product equals $\langle Xu, Xu \rangle = ||Xu||^2$. Hence $Xu=0$, but as $X$ is injective, $u=0$, which completes the proof.
+    Let us show that $X^TX$ is \textbf{{inversible.}} As it is a square matrix $\in \mathbb{R}^{d\times d}$, we only need to show that it is injective. Let $u\in \mathbb{R}^d$, such that $X^TXu = 0$. Then $ \langle X^TXu, u \rangle=0$, but this inner product equals $\langle Xu, Xu \rangle = ||Xu||^2$. Hence $Xu=0$, but as $X$ is injective, $u=0$, which shows that $X^TX$ is injective.
 
     We conclude that the only solution to \ref{eq:olseq} is 
 
@@ -1806,7 +1805,7 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
 
 \begin{remark}
 
-    We deduce that $ \hat{Y} = X \hat{\theta} = X(X^TX)^{-1}X^TY$ is the orthogonal projection of $Y$ on the linear subspace $ Im(X)$. Hence $P_X = X(X^TX)^{-1}X^T$ is the projection matric on $Im(X)$.
+    We deduce that $ \hat{Y} = X \hat{\theta} = X(X^TX)^{-1}X^TY$ is the orthogonal projection of $Y$ on the linear subspace $ Im(X)$. Hence $P_X = X(X^TX)^{-1}X^T$ is the projection matrix on $Im(X)$.
     
 \end{remark}
 
@@ -1819,7 +1818,7 @@ The cost of inverting $X^TX$ is $ \mathcal{O} (d^3)$ by the Gauss-Jordan method 
 
 \subsubsection{\large\color{Periwinkle}Statistical analysis of OLS}
 
-We are interested in quantitative garantees on the generalization error of the OLS estimator. In order to compute such garantees, it is necessary to make some assumptions about the way the data are generated.
+We are interested in quantitative guarantees on the generalization error of the OLS estimator. In order to compute such guarantees, it is necessary to make some assumptions about the way the data are generated.
 
 \begin{definition}{Linear model}
 
@@ -1921,7 +1920,7 @@ This corollary is illustrated in figure \ref{fig:olsrisk}.
 \end{proposition}
 
 \begin{proof}
-Not stated here, the proof is obtained by direct calculations and useful matricial tricks.
+Not stated here, the proof is obtained by direct calculations and matricial tricks.
 \end{proof}
 
 \begin{remark}
@@ -1947,7 +1946,7 @@ When the dimension $d$ becomes larger (i.e. $ \frac{d}{n} $ approaches $1$ or be
     \item if $d>n$, $X^TX$ is not invertible and there is a linear subspace of points cancelling the gradient of the objective function. The problem is said to be \textbf{{poorly posed}} or \textbf{{unidentifiable.}}
 \end{itemize}
 
-\textbf{{Regularizing}} the problem is an approach to enforce the unicity of the solution at the cost of introducing a \textbf{{bias}} in the estimator. The unicity is garanteed by the \textbf{{strong convexity}} of the new loss function.
+\textbf{{Regularizing}} the problem is an approach to enforce the unicity of the solution at the cost of introducing a \textbf{{bias}} in the estimator. The unicity is guaranteed by the \textbf{{strong convexity}} of the new loss function.
 
 \subsubsection{\large\color{Periwinkle}Ridge regression estimator}
 
@@ -2010,7 +2009,7 @@ We can also analyse the statistical properties of the ridge estimator, with the 
 \end{proposition}
 
 \begin{proof}
-As for OLS, the proof is obtained by direct calculation and useful matricial tricks.
+As for OLS, the proof is obtained by direct calculation and matricial tricks.
 \end{proof}
 
 
@@ -2066,10 +2065,10 @@ Thi proposition is illustrated in figure \ref{fig:ridge_risks_n=30}.
 
 \begin{itemize}
     \item If the the norms of all $x_i$ are uniformly bounded by $R$, then we can observe by direct calculation that $tr( \Sigma)\leq R^2$, independently of $d$. If $R$ and $||\theta^*||_2$ remain finite, then $d$ plays no role in  the bound in \ref{ref:ridgeopt}. This is called a \textit{{dimension-free}} bound.
-    \item The convergence to $0$ in OLS is in $ \frac{1}{n} $, while it is  in $ \frac{1}{ \sqrt{n} }$ for the ridge. However, for the ridge regression, the dependence in the noise if in $\sigma$, whereas it is $\sigma^2$ for OLS. Which one is preferrable will depend on the value of the constants, and will not necessary be the "fast" rate in $ \mathcal{O} ( \frac{1}{n} )$.
+    \item The convergence to $0$ in OLS is in $ \frac{1}{n} $, while it is  in $ \frac{1}{ \sqrt{n} }$ for the ridge. However, for the ridge regression, the dependence in the noise if in $\sigma$, whereas it is $\sigma^2$ for OLS. Which one is preferrable will depend on the value of the constants, and will not necessary be the "fast" rate in $ \mathcal{O} ( \frac{1}{n} )$ (that is, the rate of OLS).
     \item In practical situations, the quantities involved in the computation
         of $\lambda^*$ in  \ref{eq:lambdaopt} are typically unknown. However
-        this equation shows that there may exist a $\lambda$ with a good prediction performance, which can be found by cross validation in practice.
+        this equation shows that there may exist a $\lambda$ with a good prediction performance, which can be found by cross validation.
 \end{itemize}
 
 \begin{figure}[htpb]
@@ -2096,7 +2095,7 @@ It is defined as
 
 \subsubsection{\large\color{Periwinkle}Numerical resolutions}
 
-The problem is convex, so the solution can be obtained effitiently. Popular methods include \textbf{{Coordinate desent, Fista, LARS}}.
+The problem is convex, so iterative first-order algorithms can be used with some efficiency. Popular methods include \textbf{{Coordinate desent, Fista, LARS}}.
 
 \subsection{\large\color{MidnightBlue}Logistic regression}
 \label{subsec:logistic}
@@ -2200,7 +2199,7 @@ where
 
 \begin{itemize}
     \item $z\in \Omega$, $\rho$ is a probability distribution over $ \Omega$.
-    \item $L: \mathbb{R}^d\times \Omega \Rightarrow \mathbb{R}$
+    \item $L: \mathbb{R}^d\times \Omega \rightarrow \mathbb{R}$
     \item $\theta \in \mathbb{R}^d$ is the parameter we want to optimize.
     \item for instance $ z = (x_i, y_i)$ as in supervised learning and
 \begin{equation*}
@@ -2210,12 +2209,10 @@ where
 
 The idea of SGD is to use at each time $t$ an \textbf{{unbiased estimator}}
 $g_t$  of the gradient of $f$, instead of computing the full gradient. Indeed,
-for large problems, this can be prohibitive computationally. Note that GD is
-sometimes called \textit{{deterministic}} or \textit{{full gradient}}, as
-opposed to SGD.
-
+for large problems (large $n$ and/or large $d$), the computation of the full gradient can be prohibitive computationally. Note that GD is
+sometimes called \textit{{deterministic}} or \textit{{full gradient}}, as opposed to SGD.  
 For large-scale machine learning, SGD and its variants are the most widely used
-omtimization algorithms. Let us discuss this on two examples. 
+omtimization algorithms.
 \\
 
 \textbf{{1] Empirical risk minimisation (ERM)}}
@@ -2285,11 +2282,11 @@ where $z_{i_t}$ is the sample obtained at time $t$.
 
 \subsubsection{\large\color{Periwinkle}SGD as an estimation of GD}
 
-Let us compute the expected value of the SGD update over $z_{i_t}$ sampled from $\rho$, given a learning rate $\gamma$.
+Let us compute the expected value of the SGD update over $z_{i_t}$ sampled from $\rho$, given a fixed learning rate $\gamma$, and given the previous iterate $ \theta_{t-1}$.
 
 \begin{equation*}
     \begin{aligned}
-	E_{z_{i_t}}(\theta_t) &= \theta_{t-1} - \gamma E_{z_{i_i}} \nabla_{\theta_{t-1}} L(\theta_{t-1}, z_{i_t})\\
+	E_{z_{i_t}}\big[\theta_t\big] &= \theta_{t-1} - \gamma E_{z_{i_i}}\big[\nabla_{\theta_{t-1}} L(\theta_{t-1}, z_{i_t})\big]\\
 	&= \theta_{t-1} - \gamma \nabla_{\theta} f(\theta_{t-1})
     \end{aligned}
 \end{equation*}
@@ -2299,7 +2296,7 @@ Hence, in expectation, SGD behaves as GD.
 
 \subsubsection{\large\color{Periwinkle}Convergence for a convex objective}
 
-Reference: \cite[]{Bach2021} 
+Reference: \cite{Bach2021} 
 
 \begin{theorem}{Convergence of SGD for a convex function}
     \label{th:sgdconvex}
@@ -2308,7 +2305,7 @@ Reference: \cite[]{Bach2021}
     \begin{itemize}
 	\item The gradients estimates are unbiased.
         \item $f$ is convex
-	\item $f$ is $L$-Lipshitz
+	\item $f$ is $L$-Lipshitz continuous.
 	\item The gradient is bounded: $\forall t$, $||g_t(\theta_{t-1})||_2^2\leq L^2$ almost surely.
 	\item $f$ admits a minimiser $ \theta^*$ such that $||\theta^*-\theta_0||_2\leq D$.
     \end{itemize}
@@ -2316,7 +2313,7 @@ Reference: \cite[]{Bach2021}
     Let $\gamma_t = \frac{D}{L \sqrt{t} } $, $\forall t\in \mathbb{N} $. Then, the iterates of SGD satisfy:
 
     \begin{equation}
-	E[f( \hat{\theta}_t)-f(\theta^*)]\leq DL \frac{2+\log(t)}{2 \sqrt{t} }
+	E\big[f( \hat{\theta}_t)-f(\theta^*)\big]\leq DL \frac{2+\log(t)}{2 \sqrt{t} }
     \end{equation}
 
     where 
@@ -2397,7 +2394,7 @@ Now, the SGD iteration for $u$ reads:
 \subsubsection{\large\color{Periwinkle}Computational complexity of GD and SGD}
 
 Roughly speaking, in most situations the computational complexity of one
-iteration of GD will be $n$ times that of one iteration of SGD. For instance, in the case of least-squares regression, computing a batch gradient (GD) costs $ \mathcal{O} (nd)$. Computing a SGD gradient estimate costs $ \mathcal{O} (d)$. For example, in the case of Ridge regression, the loss is $\mu$-strongly convex and $L$-smooth, with a condition number $\kappa = \frac{L}{\mu} $. If $t$ denotes de number of iterations, then
+iteration of GD will be $n$ times that of one iteration of SGD. For instance, in the case of least-squares regression, computing a batch gradient (GD) costs $ \mathcal{O} (nd)$. Computing a SGD gradient estimate costs $ \mathcal{O} (d)$. In the case of Ridge regression, the loss is $\mu$-strongly convex and $L$-smooth, with a condition number $\kappa = \frac{L}{\mu} $. If $t$ denotes de number of iterations, then
 \begin{itemize}
     \item GD has a convergence rate of $\mathcal{O} (\exp( - \frac{t}{\kappa} ))$. To get an error of $\epsilon$, we must have $ t= \mathcal{O} ( \kappa \log \frac{1}{\epsilon} )$. Since each iteration requires $ \mathcal{O} (nd)$ computations, the computation time will be $ \mathcal{O} (\kappa nd\log\frac{1}{\epsilon}) $.
     \item SGD has a convergence rate of $ \mathcal{O} ( \frac{\kappa}{t} )$. To get an error of $\epsilon$, we must have $ t = \mathcal{O}( \frac{\kappa}{\epsilon} ) $. Since each iteration is $ \mathcal{O} (d)$, we have a computation time of $ \mathcal{O} ( \frac{\kappa d}{\epsilon} )$.
@@ -2527,7 +2524,7 @@ With $\lambda>0$ and $\phi(x_i)\in \mathbb{R}^d$. The following theorem states t
 \end{corollary}
 
 \begin{proof}
-    Let $ \mathcal{H}_D = \{  \sum^{n}_{i=1} \alpha_i\phi(x_i), \alpha\in \mathbb{R}^n\}$. For all $ \theta\in \mathcal{H} $, we have a decomposition $ \theta = \theta_D+ \theta_{D^{\perp}}$, with $ \theta_D \in \mathcal{H}_D $ and $ \theta_{D^{\perp}} \in \mathcal{H}_D^{\perp} $.
+    Let $ \mathcal{H}_D = \{  \sum^{n}_{i=1} \alpha_i\phi(x_i), \alpha\in \mathbb{R}^n\}$. For all $ \theta\in \mathcal{H} $, we have a decomposition $ \theta = \theta_D+ \theta_{D^{\perp}}$, with $ \theta_D \in \mathcal{H}_D $ and $ \theta_{D^{\perp}} \in \mathcal{H}_D^{\perp} $. ( \url{https://fr.wikipedia.org/wiki/Th%C3%A9or%C3%A8me_du_suppl%C3%A9mentaire_orthogonal_d%27un_ferm%C3%A9_dans_un_espace_de_Hilbert} )
 
     We then know that $\forall i\in \{1, \dots, n\}$,
     
@@ -2762,6 +2759,7 @@ In an \textbf{{Unsupervised Leaning}} context, we are gien a dataset $\{x_i, i\i
     \item \textbf{{Dimensionality reduction}}: transforming the data $x_i$ into points $z_i$, most of time in a vector space of smaller dimension than the original space. The $z_i$ car then be used with less computational burden by a supervised learning algorithm, for instance.
     \item \textbf{{Density estimation}}: computing a useful approximation of the probabilty law that generated the dataset.
 \end{itemize}
+
 
 \subsection{\large\color{MidnightBlue}K-means clustering}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.8.25)  17 MAY 2022 20:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.8.25)  18 MAY 2022 20:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1537,80 +1537,80 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 [12]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 797.
+(hyperref)                removing `\@ifnextchar' on input line 798.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 801.
+(hyperref)                removing `\@ifnextchar' on input line 802.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 863.
+(hyperref)                removing `\@ifnextchar' on input line 864.
 
 [13]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 939.
+(hyperref)                removing `\@ifnextchar' on input line 940.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 951.
+(hyperref)                removing `\@ifnextchar' on input line 952.
 
 [14]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 970.
+(hyperref)                removing `\@ifnextchar' on input line 971.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 995.
+(hyperref)                removing `\@ifnextchar' on input line 996.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1009.
+(hyperref)                removing `\@ifnextchar' on input line 1010.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1011.
+(hyperref)                removing `\@ifnextchar' on input line 1012.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1022.
+(hyperref)                removing `\@ifnextchar' on input line 1023.
 
 Missing character: There is no r in font fplmbb!
 [15]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1088.
+(hyperref)                removing `\@ifnextchar' on input line 1089.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1102.
+(hyperref)                removing `\@ifnextchar' on input line 1103.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1104.
+(hyperref)                removing `\@ifnextchar' on input line 1105.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1106.
+(hyperref)                removing `\@ifnextchar' on input line 1107.
 
 [16]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1133.
+(hyperref)                removing `\@ifnextchar' on input line 1130.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1170.
+(hyperref)                removing `\@ifnextchar' on input line 1167.
 
 [17]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1300.
+(hyperref)                removing `\@ifnextchar' on input line 1299.
 
 
-Overfull \hbox (1.0105pt too wide) in paragraph at lines 1302--1308
+Overfull \hbox (1.0105pt too wide) in paragraph at lines 1301--1307
 []\T1/pplj/m/n/10 Under some condi-tions, that are most of-ten sa-tis-fied in a
  ma-chine lear-ning context,
  []
@@ -1618,100 +1618,115 @@ Overfull \hbox (1.0105pt too wide) in paragraph at lines 1302--1308
 [18]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1344.
+(hyperref)                removing `\@ifnextchar' on input line 1343.
 
 
-Overfull \hbox (92.25186pt too wide) detected at line 1359
+Overfull \hbox (98.33188pt too wide) detected at line 1358
 [][]
  []
 
 
+Overfull \hbox (47.05383pt too wide) detected at line 1369
+\U/zeur/m/n/10 E[]2[]y \U/zeus/m/n/10 ^^@ \U/zeur/m/n/10 E\U/zeus/m/n/10 ¨\U/ze
+ur/m/n/10 Y\U/zeus/m/n/10 j\U/zeur/m/n/10 X \U/zeus/m/n/10 ½ \U/zeur/m/n/10 x\U
+/zeus/m/n/10 ©[][]\U/zeur/m/n/10 E\U/zeus/m/n/10 ¨\U/zeur/m/n/10 Y\U/zeus/m/n/1
+0 j\U/zeur/m/n/10 X \U/zeus/m/n/10 ½ \U/zeur/m/n/10 x\U/zeus/m/n/10 © ^^@ \U/ze
+ur/m/n/10 Y[]\U/zeus/m/n/10 j\U/zeur/m/n/10 X \U/zeus/m/n/10 ½ \U/zeur/m/n/10 x
+[] \U/zeus/m/n/10 ½ \U/zeur/m/n/10 2[]y \U/zeus/m/n/10 ^^@ \U/zeur/m/n/10 E\U/z
+eus/m/n/10 ¨\U/zeur/m/n/10 Y\U/zeus/m/n/10 j\U/zeur/m/n/10 X \U/zeus/m/n/10 ½ \
+U/zeur/m/n/10 x\U/zeus/m/n/10 ©[]\U/zeur/m/n/10 E[][]E\U/zeus/m/n/10 ¨\U/zeur/m
+/n/10 Y\U/zeus/m/n/10 j\U/zeur/m/n/10 X \U/zeus/m/n/10 ½ \U/zeur/m/n/10 x\U/zeu
+s/m/n/10 © ^^@ \U/zeur/m/n/10 Y[]\U/zeus/m/n/10 j\U/zeur/m/n/10 X \U/zeus/m/n/1
+0 ½ \U/zeur/m/n/10 x[] \U/zeus/m/n/10 ½ \U/zeur/m/n/10 0
+ []
+
+
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1384.
+(hyperref)                removing `\@ifnextchar' on input line 1383.
 
 [19]
-Underfull \hbox (badness 10000) in paragraph at lines 1422--1424
+Underfull \hbox (badness 10000) in paragraph at lines 1421--1423
 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1431.
+(hyperref)                removing `\@ifnextchar' on input line 1430.
 
 [20]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1472.
+(hyperref)                removing `\@ifnextchar' on input line 1471.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1485--1487
+Underfull \hbox (badness 10000) in paragraph at lines 1484--1486
 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1512.
+(hyperref)                removing `\@ifnextchar' on input line 1511.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1529.
+(hyperref)                removing `\@ifnextchar' on input line 1528.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1531.
+(hyperref)                removing `\@ifnextchar' on input line 1530.
 
 [21pdfTeX warning (ext4): destination with the same identifier (name{definition
 .27}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1537     \begin{equation*}
+l.1536     \begin{equation*}
                             ]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1550.
+(hyperref)                removing `\@ifnextchar' on input line 1549.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1591.
+(hyperref)                removing `\@ifnextchar' on input line 1590.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1619.
+(hyperref)                removing `\@ifnextchar' on input line 1618.
 
 [22]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1637.
+(hyperref)                removing `\@ifnextchar' on input line 1636.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1652.
+(hyperref)                removing `\@ifnextchar' on input line 1651.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1655.
+(hyperref)                removing `\@ifnextchar' on input line 1654.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1707.
+(hyperref)                removing `\@ifnextchar' on input line 1706.
 
 [23]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1820.
+(hyperref)                removing `\@ifnextchar' on input line 1819.
 
-[24] [25] <Figures/ols_risks.pdf, id=843, 462.52798pt x 346.89601pt>
+[24] [25] <Figures/ols_risks.pdf, id=845, 462.52798pt x 346.89601pt>
 File: Figures/ols_risks.pdf Graphic file (type pdf)
 
 <use Figures/ols_risks.pdf>
-Package pdftex.def Info: Figures/ols_risks.pdf used on input line 1933.
+Package pdftex.def Info: Figures/ols_risks.pdf used on input line 1932.
 (pdftex.def)             Requested size: 370.0pt x 277.51189pt.
 LaTeX Font Info:    Font shape `T1/iwona/bx/n' in size <9> not available
-(Font)              Font shape `T1/iwona/b/n' tried instead on input line 1935.
+(Font)              Font shape `T1/iwona/b/n' tried instead on input line 1934.
 
 LaTeX Font Info:    Font shape `T1/iwona/bx/sc' in size <9> not available
-(Font)              Font shape `T1/iwona/b/sc' tried instead on input line 1935
+(Font)              Font shape `T1/iwona/b/sc' tried instead on input line 1934
 .
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/iwona/b/sc/9'.
@@ -1719,191 +1734,201 @@ Package microtype Info: Character `029' is missing
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1939.
+(hyperref)                removing `\@ifnextchar' on input line 1938.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1941.
+(hyperref)                removing `\@ifnextchar' on input line 1940.
 
 [26 <./Figures/ols_risks.pdf>]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1952.
+(hyperref)                removing `\@ifnextchar' on input line 1951.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1999.
+(hyperref)                removing `\@ifnextchar' on input line 1998.
 
 [27]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2046.
+(hyperref)                removing `\@ifnextchar' on input line 2045.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 2046.
+(hyperref)                removing `math shift' on input line 2045.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\lambda' on input line 2046.
+(hyperref)                removing `\lambda' on input line 2045.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 2046.
+(hyperref)                removing `math shift' on input line 2045.
 
-<Figures/ridge_risks_n=30.pdf, id=918, 462.52798pt x 346.89601pt>
+<Figures/ridge_risks_n=30.pdf, id=920, 462.52798pt x 346.89601pt>
 File: Figures/ridge_risks_n=30.pdf Graphic file (type pdf)
 
 <use Figures/ridge_risks_n=30.pdf>
-Package pdftex.def Info: Figures/ridge_risks_n=30.pdf used on input line 2077.
+Package pdftex.def Info: Figures/ridge_risks_n=30.pdf used on input line 2076.
 (pdftex.def)             Requested size: 370.0pt x 277.51189pt.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2083.
+(hyperref)                removing `\@ifnextchar' on input line 2082.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2085.
+(hyperref)                removing `\@ifnextchar' on input line 2084.
 
 [28]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2089.
+(hyperref)                removing `\@ifnextchar' on input line 2088.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2097.
+(hyperref)                removing `\@ifnextchar' on input line 2096.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2101.
+(hyperref)                removing `\@ifnextchar' on input line 2100.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2107.
+(hyperref)                removing `\@ifnextchar' on input line 2106.
 
 [29 <./Figures/ridge_risks_n=30.pdf>]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2126.
+(hyperref)                removing `\@ifnextchar' on input line 2125.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2167.
+(hyperref)                removing `\@ifnextchar' on input line 2166.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2183.
+(hyperref)                removing `\@ifnextchar' on input line 2182.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2186.
+(hyperref)                removing `\@ifnextchar' on input line 2185.
 
 [30]
-Underfull \hbox (badness 10000) in paragraph at lines 2217--2220
+Underfull \hbox (badness 10000) in paragraph at lines 2210--2217
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2242--2244
+Underfull \hbox (badness 10000) in paragraph at lines 2239--2241
 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2277.
+(hyperref)                removing `\@ifnextchar' on input line 2274.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2286.
+(hyperref)                removing `\@ifnextchar' on input line 2283.
 
 [31]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2300.
+(hyperref)                removing `\@ifnextchar' on input line 2297.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2330.
+(hyperref)                removing `\@ifnextchar' on input line 2327.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2363.
+(hyperref)                removing `\@ifnextchar' on input line 2360.
 
 [32]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2397.
+(hyperref)                removing `\@ifnextchar' on input line 2394.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2428.
+(hyperref)                removing `\@ifnextchar' on input line 2425.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2430.
+(hyperref)                removing `\@ifnextchar' on input line 2427.
 
 [33]
-Underfull \hbox (badness 10000) in paragraph at lines 2454--2456
+Underfull \hbox (badness 10000) in paragraph at lines 2451--2453
 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2489.
+(hyperref)                removing `\@ifnextchar' on input line 2486.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2497.
+(hyperref)                removing `\@ifnextchar' on input line 2494.
 
 [34]
-Overfull \hbox (40.27931pt too wide) in paragraph at lines 2524--2525
+Overfull \hbox (40.27931pt too wide) in paragraph at lines 2521--2522
 [][]\T1/pplj/b/n/10 Corollary 5. []\T1/pplj/m/it/10 As a di-rect conse-quence, 
-the mi-ni-mum of loss [][]74[][] is at-tai-ned at $\U/zeur/m/n/10 ^^R \U/zeus/m
+the mi-ni-mum of loss [][]73[][] is at-tai-ned at $\U/zeur/m/n/10 ^^R \U/zeus/m
 /n/10 ½ [][] \U/zeur/m/n/10 []^^^\U/zeus/m/n/10 ¨\U/zeur/m/n/10 x[]\U/zeus/m/n
 /10 ©\OT1/pplj/m/n/10 , \U/zeur/m/n/10 [] \U/zeus/m/n/10 2
  []
 
 
-Overfull \hbox (4.66547pt too wide) detected at line 2553
+Overfull \hbox (8.40558pt too wide) in paragraph at lines 2527--2528
+\T1/fvm/m/n/10 org / wiki / Th % C3 % A9or % C3 % A8me _ du _ suppl % C3 % A9me
+ntaire _ orthogonal _ d % 27un _ ferm %
+ []
+
+
+Overfull \hbox (4.66547pt too wide) detected at line 2550
 [][][]
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2563.
+(hyperref)                removing `\@ifnextchar' on input line 2560.
 
 [35]
-Underfull \hbox (badness 10000) in paragraph at lines 2601--2603
+Underfull \hbox (badness 10000) in paragraph at lines 2598--2600
 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2627.
+(hyperref)                removing `\@ifnextchar' on input line 2624.
 
 [36]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2679.
+(hyperref)                removing `\@ifnextchar' on input line 2676.
 
 [37]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2727.
+(hyperref)                removing `\@ifnextchar' on input line 2724.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2753.
+(hyperref)                removing `\@ifnextchar' on input line 2750.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2755.
+(hyperref)                removing `\@ifnextchar' on input line 2752.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2757.
+(hyperref)                removing `\@ifnextchar' on input line 2754.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\@ifnextchar' on input line 2764.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
@@ -1911,41 +1936,41 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2768.
+(hyperref)                removing `\@ifnextchar' on input line 2774.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2776.
+(hyperref)                removing `\@ifnextchar' on input line 2784.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\@ifnextchar' on input line 2786.
 
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2788.
-
 [38]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2792.
+(hyperref)                removing `\@ifnextchar' on input line 2790.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2844.
+(hyperref)                removing `\@ifnextchar' on input line 2842.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2848.
+(hyperref)                removing `\@ifnextchar' on input line 2846.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2851.
+(hyperref)                removing `\@ifnextchar' on input line 2849.
 
 [39]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2861.
+(hyperref)                removing `\@ifnextchar' on input line 2859.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\@ifnextchar' on input line 2902.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
@@ -1953,37 +1978,33 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2906.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2923.
+(hyperref)                removing `\@ifnextchar' on input line 2921.
 
 [40]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2950.
+(hyperref)                removing `\@ifnextchar' on input line 2948.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2969.
+(hyperref)                removing `\@ifnextchar' on input line 2967.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2987.
+(hyperref)                removing `\@ifnextchar' on input line 2985.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 2999.
+(hyperref)                removing `\@ifnextchar' on input line 2997.
 
 [41]
-Underfull \hbox (badness 10000) in paragraph at lines 3028--3030
+Underfull \hbox (badness 10000) in paragraph at lines 3026--3028
 
  []
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 3031.
+(hyperref)                removing `\@ifnextchar' on input line 3029.
 
 [42] (./lecture notes.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 24--27
@@ -1996,12 +2017,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 39--42
  []
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3083.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3081.
  [43]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 3083.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 3081.
  (./lecture notes.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 3083.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3083.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 3081.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3081.
 
 Package rerunfilecheck Info: File `"lecture notes".out' has not changed.
 (rerunfilecheck)             Checksum: 84F921589A032743066C2B7702E411DB;9505.
@@ -2009,13 +2030,13 @@ Package rerunfilecheck Info: File `"lecture notes".out' has not changed.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3083.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3081.
  ) 
 Here is how much of TeX's memory you used:
  18018 strings out of 492995
  313845 string characters out of 6132704
  655864 words of memory out of 5000000
- 20840 multiletter control sequences out of 15000+600000
+ 20841 multiletter control sequences out of 15000+600000
  128244 words of font info for 179 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  66i,23n,92p,8852b,810s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2046,10 +2067,10 @@ am7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb
 ></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></usr
 /local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/
 texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on "lecture notes.pdf" (43 pages, 530979 bytes).
+Output written on "lecture notes.pdf" (43 pages, 533321 bytes).
 PDF statistics:
- 1274 PDF objects out of 1440 (max. 8388607)
- 1060 compressed objects within 11 object streams
- 334 named destinations out of 1000 (max. 500000)
+ 1279 PDF objects out of 1440 (max. 8388607)
+ 1065 compressed objects within 11 object streams
+ 333 named destinations out of 1000 (max. 500000)
  25896 words of extra memory for PDF output out of 29859 (max. 10000000)
 
