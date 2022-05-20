@@ -2875,13 +2875,13 @@ We verify that $q_{\tau}$ is also a probabilty density.
 We define the estimator $ \hat{\rho}_{\tau}$ as
 
 \begin{equation*}
-    \hat{\rho}(x) = \frac{1}{n} \sum^{n}_{i=1} q_{\tau}(x-x_i)
+    \hat{\rho}_{\tau}(x) = \frac{1}{n} \sum^{n}_{i=1} q_{\tau}(x-x_i)
 \end{equation*}
 
 This estimation method is called \textbf{{Kernel density estimation (KDE)}}, or \textbf{{Parzen method}}. If $*$ is the convolution of $f$ and $g$, $(f*g)(x)= \int f(y)g(x-y)  dx $, then 
 
 \begin{equation*}
-    \hat{\rho}(x) =  \rho_n * q_{\tau}
+    \hat{\rho}_{\tau}(x) =  (\rho_n * q_{\tau})(x)
 \end{equation*}
 
 % \subsubsection{\large\color{Periwinkle}Consistency of density estimation}
