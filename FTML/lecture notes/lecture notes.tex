@@ -1510,20 +1510,65 @@ For some \textbf{{fixed}} $h\in H$, $R_n(h)$ is a random variable, as it depends
 
     \subsubsection{\large\color{Periwinkle}Deterministic bound on the estimation error}
 
+We recall that we note $f_a$ the minimizer of the generalization error in the
+considered space of functions.
+
+    \begin{equation}
+        f_a = \argmin_{h\in F}R(h)
+    \end{equation}
+
+    In this pragraph, we also note $f_n$ the minimizer of the empirical risk.
+
+    \begin{equation}
+        f_n = \argmin_{h\in F}R_n(h)
+    \end{equation}
+
     \begin{proposition}
 	\label{prop:dilemma}
-	\begin{equation*}
+	\begin{equation}
 	    R(f_a)\leq R( \tilde{f}_n)\leq R(f_a)+2 \sup_{f\in F}|R(f)- R_n(f)|
-	\end{equation*}
+	\end{equation}
     \end{proposition}
 
     \begin{remark}
         
 	This can be written as
-	\begin{equation*}
+	\begin{equation}
 	    R( \tilde{f}_n)- R(f_a)\leq 2 \sup_{f\in F}|R(f)- R_n(f)|
-	\end{equation*}
+	\end{equation}
     \end{remark}
+
+    \begin{proof}
+
+        First, by definition of $f_a$, we know that since $f_n\in F$,
+
+        \begin{equation}
+            R(f_a)\leq R(f_n) 
+        \end{equation}
+
+        The inequality at the right comes from writing $R(f_n)-R(f_a)$ in the
+        following way
+
+    \begin{equation}
+        \begin{aligned}
+	    R(f_n)-R(f_a) &= \big(R(f_n)-R_n( f_n)\big)\\
+	    &+\big(R_n( f_n)- R_n(f_a)\big)\\
+	    &+\big(R_n(f_a)-R(f_a)\big)
+        \end{aligned}
+    \end{equation}
+
+    \begin{itemize}
+        \item By definition of $f_n$, we have that
+
+            \begin{equation}
+                R_n( f_n)- R_n(f_a) \leq 0
+            \end{equation}
+        \item Since $f_n\in F$, $R(f_n)-R_n( f_n)\leq \sup_{f\in F}|R(f)- R_n(f)| $
+        \item Since $f_a\in F$, $R(f_a)-R_n( f_a)\leq \sup_{f\in F}|R(f)- R_a(f)| $
+    \end{itemize}
+
+        Which allows to conclude.
+    \end{proof}
 
 \subsection{\large\color{MidnightBlue}Probably Approximately Correct Learning: PAC bounds}
 
