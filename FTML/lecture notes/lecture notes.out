@@ -37,63 +37,64 @@
 \BOOKMARK [3][-]{subsubsection.3.1.7}{3.1.7 PeriwinkleBias-Variance decomposition}{subsection.3.1}% 37
 \BOOKMARK [3][-]{subsubsection.3.1.8}{3.1.8 PeriwinkleExpected value of empirical risk}{subsection.3.1}% 38
 \BOOKMARK [3][-]{subsubsection.3.1.9}{3.1.9 PeriwinkleDeterministic bound on the estimation error}{subsection.3.1}% 39
-\BOOKMARK [2][-]{subsection.3.2}{3.2 MidnightBlueProbably Approximately Correct Learning: PAC bounds}{section.3}% 40
-\BOOKMARK [3][-]{subsubsection.3.2.1}{3.2.1 PeriwinkleDefinition}{subsection.3.2}% 41
-\BOOKMARK [3][-]{subsubsection.3.2.2}{3.2.2 PeriwinkleBound in probability on the fluctuation error}{subsection.3.2}% 42
-\BOOKMARK [3][-]{subsubsection.3.2.3}{3.2.3 PeriwinkleProbabilistic bound on the generalization error for a decaying approximation error}{subsection.3.2}% 43
-\BOOKMARK [3][-]{subsubsection.3.2.4}{3.2.4 PeriwinkleApproximation error bound}{subsection.3.2}% 44
-\BOOKMARK [3][-]{subsubsection.3.2.5}{3.2.5 PeriwinkleCurse of dimensionality}{subsection.3.2}% 45
-\BOOKMARK [2][-]{subsection.3.3}{3.3 MidnightBlueOrdinary Least Squares \(OLS\)}{section.3}% 46
-\BOOKMARK [3][-]{subsubsection.3.3.1}{3.3.1 PeriwinkleContext}{subsection.3.3}% 47
-\BOOKMARK [3][-]{subsubsection.3.3.2}{3.3.2 PeriwinkleOLS estimator}{subsection.3.3}% 48
-\BOOKMARK [3][-]{subsubsection.3.3.3}{3.3.3 PeriwinkleStatistical analysis of OLS}{subsection.3.3}% 49
-\BOOKMARK [2][-]{subsection.3.4}{3.4 MidnightBlueRidge regression}{section.3}% 50
-\BOOKMARK [3][-]{subsubsection.3.4.1}{3.4.1 PeriwinkleContext}{subsection.3.4}% 51
-\BOOKMARK [3][-]{subsubsection.3.4.2}{3.4.2 PeriwinkleRidge regression estimator}{subsection.3.4}% 52
-\BOOKMARK [3][-]{subsubsection.3.4.3}{3.4.3 PeriwinkleStatistical analysis of Ridge regression}{subsection.3.4}% 53
-\BOOKMARK [3][-]{subsubsection.3.4.4}{3.4.4 PeriwinkleChoice of }{subsection.3.4}% 54
-\BOOKMARK [2][-]{subsection.3.5}{3.5 MidnightBlueLasso}{section.3}% 55
-\BOOKMARK [3][-]{subsubsection.3.5.1}{3.5.1 PeriwinkleContext}{subsection.3.5}% 56
-\BOOKMARK [3][-]{subsubsection.3.5.2}{3.5.2 PeriwinkleLASSO estimator}{subsection.3.5}% 57
-\BOOKMARK [3][-]{subsubsection.3.5.3}{3.5.3 PeriwinkleNumerical resolutions}{subsection.3.5}% 58
-\BOOKMARK [2][-]{subsection.3.6}{3.6 MidnightBlueLogistic regression}{section.3}% 59
-\BOOKMARK [3][-]{subsubsection.3.6.1}{3.6.1 PeriwinkleContext}{subsection.3.6}% 60
-\BOOKMARK [3][-]{subsubsection.3.6.2}{3.6.2 PeriwinkleRisk convexification}{subsection.3.6}% 61
-\BOOKMARK [3][-]{subsubsection.3.6.3}{3.6.3 PeriwinkleLogistic regression estimator}{subsection.3.6}% 62
-\BOOKMARK [2][-]{subsection.3.7}{3.7 MidnightBlueStochastic Gradient Descent \(SGD\)}{section.3}% 63
-\BOOKMARK [3][-]{subsubsection.3.7.1}{3.7.1 PeriwinkleContext}{subsection.3.7}% 64
-\BOOKMARK [3][-]{subsubsection.3.7.2}{3.7.2 PeriwinkleSGD updates}{subsection.3.7}% 65
-\BOOKMARK [3][-]{subsubsection.3.7.3}{3.7.3 PeriwinkleSGD as an estimation of GD}{subsection.3.7}% 66
-\BOOKMARK [3][-]{subsubsection.3.7.4}{3.7.4 PeriwinkleConvergence for a convex objective}{subsection.3.7}% 67
-\BOOKMARK [3][-]{subsubsection.3.7.5}{3.7.5 PeriwinkleConvergence for a strongly convex objective}{subsection.3.7}% 68
-\BOOKMARK [3][-]{subsubsection.3.7.6}{3.7.6 PeriwinkleConvergence for a strongly convex L-smooth objective}{subsection.3.7}% 69
-\BOOKMARK [3][-]{subsubsection.3.7.7}{3.7.7 PeriwinkleComputational complexity of GD and SGD}{subsection.3.7}% 70
-\BOOKMARK [2][-]{subsection.3.8}{3.8 MidnightBlueKernel methods}{section.3}% 71
-\BOOKMARK [3][-]{subsubsection.3.8.1}{3.8.1 PeriwinkleContext}{subsection.3.8}% 72
-\BOOKMARK [3][-]{subsubsection.3.8.2}{3.8.2 PeriwinkleInterests of kernel methods}{subsection.3.8}% 73
-\BOOKMARK [3][-]{subsubsection.3.8.3}{3.8.3 PeriwinkleRepresenter theorem}{subsection.3.8}% 74
-\BOOKMARK [3][-]{subsubsection.3.8.4}{3.8.4 PeriwinkleConsequence}{subsection.3.8}% 75
-\BOOKMARK [3][-]{subsubsection.3.8.5}{3.8.5 PeriwinkleGram matrix}{subsection.3.8}% 76
-\BOOKMARK [3][-]{subsubsection.3.8.6}{3.8.6 PeriwinkleKernel functions}{subsection.3.8}% 77
-\BOOKMARK [3][-]{subsubsection.3.8.7}{3.8.7 PeriwinkleFamous kernels}{subsection.3.8}% 78
-\BOOKMARK [1][-]{section.4}{4 BlueUnsupervised learning}{}% 79
-\BOOKMARK [2][-]{subsection.4.1}{4.1 MidnightBlueDefinitions}{section.4}% 80
-\BOOKMARK [3][-]{subsubsection.4.1.1}{4.1.1 PeriwinkleSetup}{subsection.4.1}% 81
-\BOOKMARK [2][-]{subsection.4.2}{4.2 MidnightBlueK-means clustering}{section.4}% 82
-\BOOKMARK [3][-]{subsubsection.4.2.1}{4.2.1 PeriwinkleContext}{subsection.4.2}% 83
-\BOOKMARK [3][-]{subsubsection.4.2.2}{4.2.2 PeriwinkleDistorsion}{subsection.4.2}% 84
-\BOOKMARK [2][-]{subsection.4.3}{4.3 MidnightBluePrincipal Component Analysis \(PCA\)}{section.4}% 85
-\BOOKMARK [3][-]{subsubsection.4.3.1}{4.3.1 PeriwinkleContext}{subsection.4.3}% 86
-\BOOKMARK [3][-]{subsubsection.4.3.2}{4.3.2 PeriwinkleOptimal projection}{subsection.4.3}% 87
-\BOOKMARK [3][-]{subsubsection.4.3.3}{4.3.3 PeriwinkleAlgorithm}{subsection.4.3}% 88
-\BOOKMARK [2][-]{subsection.4.4}{4.4 MidnightBlueDensity etimation}{section.4}% 89
-\BOOKMARK [3][-]{subsubsection.4.4.1}{4.4.1 PeriwinkleContext}{subsection.4.4}% 90
-\BOOKMARK [3][-]{subsubsection.4.4.2}{4.4.2 PeriwinkleKernel density estimation \(KDE\) and Convolution}{subsection.4.4}% 91
-\BOOKMARK [1][-]{section.5}{5 BlueProbabilistic modeling}{}% 92
-\BOOKMARK [2][-]{subsection.5.1}{5.1 MidnightBlueContext}{section.5}% 93
-\BOOKMARK [2][-]{subsection.5.2}{5.2 MidnightBlueMaximum likelihood estimation}{section.5}% 94
-\BOOKMARK [3][-]{subsubsection.5.2.1}{5.2.1 PeriwinkleLink with empirical risk minimization}{subsection.5.2}% 95
-\BOOKMARK [3][-]{subsubsection.5.2.2}{5.2.2 PeriwinkleLink with Kullback-Leibler divergence}{subsection.5.2}% 96
-\BOOKMARK [3][-]{subsubsection.5.2.3}{5.2.3 PeriwinkleConditional modeling}{subsection.5.2}% 97
-\BOOKMARK [3][-]{subsubsection.5.2.4}{5.2.4 PeriwinkleLink with linear regression}{subsection.5.2}% 98
-\BOOKMARK [3][-]{subsubsection.5.2.5}{5.2.5 PeriwinkleLink with logistic regression}{subsection.5.2}% 99
+\BOOKMARK [3][-]{subsubsection.3.1.10}{3.1.10 PeriwinkleScoring}{subsection.3.1}% 40
+\BOOKMARK [2][-]{subsection.3.2}{3.2 MidnightBlueProbably Approximately Correct Learning: PAC bounds}{section.3}% 41
+\BOOKMARK [3][-]{subsubsection.3.2.1}{3.2.1 PeriwinkleDefinition}{subsection.3.2}% 42
+\BOOKMARK [3][-]{subsubsection.3.2.2}{3.2.2 PeriwinkleBound in probability on the fluctuation error}{subsection.3.2}% 43
+\BOOKMARK [3][-]{subsubsection.3.2.3}{3.2.3 PeriwinkleProbabilistic bound on the generalization error for a decaying approximation error}{subsection.3.2}% 44
+\BOOKMARK [3][-]{subsubsection.3.2.4}{3.2.4 PeriwinkleApproximation error bound}{subsection.3.2}% 45
+\BOOKMARK [3][-]{subsubsection.3.2.5}{3.2.5 PeriwinkleCurse of dimensionality}{subsection.3.2}% 46
+\BOOKMARK [2][-]{subsection.3.3}{3.3 MidnightBlueOrdinary Least Squares \(OLS\)}{section.3}% 47
+\BOOKMARK [3][-]{subsubsection.3.3.1}{3.3.1 PeriwinkleContext}{subsection.3.3}% 48
+\BOOKMARK [3][-]{subsubsection.3.3.2}{3.3.2 PeriwinkleOLS estimator}{subsection.3.3}% 49
+\BOOKMARK [3][-]{subsubsection.3.3.3}{3.3.3 PeriwinkleStatistical analysis of OLS}{subsection.3.3}% 50
+\BOOKMARK [2][-]{subsection.3.4}{3.4 MidnightBlueRidge regression}{section.3}% 51
+\BOOKMARK [3][-]{subsubsection.3.4.1}{3.4.1 PeriwinkleContext}{subsection.3.4}% 52
+\BOOKMARK [3][-]{subsubsection.3.4.2}{3.4.2 PeriwinkleRidge regression estimator}{subsection.3.4}% 53
+\BOOKMARK [3][-]{subsubsection.3.4.3}{3.4.3 PeriwinkleStatistical analysis of Ridge regression}{subsection.3.4}% 54
+\BOOKMARK [3][-]{subsubsection.3.4.4}{3.4.4 PeriwinkleChoice of }{subsection.3.4}% 55
+\BOOKMARK [2][-]{subsection.3.5}{3.5 MidnightBlueLasso}{section.3}% 56
+\BOOKMARK [3][-]{subsubsection.3.5.1}{3.5.1 PeriwinkleContext}{subsection.3.5}% 57
+\BOOKMARK [3][-]{subsubsection.3.5.2}{3.5.2 PeriwinkleLASSO estimator}{subsection.3.5}% 58
+\BOOKMARK [3][-]{subsubsection.3.5.3}{3.5.3 PeriwinkleNumerical resolutions}{subsection.3.5}% 59
+\BOOKMARK [2][-]{subsection.3.6}{3.6 MidnightBlueLogistic regression}{section.3}% 60
+\BOOKMARK [3][-]{subsubsection.3.6.1}{3.6.1 PeriwinkleContext}{subsection.3.6}% 61
+\BOOKMARK [3][-]{subsubsection.3.6.2}{3.6.2 PeriwinkleRisk convexification}{subsection.3.6}% 62
+\BOOKMARK [3][-]{subsubsection.3.6.3}{3.6.3 PeriwinkleLogistic regression estimator}{subsection.3.6}% 63
+\BOOKMARK [2][-]{subsection.3.7}{3.7 MidnightBlueStochastic Gradient Descent \(SGD\)}{section.3}% 64
+\BOOKMARK [3][-]{subsubsection.3.7.1}{3.7.1 PeriwinkleContext}{subsection.3.7}% 65
+\BOOKMARK [3][-]{subsubsection.3.7.2}{3.7.2 PeriwinkleSGD updates}{subsection.3.7}% 66
+\BOOKMARK [3][-]{subsubsection.3.7.3}{3.7.3 PeriwinkleSGD as an estimation of GD}{subsection.3.7}% 67
+\BOOKMARK [3][-]{subsubsection.3.7.4}{3.7.4 PeriwinkleConvergence for a convex objective}{subsection.3.7}% 68
+\BOOKMARK [3][-]{subsubsection.3.7.5}{3.7.5 PeriwinkleConvergence for a strongly convex objective}{subsection.3.7}% 69
+\BOOKMARK [3][-]{subsubsection.3.7.6}{3.7.6 PeriwinkleConvergence for a strongly convex L-smooth objective}{subsection.3.7}% 70
+\BOOKMARK [3][-]{subsubsection.3.7.7}{3.7.7 PeriwinkleComputational complexity of GD and SGD}{subsection.3.7}% 71
+\BOOKMARK [2][-]{subsection.3.8}{3.8 MidnightBlueKernel methods}{section.3}% 72
+\BOOKMARK [3][-]{subsubsection.3.8.1}{3.8.1 PeriwinkleContext}{subsection.3.8}% 73
+\BOOKMARK [3][-]{subsubsection.3.8.2}{3.8.2 PeriwinkleInterests of kernel methods}{subsection.3.8}% 74
+\BOOKMARK [3][-]{subsubsection.3.8.3}{3.8.3 PeriwinkleRepresenter theorem}{subsection.3.8}% 75
+\BOOKMARK [3][-]{subsubsection.3.8.4}{3.8.4 PeriwinkleConsequence}{subsection.3.8}% 76
+\BOOKMARK [3][-]{subsubsection.3.8.5}{3.8.5 PeriwinkleGram matrix}{subsection.3.8}% 77
+\BOOKMARK [3][-]{subsubsection.3.8.6}{3.8.6 PeriwinkleKernel functions}{subsection.3.8}% 78
+\BOOKMARK [3][-]{subsubsection.3.8.7}{3.8.7 PeriwinkleFamous kernels}{subsection.3.8}% 79
+\BOOKMARK [1][-]{section.4}{4 BlueUnsupervised learning}{}% 80
+\BOOKMARK [2][-]{subsection.4.1}{4.1 MidnightBlueDefinitions}{section.4}% 81
+\BOOKMARK [3][-]{subsubsection.4.1.1}{4.1.1 PeriwinkleSetup}{subsection.4.1}% 82
+\BOOKMARK [2][-]{subsection.4.2}{4.2 MidnightBlueK-means clustering}{section.4}% 83
+\BOOKMARK [3][-]{subsubsection.4.2.1}{4.2.1 PeriwinkleContext}{subsection.4.2}% 84
+\BOOKMARK [3][-]{subsubsection.4.2.2}{4.2.2 PeriwinkleDistorsion}{subsection.4.2}% 85
+\BOOKMARK [2][-]{subsection.4.3}{4.3 MidnightBluePrincipal Component Analysis \(PCA\)}{section.4}% 86
+\BOOKMARK [3][-]{subsubsection.4.3.1}{4.3.1 PeriwinkleContext}{subsection.4.3}% 87
+\BOOKMARK [3][-]{subsubsection.4.3.2}{4.3.2 PeriwinkleOptimal projection}{subsection.4.3}% 88
+\BOOKMARK [3][-]{subsubsection.4.3.3}{4.3.3 PeriwinkleAlgorithm}{subsection.4.3}% 89
+\BOOKMARK [2][-]{subsection.4.4}{4.4 MidnightBlueDensity etimation}{section.4}% 90
+\BOOKMARK [3][-]{subsubsection.4.4.1}{4.4.1 PeriwinkleContext}{subsection.4.4}% 91
+\BOOKMARK [3][-]{subsubsection.4.4.2}{4.4.2 PeriwinkleKernel density estimation \(KDE\) and Convolution}{subsection.4.4}% 92
+\BOOKMARK [1][-]{section.5}{5 BlueProbabilistic modeling}{}% 93
+\BOOKMARK [2][-]{subsection.5.1}{5.1 MidnightBlueContext}{section.5}% 94
+\BOOKMARK [2][-]{subsection.5.2}{5.2 MidnightBlueMaximum likelihood estimation}{section.5}% 95
+\BOOKMARK [3][-]{subsubsection.5.2.1}{5.2.1 PeriwinkleLink with empirical risk minimization}{subsection.5.2}% 96
+\BOOKMARK [3][-]{subsubsection.5.2.2}{5.2.2 PeriwinkleLink with Kullback-Leibler divergence}{subsection.5.2}% 97
+\BOOKMARK [3][-]{subsubsection.5.2.3}{5.2.3 PeriwinkleConditional modeling}{subsection.5.2}% 98
+\BOOKMARK [3][-]{subsubsection.5.2.4}{5.2.4 PeriwinkleLink with linear regression}{subsection.5.2}% 99
+\BOOKMARK [3][-]{subsubsection.5.2.5}{5.2.5 PeriwinkleLink with logistic regression}{subsection.5.2}% 100
