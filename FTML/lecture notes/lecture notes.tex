@@ -1023,8 +1023,9 @@ GD is an important first-order algorithm for optimization. A first-order iterati
     x_{t+1} = x_t - \gamma_t \nabla f(x_t)
 \end{equation*}
 
-GD is sometimes also called \textit{{determinisitic}} of \textit{{full
-gradient}} descent, as opposed to Stocahstic Gradient Descent (SGD, see \ref{sec:sgd}).
+
+Any $x_t\in \mathbb{R}^d$ is called an \textbf{{iterate}} of the algorithm. GD is sometimes also called \textit{{determinisitic}} of \textit{{full
+gradient}} descent, as opposed to Stochastic Gradient Descent (SGD, see \ref{sec:sgd}).
 
 \subsubsection{\large\color{Periwinkle}Minimisation of a strongly convex function}
 
@@ -1048,7 +1049,7 @@ The following lemma shows that if the step size is small enough, then GD is a \t
 
 \begin{theorem}{Convergence of GD for a strongly convex function}
 
-    Let $f: \mathbb{R}^d\rightarrow \mathbb{R}	$ be a  $\mu$-strongly convex function with $L$-Lipshitz continuous gradients. Let $x^*$ be the global minimum of $f$ (which we know exists since $f$ is strongly convex), $x_0\in \mathbb{R} $, $T\in \mathbb{N}$.
+    Let $f: \mathbb{R}^d\rightarrow \mathbb{R}	$ be a  $\mu$-strongly convex and $L$-smooth ($L$ Lipshitz continuous gradients) function. Let $x^*$ be the global minimum of $f$ (which we know exists since $f$ is strongly convex), $x_0\in \mathbb{R} $, $T\in \mathbb{N}$.
 
     \begin{itemize}
 	\item With constant step size $\gamma_t = \frac{1}{L} $, we have
@@ -1096,9 +1097,8 @@ Hence, $\mu\leq L$, so $\mu\gamma < \frac{1}{2} $.
 
 \begin{theorem}{Convergence of GD for a smooth convex function}
 
-    Let $f: \mathbb{R}^d\rightarrow \mathbb{R} $, with global minimiser $x^*$.
-    With constant step-size $\gamma_t = \frac{1}{L} $, the iterates $x_t$ of GD
-    satisfy:
+    Let $f: \mathbb{R}^d\rightarrow \mathbb{R} $ be a convex and $L$-smooth ($L$ Lipshitz continuous gradients) function, with global minimiser $x^*$.
+    With constant step-size $\gamma_t = \frac{1}{L} $, the iterates $x_t$ of GD satisfy:
 
     \begin{equation*}
 	f(x_t)-f(\eta^*)\leq \frac{L}{2t} ||x_0-\eta^*||^2

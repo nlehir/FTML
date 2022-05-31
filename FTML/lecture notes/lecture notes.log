@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.8.25)  27 MAY 2022 19:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.8.25)  31 MAY 2022 23:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1574,13 +1574,13 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1029.
+(hyperref)                removing `\@ifnextchar' on input line 1030.
 
 Missing character: There is no r in font fplmbb!
 [15]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 1095.
+(hyperref)                removing `\@ifnextchar' on input line 1096.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
@@ -2073,7 +2073,7 @@ am7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb
 ></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></usr
 /local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/
 texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on "lecture notes.pdf" (43 pages, 535257 bytes).
+Output written on "lecture notes.pdf" (43 pages, 535475 bytes).
 PDF statistics:
  1293 PDF objects out of 1440 (max. 8388607)
  1081 compressed objects within 11 object streams
