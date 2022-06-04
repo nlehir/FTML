@@ -29,7 +29,7 @@ This folder contains the practical sessions.
 4. Stochastic gradient descent (SGD) and extensions (on logistic regression)
 5. Stochastic average gradient (SAG) (on logistic regression)
 6. Bayesian learning
-7. Model selection, PCA, kernel PCA
-8. Neural networks
-9. Nonlinear dimensionality reduction
-10. Modern topics on gradient descent
+7. One hidden layer neural networks
+8. Simplicity bias
+9. Adaptivity, Regularized nonlinear acceleration
+10. Optimality, lower bounds on performance
