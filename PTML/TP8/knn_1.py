@@ -31,13 +31,16 @@ def predict(x_data, y_data, x_test, k):
         Returns:
             y_predictions (float matrix): predictions for the data
             in x_test.
+            y_predictions must be of shape (n_test,)
 
         You need to edit this function.
         You can use cdist from scipy.
         https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html
 
     """
-    return np.ones((x_data.shape[0], 1))
+    n_test = x_test.shape[0]
+    y_predictions = np.ones(n_test)
+    return y_predictions
 
 
 
