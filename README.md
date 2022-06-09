@@ -31,5 +31,5 @@ This folder contains the practical sessions.
 6. Bayesian learning
 7. One hidden layer neural networks
 8. Simplicity bias
-9. Adaptivity, Regularized nonlinear acceleration
-10. Optimality, lower bounds on performance
+9. Adaptivity to a lower dimensional support
+10. Nonlinear dimensionality reduction.
