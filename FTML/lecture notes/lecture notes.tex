@@ -1061,7 +1061,7 @@ The following lemma shows that if the step size is small enough, then GD is a \t
 
     \begin{equation}
 	\label{eq:gdconv}
-	||x_t-x^*||^2\leq (1-\gamma \mu)^T ||x_0-x^*||^2
+	||x_t-x^*||^2\leq (1-\gamma \mu)^t ||x_0-x^*||^2
     \end{equation}
     \end{itemize}
 \end{theorem}
@@ -1101,7 +1101,7 @@ Hence, $\mu\leq L$, so $\mu\gamma < \frac{1}{2} $.
     With constant step-size $\gamma_t = \frac{1}{L} $, the iterates $x_t$ of GD satisfy:
 
     \begin{equation*}
-	f(x_t)-f(\eta^*)\leq \frac{L}{2t} ||x_0-\eta^*||^2
+	f(x_t)-f(x^*)\leq \frac{L}{2t} ||x_0-\eta^*||^2
     \end{equation*}
 \end{theorem}
 
