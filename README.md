@@ -32,4 +32,6 @@ This folder contains the practical sessions.
 7. One hidden layer neural networks
 8. Simplicity bias
 9. Adaptivity to a lower dimensional support
-10. Nonlinear dimensionality reduction.
+10. Nonlinear dimensionality reduction, sparsity, Lasso
+11. Acceleration of algorithms
+12. Lower bounds on optimization error
