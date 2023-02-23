@@ -2,6 +2,11 @@
 *.swp
 *.swo
 *.pyc
-*__pycache__/*
 *.DS_Store
-PTML/env*
+
+*__pycache__/
+
+PTML/env/
+PTML/
+
+2022/
