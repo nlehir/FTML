@@ -5,11 +5,11 @@ This repository contains material for Epita students of the 2023 FTML course.
 
 ### documents/
 
-Will contain articles, or any other useful document for the course.
+Articles, books, or any other useful document for the course.
 
 ### exercises/
 
-Contains exercises with the solutions uploaded after the relevant course.
+Exercises with the solutions uploaded after the relevant course.
 
 ### lecture_notes/
 
