@@ -1,0 +1,1271 @@
+Mathematical optimization (alternatively spelled optimisation) or mathematical programming is the selection of a best element, with regard to some criterion, from some set of available alternatives. Optimization problems of sorts arise in all quantitative disciplines from computer science and engineering to operations research and economics, and the development of solution methods has been of interest in mathematics for centuries.In the simplest case, an optimization problem consists of maximizing or minimizing a real function by systematically choosing input values from within an allowed set and computing the value of the function. The generalization of optimization theory and techniques to other formulations constitutes a large area of applied mathematics. More generally, optimization includes finding "best available" values of some objective function given a defined domain (or input), including a variety of different types of objective functions and different types of domains.
+
+
+== Optimization problems ==
+
+An optimization problem can be represented in the following way:
+
+Given: a function f : A → ℝ from some set A to the real numbers
+Sought: an element x0 ∈ A such that f(x0) ≤ f(x) for all x ∈ A ("minimization") or such that f(x0) ≥ f(x) for all x ∈ A ("maximization").Such a formulation is called an optimization problem or a mathematical programming problem (a term not directly related to computer programming, but still in use for example in linear programming – see History below). Many real-world and theoretical problems may be modeled in this general framework.
+Since the following is valid
+
+  
+    
+      
+        f
+        
+          (
+          
+            
+              x
+            
+            
+              0
+            
+          
+          )
+        
+        ≥
+        f
+        
+          (
+          
+            x
+          
+          )
+        
+        ⇔
+        
+          
+            
+              f
+              ~
+            
+          
+        
+        
+          (
+          
+            
+              x
+            
+            
+              0
+            
+          
+          )
+        
+        ≤
+        
+          
+            
+              f
+              ~
+            
+          
+        
+        
+          (
+          
+            x
+          
+          )
+        
+      
+    
+    {\displaystyle f\left(\mathbf {x} _{0}\right)\geq f\left(\mathbf {x} \right)\Leftrightarrow {\tilde {f}}\left(\mathbf {x} _{0}\right)\leq {\tilde {f}}\left(\mathbf {x} \right)}
+  with
+
+  
+    
+      
+        
+          
+            
+              f
+              ~
+            
+          
+        
+        
+          (
+          
+            x
+          
+          )
+        
+        :=
+        −
+        f
+        
+          (
+          
+            x
+          
+          )
+        
+        ,
+        
+        
+          
+            
+              f
+              ~
+            
+          
+        
+        
+        :
+        
+        A
+        →
+        
+          R
+        
+      
+    
+    {\displaystyle {\tilde {f}}\left(\mathbf {x} \right):=-f\left(\mathbf {x} \right),\,{\tilde {f}}\,:\,A\rightarrow \mathbb {R} }
+  it is more convenient to solve minimization problems. However, the opposite perspective would be valid, too.
+Problems formulated using this technique in the fields of physics may refer to the technique as energy minimization, speaking of the value of the function f as representing the energy of the system being modeled. In machine learning, it is always necessary to continuously evaluate the quality of a data model by using a cost function where a minimum implies a set of possibly optimal parameters with an optimal (lowest) error.
+Typically, A is some subset of the Euclidean space ℝn, often specified by a set of constraints, equalities or inequalities that the members of A have to satisfy.  The domain A of f is called the search space or the choice set, while the elements of A are called candidate solutions or feasible solutions.
+The function f is called, variously, an objective function, a loss function or cost function (minimization),  a utility function or fitness function (maximization), or, in certain fields, an energy function or energy functional. A feasible solution that minimizes (or maximizes, if that is the goal) the objective function is called an optimal solution.
+In mathematics, conventional optimization problems are usually stated in terms of minimization.
+A local minimum x* is defined as an element for which there exists some δ > 0 such that
+
+  
+    
+      
+        ∀
+        
+          x
+        
+        ∈
+        A
+        
+        
+          where
+        
+        
+        
+          ‖
+          
+            
+              x
+            
+            −
+            
+              
+                x
+              
+              
+                ∗
+              
+            
+          
+          ‖
+        
+        ≤
+        δ
+        ,
+        
+      
+    
+    {\displaystyle \forall \mathbf {x} \in A\;{\text{where}}\;\left\Vert \mathbf {x} -\mathbf {x} ^{\ast }\right\Vert \leq \delta ,\,}
+  the expression f(x*) ≤ f(x) holds;
+that is to say, on some region around x* all of the function values are greater than or equal to the value at that element. 
+Local maxima are defined similarly.
+While a local minimum is at least as good as any nearby elements, a global minimum is at least as good as every feasible element.
+Generally, unless the objective function is convex in a minimization problem, there may be several local minima.
+In a convex problem, if there is a local minimum that is interior (not on the edge of the set of feasible elements), it is also the global minimum, but a nonconvex problem may have more than one local minimum not all of which need be global minima.
+A large number of algorithms proposed for solving the nonconvex problems – including the majority of commercially available solvers – are  not capable of making a distinction between locally optimal solutions and globally optimal solutions, and will treat the former as actual solutions to the original problem. Global optimization is the branch of applied mathematics and numerical analysis that is concerned with the development of deterministic algorithms that are capable of guaranteeing convergence in finite time to the actual optimal solution of a nonconvex problem.
+
+
+== Notation ==
+Optimization problems are often expressed with special notation. Here are some examples:
+
+
+=== Minimum and maximum value of a function ===
+Consider the following notation:
+
+  
+    
+      
+        
+          min
+          
+            x
+            ∈
+            
+              R
+            
+          
+        
+        
+        
+          (
+          
+            
+              x
+              
+                2
+              
+            
+            +
+            1
+          
+          )
+        
+      
+    
+    {\displaystyle \min _{x\in \mathbb {R} }\;\left(x^{2}+1\right)}
+  This denotes the minimum value of the objective function x2 + 1, when choosing x from the set of real numbers ℝ. The minimum value in this case is 1, occurring at x = 0.
+Similarly, the notation
+
+  
+    
+      
+        
+          max
+          
+            x
+            ∈
+            
+              R
+            
+          
+        
+        
+        2
+        x
+      
+    
+    {\displaystyle \max _{x\in \mathbb {R} }\;2x}
+  asks for the maximum value of the objective function 2x, where x may be any real number. In this case, there is no such maximum as the objective function is unbounded, so the answer is "infinity" or "undefined".
+
+
+=== Optimal input arguments ===
+
+Consider the following notation:
+
+  
+    
+      
+        
+          
+            
+              a
+              r
+              g
+              
+              m
+              i
+              n
+            
+            
+              x
+              ∈
+              (
+              −
+              ∞
+              ,
+              −
+              1
+              ]
+            
+          
+        
+        
+        
+          x
+          
+            2
+          
+        
+        +
+        1
+        ,
+      
+    
+    {\displaystyle {\underset {x\in (-\infty ,-1]}{\operatorname {arg\,min} }}\;x^{2}+1,}
+  or equivalently
+
+  
+    
+      
+        
+          
+            
+              a
+              r
+              g
+              
+              m
+              i
+              n
+            
+            x
+          
+        
+        
+        
+          x
+          
+            2
+          
+        
+        +
+        1
+        ,
+        
+        
+          subject to:
+        
+        
+        x
+        ∈
+        (
+        −
+        ∞
+        ,
+        −
+        1
+        ]
+        .
+      
+    
+    {\displaystyle {\underset {x}{\operatorname {arg\,min} }}\;x^{2}+1,\;{\text{subject to:}}\;x\in (-\infty ,-1].}
+  This represents the value (or values) of the argument x in the interval (−∞,−1] that minimizes (or minimize) the objective function x2 + 1 (the actual minimum value of that function is not what the problem asks for). In this case, the answer is x = −1, since x = 0 is infeasible, that is, it does not belong to the feasible set.
+Similarly,
+
+  
+    
+      
+        
+          
+            
+              a
+              r
+              g
+              
+              m
+              a
+              x
+            
+            
+              x
+              ∈
+              [
+              −
+              5
+              ,
+              5
+              ]
+              ,
+              
+              y
+              ∈
+              
+                R
+              
+            
+          
+        
+        
+        x
+        cos
+        ⁡
+        y
+        ,
+      
+    
+    {\displaystyle {\underset {x\in [-5,5],\;y\in \mathbb {R} }{\operatorname {arg\,max} }}\;x\cos y,}
+  or equivalently
+
+  
+    
+      
+        
+          
+            
+              a
+              r
+              g
+              
+              m
+              a
+              x
+            
+            
+              x
+              ,
+              
+              y
+            
+          
+        
+        
+        x
+        cos
+        ⁡
+        y
+        ,
+        
+        
+          subject to:
+        
+        
+        x
+        ∈
+        [
+        −
+        5
+        ,
+        5
+        ]
+        ,
+        
+        y
+        ∈
+        
+          R
+        
+        ,
+      
+    
+    {\displaystyle {\underset {x,\;y}{\operatorname {arg\,max} }}\;x\cos y,\;{\text{subject to:}}\;x\in [-5,5],\;y\in \mathbb {R} ,}
+  represents the {x, y} pair (or pairs) that maximizes (or maximize) the value of the objective function x cos y, with the added constraint that x lie in the interval [−5,5] (again, the actual maximum value of the expression does not matter). In this case, the solutions are the pairs of the form {5, 2kπ} and {−5, (2k + 1)π}, where k ranges over all integers.
+Operators arg min and arg max are sometimes also written as argmin and argmax, and stand for argument of the minimum and argument of the maximum.
+
+
+== History ==
+Fermat and Lagrange found calculus-based formulae for identifying optima, while Newton and Gauss proposed iterative methods for moving towards an optimum.
+The term "linear programming" for certain optimization cases was due to George B. Dantzig, although much of the theory had been introduced by Leonid Kantorovich in 1939. (Programming in this context does not refer to computer programming, but comes from the use of program by the United States military to refer to proposed training and logistics schedules, which were the problems Dantzig studied at that time.) Dantzig published the Simplex algorithm in 1947, and John von Neumann developed the theory of duality in the same year.Other notable researchers in mathematical optimization include the following:
+
+
+== Major subfields ==
+Convex programming studies the case when the objective function is convex (minimization) or concave (maximization) and the constraint set is convex. This can be viewed as a particular case of nonlinear programming or as generalization of linear or convex quadratic programming.
+Linear programming (LP), a type of convex programming, studies the case in which the objective function f is linear and the constraints are specified using only linear equalities and inequalities. Such a constraint set is called a polyhedron or a polytope if it is bounded.
+Second-order cone programming (SOCP) is a convex program, and includes certain types of quadratic programs.
+Semidefinite programming (SDP) is a subfield of convex optimization where the underlying variables are semidefinite matrices. It is a generalization of linear and convex quadratic programming.
+Conic programming is a general form of convex programming.  LP, SOCP and SDP can all be viewed as conic programs with the appropriate type of cone.
+Geometric programming is a technique whereby objective and inequality constraints expressed as posynomials and equality constraints as monomials can be transformed into a convex program.
+Integer programming studies linear programs in which some or all variables are constrained to take on integer values.  This is not convex, and in general much more difficult than regular linear programming.
+Quadratic programming allows the objective function to have quadratic terms, while the feasible set must be specified with linear equalities and inequalities.  For specific forms of the quadratic term, this is a type of convex programming.
+Fractional programming studies optimization of ratios of two nonlinear functions. The special class of concave fractional programs can be transformed to a convex optimization problem.
+Nonlinear programming studies the general case in which the objective function or the constraints or both contain nonlinear parts.  This may or may not be a convex program. In general, whether the program is convex affects the difficulty of solving it.
+Stochastic programming studies the case in which some of the constraints or parameters depend on random variables.
+Robust optimization is, like stochastic programming, an attempt to capture uncertainty in the data underlying the optimization problem. Robust optimization aims to find solutions that are valid under all possible realizations of the uncertainties defined by an uncertainty set.
+Combinatorial optimization is concerned with problems where the set of feasible solutions is discrete or can be reduced to a discrete one.
+Stochastic optimization is used with random (noisy) function measurements or random inputs in the search process.
+Infinite-dimensional optimization studies the case when the set of feasible solutions is a subset of an infinite-dimensional space, such as a space of functions.
+Heuristics and metaheuristics make few or no assumptions about the problem being optimized. Usually, heuristics do not guarantee that any optimal solution need be found. On the other hand, heuristics are used to find approximate solutions for many complicated optimization problems.
+Constraint satisfaction studies the case in which the objective function f is constant (this is used in artificial intelligence, particularly in automated reasoning).
+Constraint programming is a programming paradigm wherein relations between variables are stated in the form of constraints.
+Disjunctive programming is used where at least one constraint must be satisfied but not all. It is of particular use in scheduling.
+Space mapping is a concept for modeling and optimization of an engineering system to high-fidelity (fine) model accuracy exploiting a suitable physically meaningful coarse or surrogate model.In a number of subfields, the techniques are designed primarily for optimization in dynamic contexts (that is, decision making over time):
+
+Calculus of variations seeks to optimize an action integral over some space to an extremum by varying a function of the coordinates.
+Optimal control theory is a generalization of the calculus of variations which introduces control policies.
+Dynamic programming is the approach to solve the stochastic optimization problem with stochastic, randomness, and unknown model parameters. It studies the case in which the optimization strategy is based on splitting the problem into smaller subproblems. The equation that describes the relationship between these subproblems is called the Bellman equation.
+Mathematical programming with equilibrium constraints is where the constraints include variational inequalities or  complementarities.
+
+
+=== Multi-objective optimization ===
+
+Adding more than one objective to an optimization problem adds complexity. For example, to optimize a structural design, one would desire a design that is both light and rigid. When two objectives conflict, a trade-off must be created. There may be one lightest design, one stiffest design, and an infinite number of designs that are some compromise of weight and rigidity. The set of trade-off designs that improve upon one criterion at the expense of another is known as the Pareto set. The curve created plotting weight against stiffness of the best designs is known as the Pareto frontier.
+A design is judged to be "Pareto optimal" (equivalently, "Pareto efficient" or in the Pareto set) if it is not dominated by any other design: If it is worse than another design in some respects and no better in any respect, then it is dominated and is not Pareto optimal.
+The choice among "Pareto optimal" solutions to determine the "favorite solution" is delegated to the decision maker. In other words, defining the problem as multi-objective optimization signals that some information is missing: desirable objectives are given but combinations of them are not rated relative to each other. In some cases, the missing information can be derived by interactive sessions with the decision maker.
+Multi-objective optimization problems have been generalized further into vector optimization problems where the (partial) ordering is no longer given by the Pareto ordering.
+
+
+=== Multi-modal or global optimization ===
+Optimization problems are often multi-modal; that is, they possess multiple good solutions. They could all be globally good (same cost function value) or there could be a mix of globally good and locally good solutions. Obtaining all (or at least some of) the multiple solutions is the goal of a multi-modal optimizer.
+Classical optimization techniques due to their iterative approach do not perform satisfactorily when they are used to obtain multiple solutions, since it is not guaranteed that different solutions will be obtained even with different starting points in multiple runs of the algorithm.
+Common approaches to global optimization problems, where multiple local extrema may be present include evolutionary algorithms, Bayesian optimization and simulated annealing.
+
+
+== Classification of critical points and extrema ==
+
+
+=== Feasibility problem ===
+The satisfiability problem, also called the feasibility problem, is just the problem of finding any feasible solution at all without regard to objective value. This can be regarded as the special case of mathematical optimization where the objective value is the same for every solution, and thus any solution is optimal.
+Many optimization algorithms need to start from a feasible point. One way to obtain such a point is to relax the feasibility conditions using a slack variable; with enough slack, any starting point is feasible. Then, minimize that slack variable until the slack is null or negative.
+
+
+=== Existence ===
+The extreme value theorem of Karl Weierstrass states that a continuous real-valued function on a compact set attains its maximum and minimum value. More generally, a lower semi-continuous function on a compact set attains its minimum; an upper semi-continuous function on a compact set attains its maximum point or view.
+
+
+=== Necessary conditions for optimality ===
+One of Fermat's theorems states that optima of unconstrained problems are found at stationary points, where the first derivative or the gradient of the objective function is zero (see first derivative test). More generally, they may be found at critical points, where the first derivative or gradient of the objective function is zero or is undefined, or on the boundary of the choice set. An equation (or set of equations) stating that the first derivative(s) equal(s) zero at an interior optimum is called a 'first-order condition' or a set of first-order conditions.
+Optima of equality-constrained problems can be found by the Lagrange multiplier method. The optima of problems with equality and/or inequality constraints can be found using the 'Karush–Kuhn–Tucker conditions'.
+
+
+=== Sufficient conditions for optimality ===
+While the first derivative test identifies points that might be extrema, this test does not distinguish a point that is a minimum from one that is a maximum or one that is neither. When the objective function is twice differentiable, these cases can be distinguished by checking the second derivative or the matrix of second derivatives (called the Hessian matrix) in unconstrained problems, or the matrix of second derivatives of the objective function and the constraints called the bordered Hessian in constrained problems. The conditions that distinguish maxima, or minima, from other stationary points are called 'second-order conditions' (see 'Second derivative test'). If a candidate solution satisfies the first-order conditions, then the satisfaction of the second-order conditions as well is sufficient to establish at least local optimality.
+
+
+=== Sensitivity and continuity of optima ===
+The envelope theorem describes how the value of an optimal solution changes when an underlying parameter changes. The process of computing this change is called comparative statics.
+The maximum theorem of Claude Berge (1963) describes the continuity of an optimal solution as a function of underlying parameters.
+
+
+=== Calculus of optimization ===
+
+For unconstrained problems with twice-differentiable functions, some critical points can be found by finding the points where the gradient of the objective function is zero (that is, the stationary points). More generally, a zero subgradient certifies that a local minimum has been found for minimization problems with convex functions and other locally Lipschitz functions.
+Further, critical points can be classified using the definiteness of the Hessian matrix: If the Hessian is positive definite at a critical point, then the point is a local minimum; if the Hessian matrix is negative definite, then the point is a local maximum; finally, if indefinite, then the point is some kind of saddle point.
+Constrained problems can often be transformed into unconstrained problems with the help of Lagrange multipliers. Lagrangian relaxation can also provide approximate solutions to difficult constrained problems.
+When the objective function is a convex function, then any local minimum will also be a global minimum. There exist efficient numerical techniques for minimizing convex functions, such as interior-point methods.
+
+
+== Computational optimization techniques ==
+To solve problems, researchers may use algorithms that terminate in a finite number of steps, or iterative methods that converge to a solution (on some specified class of problems), or heuristics that may provide approximate solutions to some problems (although their iterates need not converge).
+
+
+=== Optimization algorithms ===
+
+Simplex algorithm of George Dantzig, designed for linear programming
+Extensions of the simplex algorithm, designed for quadratic programming and for linear-fractional programming
+Variants of the simplex algorithm that are especially suited for network optimization.
+Combinatorial algorithms
+Quantum optimization algorithms
+
+
+=== Iterative methods ===
+
+The iterative methods used to solve problems of nonlinear programming differ according to whether they evaluate Hessians, gradients, or only function values. While evaluating Hessians (H) and gradients (G) improves the rate of convergence, for functions for which these quantities exist and vary sufficiently smoothly, such evaluations increase the computational complexity (or computational cost) of each iteration. In some cases, the computational complexity may be excessively high.
+One major criterion for optimizers is just the number of required function evaluations as this often is already a large computational effort, usually much more effort than within the optimizer itself, which mainly has to operate over the N variables. The derivatives provide detailed information for such optimizers, but are even harder to calculate, e.g. approximating the gradient takes at least N+1 function evaluations. For approximations of the 2nd derivatives (collected in the Hessian matrix), the number of function evaluations is in the order of N². Newton's method requires the 2nd-order derivatives, so for each iteration, the number of function calls is in the order of N², but for a simpler pure gradient optimizer it is only N. However, gradient optimizers need usually more iterations than Newton's algorithm. Which one is best with respect to the number of function calls depends on the problem itself.
+
+Methods that evaluate Hessians (or approximate Hessians, using finite differences):
+Newton's method
+Sequential quadratic programming: A Newton-based method for small-medium scale constrained problems. Some versions can handle large-dimensional problems.
+Interior point methods: This is a large class of methods for constrained optimization, some of which use only (sub)gradient information and others of which require the evaluation of Hessians.
+Methods that evaluate gradients, or approximate gradients in some way (or even subgradients):
+Coordinate descent methods: Algorithms which update a single coordinate in each iteration
+Conjugate gradient methods: Iterative methods for large problems. (In theory, these methods terminate in a finite number of steps with quadratic objective functions, but this finite termination is not observed in practice on finite–precision computers.)
+Gradient descent (alternatively, "steepest descent" or "steepest ascent"): A (slow) method of historical and theoretical interest, which has had renewed interest for finding approximate solutions of enormous problems.
+Subgradient methods: An iterative method for large locally Lipschitz functions using generalized gradients. Following Boris T. Polyak, subgradient–projection methods are similar to conjugate–gradient methods.
+Bundle method of descent: An iterative method for small–medium-sized problems with locally Lipschitz functions, particularly for convex minimization problems (similar to conjugate gradient methods).
+Ellipsoid method: An iterative method for small problems with quasiconvex objective functions and of great theoretical interest, particularly in establishing the polynomial time complexity of some combinatorial optimization problems. It has similarities with Quasi-Newton methods.
+Conditional gradient method (Frank–Wolfe) for approximate minimization of specially structured problems with linear constraints, especially with traffic networks. For general unconstrained problems, this method reduces to the gradient method, which is regarded as obsolete (for almost all problems).
+Quasi-Newton methods: Iterative methods for medium-large problems (e.g. N<1000).
+Simultaneous perturbation stochastic approximation (SPSA) method for stochastic optimization; uses random (efficient) gradient approximation.
+Methods that evaluate only function values: If a problem is continuously differentiable, then gradients can be approximated using finite differences, in which case a gradient-based method can be used.
+Interpolation methods
+Pattern search methods, which have better convergence properties than the Nelder–Mead heuristic (with simplices), which is listed below.
+
+
+=== Global convergence ===
+More generally, if the objective function is not a quadratic function, then many optimization methods use other methods to ensure that some subsequence of iterations converges to an optimal solution. The first and still popular method for ensuring convergence relies on line searches, which optimize a function along one dimension. A second and increasingly popular method for ensuring convergence uses trust regions. Both line searches and trust regions are used in modern methods of non-differentiable optimization. Usually, a global optimizer is much slower than advanced local optimizers (such as BFGS), so often an efficient global optimizer can be constructed by starting the local optimizer from different starting points.
+
+
+=== Heuristics ===
+
+Besides (finitely terminating) algorithms and (convergent) iterative methods, there are heuristics. A heuristic is any algorithm which is not guaranteed (mathematically) to find the solution, but which is nevertheless useful in certain practical situations. List of some well-known heuristics:
+
+
+== Applications ==
+
+
+=== Mechanics ===
+Problems in rigid body dynamics (in particular articulated rigid body dynamics) often require mathematical programming techniques, since you can view rigid body dynamics as attempting to solve an ordinary differential equation on a constraint manifold; the constraints are various nonlinear geometric constraints such as "these two points must always coincide", "this surface must not penetrate any other", or "this point must always lie somewhere on this curve". Also, the problem of computing contact forces can be done by solving a linear complementarity problem, which can also be viewed as a QP (quadratic programming) problem.
+Many design problems can also be expressed as optimization programs. This application is called design optimization. One subset is the engineering optimization, and another recent and growing subset of this field is multidisciplinary design optimization, which, while useful in many problems, has in particular been applied to aerospace engineering problems.
+This approach may be applied in cosmology and astrophysics.
+
+
+=== Economics and finance ===
+Economics is closely enough linked to optimization of agents that an influential definition relatedly describes economics qua science as the "study of human behavior as a relationship between ends and scarce means" with alternative uses.  Modern optimization theory includes traditional optimization theory but also overlaps with game theory and the study of economic equilibria. The Journal of Economic Literature codes classify mathematical programming, optimization techniques, and related topics under JEL:C61-C63.
+In microeconomics, the utility maximization problem and its dual problem, the expenditure minimization problem, are economic optimization problems. Insofar as they behave consistently, consumers are assumed to maximize their utility, while firms are usually assumed to maximize their profit. Also, agents are often modeled as being risk-averse, thereby preferring to avoid risk. Asset prices are also modeled using optimization theory, though the underlying mathematics relies on optimizing stochastic processes rather than on static optimization. International trade theory also uses optimization to explain trade patterns between nations. The optimization of portfolios is an example of multi-objective optimization in economics.
+Since the 1970s, economists have modeled dynamic decisions over time using control theory. For example, dynamic search models are used to study labor-market behavior. A crucial distinction is between deterministic and stochastic models.  Macroeconomists build dynamic stochastic general equilibrium (DSGE) models that describe the dynamics of the whole economy as the result of the interdependent optimizing decisions of workers, consumers, investors, and governments.
+
+
+=== Electrical engineering ===
+Some common applications of optimization techniques in electrical engineering include active filter design, stray field reduction in superconducting magnetic energy storage systems, space mapping design of microwave structures, handset antennas, electromagnetics-based design. Electromagnetically validated design optimization of microwave components and antennas has made extensive use of an appropriate physics-based or empirical surrogate model and space mapping methodologies since the discovery of space mapping in 1993.
+
+
+=== Civil engineering ===
+Optimization has been widely used in civil engineering. Construction management and transportation engineering are among the main branches of civil engineering that heavily rely on optimization. The most common civil engineering problems that are solved by optimization are cut and fill of roads, life-cycle analysis of structures and infrastructures, resource leveling, water resource allocation, traffic management and schedule optimization.
+
+
+=== Operations research ===
+Another field that uses optimization techniques extensively is operations research. Operations research also uses stochastic modeling and simulation to support improved decision-making. Increasingly, operations research uses stochastic programming to model dynamic decisions that adapt to events; such problems can be solved with large-scale optimization and stochastic optimization methods.
+
+
+=== Control engineering ===
+Mathematical optimization is used in much modern controller design. High-level controllers such as model predictive control (MPC) or real-time optimization (RTO) employ mathematical optimization. These algorithms run online and repeatedly determine values for decision variables, such as choke openings in a process plant, by iteratively solving a mathematical optimization problem including constraints and a model of the system to be controlled.
+
+
+=== Geophysics ===
+Optimization techniques are regularly used in geophysical parameter estimation problems. Given a set of geophysical measurements, e.g. seismic recordings, it is common to solve for the physical properties and geometrical shapes of the underlying rocks and fluids.  The majority of problems in geophysics are nonlinear with both deterministic and stochastic methods being widely used.
+
+
+=== Molecular modeling ===
+
+Nonlinear optimization methods are widely used in conformational analysis.
+
+
+=== Computational systems biology ===
+
+Optimization techniques are used in many facets of computational systems biology such as model building, optimal experimental design, metabolic engineering, and synthetic biology. Linear programming has been applied to calculate the maximal possible yields of fermentation products, and to infer gene regulatory networks from multiple microarray datasets as well as transcriptional regulatory networks from high-throughput data. Nonlinear programming has been used to analyze energy metabolism and has been applied to metabolic engineering and parameter estimation in biochemical pathways.
+
+
+=== Machine learning ===
+
+
+== Solvers ==
+
+
+== See also ==
+
+
+== Notes ==
+
+
+== Further reading ==
+Boyd, Stephen P.; Vandenberghe, Lieven (2004). Convex Optimization. Cambridge: Cambridge University Press. ISBN 0-521-83378-7.
+Gill, P. E.; Murray, W.; Wright, M. H. (1982). Practical Optimization. London: Academic Press. ISBN 0-12-283952-8.
+Lee, Jon (2004). A First Course in Combinatorial Optimization. Cambridge University Press. ISBN 0-521-01012-8.
+Nocedal, Jorge; Wright, Stephen J. (2006). Numerical Optimization (2nd ed.). Berlin: Springer. ISBN 0-387-30303-0.
+Snyman, J. A.; Wilke, D. N. (2018). Practical Mathematical Optimization : Basic Optimization Theory and Gradient-Based Algorithms (2nd ed.). Berlin: Springer. ISBN 978-3-319-77585-2.
+
+
+== External links ==
+"Decision Tree for Optimization Software". Links to optimization source codes
+"Global optimization".
+"EE364a: Convex Optimization I". Course from Stanford University.
+Varoquaux, Gaël. "Mathematical Optimization: Finding Minima of Functions".Mathematical optimization (alternatively spelled optimisation) or mathematical programming is the selection of a best element, with regard to some criterion, from some set of available alternatives. Optimization problems of sorts arise in all quantitative disciplines from computer science and engineering to operations research and economics, and the development of solution methods has been of interest in mathematics for centuries.In the simplest case, an optimization problem consists of maximizing or minimizing a real function by systematically choosing input values from within an allowed set and computing the value of the function. The generalization of optimization theory and techniques to other formulations constitutes a large area of applied mathematics. More generally, optimization includes finding "best available" values of some objective function given a defined domain (or input), including a variety of different types of objective functions and different types of domains.
+
+
+== Optimization problems ==
+
+An optimization problem can be represented in the following way:
+
+Given: a function f : A → ℝ from some set A to the real numbers
+Sought: an element x0 ∈ A such that f(x0) ≤ f(x) for all x ∈ A ("minimization") or such that f(x0) ≥ f(x) for all x ∈ A ("maximization").Such a formulation is called an optimization problem or a mathematical programming problem (a term not directly related to computer programming, but still in use for example in linear programming – see History below). Many real-world and theoretical problems may be modeled in this general framework.
+Since the following is valid
+
+  
+    
+      
+        f
+        
+          (
+          
+            
+              x
+            
+            
+              0
+            
+          
+          )
+        
+        ≥
+        f
+        
+          (
+          
+            x
+          
+          )
+        
+        ⇔
+        
+          
+            
+              f
+              ~
+            
+          
+        
+        
+          (
+          
+            
+              x
+            
+            
+              0
+            
+          
+          )
+        
+        ≤
+        
+          
+            
+              f
+              ~
+            
+          
+        
+        
+          (
+          
+            x
+          
+          )
+        
+      
+    
+    {\displaystyle f\left(\mathbf {x} _{0}\right)\geq f\left(\mathbf {x} \right)\Leftrightarrow {\tilde {f}}\left(\mathbf {x} _{0}\right)\leq {\tilde {f}}\left(\mathbf {x} \right)}
+  with
+
+  
+    
+      
+        
+          
+            
+              f
+              ~
+            
+          
+        
+        
+          (
+          
+            x
+          
+          )
+        
+        :=
+        −
+        f
+        
+          (
+          
+            x
+          
+          )
+        
+        ,
+        
+        
+          
+            
+              f
+              ~
+            
+          
+        
+        
+        :
+        
+        A
+        →
+        
+          R
+        
+      
+    
+    {\displaystyle {\tilde {f}}\left(\mathbf {x} \right):=-f\left(\mathbf {x} \right),\,{\tilde {f}}\,:\,A\rightarrow \mathbb {R} }
+  it is more convenient to solve minimization problems. However, the opposite perspective would be valid, too.
+Problems formulated using this technique in the fields of physics may refer to the technique as energy minimization, speaking of the value of the function f as representing the energy of the system being modeled. In machine learning, it is always necessary to continuously evaluate the quality of a data model by using a cost function where a minimum implies a set of possibly optimal parameters with an optimal (lowest) error.
+Typically, A is some subset of the Euclidean space ℝn, often specified by a set of constraints, equalities or inequalities that the members of A have to satisfy.  The domain A of f is called the search space or the choice set, while the elements of A are called candidate solutions or feasible solutions.
+The function f is called, variously, an objective function, a loss function or cost function (minimization),  a utility function or fitness function (maximization), or, in certain fields, an energy function or energy functional. A feasible solution that minimizes (or maximizes, if that is the goal) the objective function is called an optimal solution.
+In mathematics, conventional optimization problems are usually stated in terms of minimization.
+A local minimum x* is defined as an element for which there exists some δ > 0 such that
+
+  
+    
+      
+        ∀
+        
+          x
+        
+        ∈
+        A
+        
+        
+          where
+        
+        
+        
+          ‖
+          
+            
+              x
+            
+            −
+            
+              
+                x
+              
+              
+                ∗
+              
+            
+          
+          ‖
+        
+        ≤
+        δ
+        ,
+        
+      
+    
+    {\displaystyle \forall \mathbf {x} \in A\;{\text{where}}\;\left\Vert \mathbf {x} -\mathbf {x} ^{\ast }\right\Vert \leq \delta ,\,}
+  the expression f(x*) ≤ f(x) holds;
+that is to say, on some region around x* all of the function values are greater than or equal to the value at that element. 
+Local maxima are defined similarly.
+While a local minimum is at least as good as any nearby elements, a global minimum is at least as good as every feasible element.
+Generally, unless the objective function is convex in a minimization problem, there may be several local minima.
+In a convex problem, if there is a local minimum that is interior (not on the edge of the set of feasible elements), it is also the global minimum, but a nonconvex problem may have more than one local minimum not all of which need be global minima.
+A large number of algorithms proposed for solving the nonconvex problems – including the majority of commercially available solvers – are  not capable of making a distinction between locally optimal solutions and globally optimal solutions, and will treat the former as actual solutions to the original problem. Global optimization is the branch of applied mathematics and numerical analysis that is concerned with the development of deterministic algorithms that are capable of guaranteeing convergence in finite time to the actual optimal solution of a nonconvex problem.
+
+
+== Notation ==
+Optimization problems are often expressed with special notation. Here are some examples:
+
+
+=== Minimum and maximum value of a function ===
+Consider the following notation:
+
+  
+    
+      
+        
+          min
+          
+            x
+            ∈
+            
+              R
+            
+          
+        
+        
+        
+          (
+          
+            
+              x
+              
+                2
+              
+            
+            +
+            1
+          
+          )
+        
+      
+    
+    {\displaystyle \min _{x\in \mathbb {R} }\;\left(x^{2}+1\right)}
+  This denotes the minimum value of the objective function x2 + 1, when choosing x from the set of real numbers ℝ. The minimum value in this case is 1, occurring at x = 0.
+Similarly, the notation
+
+  
+    
+      
+        
+          max
+          
+            x
+            ∈
+            
+              R
+            
+          
+        
+        
+        2
+        x
+      
+    
+    {\displaystyle \max _{x\in \mathbb {R} }\;2x}
+  asks for the maximum value of the objective function 2x, where x may be any real number. In this case, there is no such maximum as the objective function is unbounded, so the answer is "infinity" or "undefined".
+
+
+=== Optimal input arguments ===
+
+Consider the following notation:
+
+  
+    
+      
+        
+          
+            
+              a
+              r
+              g
+              
+              m
+              i
+              n
+            
+            
+              x
+              ∈
+              (
+              −
+              ∞
+              ,
+              −
+              1
+              ]
+            
+          
+        
+        
+        
+          x
+          
+            2
+          
+        
+        +
+        1
+        ,
+      
+    
+    {\displaystyle {\underset {x\in (-\infty ,-1]}{\operatorname {arg\,min} }}\;x^{2}+1,}
+  or equivalently
+
+  
+    
+      
+        
+          
+            
+              a
+              r
+              g
+              
+              m
+              i
+              n
+            
+            x
+          
+        
+        
+        
+          x
+          
+            2
+          
+        
+        +
+        1
+        ,
+        
+        
+          subject to:
+        
+        
+        x
+        ∈
+        (
+        −
+        ∞
+        ,
+        −
+        1
+        ]
+        .
+      
+    
+    {\displaystyle {\underset {x}{\operatorname {arg\,min} }}\;x^{2}+1,\;{\text{subject to:}}\;x\in (-\infty ,-1].}
+  This represents the value (or values) of the argument x in the interval (−∞,−1] that minimizes (or minimize) the objective function x2 + 1 (the actual minimum value of that function is not what the problem asks for). In this case, the answer is x = −1, since x = 0 is infeasible, that is, it does not belong to the feasible set.
+Similarly,
+
+  
+    
+      
+        
+          
+            
+              a
+              r
+              g
+              
+              m
+              a
+              x
+            
+            
+              x
+              ∈
+              [
+              −
+              5
+              ,
+              5
+              ]
+              ,
+              
+              y
+              ∈
+              
+                R
+              
+            
+          
+        
+        
+        x
+        cos
+        ⁡
+        y
+        ,
+      
+    
+    {\displaystyle {\underset {x\in [-5,5],\;y\in \mathbb {R} }{\operatorname {arg\,max} }}\;x\cos y,}
+  or equivalently
+
+  
+    
+      
+        
+          
+            
+              a
+              r
+              g
+              
+              m
+              a
+              x
+            
+            
+              x
+              ,
+              
+              y
+            
+          
+        
+        
+        x
+        cos
+        ⁡
+        y
+        ,
+        
+        
+          subject to:
+        
+        
+        x
+        ∈
+        [
+        −
+        5
+        ,
+        5
+        ]
+        ,
+        
+        y
+        ∈
+        
+          R
+        
+        ,
+      
+    
+    {\displaystyle {\underset {x,\;y}{\operatorname {arg\,max} }}\;x\cos y,\;{\text{subject to:}}\;x\in [-5,5],\;y\in \mathbb {R} ,}
+  represents the {x, y} pair (or pairs) that maximizes (or maximize) the value of the objective function x cos y, with the added constraint that x lie in the interval [−5,5] (again, the actual maximum value of the expression does not matter). In this case, the solutions are the pairs of the form {5, 2kπ} and {−5, (2k + 1)π}, where k ranges over all integers.
+Operators arg min and arg max are sometimes also written as argmin and argmax, and stand for argument of the minimum and argument of the maximum.
+
+
+== History ==
+Fermat and Lagrange found calculus-based formulae for identifying optima, while Newton and Gauss proposed iterative methods for moving towards an optimum.
+The term "linear programming" for certain optimization cases was due to George B. Dantzig, although much of the theory had been introduced by Leonid Kantorovich in 1939. (Programming in this context does not refer to computer programming, but comes from the use of program by the United States military to refer to proposed training and logistics schedules, which were the problems Dantzig studied at that time.) Dantzig published the Simplex algorithm in 1947, and John von Neumann developed the theory of duality in the same year.Other notable researchers in mathematical optimization include the following:
+
+
+== Major subfields ==
+Convex programming studies the case when the objective function is convex (minimization) or concave (maximization) and the constraint set is convex. This can be viewed as a particular case of nonlinear programming or as generalization of linear or convex quadratic programming.
+Linear programming (LP), a type of convex programming, studies the case in which the objective function f is linear and the constraints are specified using only linear equalities and inequalities. Such a constraint set is called a polyhedron or a polytope if it is bounded.
+Second-order cone programming (SOCP) is a convex program, and includes certain types of quadratic programs.
+Semidefinite programming (SDP) is a subfield of convex optimization where the underlying variables are semidefinite matrices. It is a generalization of linear and convex quadratic programming.
+Conic programming is a general form of convex programming.  LP, SOCP and SDP can all be viewed as conic programs with the appropriate type of cone.
+Geometric programming is a technique whereby objective and inequality constraints expressed as posynomials and equality constraints as monomials can be transformed into a convex program.
+Integer programming studies linear programs in which some or all variables are constrained to take on integer values.  This is not convex, and in general much more difficult than regular linear programming.
+Quadratic programming allows the objective function to have quadratic terms, while the feasible set must be specified with linear equalities and inequalities.  For specific forms of the quadratic term, this is a type of convex programming.
+Fractional programming studies optimization of ratios of two nonlinear functions. The special class of concave fractional programs can be transformed to a convex optimization problem.
+Nonlinear programming studies the general case in which the objective function or the constraints or both contain nonlinear parts.  This may or may not be a convex program. In general, whether the program is convex affects the difficulty of solving it.
+Stochastic programming studies the case in which some of the constraints or parameters depend on random variables.
+Robust optimization is, like stochastic programming, an attempt to capture uncertainty in the data underlying the optimization problem. Robust optimization aims to find solutions that are valid under all possible realizations of the uncertainties defined by an uncertainty set.
+Combinatorial optimization is concerned with problems where the set of feasible solutions is discrete or can be reduced to a discrete one.
+Stochastic optimization is used with random (noisy) function measurements or random inputs in the search process.
+Infinite-dimensional optimization studies the case when the set of feasible solutions is a subset of an infinite-dimensional space, such as a space of functions.
+Heuristics and metaheuristics make few or no assumptions about the problem being optimized. Usually, heuristics do not guarantee that any optimal solution need be found. On the other hand, heuristics are used to find approximate solutions for many complicated optimization problems.
+Constraint satisfaction studies the case in which the objective function f is constant (this is used in artificial intelligence, particularly in automated reasoning).
+Constraint programming is a programming paradigm wherein relations between variables are stated in the form of constraints.
+Disjunctive programming is used where at least one constraint must be satisfied but not all. It is of particular use in scheduling.
+Space mapping is a concept for modeling and optimization of an engineering system to high-fidelity (fine) model accuracy exploiting a suitable physically meaningful coarse or surrogate model.In a number of subfields, the techniques are designed primarily for optimization in dynamic contexts (that is, decision making over time):
+
+Calculus of variations seeks to optimize an action integral over some space to an extremum by varying a function of the coordinates.
+Optimal control theory is a generalization of the calculus of variations which introduces control policies.
+Dynamic programming is the approach to solve the stochastic optimization problem with stochastic, randomness, and unknown model parameters. It studies the case in which the optimization strategy is based on splitting the problem into smaller subproblems. The equation that describes the relationship between these subproblems is called the Bellman equation.
+Mathematical programming with equilibrium constraints is where the constraints include variational inequalities or  complementarities.
+
+
+=== Multi-objective optimization ===
+
+Adding more than one objective to an optimization problem adds complexity. For example, to optimize a structural design, one would desire a design that is both light and rigid. When two objectives conflict, a trade-off must be created. There may be one lightest design, one stiffest design, and an infinite number of designs that are some compromise of weight and rigidity. The set of trade-off designs that improve upon one criterion at the expense of another is known as the Pareto set. The curve created plotting weight against stiffness of the best designs is known as the Pareto frontier.
+A design is judged to be "Pareto optimal" (equivalently, "Pareto efficient" or in the Pareto set) if it is not dominated by any other design: If it is worse than another design in some respects and no better in any respect, then it is dominated and is not Pareto optimal.
+The choice among "Pareto optimal" solutions to determine the "favorite solution" is delegated to the decision maker. In other words, defining the problem as multi-objective optimization signals that some information is missing: desirable objectives are given but combinations of them are not rated relative to each other. In some cases, the missing information can be derived by interactive sessions with the decision maker.
+Multi-objective optimization problems have been generalized further into vector optimization problems where the (partial) ordering is no longer given by the Pareto ordering.
+
+
+=== Multi-modal or global optimization ===
+Optimization problems are often multi-modal; that is, they possess multiple good solutions. They could all be globally good (same cost function value) or there could be a mix of globally good and locally good solutions. Obtaining all (or at least some of) the multiple solutions is the goal of a multi-modal optimizer.
+Classical optimization techniques due to their iterative approach do not perform satisfactorily when they are used to obtain multiple solutions, since it is not guaranteed that different solutions will be obtained even with different starting points in multiple runs of the algorithm.
+Common approaches to global optimization problems, where multiple local extrema may be present include evolutionary algorithms, Bayesian optimization and simulated annealing.
+
+
+== Classification of critical points and extrema ==
+
+
+=== Feasibility problem ===
+The satisfiability problem, also called the feasibility problem, is just the problem of finding any feasible solution at all without regard to objective value. This can be regarded as the special case of mathematical optimization where the objective value is the same for every solution, and thus any solution is optimal.
+Many optimization algorithms need to start from a feasible point. One way to obtain such a point is to relax the feasibility conditions using a slack variable; with enough slack, any starting point is feasible. Then, minimize that slack variable until the slack is null or negative.
+
+
+=== Existence ===
+The extreme value theorem of Karl Weierstrass states that a continuous real-valued function on a compact set attains its maximum and minimum value. More generally, a lower semi-continuous function on a compact set attains its minimum; an upper semi-continuous function on a compact set attains its maximum point or view.
+
+
+=== Necessary conditions for optimality ===
+One of Fermat's theorems states that optima of unconstrained problems are found at stationary points, where the first derivative or the gradient of the objective function is zero (see first derivative test). More generally, they may be found at critical points, where the first derivative or gradient of the objective function is zero or is undefined, or on the boundary of the choice set. An equation (or set of equations) stating that the first derivative(s) equal(s) zero at an interior optimum is called a 'first-order condition' or a set of first-order conditions.
+Optima of equality-constrained problems can be found by the Lagrange multiplier method. The optima of problems with equality and/or inequality constraints can be found using the 'Karush–Kuhn–Tucker conditions'.
+
+
+=== Sufficient conditions for optimality ===
+While the first derivative test identifies points that might be extrema, this test does not distinguish a point that is a minimum from one that is a maximum or one that is neither. When the objective function is twice differentiable, these cases can be distinguished by checking the second derivative or the matrix of second derivatives (called the Hessian matrix) in unconstrained problems, or the matrix of second derivatives of the objective function and the constraints called the bordered Hessian in constrained problems. The conditions that distinguish maxima, or minima, from other stationary points are called 'second-order conditions' (see 'Second derivative test'). If a candidate solution satisfies the first-order conditions, then the satisfaction of the second-order conditions as well is sufficient to establish at least local optimality.
+
+
+=== Sensitivity and continuity of optima ===
+The envelope theorem describes how the value of an optimal solution changes when an underlying parameter changes. The process of computing this change is called comparative statics.
+The maximum theorem of Claude Berge (1963) describes the continuity of an optimal solution as a function of underlying parameters.
+
+
+=== Calculus of optimization ===
+
+For unconstrained problems with twice-differentiable functions, some critical points can be found by finding the points where the gradient of the objective function is zero (that is, the stationary points). More generally, a zero subgradient certifies that a local minimum has been found for minimization problems with convex functions and other locally Lipschitz functions.
+Further, critical points can be classified using the definiteness of the Hessian matrix: If the Hessian is positive definite at a critical point, then the point is a local minimum; if the Hessian matrix is negative definite, then the point is a local maximum; finally, if indefinite, then the point is some kind of saddle point.
+Constrained problems can often be transformed into unconstrained problems with the help of Lagrange multipliers. Lagrangian relaxation can also provide approximate solutions to difficult constrained problems.
+When the objective function is a convex function, then any local minimum will also be a global minimum. There exist efficient numerical techniques for minimizing convex functions, such as interior-point methods.
+
+
+== Computational optimization techniques ==
+To solve problems, researchers may use algorithms that terminate in a finite number of steps, or iterative methods that converge to a solution (on some specified class of problems), or heuristics that may provide approximate solutions to some problems (although their iterates need not converge).
+
+
+=== Optimization algorithms ===
+
+Simplex algorithm of George Dantzig, designed for linear programming
+Extensions of the simplex algorithm, designed for quadratic programming and for linear-fractional programming
+Variants of the simplex algorithm that are especially suited for network optimization.
+Combinatorial algorithms
+Quantum optimization algorithms
+
+
+=== Iterative methods ===
+
+The iterative methods used to solve problems of nonlinear programming differ according to whether they evaluate Hessians, gradients, or only function values. While evaluating Hessians (H) and gradients (G) improves the rate of convergence, for functions for which these quantities exist and vary sufficiently smoothly, such evaluations increase the computational complexity (or computational cost) of each iteration. In some cases, the computational complexity may be excessively high.
+One major criterion for optimizers is just the number of required function evaluations as this often is already a large computational effort, usually much more effort than within the optimizer itself, which mainly has to operate over the N variables. The derivatives provide detailed information for such optimizers, but are even harder to calculate, e.g. approximating the gradient takes at least N+1 function evaluations. For approximations of the 2nd derivatives (collected in the Hessian matrix), the number of function evaluations is in the order of N². Newton's method requires the 2nd-order derivatives, so for each iteration, the number of function calls is in the order of N², but for a simpler pure gradient optimizer it is only N. However, gradient optimizers need usually more iterations than Newton's algorithm. Which one is best with respect to the number of function calls depends on the problem itself.
+
+Methods that evaluate Hessians (or approximate Hessians, using finite differences):
+Newton's method
+Sequential quadratic programming: A Newton-based method for small-medium scale constrained problems. Some versions can handle large-dimensional problems.
+Interior point methods: This is a large class of methods for constrained optimization, some of which use only (sub)gradient information and others of which require the evaluation of Hessians.
+Methods that evaluate gradients, or approximate gradients in some way (or even subgradients):
+Coordinate descent methods: Algorithms which update a single coordinate in each iteration
+Conjugate gradient methods: Iterative methods for large problems. (In theory, these methods terminate in a finite number of steps with quadratic objective functions, but this finite termination is not observed in practice on finite–precision computers.)
+Gradient descent (alternatively, "steepest descent" or "steepest ascent"): A (slow) method of historical and theoretical interest, which has had renewed interest for finding approximate solutions of enormous problems.
+Subgradient methods: An iterative method for large locally Lipschitz functions using generalized gradients. Following Boris T. Polyak, subgradient–projection methods are similar to conjugate–gradient methods.
+Bundle method of descent: An iterative method for small–medium-sized problems with locally Lipschitz functions, particularly for convex minimization problems (similar to conjugate gradient methods).
+Ellipsoid method: An iterative method for small problems with quasiconvex objective functions and of great theoretical interest, particularly in establishing the polynomial time complexity of some combinatorial optimization problems. It has similarities with Quasi-Newton methods.
+Conditional gradient method (Frank–Wolfe) for approximate minimization of specially structured problems with linear constraints, especially with traffic networks. For general unconstrained problems, this method reduces to the gradient method, which is regarded as obsolete (for almost all problems).
+Quasi-Newton methods: Iterative methods for medium-large problems (e.g. N<1000).
+Simultaneous perturbation stochastic approximation (SPSA) method for stochastic optimization; uses random (efficient) gradient approximation.
+Methods that evaluate only function values: If a problem is continuously differentiable, then gradients can be approximated using finite differences, in which case a gradient-based method can be used.
+Interpolation methods
+Pattern search methods, which have better convergence properties than the Nelder–Mead heuristic (with simplices), which is listed below.
+
+
+=== Global convergence ===
+More generally, if the objective function is not a quadratic function, then many optimization methods use other methods to ensure that some subsequence of iterations converges to an optimal solution. The first and still popular method for ensuring convergence relies on line searches, which optimize a function along one dimension. A second and increasingly popular method for ensuring convergence uses trust regions. Both line searches and trust regions are used in modern methods of non-differentiable optimization. Usually, a global optimizer is much slower than advanced local optimizers (such as BFGS), so often an efficient global optimizer can be constructed by starting the local optimizer from different starting points.
+
+
+=== Heuristics ===
+
+Besides (finitely terminating) algorithms and (convergent) iterative methods, there are heuristics. A heuristic is any algorithm which is not guaranteed (mathematically) to find the solution, but which is nevertheless useful in certain practical situations. List of some well-known heuristics:
+
+
+== Applications ==
+
+
+=== Mechanics ===
+Problems in rigid body dynamics (in particular articulated rigid body dynamics) often require mathematical programming techniques, since you can view rigid body dynamics as attempting to solve an ordinary differential equation on a constraint manifold; the constraints are various nonlinear geometric constraints such as "these two points must always coincide", "this surface must not penetrate any other", or "this point must always lie somewhere on this curve". Also, the problem of computing contact forces can be done by solving a linear complementarity problem, which can also be viewed as a QP (quadratic programming) problem.
+Many design problems can also be expressed as optimization programs. This application is called design optimization. One subset is the engineering optimization, and another recent and growing subset of this field is multidisciplinary design optimization, which, while useful in many problems, has in particular been applied to aerospace engineering problems.
+This approach may be applied in cosmology and astrophysics.
+
+
+=== Economics and finance ===
+Economics is closely enough linked to optimization of agents that an influential definition relatedly describes economics qua science as the "study of human behavior as a relationship between ends and scarce means" with alternative uses.  Modern optimization theory includes traditional optimization theory but also overlaps with game theory and the study of economic equilibria. The Journal of Economic Literature codes classify mathematical programming, optimization techniques, and related topics under JEL:C61-C63.
+In microeconomics, the utility maximization problem and its dual problem, the expenditure minimization problem, are economic optimization problems. Insofar as they behave consistently, consumers are assumed to maximize their utility, while firms are usually assumed to maximize their profit. Also, agents are often modeled as being risk-averse, thereby preferring to avoid risk. Asset prices are also modeled using optimization theory, though the underlying mathematics relies on optimizing stochastic processes rather than on static optimization. International trade theory also uses optimization to explain trade patterns between nations. The optimization of portfolios is an example of multi-objective optimization in economics.
+Since the 1970s, economists have modeled dynamic decisions over time using control theory. For example, dynamic search models are used to study labor-market behavior. A crucial distinction is between deterministic and stochastic models.  Macroeconomists build dynamic stochastic general equilibrium (DSGE) models that describe the dynamics of the whole economy as the result of the interdependent optimizing decisions of workers, consumers, investors, and governments.
+
+
+=== Electrical engineering ===
+Some common applications of optimization techniques in electrical engineering include active filter design, stray field reduction in superconducting magnetic energy storage systems, space mapping design of microwave structures, handset antennas, electromagnetics-based design. Electromagnetically validated design optimization of microwave components and antennas has made extensive use of an appropriate physics-based or empirical surrogate model and space mapping methodologies since the discovery of space mapping in 1993.
+
+
+=== Civil engineering ===
+Optimization has been widely used in civil engineering. Construction management and transportation engineering are among the main branches of civil engineering that heavily rely on optimization. The most common civil engineering problems that are solved by optimization are cut and fill of roads, life-cycle analysis of structures and infrastructures, resource leveling, water resource allocation, traffic management and schedule optimization.
+
+
+=== Operations research ===
+Another field that uses optimization techniques extensively is operations research. Operations research also uses stochastic modeling and simulation to support improved decision-making. Increasingly, operations research uses stochastic programming to model dynamic decisions that adapt to events; such problems can be solved with large-scale optimization and stochastic optimization methods.
+
+
+=== Control engineering ===
+Mathematical optimization is used in much modern controller design. High-level controllers such as model predictive control (MPC) or real-time optimization (RTO) employ mathematical optimization. These algorithms run online and repeatedly determine values for decision variables, such as choke openings in a process plant, by iteratively solving a mathematical optimization problem including constraints and a model of the system to be controlled.
+
+
+=== Geophysics ===
+Optimization techniques are regularly used in geophysical parameter estimation problems. Given a set of geophysical measurements, e.g. seismic recordings, it is common to solve for the physical properties and geometrical shapes of the underlying rocks and fluids.  The majority of problems in geophysics are nonlinear with both deterministic and stochastic methods being widely used.
+
+
+=== Molecular modeling ===
+
+Nonlinear optimization methods are widely used in conformational analysis.
+
+
+=== Computational systems biology ===
+
+Optimization techniques are used in many facets of computational systems biology such as model building, optimal experimental design, metabolic engineering, and synthetic biology. Linear programming has been applied to calculate the maximal possible yields of fermentation products, and to infer gene regulatory networks from multiple microarray datasets as well as transcriptional regulatory networks from high-throughput data. Nonlinear programming has been used to analyze energy metabolism and has been applied to metabolic engineering and parameter estimation in biochemical pathways.
+
+
+=== Machine learning ===
+
+
+== Solvers ==
+
+
+== See also ==
+
+
+== Notes ==
+
+
+== Further reading ==
+Boyd, Stephen P.; Vandenberghe, Lieven (2004). Convex Optimization. Cambridge: Cambridge University Press. ISBN 0-521-83378-7.
+Gill, P. E.; Murray, W.; Wright, M. H. (1982). Practical Optimization. London: Academic Press. ISBN 0-12-283952-8.
+Lee, Jon (2004). A First Course in Combinatorial Optimization. Cambridge University Press. ISBN 0-521-01012-8.
+Nocedal, Jorge; Wright, Stephen J. (2006). Numerical Optimization (2nd ed.). Berlin: Springer. ISBN 0-387-30303-0.
+Snyman, J. A.; Wilke, D. N. (2018). Practical Mathematical Optimization : Basic Optimization Theory and Gradient-Based Algorithms (2nd ed.). Berlin: Springer. ISBN 978-3-319-77585-2.
+
+
+== External links ==
+"Decision Tree for Optimization Software". Links to optimization source codes
+"Global optimization".
+"EE364a: Convex Optimization I". Course from Stanford University.
+Varoquaux, Gaël. "Mathematical Optimization: Finding Minima of Functions".Mathematical optimization (alternatively spelled optimisation) or mathematical programming is the selection of a best element, with regard to some criterion, from some set of available alternatives. Optimization problems of sorts arise in all quantitative disciplines from computer science and engineering to operations research and economics, and the development of solution methods has been of interest in mathematics for centuries.In the simplest case, an optimization problem consists of maximizing or minimizing a real function by systematically choosing input values from within an allowed set and computing the value of the function. The generalization of optimization theory and techniques to other formulations constitutes a large area of applied mathematics. More generally, optimization includes finding "best available" values of some objective function given a defined domain (or input), including a variety of different types of objective functions and different types of domains. Optimization problems An optimization problem can be represented in the following way:Given: a function f : A → ℝ from some set A to the real numbersSought: an element x0 ∈ A such that f(x0) ≤ f(x) for all x ∈ A ("minimization") or such that f(x0) ≥ f(x) for all x ∈ A ("maximization").Such a formulation is called an optimization problem or a mathematical programming problem (a term not directly related to computer programming, but still in use for example in linear programming – see History below). Many real-world and theoretical problems may be modeled in this general framework.Since the following is valid                    f                  (                                    x                                      0                                )                ≥        f                  (                      x                    )                ⇔                                            f              ~                                                (                                    x                                      0                                )                ≤                                            f              ~                                                (                      x                    )                      {\displaystyle f\left(\mathbf {x} _{0}\right)\geq f\left(\mathbf {x} \right)\Leftrightarrow {\tilde {f}}\left(\mathbf {x} _{0}\right)\leq {\tilde {f}}\left(\mathbf {x} \right)}  with                                                        f              ~                                                (                      x                    )                :=        −        f                  (                      x                    )                ,                                                    f              ~                                              :                A        →                  R                      {\displaystyle {\tilde {f}}\left(\mathbf {x} \right):=-f\left(\mathbf {x} \right),\,{\tilde {f}}\,:\,A\rightarrow \mathbb {R} }  it is more convenient to solve minimization problems. However, the opposite perspective would be valid, too.Problems formulated using this technique in the fields of physics may refer to the technique as energy minimization, speaking of the value of the function f as representing the energy of the system being modeled. In machine learning, it is always necessary to continuously evaluate the quality of a data model by using a cost function where a minimum implies a set of possibly optimal parameters with an optimal (lowest) error.Typically, A is some subset of the Euclidean space ℝn, often specified by a set of constraints, equalities or inequalities that the members of A have to satisfy.  The domain A of f is called the search space or the choice set, while the elements of A are called candidate solutions or feasible solutions.The function f is called, variously, an objective function, a loss function or cost function (minimization),  a utility function or fitness function (maximization), or, in certain fields, an energy function or energy functional. A feasible solution that minimizes (or maximizes, if that is the goal) the objective function is called an optimal solution.In mathematics, conventional optimization problems are usually stated in terms of minimization.A local minimum x* is defined as an element for which there exists some δ > 0 such that                    ∀                  x                ∈        A                          where                                  ‖                                    x                        −                                          x                                            ∗                                              ‖                ≤        δ        ,                      {\displaystyle \forall \mathbf {x} \in A\;{\text{where}}\;\left\Vert \mathbf {x} -\mathbf {x} ^{\ast }\right\Vert \leq \delta ,\,}  the expression f(x*) ≤ f(x) holds;that is to say, on some region around x* all of the function values are greater than or equal to the value at that element. Local maxima are defined similarly.While a local minimum is at least as good as any nearby elements, a global minimum is at least as good as every feasible element.Generally, unless the objective function is convex in a minimization problem, there may be several local minima.In a convex problem, if there is a local minimum that is interior (not on the edge of the set of feasible elements), it is also the global minimum, but a nonconvex problem may have more than one local minimum not all of which need be global minima.A large number of algorithms proposed for solving the nonconvex problems – including the majority of commercially available solvers – are  not capable of making a distinction between locally optimal solutions and globally optimal solutions, and will treat the former as actual solutions to the original problem. Global optimization is the branch of applied mathematics and numerical analysis that is concerned with the development of deterministic algorithms that are capable of guaranteeing convergence in finite time to the actual optimal solution of a nonconvex problem. Notation Optimization problems are often expressed with special notation. Here are some examples:= Minimum and maximum value of a function =Consider the following notation:                              min                      x            ∈                          R                                                        (                                    x                              2                                      +            1                    )                      {\displaystyle \min _{x\in \mathbb {R} }\;\left(x^{2}+1\right)}  This denotes the minimum value of the objective function x2 + 1, when choosing x from the set of real numbers ℝ. The minimum value in this case is 1, occurring at x = 0.Similarly, the notation                              max                      x            ∈                          R                                              2        x              {\displaystyle \max _{x\in \mathbb {R} }\;2x}  asks for the maximum value of the objective function 2x, where x may be any real number. In this case, there is no such maximum as the objective function is unbounded, so the answer is "infinity" or "undefined".= Optimal input arguments =Consider the following notation:                                                        a              r              g                            m              i              n                                      x              ∈              (              −              ∞              ,              −              1              ]                                                        x                      2                          +        1        ,              {\displaystyle {\underset {x\in (-\infty ,-1]}{\operatorname {arg\,min} }}\;x^{2}+1,}  or equivalently                                                        a              r              g                            m              i              n                        x                                            x                      2                          +        1        ,                          subject to:                        x        ∈        (        −        ∞        ,        −        1        ]        .              {\displaystyle {\underset {x}{\operatorname {arg\,min} }}\;x^{2}+1,\;{\text{subject to:}}\;x\in (-\infty ,-1].}  This represents the value (or values) of the argument x in the interval (−∞,−1] that minimizes (or minimize) the objective function x2 + 1 (the actual minimum value of that function is not what the problem asks for). In this case, the answer is x = −1, since x = 0 is infeasible, that is, it does not belong to the feasible set.Similarly,                                                        a              r              g                            m              a              x                                      x              ∈              [              −              5              ,              5              ]              ,                            y              ∈                              R                                                            x        cos        ⁡        y        ,              {\displaystyle {\underset {x\in [-5,5],\;y\in \mathbb {R} }{\operatorname {arg\,max} }}\;x\cos y,}  or equivalently                                                        a              r              g                            m              a              x                                      x              ,                            y                                              x        cos        ⁡        y        ,                          subject to:                        x        ∈        [        −        5        ,        5        ]        ,                y        ∈                  R                ,              {\displaystyle {\underset {x,\;y}{\operatorname {arg\,max} }}\;x\cos y,\;{\text{subject to:}}\;x\in [-5,5],\;y\in \mathbb {R} ,}  represents the {x, y} pair (or pairs) that maximizes (or maximize) the value of the objective function x cos y, with the added constraint that x lie in the interval [−5,5] (again, the actual maximum value of the expression does not matter). In this case, the solutions are the pairs of the form {5, 2kπ} and {−5, (2k + 1)π}, where k ranges over all integers.Operators arg min and arg max are sometimes also written as argmin and argmax, and stand for argument of the minimum and argument of the maximum. History Fermat and Lagrange found calculus-based formulae for identifying optima, while Newton and Gauss proposed iterative methods for moving towards an optimum.The term "linear programming" for certain optimization cases was due to George B. Dantzig, although much of the theory had been introduced by Leonid Kantorovich in 1939. (Programming in this context does not refer to computer programming, but comes from the use of program by the United States military to refer to proposed training and logistics schedules, which were the problems Dantzig studied at that time.) Dantzig published the Simplex algorithm in 1947, and John von Neumann developed the theory of duality in the same year.Other notable researchers in mathematical optimization include the following: Major subfields Convex programming studies the case when the objective function is convex (minimization) or concave (maximization) and the constraint set is convex. This can be viewed as a particular case of nonlinear programming or as generalization of linear or convex quadratic programming.Linear programming (LP), a type of convex programming, studies the case in which the objective function f is linear and the constraints are specified using only linear equalities and inequalities. Such a constraint set is called a polyhedron or a polytope if it is bounded.Second-order cone programming (SOCP) is a convex program, and includes certain types of quadratic programs.Semidefinite programming (SDP) is a subfield of convex optimization where the underlying variables are semidefinite matrices. It is a generalization of linear and convex quadratic programming.Conic programming is a general form of convex programming.  LP, SOCP and SDP can all be viewed as conic programs with the appropriate type of cone.Geometric programming is a technique whereby objective and inequality constraints expressed as posynomials and equality constraints as monomials can be transformed into a convex program.Integer programming studies linear programs in which some or all variables are constrained to take on integer values.  This is not convex, and in general much more difficult than regular linear programming.Quadratic programming allows the objective function to have quadratic terms, while the feasible set must be specified with linear equalities and inequalities.  For specific forms of the quadratic term, this is a type of convex programming.Fractional programming studies optimization of ratios of two nonlinear functions. The special class of concave fractional programs can be transformed to a convex optimization problem.Nonlinear programming studies the general case in which the objective function or the constraints or both contain nonlinear parts.  This may or may not be a convex program. In general, whether the program is convex affects the difficulty of solving it.Stochastic programming studies the case in which some of the constraints or parameters depend on random variables.Robust optimization is, like stochastic programming, an attempt to capture uncertainty in the data underlying the optimization problem. Robust optimization aims to find solutions that are valid under all possible realizations of the uncertainties defined by an uncertainty set.Combinatorial optimization is concerned with problems where the set of feasible solutions is discrete or can be reduced to a discrete one.Stochastic optimization is used with random (noisy) function measurements or random inputs in the search process.Infinite-dimensional optimization studies the case when the set of feasible solutions is a subset of an infinite-dimensional space, such as a space of functions.Heuristics and metaheuristics make few or no assumptions about the problem being optimized. Usually, heuristics do not guarantee that any optimal solution need be found. On the other hand, heuristics are used to find approximate solutions for many complicated optimization problems.Constraint satisfaction studies the case in which the objective function f is constant (this is used in artificial intelligence, particularly in automated reasoning).Constraint programming is a programming paradigm wherein relations between variables are stated in the form of constraints.Disjunctive programming is used where at least one constraint must be satisfied but not all. It is of particular use in scheduling.Space mapping is a concept for modeling and optimization of an engineering system to high-fidelity (fine) model accuracy exploiting a suitable physically meaningful coarse or surrogate model.In a number of subfields, the techniques are designed primarily for optimization in dynamic contexts (that is, decision making over time):Calculus of variations seeks to optimize an action integral over some space to an extremum by varying a function of the coordinates.Optimal control theory is a generalization of the calculus of variations which introduces control policies.Dynamic programming is the approach to solve the stochastic optimization problem with stochastic, randomness, and unknown model parameters. It studies the case in which the optimization strategy is based on splitting the problem into smaller subproblems. The equation that describes the relationship between these subproblems is called the Bellman equation.Mathematical programming with equilibrium constraints is where the constraints include variational inequalities or  complementarities.= Multi-objective optimization =Adding more than one objective to an optimization problem adds complexity. For example, to optimize a structural design, one would desire a design that is both light and rigid. When two objectives conflict, a trade-off must be created. There may be one lightest design, one stiffest design, and an infinite number of designs that are some compromise of weight and rigidity. The set of trade-off designs that improve upon one criterion at the expense of another is known as the Pareto set. The curve created plotting weight against stiffness of the best designs is known as the Pareto frontier.A design is judged to be "Pareto optimal" (equivalently, "Pareto efficient" or in the Pareto set) if it is not dominated by any other design: If it is worse than another design in some respects and no better in any respect, then it is dominated and is not Pareto optimal.The choice among "Pareto optimal" solutions to determine the "favorite solution" is delegated to the decision maker. In other words, defining the problem as multi-objective optimization signals that some information is missing: desirable objectives are given but combinations of them are not rated relative to each other. In some cases, the missing information can be derived by interactive sessions with the decision maker.Multi-objective optimization problems have been generalized further into vector optimization problems where the (partial) ordering is no longer given by the Pareto ordering.= Multi-modal or global optimization =Optimization problems are often multi-modal; that is, they possess multiple good solutions. They could all be globally good (same cost function value) or there could be a mix of globally good and locally good solutions. Obtaining all (or at least some of) the multiple solutions is the goal of a multi-modal optimizer.Classical optimization techniques due to their iterative approach do not perform satisfactorily when they are used to obtain multiple solutions, since it is not guaranteed that different solutions will be obtained even with different starting points in multiple runs of the algorithm.Common approaches to global optimization problems, where multiple local extrema may be present include evolutionary algorithms, Bayesian optimization and simulated annealing. Classification of critical points and extrema = Feasibility problem =The satisfiability problem, also called the feasibility problem, is just the problem of finding any feasible solution at all without regard to objective value. This can be regarded as the special case of mathematical optimization where the objective value is the same for every solution, and thus any solution is optimal.Many optimization algorithms need to start from a feasible point. One way to obtain such a point is to relax the feasibility conditions using a slack variable; with enough slack, any starting point is feasible. Then, minimize that slack variable until the slack is null or negative.= Existence =The extreme value theorem of Karl Weierstrass states that a continuous real-valued function on a compact set attains its maximum and minimum value. More generally, a lower semi-continuous function on a compact set attains its minimum; an upper semi-continuous function on a compact set attains its maximum point or view.= Necessary conditions for optimality =One of Fermat's theorems states that optima of unconstrained problems are found at stationary points, where the first derivative or the gradient of the objective function is zero (see first derivative test). More generally, they may be found at critical points, where the first derivative or gradient of the objective function is zero or is undefined, or on the boundary of the choice set. An equation (or set of equations) stating that the first derivative(s) equal(s) zero at an interior optimum is called a 'first-order condition' or a set of first-order conditions.Optima of equality-constrained problems can be found by the Lagrange multiplier method. The optima of problems with equality and/or inequality constraints can be found using the 'Karush–Kuhn–Tucker conditions'.= Sufficient conditions for optimality =While the first derivative test identifies points that might be extrema, this test does not distinguish a point that is a minimum from one that is a maximum or one that is neither. When the objective function is twice differentiable, these cases can be distinguished by checking the second derivative or the matrix of second derivatives (called the Hessian matrix) in unconstrained problems, or the matrix of second derivatives of the objective function and the constraints called the bordered Hessian in constrained problems. The conditions that distinguish maxima, or minima, from other stationary points are called 'second-order conditions' (see 'Second derivative test'). If a candidate solution satisfies the first-order conditions, then the satisfaction of the second-order conditions as well is sufficient to establish at least local optimality.= Sensitivity and continuity of optima =The envelope theorem describes how the value of an optimal solution changes when an underlying parameter changes. The process of computing this change is called comparative statics.The maximum theorem of Claude Berge (1963) describes the continuity of an optimal solution as a function of underlying parameters.= Calculus of optimization =For unconstrained problems with twice-differentiable functions, some critical points can be found by finding the points where the gradient of the objective function is zero (that is, the stationary points). More generally, a zero subgradient certifies that a local minimum has been found for minimization problems with convex functions and other locally Lipschitz functions.Further, critical points can be classified using the definiteness of the Hessian matrix: If the Hessian is positive definite at a critical point, then the point is a local minimum; if the Hessian matrix is negative definite, then the point is a local maximum; finally, if indefinite, then the point is some kind of saddle point.Constrained problems can often be transformed into unconstrained problems with the help of Lagrange multipliers. Lagrangian relaxation can also provide approximate solutions to difficult constrained problems.When the objective function is a convex function, then any local minimum will also be a global minimum. There exist efficient numerical techniques for minimizing convex functions, such as interior-point methods. Computational optimization techniques To solve problems, researchers may use algorithms that terminate in a finite number of steps, or iterative methods that converge to a solution (on some specified class of problems), or heuristics that may provide approximate solutions to some problems (although their iterates need not converge).= Optimization algorithms =Simplex algorithm of George Dantzig, designed for linear programmingExtensions of the simplex algorithm, designed for quadratic programming and for linear-fractional programmingVariants of the simplex algorithm that are especially suited for network optimization.Combinatorial algorithmsQuantum optimization algorithms= Iterative methods =The iterative methods used to solve problems of nonlinear programming differ according to whether they evaluate Hessians, gradients, or only function values. While evaluating Hessians (H) and gradients (G) improves the rate of convergence, for functions for which these quantities exist and vary sufficiently smoothly, such evaluations increase the computational complexity (or computational cost) of each iteration. In some cases, the computational complexity may be excessively high.One major criterion for optimizers is just the number of required function evaluations as this often is already a large computational effort, usually much more effort than within the optimizer itself, which mainly has to operate over the N variables. The derivatives provide detailed information for such optimizers, but are even harder to calculate, e.g. approximating the gradient takes at least N+1 function evaluations. For approximations of the 2nd derivatives (collected in the Hessian matrix), the number of function evaluations is in the order of N². Newton's method requires the 2nd-order derivatives, so for each iteration, the number of function calls is in the order of N², but for a simpler pure gradient optimizer it is only N. However, gradient optimizers need usually more iterations than Newton's algorithm. Which one is best with respect to the number of function calls depends on the problem itself.Methods that evaluate Hessians (or approximate Hessians, using finite differences):Newton's methodSequential quadratic programming: A Newton-based method for small-medium scale constrained problems. Some versions can handle large-dimensional problems.Interior point methods: This is a large class of methods for constrained optimization, some of which use only (sub)gradient information and others of which require the evaluation of Hessians.Methods that evaluate gradients, or approximate gradients in some way (or even subgradients):Coordinate descent methods: Algorithms which update a single coordinate in each iterationConjugate gradient methods: Iterative methods for large problems. (In theory, these methods terminate in a finite number of steps with quadratic objective functions, but this finite termination is not observed in practice on finite–precision computers.)Gradient descent (alternatively, "steepest descent" or "steepest ascent"): A (slow) method of historical and theoretical interest, which has had renewed interest for finding approximate solutions of enormous problems.Subgradient methods: An iterative method for large locally Lipschitz functions using generalized gradients. Following Boris T. Polyak, subgradient–projection methods are similar to conjugate–gradient methods.Bundle method of descent: An iterative method for small–medium-sized problems with locally Lipschitz functions, particularly for convex minimization problems (similar to conjugate gradient methods).Ellipsoid method: An iterative method for small problems with quasiconvex objective functions and of great theoretical interest, particularly in establishing the polynomial time complexity of some combinatorial optimization problems. It has similarities with Quasi-Newton methods.Conditional gradient method (Frank–Wolfe) for approximate minimization of specially structured problems with linear constraints, especially with traffic networks. For general unconstrained problems, this method reduces to the gradient method, which is regarded as obsolete (for almost all problems).Quasi-Newton methods: Iterative methods for medium-large problems (e.g. N<1000).Simultaneous perturbation stochastic approximation (SPSA) method for stochastic optimization; uses random (efficient) gradient approximation.Methods that evaluate only function values: If a problem is continuously differentiable, then gradients can be approximated using finite differences, in which case a gradient-based method can be used.Interpolation methodsPattern search methods, which have better convergence properties than the Nelder–Mead heuristic (with simplices), which is listed below.= Global convergence =More generally, if the objective function is not a quadratic function, then many optimization methods use other methods to ensure that some subsequence of iterations converges to an optimal solution. The first and still popular method for ensuring convergence relies on line searches, which optimize a function along one dimension. A second and increasingly popular method for ensuring convergence uses trust regions. Both line searches and trust regions are used in modern methods of non-differentiable optimization. Usually, a global optimizer is much slower than advanced local optimizers (such as BFGS), so often an efficient global optimizer can be constructed by starting the local optimizer from different starting points.= Heuristics =Besides (finitely terminating) algorithms and (convergent) iterative methods, there are heuristics. A heuristic is any algorithm which is not guaranteed (mathematically) to find the solution, but which is nevertheless useful in certain practical situations. List of some well-known heuristics: Applications = Mechanics =Problems in rigid body dynamics (in particular articulated rigid body dynamics) often require mathematical programming techniques, since you can view rigid body dynamics as attempting to solve an ordinary differential equation on a constraint manifold; the constraints are various nonlinear geometric constraints such as "these two points must always coincide", "this surface must not penetrate any other", or "this point must always lie somewhere on this curve". Also, the problem of computing contact forces can be done by solving a linear complementarity problem, which can also be viewed as a QP (quadratic programming) problem.Many design problems can also be expressed as optimization programs. This application is called design optimization. One subset is the engineering optimization, and another recent and growing subset of this field is multidisciplinary design optimization, which, while useful in many problems, has in particular been applied to aerospace engineering problems.This approach may be applied in cosmology and astrophysics.= Economics and finance =Economics is closely enough linked to optimization of agents that an influential definition relatedly describes economics qua science as the "study of human behavior as a relationship between ends and scarce means" with alternative uses.  Modern optimization theory includes traditional optimization theory but also overlaps with game theory and the study of economic equilibria. The Journal of Economic Literature codes classify mathematical programming, optimization techniques, and related topics under JEL:C61-C63.In microeconomics, the utility maximization problem and its dual problem, the expenditure minimization problem, are economic optimization problems. Insofar as they behave consistently, consumers are assumed to maximize their utility, while firms are usually assumed to maximize their profit. Also, agents are often modeled as being risk-averse, thereby preferring to avoid risk. Asset prices are also modeled using optimization theory, though the underlying mathematics relies on optimizing stochastic processes rather than on static optimization. International trade theory also uses optimization to explain trade patterns between nations. The optimization of portfolios is an example of multi-objective optimization in economics.Since the 1970s, economists have modeled dynamic decisions over time using control theory. For example, dynamic search models are used to study labor-market behavior. A crucial distinction is between deterministic and stochastic models.  Macroeconomists build dynamic stochastic general equilibrium (DSGE) models that describe the dynamics of the whole economy as the result of the interdependent optimizing decisions of workers, consumers, investors, and governments.= Electrical engineering =Some common applications of optimization techniques in electrical engineering include active filter design, stray field reduction in superconducting magnetic energy storage systems, space mapping design of microwave structures, handset antennas, electromagnetics-based design. Electromagnetically validated design optimization of microwave components and antennas has made extensive use of an appropriate physics-based or empirical surrogate model and space mapping methodologies since the discovery of space mapping in 1993.= Civil engineering =Optimization has been widely used in civil engineering. Construction management and transportation engineering are among the main branches of civil engineering that heavily rely on optimization. The most common civil engineering problems that are solved by optimization are cut and fill of roads, life-cycle analysis of structures and infrastructures, resource leveling, water resource allocation, traffic management and schedule optimization.= Operations research =Another field that uses optimization techniques extensively is operations research. Operations research also uses stochastic modeling and simulation to support improved decision-making. Increasingly, operations research uses stochastic programming to model dynamic decisions that adapt to events; such problems can be solved with large-scale optimization and stochastic optimization methods.= Control engineering =Mathematical optimization is used in much modern controller design. High-level controllers such as model predictive control (MPC) or real-time optimization (RTO) employ mathematical optimization. These algorithms run online and repeatedly determine values for decision variables, such as choke openings in a process plant, by iteratively solving a mathematical optimization problem including constraints and a model of the system to be controlled.= Geophysics =Optimization techniques are regularly used in geophysical parameter estimation problems. Given a set of geophysical measurements, e.g. seismic recordings, it is common to solve for the physical properties and geometrical shapes of the underlying rocks and fluids.  The majority of problems in geophysics are nonlinear with both deterministic and stochastic methods being widely used.= Molecular modeling =Nonlinear optimization methods are widely used in conformational analysis.= Computational systems biology =Optimization techniques are used in many facets of computational systems biology such as model building, optimal experimental design, metabolic engineering, and synthetic biology. Linear programming has been applied to calculate the maximal possible yields of fermentation products, and to infer gene regulatory networks from multiple microarray datasets as well as transcriptional regulatory networks from high-throughput data. Nonlinear programming has been used to analyze energy metabolism and has been applied to metabolic engineering and parameter estimation in biochemical pathways.= Machine learning = Solvers  See also  Notes  Further reading Boyd, Stephen P.; Vandenberghe, Lieven (2004). Convex Optimization. Cambridge: Cambridge University Press. ISBN 0-521-83378-7.Gill, P. E.; Murray, W.; Wright, M. H. (1982). Practical Optimization. London: Academic Press. ISBN 0-12-283952-8.Lee, Jon (2004). A First Course in Combinatorial Optimization. Cambridge University Press. ISBN 0-521-01012-8.Nocedal, Jorge; Wright, Stephen J. (2006). Numerical Optimization (2nd ed.). Berlin: Springer. ISBN 0-387-30303-0.Snyman, J. A.; Wilke, D. N. (2018). Practical Mathematical Optimization : Basic Optimization Theory and Gradient-Based Algorithms (2nd ed.). Berlin: Springer. ISBN 978-3-319-77585-2. External links "Decision Tree for Optimization Software". Links to optimization source codes"Global optimization"."EE364a: Convex Optimization I". Course from Stanford University.Varoquaux, Gaël. "Mathematical Optimization: Finding Minima of Functions".

@@ -1,0 +1,11 @@
+black
+ipdb
+isort
+jupyterlab
+matplotlib
+numpy
+pandas
+scikit-learn
+scipy
+termcolor
+wikipedia
