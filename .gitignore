@@ -16,3 +16,4 @@ README_backup.md
 slides/*solution*
 
 .ipynb_checkpoints
+*.ipynb_checkpoints
