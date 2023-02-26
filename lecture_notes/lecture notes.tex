@@ -129,6 +129,24 @@ Indeed,
     
 \end{proposition}
 
+\begin{proof}
+    We will prove the result for a discrete random variable $X$, but the proof is the same for a continuous random variable.
+
+    Let us denote $(x_i)_{i\in \mathbb{N}}\in \mathbb{R}^{\mathbb{N}}$ the values taken by $X$, with probabilities $p_i$. By definition, the series $\sum |x_i|^{k_2}p_i$ is convergent. We also know that the series $\sum p_i$ is convergent, by definition of a probability distribution. Hence, the series $\sum p_i+ |x_i|^{k_2}p_i$ is convergent as well.
+
+    But we remark that for any $\alpha\in \mathbb{R}$, $|\alpha|^{k_1}\leq 1 + |\alpha|^{k_2}$, by considering separately $|\alpha|\leq 1$ or $|\alpha|\geq 1$. Applying this result to $\alpha=x_i$ and multiplying by $p_i$, we have that $\forall i$:
+
+    \begin{equation}
+	p_i|x_i|^{k_1}\leq p_i+p_i|x_i|^{k_2}
+    \end{equation}
+
+    Which prooves that the series $\sum |x_i|^{k_1}p_i$ is convergent, which means that $X$ has a moment of order $k_1$.
+    \\
+
+    Alternatively, we could state that the variable $1+|X|^{k_2}$ has a moment of order $1$, and that by comparison $|X|^{k_1}\leq 1+|X|^{k_2}$ also has a moment of order $1$, which leads to the same conclusion.
+	
+\end{proof}
+
 \begin{definition}{Expected value, variance}
 
     \begin{itemize}
