@@ -21,8 +21,10 @@ def empirical_average_loop(n_samples: int) -> float:
 
 
 def empirical_average_array(n_samples: int) -> float:
-    samples = rng.uniform(1, 2, size=(n_samples, 1)) ** 2
-    return samples.mean()
+    """
+    EDIT THIS FUNCTION
+    """
+    return 1
 
 
 def main() -> None:
