@@ -1,0 +1,12 @@
+black
+ipdb
+isort
+jupyterlab
+matplotlib
+numpy
+pandas
+pudb
+scikit-learn
+scipy
+snakeviz
+termcolor

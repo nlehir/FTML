@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex lecture notes"] 1677407392 "lecture notes.aux" "lecture notes.bbl" "lecture notes" 1677407575
+["bibtex lecture notes"] 1677407392 "lecture notes.aux" "lecture notes.bbl" "lecture notes" 1677702611
   "../../../epita.bib" 0 -1 0 ""
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/apalike.bst" 1480098433 24635 604dafcc79f521a11ea73e506e1fbd98 ""
   "lecture notes.aux" 1677407575 24002 a317a6051fc9c0140ff7b2ccff67d07e ""
   (generated)
-  "lecture notes.blg"
   "lecture notes.bbl"
-["pdflatex"] 1677407573 "lecture notes.tex" "lecture notes.pdf" "lecture notes" 1677407575
+  "lecture notes.blg"
+["pdflatex"] 1677407573 "lecture notes.tex" "lecture notes.pdf" "lecture notes" 1677702611
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/iwona/ec-iwona-sc.enc" 1480098667 2452 388b1f44dfda03ab19527677af70e7fb ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/iwona/ec-iwona.enc" 1480098667 2027 f8708480c25b8150843bb94b8b39c93f ""
@@ -226,12 +226,12 @@
   "lecture notes.aux" 1677407575 24002 a317a6051fc9c0140ff7b2ccff67d07e ""
   "lecture notes.bbl" 1655412835 1532 e9dc35f2089cfaa7149cba8a2a8405e0 "bibtex lecture notes"
   "lecture notes.out" 1677407575 9591 b21d1487a92fed80a513381f5a0a4baf ""
-  "lecture notes.tex" 1677407572 118171 c0ef9946a6ee4ecfaa7e3e056f743e80 ""
+  "lecture notes.tex" 1677407597 118171 c0ef9946a6ee4ecfaa7e3e056f743e80 ""
   "lecture notes.toc" 1677407575 15299 0742641066c8ebdbe44a081c8078cd14 ""
   "stru/structure.tex" 1647175663 3406 48a95603d4e1a73bcf0c057b04bf9701 ""
   (generated)
-  "lecture notes.toc"
   "lecture notes.pdf"
-  "lecture notes.log"
   "lecture notes.out"
+  "lecture notes.toc"
   "lecture notes.aux"
+  "lecture notes.log"
