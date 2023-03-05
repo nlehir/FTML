@@ -18,8 +18,15 @@ def main() -> None:
     n_samples = int(1e6)
 
     # generate input data
+    # they are uniformly distributed
+    # 0s and 1s
+    # If we do not cast to floats, we will have a mistake
+    # in the next step (all Bernoulli parameters would be 
+    # set to 0)
     X = rng.integers(0, 2, n_samples).astype(float)
 
+    # for each input, get the parameter of the
+    # corresponding Bernoulli law.
     bernoulli = X.copy()
     bernoulli[bernoulli==1] = 0.6
     bernoulli[bernoulli==0] = 0.4
