@@ -9,7 +9,6 @@
 practical_sessions/env/
 simulations/env/
 
-practical_sessions/tp2_ols_ridge/solutions/
 practical_sessions/tp2_ols_ridge/data/*.npy
 
 2022/
