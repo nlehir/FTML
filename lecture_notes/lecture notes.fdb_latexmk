@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex lecture notes"] 1677407392 "lecture notes.aux" "lecture notes.bbl" "lecture notes" 1677702611
+["bibtex lecture notes"] 1677407392 "lecture notes.aux" "lecture notes.bbl" "lecture notes" 1678383205
   "../../../epita.bib" 0 -1 0 ""
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/apalike.bst" 1480098433 24635 604dafcc79f521a11ea73e506e1fbd98 ""
-  "lecture notes.aux" 1677407575 24002 a317a6051fc9c0140ff7b2ccff67d07e ""
+  "lecture notes.aux" 1678383204 24002 a317a6051fc9c0140ff7b2ccff67d07e ""
   (generated)
   "lecture notes.bbl"
   "lecture notes.blg"
-["pdflatex"] 1677407573 "lecture notes.tex" "lecture notes.pdf" "lecture notes" 1677702611
+["pdflatex"] 1678383203 "lecture notes.tex" "lecture notes.pdf" "lecture notes" 1678383205
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/iwona/ec-iwona-sc.enc" 1480098667 2452 388b1f44dfda03ab19527677af70e7fb ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/iwona/ec-iwona.enc" 1480098667 2027 f8708480c25b8150843bb94b8b39c93f ""
@@ -223,15 +223,15 @@
   "Figures/knn.pdf" 1652999859 71242 7e2147cd76238a429cf81b24066d126b ""
   "Figures/ols_risks.pdf" 1646233497 23843 0f8c26c48baf95ad25204b2647306bd3 ""
   "Figures/ridge_risks_n=30.pdf" 1647440070 27061 599abe94e5e1e4a8c14a2151999d46ae ""
-  "lecture notes.aux" 1677407575 24002 a317a6051fc9c0140ff7b2ccff67d07e ""
+  "lecture notes.aux" 1678383204 24002 a317a6051fc9c0140ff7b2ccff67d07e ""
   "lecture notes.bbl" 1655412835 1532 e9dc35f2089cfaa7149cba8a2a8405e0 "bibtex lecture notes"
-  "lecture notes.out" 1677407575 9591 b21d1487a92fed80a513381f5a0a4baf ""
-  "lecture notes.tex" 1677407597 118171 c0ef9946a6ee4ecfaa7e3e056f743e80 ""
-  "lecture notes.toc" 1677407575 15299 0742641066c8ebdbe44a081c8078cd14 ""
+  "lecture notes.out" 1678383204 9591 b21d1487a92fed80a513381f5a0a4baf ""
+  "lecture notes.tex" 1678383199 118175 602fd007305b9ad1b7e0844f1d4d038a ""
+  "lecture notes.toc" 1678383204 15299 0742641066c8ebdbe44a081c8078cd14 ""
   "stru/structure.tex" 1647175663 3406 48a95603d4e1a73bcf0c057b04bf9701 ""
   (generated)
-  "lecture notes.pdf"
   "lecture notes.out"
   "lecture notes.toc"
   "lecture notes.aux"
+  "lecture notes.pdf"
   "lecture notes.log"
