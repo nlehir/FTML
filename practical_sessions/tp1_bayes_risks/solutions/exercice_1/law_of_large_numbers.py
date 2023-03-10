@@ -3,10 +3,10 @@ Study the law of large numbers on a simple random variable and compare the speed
 of using loops versus array operations
 """
 
-import numpy as np
 import cProfile
 import pstats
 
+import numpy as np
 
 # instantiate a Pseudo-random number generator (PRNG)
 rng = np.random.default_rng()

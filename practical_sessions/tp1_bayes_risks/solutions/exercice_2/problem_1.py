@@ -21,15 +21,15 @@ def main() -> None:
     # they are uniformly distributed
     # 0s and 1s
     # If we do not cast to floats, we will have a mistake
-    # in the next step (all Bernoulli parameters would be 
+    # in the next step (all Bernoulli parameters would be
     # set to 0)
     X = rng.integers(0, 2, n_samples).astype(float)
 
     # for each input, get the parameter of the
     # corresponding Bernoulli law.
     bernoulli = X.copy()
-    bernoulli[bernoulli==1] = 0.6
-    bernoulli[bernoulli==0] = 0.4
+    bernoulli[bernoulli == 1] = 0.6
+    bernoulli[bernoulli == 0] = 0.4
 
     # generate output data
     y = rng.binomial(1, bernoulli)
@@ -38,7 +38,7 @@ def main() -> None:
     # When doing classification with the "0-1" loss,
     # the Bayes estimator predict the most probable output
     # for each input. (we will show this during the class)
-    # In that case, it turns out that it corresponds exactly to 
+    # In that case, it turns out that it corresponds exactly to
     # predicting X, but note that this will not always be the case.
     y_pred_bayes = X
 
@@ -46,11 +46,10 @@ def main() -> None:
     y_pred_bad = rng.integers(0, 2, n_samples).astype(float)
 
     # compute the empirical risk for the Bayes estimator
-    empirical_risk_bayes = len(np.where(y-y_pred_bayes)[0])/n_samples
+    empirical_risk_bayes = len(np.where(y - y_pred_bayes)[0]) / n_samples
 
     # empirical risk bad estimator
-    empirical_risk_bad_estimator = len(np.where(y-y_pred_bad)[0])/n_samples
-
+    empirical_risk_bad_estimator = len(np.where(y - y_pred_bad)[0]) / n_samples
 
     print("\nX")
     print(X)

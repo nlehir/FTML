@@ -4,7 +4,7 @@
         - dependence of the risk on the dimensions n and d
         - (optionally) stability of the OLS estimator
 """
-from utils_algo import  ols_risk
+from utils_algo import ols_risk
 from utils_plots import plot_stds, plot_test_errors_ols
 
 

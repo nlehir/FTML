@@ -4,7 +4,7 @@
         - dependence of the risk on the dimensions n and d
         - (optionally) stability of the OLS estimator
 """
-from utils_algo import  ridge_risk
+from utils_algo import ridge_risk
 from utils_plots import plot_test_errors_ridge
 
 
@@ -18,7 +18,7 @@ def main() -> None:
     d_list = [10, 20, 30, 40]
 
     exponents = [k for k in range(-6, 6)]
-    lambda_list = [10**(u) for u in exponents]
+    lambda_list = [10 ** (u) for u in exponents]
 
     # number of tests to estimate the excess risk
     n_tests = int(1e4)

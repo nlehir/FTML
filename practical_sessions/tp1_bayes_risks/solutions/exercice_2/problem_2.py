@@ -49,7 +49,7 @@ def compute_bayes_risk(n_x: np.ndarray, p_x: np.ndarray, p_all) -> np.float64:
     n_binom_all = streams_param(1 + np.arange(n_x + 1))
     variances = n_binom_all * p_all * (1 - p_all)
 
-    # weighted sum to get the expected value, which 
+    # weighted sum to get the expected value, which
     # is the Bayes risk
     bayes_risk = (probas * variances).sum()
 

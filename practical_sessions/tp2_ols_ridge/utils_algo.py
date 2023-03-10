@@ -1,27 +1,29 @@
-import numpy as np
 import os
+
+import numpy as np
+
 from constants import SIGMA
 
 
 def ols_risk(n, d, n_tests) -> tuple[float, float]:
     """
-        Statistical evaluation of the excess risk of the OLS estimator.
+    Statistical evaluation of the excess risk of the OLS estimator.
 
-        n_test times, do:
-            - Draw output vector Y, according to the linear model, fixed
-            design setup.
-            - compute the corresponding Ridge estimator
-            - generate a test test in order to have an estimation of the excess risk of
-            this estimator (generalization error)
+    n_test times, do:
+        - Draw output vector Y, according to the linear model, fixed
+        design setup.
+        - compute the corresponding Ridge estimator
+        - generate a test test in order to have an estimation of the excess risk of
+        this estimator (generalization error)
 
-        Parameters:
-            n (int): number of samples in the dataset
-            d (int): dimension of each sample (number of features)
-            n_tests (int): number of simulations run
+    Parameters:
+        n (int): number of samples in the dataset
+        d (int): dimension of each sample (number of features)
+        n_tests (int): number of simulations run
 
-        Returns:
-            risk_estimation (float): estimation of the excess risk of the OLS
-            estimator in this setup.
+    Returns:
+        risk_estimation (float): estimation of the excess risk of the OLS
+        estimator in this setup.
     """
     # instantiate a PRNG
     rng = np.random.default_rng()
@@ -30,24 +32,24 @@ def ols_risk(n, d, n_tests) -> tuple[float, float]:
 
 def ridge_risk(n, d, lambda_, n_tests) -> tuple[float, float]:
     """
-        Statistical evaluation of the excess risk of the Ridge regression
-        estimator
+    Statistical evaluation of the excess risk of the Ridge regression
+    estimator
 
-        n_test times, do:
-            - Draw output vector Y, according to the linear model, fixed
-            design setup.
-            - compute the corresponding Ridge estimator
-            - generate a test test in order to have an estimation of the excess risk of
-            this estimator (generalization error)
+    n_test times, do:
+        - Draw output vector Y, according to the linear model, fixed
+        design setup.
+        - compute the corresponding Ridge estimator
+        - generate a test test in order to have an estimation of the excess risk of
+        this estimator (generalization error)
 
-        Parameters:
-            n (int): number of samples in the dataset
-            d (int): dimension of each sample (number of features)
-            n_tests (int): number of simulations run
+    Parameters:
+        n (int): number of samples in the dataset
+        d (int): dimension of each sample (number of features)
+        n_tests (int): number of simulations run
 
-        Returns:
-            risk_estimation (float): estimation of the excess risk of the OLS
-            estimator in this setup.
+    Returns:
+        risk_estimation (float): estimation of the excess risk of the OLS
+        estimator in this setup.
     """
     # instantiate a PRNG
     rng = np.random.default_rng()
