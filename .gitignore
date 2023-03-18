@@ -6,8 +6,7 @@
 
 *__pycache__/
 
-practical_sessions/env/
-simulations/env/
+env/
 
 practical_sessions/tp2_ols_ridge/data/*.npy
 
