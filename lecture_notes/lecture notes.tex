@@ -1494,11 +1494,11 @@ When the algorithm is \textbf{{underfitting}}, the capacity of the hypothesis sp
 
 \subsubsection{\large\color{Periwinkle}Expected value of empirical risk}
 
-For some \textbf{{fixed}} $h\in H$, $R_n(h)$ is a random variable, as it depends on the dataset $D_n$. Let us show that $ R_n(h)$ is an \textbf{{unbiased estimator}} of the real risk $R$. We assume that the samples $(X_i, Y_i)$ are i.i.d, with the distribution of $(X,Y)$, noted $\rho$. 
+For some \textbf{{fixed}} $h\in H$, $R_n(h)$ is a random variable, as it depends on the dataset $D_n$. Let us show that $ R_n(h)$ is an \textbf{{unbiased estimator}} of the real risk $R$. We assume that the samples $(x_i, y_i)$ are i.i.d, with the distribution of $(X,Y)$, noted $\rho$. 
 
     \begin{equation*}
 	    \begin{aligned}
-		E_{D_n\sim \rho}(R_n(h)) &= \frac{1}{n} \sum^{n}_{i=1} E_{D_n\sim \rho}(l(h(X_i), Y_i)) \\
+		E_{D_n\sim \rho}(R_n(h)) &= \frac{1}{n} \sum^{n}_{i=1} E_{D_n\sim \rho}(l(h(x_i), y_i)) \\
 		&= \frac{1}{n} \sum^{n}_{i=1} E_{(X,Y)\sim \rho}(l(h(X), Y)) \\
 		&=  E_{(X,Y)\sim \rho}(l(h(X), Y)) \\
 		&= R(h)
