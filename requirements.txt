@@ -4,6 +4,8 @@ isort
 jupyterlab
 matplotlib
 numpy
+optuna
+optuna-dashboard
 pandas
 pudb
 scikit-learn
