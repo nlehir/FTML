@@ -1,6 +1,7 @@
 """
 Perform hyperparameter tuning using the train validation test approach.
 """
+
 import numpy as np
 from sklearn.model_selection import ParameterGrid, train_test_split
 from sklearn.svm import SVC
@@ -10,7 +11,7 @@ from data import dataset, load_data, process_data
 from params import grid, nb_tests, test_size, validation_size
 
 
-def train_validation_test(X, y, test_size, validation_size):
+def train_validation_test(X, y, test_size, validation_size) -> tuple[float, float]:
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size)
     X_train, X_validation, y_train, y_validation = train_test_split(
         X_train, y_train, test_size=validation_size
@@ -30,22 +31,7 @@ def train_validation_test(X, y, test_size, validation_size):
     return best_validation_score, test_score
 
 
-# def main() -> None:
-#     best_classifier, best_validation_score = compare_parameters_classification(grid)
-#     train_score = best_classifier.score(X_train, y_train)
-#     test_score = best_classifier.score(X_test, y_test)
-#
-#     # print best classifier params
-#     print("\nbest classifier:")
-#     print(best_classifier.get_params())
-#
-#     # print scores
-#     print(f"\nbest classifier train score: {train_score:.3f}")
-#     print(f"best classifier validation score: {best_validation_score:.3f}")
-#     print(f"best classifier test score: {test_score:.3f}")
-
-
-def main():
+def main() -> None:
     validation_scores = list()
     test_scores = list()
     for index in range(nb_tests):
@@ -60,8 +46,8 @@ def main():
         )
         validation_scores.append(validation_score)
         test_scores.append(test_score)
-        # print(f"validation score: {validation_score:.3f}")
-        # print(f"test score: {test_score:.3f}")
+
+    # average and print results
     array_validation_scores = np.asarray(validation_scores)
     array_test_scores = np.asarray(test_scores)
     print("\n------")

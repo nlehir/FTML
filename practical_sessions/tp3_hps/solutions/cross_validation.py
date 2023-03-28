@@ -6,7 +6,6 @@ from sklearn.model_selection import (
     train_test_split,
 )
 from sklearn.svm import SVC
-from sklearn.tree import DecisionTreeClassifier
 
 from data import dataset, load_data, process_data
 from params import grid, n_splits, nb_tests, test_size
@@ -29,16 +28,8 @@ def cross_validation(X, y, test_size, n_splits) -> None:
             best_classifier = classifier
             # stored_scores = scores
 
-    # clf = GridSearchCV(classifier, grid, verbose=1, cv=10)
-    # clf.fit(X_train, y_train)
-    # best_classifier = clf.best_estimator_
-    # print(f"best params {clf.best_params_}")
-    # print(f"best classifier params")
-    # print(best_classifier.get_params())
-
     # retrain on complete train set
     best_classifier.fit(X_train, y_train)
-    # train_score = best_classifier.score(X_train, y_train)
     test_score = best_classifier.score(X_test, y_test)
 
     # score
@@ -46,11 +37,10 @@ def cross_validation(X, y, test_size, n_splits) -> None:
     # print(f"\nbest classifier scores on folds: {stored_scores}")
     # print(f"best classifier cross validated score: {best_cross_validation_score:.3f}")
     # print(f"best classifier test score: {test_score:.3f}")
-
     return best_cross_validation_score, test_score
 
 
-def main():
+def main() -> None:
     best_cv_scores = list()
     test_scores = list()
     for index in range(nb_tests):
@@ -62,8 +52,8 @@ def main():
         )
         best_cv_scores.append(best_cross_validation_score)
         test_scores.append(test_score)
-        # print(f"best cv score: {best_cross_validation_score:.3f}")
-        # print(f"test score: {test_score:.3f}")
+
+    # average and print results
     array_best_cv_scores = np.asarray(best_cv_scores)
     array_test_scores = np.asarray(test_scores)
     print("\n------")
