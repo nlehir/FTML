@@ -1,5 +1,6 @@
 """
 Functions used by first-order methods
+These functions need to be fixed.
 """
 
 
