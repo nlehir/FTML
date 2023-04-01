@@ -10,7 +10,8 @@
 env/
 
 practical_sessions/tp2_ols_ridge/data/*.npy
-practical_sessions/tp4_knn_lr/*/solutions/
+practical_sessions/tp4_knn_lr/lr/solutions/learning_rate_schedule.py
+practical_sessions/tp4_knn_lr/lr/solutions/data/
 
 2022/
 README_backup.md

@@ -1,8 +1,3 @@
-"""
-Use first-order methods (GD, SGD) and scikit-learn in order to perform
-logistic regression on a simple example.
-"""
-
 import os
 from time import time
 
@@ -19,7 +14,6 @@ def main() -> None:
     folder = "data"
     data = np.load(os.path.join(folder, "inputs.npy"))
     labels = np.load(os.path.join(folder, "labels.npy"))
-    # get info about data
     n = data.shape[0]
     d = data.shape[1]
     print(f"n: {n}")
@@ -60,11 +54,14 @@ def main() -> None:
     """
         GD
     """
-    # set the algorithm
-    mu = 10
-    gamma_GD = 10
-    max_n_iterations_gd = int(1e2)
-    # run algorithm
+    # Regularization parameter enforce strong convexity
+    # mu = 1/math.sqrt(n_train)
+    mu = 0.1
+    # R2 = max(np.linalg.norm(data, axis=1)) ** 2
+    # gamma_GD_theory = 1 / R2
+    gamma_GD = 0.5
+    # gamma_GD = gamma_GD_theory
+    max_n_iterations_gd = int(1e3)
     tic = time()
     theta_gd = GD(
         gamma_GD,
@@ -80,12 +77,12 @@ def main() -> None:
     """
         SGD
     """
-    # set up the algorithm
-    gamma_0 = 10
+    gamma_0 = 1
+    # gamma_0 = 1/mu
     max_n_iterations_sgd = int(1e5)
-    schedule = "constant"
+    schedule = "decreasing 1"
+    # schedule = "constant"
     tic = time()
-    # run the algorithm
     theta_sgd = SGD(
         gamma_0,
         X_train,
