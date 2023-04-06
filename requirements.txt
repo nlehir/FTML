@@ -2,6 +2,7 @@ black
 ipdb
 isort
 jupyterlab
+kneed
 matplotlib
 numpy
 optuna
@@ -14,3 +15,4 @@ seaborn
 snakeviz
 termcolor
 wikipedia
+yellowbrick
