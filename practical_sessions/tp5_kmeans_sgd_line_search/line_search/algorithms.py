@@ -57,15 +57,3 @@ def gradient(theta, H, X, y):
     """
     n = y.shape[0]
     return H @ theta - 1 / n * X.T @ y
-
-
-def compute_gamma_star(H, gradient):
-    """
-    Line search gamma
-    """
-    square_norm = np.linalg.norm(gradient) ** 2
-    d = gradient.shape[0]
-    Hgrad = np.matmul(H, gradient).reshape(d)
-    grad_reshape = gradient.reshape(d)
-    inner_product = np.dot(Hgrad, grad_reshape)
-    return square_norm / inner_product
