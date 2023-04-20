@@ -31,5 +31,3 @@ Example simulations that will be useful in the class.
 ### slides/
 
 Slides for the lectures.
-
-This folder contains the slides of the courses and some related exercises.
