@@ -16,8 +16,8 @@ def error(theta, X, Y):
         Mean square error
     """
     n_samples = X.shape[0]
-    Y_predictions = np.matmul(X, theta)
-    return 1 / (2 * n_samples) * (np.linalg.norm(Y - Y_predictions)) ** 2
+    y_predictions = X @ theta
+    return 1 / (2 * n_samples) * (np.linalg.norm(y - y_predictions)) ** 2
 
 
 def gradient(theta, H, X, y):
@@ -34,11 +34,11 @@ def gradient(theta, H, X, y):
         gradient of the objective function
     """
     n = y.shape[0]
-    return np.matmul(H, theta) - 1 / n * np.matmul(np.transpose(X), y)
+    return H @ theta - 1 / n * X.T @ y
 
 
-def upper_bound_strongly_convex(t, kappa, theta_0, eta_star):
-    initial_square_norm = np.linalg.norm(theta_0 - eta_star) ** 2
+def upper_bound_strongly_convex(t, kappa, theta_0, theta_star):
+    initial_square_norm = np.linalg.norm(theta_0 - theta_star) ** 2
     rate = math.exp(-2 * t / kappa)
     return initial_square_norm * rate
 
@@ -67,5 +67,5 @@ def generate_output_data(X, theta_star, sigma, r):
     # output data
     n = X.shape[0]
     noise = r.normal(0, sigma, size=(n, 1))
-    y = np.matmul(X, theta_star) + noise
+    y = X @ theta_star + noise
     return y
