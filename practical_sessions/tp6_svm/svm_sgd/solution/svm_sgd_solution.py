@@ -1,8 +1,10 @@
 """
-    We can also use the sklearn library in order to build a linear model of the
-    data.
-    https://scikit-learn.org/stable/
+    Assess the impact of data scaling on the quality of a linear separator
+    obtained by SGD.
+
+    https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html
 """
+import os
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.linear_model import SGDClassifier
@@ -12,32 +14,32 @@ from sklearn.preprocessing import StandardScaler
 from termcolor import colored
 
 
-def straight_line(a, b, x):
-    return a * x + b
-
-
-def load_data(dataset):
+def load_data(dataset) -> tuple:
     # load the data
     # The input X are bidimensional
-    # X[0]=(x_01, x_02)
-    data_1 = np.load("data/" + dataset + "/data_1.npy")
-    data_2 = np.load("data/" + dataset + "/data_2.npy")
-    data = np.concatenate((data_1, data_2))
-    # output classes = Y = labels
-    class_1 = np.zeros(data_1.shape[0])
-    class_2 = np.ones(data_2.shape[0])
-    classes = np.concatenate((class_1, class_2))
+    data_path = os.path.join("data", dataset, "data.npy")
+    labels_path = os.path.join("data", dataset, "labels.npy")
+    data = np.load(data_path)
+    labels = np.load(labels_path)
 
     # split the set into training set and test set
     X_train, X_test, y_train, y_test = train_test_split(
-        data, classes, test_size=0.33, random_state=42
+        data, labels, test_size=0.33, random_state=42
     )
     return X_train, X_test, y_train, y_test
 
 
 def test_classifier(
-    dataset, classifier, X_test, y_test, X_train, y_train, coefs, classifier_name
-):
+    dataset,
+    classifier,
+    X_test,
+    y_test,
+    X_train,
+    y_train,
+    coefs,
+    intercept,
+    classifier_name
+) -> None:
     """
     Function used in order to test the quality of the classifier
     """
@@ -69,52 +71,57 @@ def test_classifier(
         s=20,
     )  # marker size
 
-    # plot the found linear separator
-    alpha = -coefs[0, 0] / coefs[0, 1]
-    # (a,b).(x,y) > 0
-    # if and only if
-    # ax + by > 0
-    # ie:
-    # y > - ax/b
-    # y > alpha x
+
+    """
+    Plot the found linear separator
+
+    Here, in dimension 2:
+    coefs contains a tuple (a_1, a_2)
+    and intercept contains b
+    such that the separator is obtained with the
+    equation
+    (a_1, a_2)(x,y) + b = 0
+
+    which means:
+    a_1x + a_2y + b> 0
+
+    or (assuming a_2 != 0):
+    y = -(b + a_1x)/a_2
+    """
+    a_1 = coefs[0, 0]
+    a_2 = coefs[0, 1]
+    b = intercept[0]
+    print(f"intercept: {b:.2f}")
     x_data = X_test[:, 0]
-    y_data = X_test[:, 1]
     xlim_left = min(x_data)
     xlim_right = max(x_data)
     x_plot = np.linspace(xlim_left, xlim_right, x_data.shape[0])
-    y_plot = [straight_line(alpha, 0, x) for x in x_plot]
-    plt.plot(x_plot, y_plot, "-", color="green")
+    y_plot = -(b+a_1*x_plot)/a_2
+    plt.plot(x_plot, y_plot, "-", color="green", label="linear separator")
     plt.legend(loc="best")
 
     # save the results
     plt.axis("tight")
-    plt.title(
-        "dataset: "
-        + dataset
-        + "\n"
-        + classifier_name
-        + "\n"
-        + f"score on test set {100*classifier_score:.2f} %"
+    title = (
+        f"{dataset}\n{classifier_name}\n"
+        f"score on test set {100*classifier_score:.2f} %"
     )
-    # plt.tight_layout()
-    plt.savefig(
-        "images/sklearn_prediction/prediction_test_set "
-        + dataset
-        + "_"
-        + classifier_name
-        + ".pdf"
-    )
+    plt.title(title)
+    figname = f"prediction_test_set_{dataset}_{classifier_name}.pdf"
+    figpath = os.path.join("images", figname)
+    plt.savefig(figpath)
     plt.close()
 
 
-def process_dataset(dataset):
-    print("---\ndataset:" + dataset)
+def process_dataset(dataset) -> None:
+    print(f"\n---\ndataset: {dataset}")
     X_train, X_test, y_train, y_test = load_data(dataset)
 
     # learn the classifier
     classifier = SGDClassifier(max_iter=1000)
     classifier.fit(X_train, y_train)
     coefs = classifier.coef_
+    intercept = classifier.intercept_
     test_classifier(
         dataset,
         classifier,
@@ -123,7 +130,8 @@ def process_dataset(dataset):
         X_train,
         y_train,
         coefs,
-        "without normalization",
+        intercept,
+        "without_standardization",
     )
 
     # preprocess the data
@@ -140,6 +148,7 @@ def process_dataset(dataset):
     classifier = SGDClassifier(max_iter=1000)
     classifier.fit(X_train, y_train)
     coefs = classifier.coef_
+    intercept = classifier.intercept_
     test_classifier(
         dataset,
         classifier,
@@ -148,10 +157,16 @@ def process_dataset(dataset):
         X_train,
         y_train,
         coefs,
-        "with normalization",
+        intercept,
+        "with_standardization",
     )
 
 
-process_dataset("ex1")
-process_dataset("ex2")
-process_dataset("ex3")
+def main() -> None:
+    process_dataset("dataset_1")
+    process_dataset("dataset_2")
+    process_dataset("dataset_3")
+
+
+if __name__ == "__main__":
+    main()
