@@ -1,8 +1,9 @@
-import numpy as np
 import math
 
+import numpy as np
 
-def error(theta, X, Y):
+
+def error(theta, X, y):
     """
     Compute the prediction error with parameter theta,
     between Xtheta and the labels Y
