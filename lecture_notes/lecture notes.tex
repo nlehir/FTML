@@ -1249,7 +1249,7 @@ with $f:X\rightarrow Y$ set of measurable functions.
 
     $E\big(l(X,Y)|X \big) $ is the expectation of $l(X, Y)$ given $X$.
 
-    \url{https://en.wikipedia.org/wiki/Law_of_total_expectation} 
+    \url{https://en.wikipedia.org/wiki/La\theta_of_total_expectation} 
 \end{remark}
 
 
@@ -2552,7 +2552,7 @@ $$
 	% $\phi_1, \dots, \phi_d: \mathbb{R}^p\rightarrow \mathbb{R} $ with $\phi_k(x) = e^{i \frac{2\pi kx}{T}} $.
 
 	% \begin{equation*}
-	    % f(x) = \sum^{d}_{i=1} w_j\phi_j(x)
+	    % f(x) = \sum^{d}_{i=1} \theta_j\phi_j(x)
 	% \end{equation*}
 \end{itemize}
 
@@ -3057,42 +3057,42 @@ The Kullback-Leibler divergence is a quantity used to compare two probability di
 
 \subsubsection{\large\color{Periwinkle}Conditional modeling}
 
-The likelihood can also be used to estimate the density of an output $Y$ given an output $X$. We then have a collection of densities on $Y$, for each $\theta$ and for each $x$. We also define a risk and an empirical risk the log-likelihood loss (also called \textbf{{conditional log-likelihood}} , as:
+The likelihood can also be used to estimate the probability density of an output $y$ given an input $x$. We then have a collection of densities on $Y$, for each $\theta$ and for each $x$. We also define a risk and an empirical risk the log-likelihood loss (also called \textbf{{conditional log-likelihood}}, as:
 
-\begin{equation*}
+\begin{equation}
     R(\theta) = E[-\log(p_{\theta}(Y|X)]
-\end{equation*}
+\end{equation}
 
-\begin{equation*}
+\begin{equation}
     R_n(\theta) = - \frac{1}{n} \sum^{n}_{i=1} \log\big(p_{\theta}(y_i|x_i)\big)
-\end{equation*}
+\end{equation}
 
 \subsubsection{\large\color{Periwinkle}Link with linear regression}
 
 We consider $D_n = \{(x_1, y_1), \dots, (x_n, y_n)\}\in (\mathcal{X}\times \mathcal{Y})^n$, with $ \mathcal{X} = \mathbb{R}^d$, and $ \mathcal{Y} = \mathbb{R} $. We can define a probabilistic model such that finding the maximum likelihood estimator for this model is equivalent to doing least square regression.
 
-This model, called the \textbf{{Gaussian model}}, assumes that the outputs $y_i$ are independently generated from a Gaussian distribution of mean $w_*^Tx_i$ and variance $\sigma_*$. Out optimal parameter is thus $\theta^* =(w_*, \sigma_*)$. This writes:
+This model, called the \textbf{{Gaussian model}}, assumes that the outputs $y_i$ are generated independently, and for each $i$, $y_i$ follows a Gaussian distribution of mean $\theta_*^Tx_i$ and variance $\sigma_*$. Our optimal parameter is thus $\theta^* =(\theta_*, \sigma_*)$. This writes:
 
 \begin{equation*}
-    Y = w_*^TX+\epsilon
+    Y = \theta_*^TX+\epsilon
 \end{equation*}
 
-where $\epsilon\sim \mathcal{N}(0, \sigma_*^2)$. We want an estimation of $\theta_*$. For a parameter $\theta=(w, \sigma)$, the conditional density is:
+where $\epsilon\sim \mathcal{N}(0, \sigma_*^2)$. Based on a finite dataset, we look for an estimation of $\theta^*$. For a parameter $\theta=(w, \sigma)$, the conditional density of $y$ is:
 
-\begin{equation*}
+\begin{equation}
     p_{\theta}(y|x) = \frac{1}{ \sqrt{2\pi} \sigma} e^{- \frac{(y-w^Tx)}{2\sigma^2} }
-\end{equation*}
+\end{equation}
 
 Hence 
 
-\begin{equation*}
+\begin{equation}
     \begin{aligned}
 	R_n(\theta) &= - \frac{1}{n} \sum^{n}_{i=1} \log\big(p_{\theta}(y_i|x_i)\big)\\
 	&= \frac{1}{2n\sigma^2} \sum^{n}_{i=1} (y_i-w^Tx_i)^2+ \frac{1}{2} \log(2\pi \sigma^2)
     \end{aligned}
-\end{equation*}
+\end{equation}
 
-This means that the maximum likelihood estimator $ \hat{w}_n$ in the Gaussian model is the minimiser of the least squares. We can also show that the estimator of $ \hat{\sigma}^2$ is
+This means that the maximum likelihood estimator $ \hat{w}_n$ in the Gaussian model is the minimiser of the least squares error. We can also show that the estimator of $ \hat{\sigma}^2$ is
 
 \begin{equation*}
     \hat{\sigma_n}^2 = \frac{1}{n} \sum^{n}_{i=1} (y_i- \hat{w}_n^Tx_i)^2

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.8.25)  24 MAR 2023 11:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.8.25)  4 MAY 2023 00:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2039,8 +2039,8 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3154.
  ) 
 Here is how much of TeX's memory you used:
- 18029 strings out of 492995
- 313995 string characters out of 6132704
+ 18033 strings out of 492995
+ 314047 string characters out of 6132704
  655864 words of memory out of 5000000
  20841 multiletter control sequences out of 15000+600000
  128244 words of font info for 179 fonts, out of 8000000 for 9000
@@ -2073,10 +2073,10 @@ am7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb
 ></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb></usr
 /local/texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/
 texlive/2017/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on "lecture notes.pdf" (44 pages, 536899 bytes).
+Output written on "lecture notes.pdf" (44 pages, 537308 bytes).
 PDF statistics:
- 1299 PDF objects out of 1440 (max. 8388607)
- 1086 compressed objects within 11 object streams
- 344 named destinations out of 1000 (max. 500000)
+ 1303 PDF objects out of 1440 (max. 8388607)
+ 1090 compressed objects within 11 object streams
+ 348 named destinations out of 1000 (max. 500000)
  25904 words of extra memory for PDF output out of 29859 (max. 10000000)
 
