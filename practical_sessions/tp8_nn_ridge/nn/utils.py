@@ -91,15 +91,12 @@ def compute_gradients(x: np.ndarray,
     explanations in the pdf for mode details and for
     the details of the calculations.
 
-    l is the squared los
+    Since we use a SGD, we only compute the gradient 
+    with respect to 1 sample.
 
-    for instance, dl_dy_hat is the gradient
-    of the loss with respect to y_hat (in this case, it is
-    just a derivative).
+    l is the squared loss.
 
     We use the chain rule to write the computation.
-
-    FIX THIS FUNCTION
     """
     # first compute the gradient with respect to theta
     dl_dy_hat = y_hat - y

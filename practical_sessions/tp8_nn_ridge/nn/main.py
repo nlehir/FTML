@@ -1,3 +1,4 @@
+
 """
     Approximate a dataset with SGD on a one hidden layer neural network
 """

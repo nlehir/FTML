@@ -56,10 +56,10 @@ def forward_pass(X: np.ndarray, wh: np.ndarray, theta: np.ndarray) -> dict[str, 
 
     # stack h with a column of 1s in order to add the intercepts
     ones_h = np.ones(shape=(n, 1))
-    h_stacked = np.column_stack((h, ones_h))
+    h_bar = np.column_stack((h, ones_h))
 
     # linear operation between hidden layer and output layer
-    pre_y = h_stacked @ theta
+    pre_y = h_bar @ theta
 
     # apply non linearity
     y_hat = relu(pre_y)
@@ -87,38 +87,29 @@ def compute_gradients(x: np.ndarray,
     explanations in the pdf for mode details and for
     the details of the calculations.
 
-    l is the squared los
+    Since we use a SGD, we only compute the gradient 
+    with respect to 1 sample.
 
-    for instance, dl_dy_hat is the gradient
-    of the loss with respect to y_hat (in this case, it is
-    just a derivative).
+    l is the squared loss.
 
     We use the chain rule to write the computation.
     """
     # first compute the gradient with respect to theta
     dl_dy_hat = y_hat - y
     dy_hat_dpre_y = relu_derivative(pre_y)
-    dpre_y_dtheta = np.append(h, 1)
+    h_bar = np.append(h, 1)
+    dpre_y_dtheta = h_bar
     dl_dtheta = dl_dy_hat * dy_hat_dpre_y * dpre_y_dtheta
 
     # then compute the gradient with respect to w_h
-    # scalar
-    dl_dpre_y = dl_dy_hat * dy_hat_dpre_y
-    # vector with m components
-    # we drop the last component of theta because it does not depend
-    # on wh
-    dpre_y_dh = theta[:-1]
-    # vector with m components
-    dl_dh = dl_dpre_y * dpre_y_dh
-    # vector with m components
-    dh_dpre_h = relu_derivative(pre_h)
+    # see pdf "Gradients.pdf" for details
+    theta_tilde = theta[:-1]
+    x_bar = np.append(x, 1)
+    x_bar = x_bar.reshape(1, len(x_bar))
+    u = theta_tilde * relu_derivative(pre_h)
+    dl_dwh = (dl_dy_hat * dy_hat_dpre_y) * u.T @ x_bar
 
-    # vector with m components
-    # this is an elementwise product
-    dl_dpre_h = dl_dh * dh_dpre_h
-    dl_dwh = dl_dpre_h.T * np.append(x, 1)
-
-    # return
+    # transpose the jacobians to obtain the gradients
     gradients = dict()
     gradients["dl_dtheta"] = dl_dtheta.T
     gradients["dl_dwh"] = dl_dwh.T
