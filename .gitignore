@@ -12,7 +12,7 @@ env/
 practical_sessions/tp2_ols_ridge/data/*.npy
 practical_sessions/tp4_knn_lr/lr/solutions/learning_rate_schedule.py
 practical_sessions/tp4_knn_lr/lr/solutions/data/
-practical_sessions/tp8_nn_ridge/nn/images/*pdf
+practical_sessions/tp8_nn/nn/images/*pdf
 
 2022/
 README_backup.md
