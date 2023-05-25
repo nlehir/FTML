@@ -1,6 +1,5 @@
 """
     Approximate a dataset with SGD on a one hidden layer neural network
-    Fix this file.
 """
 
 import os
@@ -15,8 +14,8 @@ inputs = np.load(os.path.join(data_folder, "inputs.npy"))
 outputs = np.load(os.path.join(data_folder, "outputs.npy"))
 bayes_predictions = np.load(os.path.join(data_folder, "bayes_predictions.npy"))
 
-GAMMAS_LIST = [0.1]
-M_LIST = [5]
+GAMMAS_LIST = [0.01, 0.1]
+M_LIST = [5, 10, 30, 50, 100]
 NB_ITERATIONS = int(1e5)
 
 # split the data into a training set and a test set
@@ -106,7 +105,7 @@ def learn_neural_network(m: int, gamma: float):
     predictions = forward_pass(X=inputs, wh=wh, theta=theta)["y_hat"]
     plt.plot(X_train, y_train, "o", label="train", alpha=0.8)
     plt.plot(X_test, y_test, "o", label="test", alpha=0.8)
-    plt.plot(inputs, bayes_predictions, label="target", color="aqua")
+    plt.plot(inputs, bayes_predictions, label="bayes predictor", color="aqua")
     plt.plot(inputs, predictions, label="predictions")
     plt.xlabel("input")
     plt.ylabel("output")
