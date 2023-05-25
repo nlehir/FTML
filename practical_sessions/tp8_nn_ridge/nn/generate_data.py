@@ -2,19 +2,20 @@
     Define a target function
     and generate data
 """
-import numpy as np
-import os
-import matplotlib.pyplot as plt
 import math
+import os
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+from constants import M_TARGET, N_SAMPLES, SIGMA
 from utils import forward_pass
-from constants import SIGMA, M_TARGET, N_SAMPLES
 
 XMIN = -1
 XMAX = 1
 
 
 def main():
-
     rng = np.random.default_rng()
 
     scale = 1 / math.sqrt(M_TARGET)
@@ -37,7 +38,7 @@ def main():
     plt.plot(inputs, bayes_predictions, label="bayes predictor", color="aqua")
     plt.xlabel("input")
     plt.ylabel("output")
-    title = f"data and Bayes predictor\n"+r"$\sigma=$"+f"{SIGMA}"
+    title = f"data and Bayes predictor\n" + r"$\sigma=$" + f"{SIGMA}"
     plt.title(title)
     plt.legend(loc="best")
     plt.savefig("data.pdf")
@@ -49,6 +50,6 @@ def main():
     np.save(os.path.join(folder, "outputs"), outputs)
     np.save(os.path.join(folder, "bayes_predictions"), bayes_predictions)
 
+
 if __name__ == "__main__":
     main()
-

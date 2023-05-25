@@ -1,14 +1,15 @@
-
 """
     Approximate a dataset with SGD on a one hidden layer neural network
 """
 
-import os
 import math
-from sklearn.model_selection import train_test_split
-import numpy as np
+import os
+
 import matplotlib.pyplot as plt
-from utils import forward_pass, compute_gradients
+import numpy as np
+from sklearn.model_selection import train_test_split
+
+from utils import compute_gradients, forward_pass
 
 data_folder = "data"
 inputs = np.load(os.path.join(data_folder, "inputs.npy"))
@@ -72,9 +73,9 @@ def learn_neural_network(m: int, gamma: float):
             print(f"{t}/{NB_ITERATIONS}")
 
             preds_train = forward_pass(X=X_train, wh=wh, theta=theta)["y_hat"]
-            train_loss = (np.linalg.norm(y_train-preds_train)**2)/(2*n_train)
+            train_loss = (np.linalg.norm(y_train - preds_train) ** 2) / (2 * n_train)
             preds_test = forward_pass(X=X_test, wh=wh, theta=theta)["y_hat"]
-            test_loss = (np.linalg.norm(y_test-preds_test)**2)/(2*n_test)
+            test_loss = (np.linalg.norm(y_test - preds_test) ** 2) / (2 * n_test)
 
             times.append(t)
             train_errors.append(train_loss)
@@ -91,10 +92,7 @@ def learn_neural_network(m: int, gamma: float):
     plt.xlabel("log10 iteration")
     plt.ylabel("mean squared error")
     title = (
-        f"train and test learning curves\n"
-        + f"m={m}\n"
-        + r"$\gamma=$"
-        + f"{gamma:.2f}"
+        f"train and test learning curves\n" + f"m={m}\n" + r"$\gamma=$" + f"{gamma:.2f}"
     )
     plt.title(title)
     plt.tight_layout()
@@ -126,6 +124,7 @@ def main() -> None:
             print(f"---\nm: {m}")
             print(f"gamma: {gamma}")
             learn_neural_network(m=m, gamma=gamma)
+
 
 if __name__ == "__main__":
     main()

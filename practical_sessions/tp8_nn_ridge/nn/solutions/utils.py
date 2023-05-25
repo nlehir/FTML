@@ -20,7 +20,9 @@ def relu_derivative(x: np.ndarray) -> np.ndarray:
     return np.heaviside(x, 0)
 
 
-def forward_pass(X: np.ndarray, wh: np.ndarray, theta: np.ndarray) -> dict[str, np.ndarray]:
+def forward_pass(
+    X: np.ndarray, wh: np.ndarray, theta: np.ndarray
+) -> dict[str, np.ndarray]:
     """
     Compute the forward pass of a neural network with an output dimension
     of 1, and with only one hidden layer of m neurons.
@@ -45,7 +47,7 @@ def forward_pass(X: np.ndarray, wh: np.ndarray, theta: np.ndarray) -> dict[str, 
         n = 1
 
     # stack X with a column of 1s in order to add the intercepts
-    ones_X = np.ones(shape=(n ,1))
+    ones_X = np.ones(shape=(n, 1))
     X_stacked = np.column_stack((X, ones_X))
 
     # linear product between inputs and first hidden layer
@@ -73,21 +75,22 @@ def forward_pass(X: np.ndarray, wh: np.ndarray, theta: np.ndarray) -> dict[str, 
     return outputs
 
 
-def compute_gradients(x: np.ndarray,
-              y: np.ndarray,
-              pre_h: np.ndarray,
-              h: np.ndarray,
-              pre_y: np.ndarray,
-              y_hat: np.ndarray,
-              theta: np.ndarray,
-              ) -> dict[str, np.ndarray]:
+def compute_gradients(
+    x: np.ndarray,
+    y: np.ndarray,
+    pre_h: np.ndarray,
+    h: np.ndarray,
+    pre_y: np.ndarray,
+    y_hat: np.ndarray,
+    theta: np.ndarray,
+) -> dict[str, np.ndarray]:
     """
     The gradient makes use of several intermediate
     variables returned by the forward pass, see the
     explanations in the pdf for mode details and for
     the details of the calculations.
 
-    Since we use a SGD, we only compute the gradient 
+    Since we use a SGD, we only compute the gradient
     with respect to 1 sample.
 
     l is the squared loss.
