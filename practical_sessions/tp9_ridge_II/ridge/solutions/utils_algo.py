@@ -124,7 +124,7 @@ def ridge_risk(
         n_tests (int): number of simulations run
 
     Returns:
-        risk_estimation (float): estimation of the excess risk of the OLS
+        risk_estimation (float): estimation of the excess risk of the Ridge
         estimator in this setup.
     """
     n = X.shape[0]

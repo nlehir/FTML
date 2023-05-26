@@ -55,7 +55,6 @@ def main():
             infinity_biases[d] = infinity_bias[0]
 
 
-    __import__('ipdb').set_trace()
     colors = ["blue", "green", "darkred", "mediumvioletred", "darkmagenta"]
     index = 0
     for d in d_list:
