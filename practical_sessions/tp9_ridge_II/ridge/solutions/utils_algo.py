@@ -1,8 +1,3 @@
-"""
-    Template algorithms file.
-
-    Some functions are not returning the right quantity (marked as TO FIX)
-"""
 import numpy as np
 import math
 from constants import rng, SIGMA, N_TESTS
@@ -12,8 +7,6 @@ def generate_output_data(
     X: np.ndarray, theta_star: np.ndarray, sigma: float, n_tests: int
 ) -> np.ndarray:
     """
-    TO FIX
-
     generate input and output data (supervised learning)
     according to the linear model, fixed design setup
     - X is fixed
@@ -36,7 +29,9 @@ def generate_output_data(
         Y (float matrix): output vector (n, 1)
     """
     n = X.shape[0]
-    return np.ones(shape=(n, 1))
+    noise = rng.normal(0, sigma, size=(n, n_tests))
+    y = X @ theta_star + noise
+    return y
 
 
 def ridge_regression_estimator(
@@ -82,25 +77,28 @@ def error(theta: np.ndarray, X: np.ndarray, targets: np.ndarray) -> float:
 
 def compute_lambda_star_and_risk_star(sigma: float, X: np.ndarray, theta_star: np.ndarray) -> tuple[float, float]:
     """
-    TO FIX
+        Compute lambda_star for which we have theoretical
+        garantees on the value of the excess risk.
 
-    Compute lambda_star for which we have theoretical
-    garantees on the value of the excess risk.
+        Parameters:
+            sigma (float): variance of the linear model, fixed design
+            X (float matrix): (n, d) matrix
+            theta_star (float vector): (d, 1) optimal parameter (Bayes
+            predictor)
+            n (int): number of samples
 
-    Parameters:
-        sigma (float): variance of the linear model, fixed design
-        X (float matrix): (n, d) matrix
-        theta_star (float vector): (d, 1) optimal parameter (Bayes
-        predictor)
-        n (int): number of samples
-
-    Returns:
-        llambda_star (float)
-        risk_star (float)
+        Returns:
+            llambda_star (float)
+            risk_star (float)
 
     """
     # print(f"n={n}, d={d}, trace={trace}")
-    return 1, 1
+    n = X.shape[0]
+    Sigma = 1/n*X.T @ X
+    trace = np.trace(Sigma)
+    llambda_star = sigma*math.sqrt(trace)/(np.linalg.norm(theta_star)*math.sqrt(n))
+    risk_star  = sigma**2+(sigma*math.sqrt(trace)*np.linalg.norm(theta_star))/math.sqrt(n)
+    return llambda_star, risk_star
 
 
 def ridge_risk(
@@ -110,8 +108,6 @@ def ridge_risk(
         X: np.ndarray,
         ) -> float:
     """
-    TO FIX
-
     Statistical evaluation of the excess risk of the Ridge regression
     estimator
 
@@ -132,4 +128,20 @@ def ridge_risk(
         estimator in this setup.
     """
     n = X.shape[0]
-    return 1
+
+    # run several simulations to have an estimation of the excess risk
+    y_train = generate_output_data(X, theta_star, SIGMA, N_TESTS)
+
+    # compute the Ridge regression estimator
+    theta_hat = ridge_regression_estimator(X, y_train, lambda_)
+
+    # generate test data
+    y_test = generate_output_data(X, theta_star, SIGMA, N_TESTS)
+
+    # compute predictions of each OLS estimator
+    y_pred = X @ theta_hat
+
+    # pred_size = len(y_pred) 
+    mean_test_error = np.linalg.norm(y_pred - y_test) ** 2 / (n * n_tests)
+
+    return mean_test_error
