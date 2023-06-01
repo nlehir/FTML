@@ -5,6 +5,7 @@ jupyterlab
 kneed
 matplotlib
 numpy
+opencv-python
 optuna
 optuna-dashboard
 pandas
