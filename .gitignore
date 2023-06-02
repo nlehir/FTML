@@ -17,6 +17,8 @@ practical_sessions/tp9_ridge_II/arch/
 practical_sessions/tp10_unsupervised_classification/vector_quantization/solution/
 practical_sessions/tp10_unsupervised_classification/vector_quantization/images/
 practical_sessions/tp10_unsupervised_classification/vector_quantization/data/*.npy
+practical_sessions/tp11_exploration_nn/exploration_exploitation/students/
+practical_sessions/tp11_exploration_nn/nn/
 
 2022/
 README_backup.md
