@@ -14,12 +14,12 @@ practical_sessions/tp4_knn_lr/lr/solutions/learning_rate_schedule.py
 practical_sessions/tp4_knn_lr/lr/solutions/data/
 practical_sessions/tp8_nn/nn/images/*pdf
 practical_sessions/tp9_ridge_II/arch/
-practical_sessions/tp10_unsupervised_classification/dimensionality_reduction/solutions/
-practical_sessions/tp10_unsupervised_classification/dimensionality_reduction/create_data.py
-practical_sessions/tp10_unsupervised_classification/dimensionality_reduction/make_labels.py
-practical_sessions/tp10_unsupervised_classification/vector_quantization/solution/
+# practical_sessions/tp10_unsupervised_classification/vector_quantization/solution/
 practical_sessions/tp10_unsupervised_classification/vector_quantization/images/
 practical_sessions/tp10_unsupervised_classification/vector_quantization/data/*.npy
+practical_sessions/tp11_exploration_nn/exploration_exploitation/students/
+practical_sessions/tp11_exploration_nn/exploration_exploitation/images/*.pdf
+practical_sessions/tp11_exploration_nn/value_iteration/images/*.pdf
 
 2022/
 README_backup.md
