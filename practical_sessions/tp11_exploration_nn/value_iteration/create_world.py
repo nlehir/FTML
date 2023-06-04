@@ -39,16 +39,14 @@ reward = np.array(
 plt.imshow(world)
 plt.title("1 : available position\n0 : not available position")
 plt.colorbar()
-figpath = os.path.join("images", "world.pdf")
-plt.savefig(figpath)
+plt.savefig("world.pdf")
 plt.close()
 
 # plot reward
 plt.imshow(reward)
 plt.title("reward")
 plt.colorbar()
-figpath = os.path.join("images", "reward.pdf")
-plt.savefig(figpath)
+plt.savefig("reward.pdf")
 plt.close()
 
 # save world
