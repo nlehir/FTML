@@ -1,4 +1,5 @@
 black
+graphviz
 ipdb
 isort
 jupyterlab
