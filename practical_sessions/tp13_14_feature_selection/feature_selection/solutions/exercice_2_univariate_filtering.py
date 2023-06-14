@@ -32,7 +32,7 @@ C = 0.5
 num_jobs=-1
 
 
-def sparsity_scorer_nic(clf: Pipeline, *args) -> float:
+def sparsity_scorer(clf: Pipeline, *args) -> float:
     """
     Define a sparsity score for the pipeline
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     """
     print("Fit pipeline with hardcoded number of kept features")
     classifier.fit(traindata.data, traindata.target)
-    # sparsity = sparsity_scorer_nic(classifier)
+    # sparsity = sparsity_scorer(classifier)
 
     # Extract the selected dimensions
     counter = classifier["vectorizer"]
@@ -137,7 +137,7 @@ if __name__ == "__main__":
         classifier,
         n_jobs=num_jobs,
         param_grid=param_grid,
-        scoring={"sparsity": sparsity_scorer_nic, "accuracy": make_scorer(accuracy_score)},
+        scoring={"sparsity": sparsity_scorer, "accuracy": make_scorer(accuracy_score)},
         verbose=2,
         refit=False,
     )
