@@ -17,7 +17,7 @@ from sklearn.pipeline import Pipeline
 num_jobs = -1
 
 
-def sparsity_scorer_nic(clf: Pipeline, *args) -> float:
+def sparsity_scorer(clf: Pipeline, *args) -> float:
     """
     This time the sparsity is only computed from the LogisticRegression theta
     """
