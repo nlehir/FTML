@@ -37,6 +37,26 @@ if __name__ == "__main__":
         traindata, _, testdata = preprocess_imdb(num_jobs=num_jobs)
 
 
+        print("Vectorizing the data")
+        vectorizer = CountVectorizer(ngram_range=(1, ngram), min_df=2)
+        X_train = vectorizer.fit_transform(traindata.data)
+        y_train = traindata.target
+        X_test = vectorizer.transform(testdata.data)
+        y_test = testdata.target
+        vocabulary = np.array(vectorizer.get_feature_names_out())
+
+        utils.save_cache(
+            cache_name,
+            {
+                "X_train": X_train,
+                "y_train": y_train,
+                "X_test": X_test,
+                "y_test": y_test,
+                "vocabulary": vocabulary,
+            },
+        )
+    print(f"Original vocabulary size : {len(vocabulary)}")
+
     """
     Add lines here
     """
