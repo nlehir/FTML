@@ -28,13 +28,18 @@ stretched_gaussian_1 = rng.normal(size=(n_samples, 2)) @ mat
 mat_2 = np.array([[1.0, -0.7], [0.5, 0.7]])
 stretched_gaussian_2 = rng.normal(size=(n_samples, 2)) @ mat_2 + np.array([-10, 10])
 
+X_train = np.vstack([shifted_gaussian, stretched_gaussian_1])
+X_train = np.vstack([X_train, stretched_gaussian_2])
+
+plt.scatter(X_train[:, 0], X_train[:, 1], 0.8)
+plt.savefig(os.path.join("images", "data.pdf"))
+plt.close()
+
 
 def learn_gmm(n_components: int) -> None:
     print(f"\nlearn gmm with {n_components} components")
 
     # concatenate the two datasets into the final training set
-    X_train = np.vstack([shifted_gaussian, stretched_gaussian_1])
-    X_train = np.vstack([X_train, stretched_gaussian_2])
 
     clf = GaussianMixture(n_components=n_components, covariance_type="full")
     clf.fit(X_train)
