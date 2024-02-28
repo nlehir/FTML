@@ -9,6 +9,29 @@
 
 env/
 
+practical_sessions/*/solutions/
+practical_sessions/tp4_knn_lr/knn/solutions/
+practical_sessions/tp4_knn_lr/lr/solutions/
+practical_sessions/tp4_knn_lr/lr/solutions/
+practical_sessions/tp5_kmeans_sgd_line_search/k_means/solutions/
+practical_sessions/tp5_kmeans_sgd_line_search/line_search/solutions/
+practical_sessions/tp5_kmeans_sgd_line_search/lr/solutions/
+practical_sessions/tp6_svm/svm_kernels/solution/
+practical_sessions/tp6_svm/svm_sgd/solution/
+practical_sessions/tp7_acceleration/heavy_ball/solution/
+practical_sessions/tp8_nn/nn/solutions/
+practical_sessions/tp9_ridge_II/ridge/solutions/
+practical_sessions/tp10_unsupervised_classification/dimensionality_reduction/solutions/
+practical_sessions/tp10_unsupervised_classification/vector_quantization/solutions/
+practical_sessions/tp11/exploration_exploitation/solution/
+practical_sessions/tp11/nn/solution/
+practical_sessions/tp11/value_iteration/solution/
+practical_sessions/tp12_similarities_spectral_clustering/similarities/geometric_data/solutions/
+practical_sessions/tp12_similarities_spectral_clustering/spectral_clustering/solutions/
+practical_sessions/tp13_14_feature_selection/feature_selection/solutions/
+practical_sessions/tp15_density_estimation/digits/solutions
+practical_sessions/tp15_density_estimation/old_faithful/solutions
+
 practical_sessions/tp2_ols_ridge/data/*.npy
 practical_sessions/tp4_knn_lr/lr/solutions/learning_rate_schedule.py
 practical_sessions/tp4_knn_lr/lr/solutions/data/

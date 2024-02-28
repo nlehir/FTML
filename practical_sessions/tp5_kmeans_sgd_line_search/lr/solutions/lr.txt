@@ -1,1 +1,0 @@
-avec gamma0 trop grand, constant converge pas, mais decreasing oui.
