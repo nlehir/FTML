@@ -9,6 +9,8 @@
 
 env/
 
+project/
+
 practical_sessions/*/solutions/
 practical_sessions/tp4_knn_lr/knn/solutions/
 practical_sessions/tp4_knn_lr/lr/solutions/
