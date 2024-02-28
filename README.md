@@ -1,5 +1,5 @@
 # Fondamentaux théoriques du machine learning / Python & machine learning
-This repository contains material for Epita students of the 2023 FTML course.
+This repository contains material for Epita students of the 2024 FTML course.
 
 ## Content of the repository.
 
@@ -9,7 +9,7 @@ Articles, books, or any other useful document for the course.
 
 ### exercises/
 
-Exercises with the solutions uploaded after the relevant course.
+Exercises with the solutions, will be uploaded after the relevant course.
 
 ### lecture_notes/
 
@@ -18,16 +18,20 @@ of the couse.
 
 ### practical_sessions/
 
-Instructions for the practical sessions, with the solutions uploaded after the relevant session.
+Instructions for the practical sessions, with the solutions uploaded after the
+relevant session.
+
+These subfolders will be updated before each session.
 
 ### project/
 
-Instructions for the project.
+Instructions for the project, will be uploaded during the course.
 
 ### simulations/
 
-Example simulations that will be useful in the class.
+Example simulations that will be useful for the class.
 
 ### slides/
 
-Slides for the lectures.
+Slides for the lectures, will also be updated along the duration
+of the course.
