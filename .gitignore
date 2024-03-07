@@ -11,7 +11,8 @@ env/
 
 project/
 
-slides/*solution*
+slides/lecture 3 solution.pdf
+slides/lecture 4 solution.pdf
 
 practical_sessions/*/solutions/
 practical_sessions/tp4_knn_lr/knn/solutions/
