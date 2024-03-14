@@ -15,8 +15,21 @@ slides/lecture 3 solution.pdf
 slides/lecture 4 solution.pdf
 
 practical_sessions/**/latex/
-practical_sessions/tp1*
-practical_sessions/tp2*
+practical_sessions/tp1_overfitting_bayes_risks/
+practical_sessions/tp2_ols_ridge/
+practical_sessions/tp3_hps/
+practical_sessions/tp4_knn_lr/
+practical_sessions/tp5_kmeans_sgd_line_search/
+practical_sessions/tp6_svm/
+practical_sessions/tp7_acceleration/
+practical_sessions/tp8_nn/
+practical_sessions/tp9_ridge_II/
+practical_sessions/tp10_unsupervised_classification/
+practical_sessions/tp11_exploration_nn/
+practical_sessions/tp12_similarities_spectral_clustering/
+practical_sessions/tp13_14_feature_selection/
+practical_sessions/tp15_density_estimation/
+practical_sessions/tp16_sag/
 
 practical_sessions/*/solutions/
 practical_sessions/tp4_knn_lr/knn/solutions/
