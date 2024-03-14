@@ -15,6 +15,8 @@ slides/lecture 3 solution.pdf
 slides/lecture 4 solution.pdf
 
 practical_sessions/**/latex/
+practical_sessions/tp1*
+practical_sessions/tp2*
 
 practical_sessions/*/solutions/
 practical_sessions/tp4_knn_lr/knn/solutions/
