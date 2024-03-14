@@ -28,8 +28,6 @@ def main():
     by subsampling the train set
     """
 
-    __import__("ipdb").set_trace()
-
 
 if __name__ == "__main__":
     main()
