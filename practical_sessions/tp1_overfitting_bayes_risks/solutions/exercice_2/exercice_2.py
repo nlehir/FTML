@@ -9,16 +9,23 @@ import os
 from sklearn.linear_model import LinearRegression
 
 
+def downsample_dataset(X, y, n, rng):
+    test_indexes = rng.choice(np.arange(len(X)), size=n, replace=False)
+    X_downsampled = X[test_indexes]
+    y_downsampled = y[test_indexes]
+    return X_downsampled, y_downsampled
+
+
 def test_error_empirical_std(n_test, estimator, rng, X_test, y_test):
-    """
-    TODO: same computation without a for loop ?
-    """
     n_tests_to_compute_variance = 150
     test_scores = list()
     for _ in range(n_tests_to_compute_variance):
-        test_indexes = rng.choice(np.arange(len(X_test)), size=n_test)
-        X_test_subsampled = X_test[test_indexes]
-        y_test_subsampled = y_test[test_indexes]
+        X_test_subsampled, y_test_subsampled = downsample_dataset(
+                X=X_test,
+                y=y_test,
+                n=n_test,
+                rng=rng,
+                )
         test_scores.append(estimator.score(X_test_subsampled, y_test_subsampled))
     std = np.asarray(test_scores).std()
     return std
@@ -61,12 +68,15 @@ def study_overfitting(
     n_test = len(X_test)
     for n_train in n_train_list:
         print(f"{n_train=}")
-        train_indexes = rng.choice(np.arange(len(X_train)), size=n_train)
-        X_train_subsample = X_train[train_indexes]
-        y_train_subsample = y_train[train_indexes]
+        X_train_subsampled, y_train_subsampled = downsample_dataset(
+                X=X_train,
+                y=y_train,
+                n=n_train,
+                rng=rng,
+                )
         estimator = LinearRegression()
-        estimator.fit(X_train_subsample, y_train_subsample)
-        train_score = estimator.score(X_train_subsample, y_train_subsample)
+        estimator.fit(X_train_subsampled, y_train_subsampled)
+        train_score = estimator.score(X_train_subsampled, y_train_subsampled)
         test_score = estimator.score(X_test, y_test)
         overfitting_list.append(train_score - test_score)
     plt.plot(n_train_list, overfitting_list, "o", alpha=0.7)
@@ -95,12 +105,15 @@ def main():
     by subsampling the test set
     n_train will also have an influence on the result
     """
-    n_train = 300
-    train_indexes = rng.choice(np.arange(len(X_train)), size=n_train)
-    X_train_subsample = X_train[train_indexes]
-    y_train_subsample = y_train[train_indexes]
+    n_train = 200
+    X_train_subsampled, y_train_subsampled = downsample_dataset(
+            X=X_train,
+            y=y_train,
+            n=n_train,
+            rng=rng,
+            )
     estimator = LinearRegression()
-    estimator.fit(X_train_subsample, y_train_subsample)
+    estimator.fit(X_train_subsampled, y_train_subsampled)
     study_test_error_empirical_std(
         estimator=estimator,
         rng=rng,
