@@ -505,10 +505,10 @@ Let $u_1, \dots, u_n$ be i.i.d. random variables, such that $E(u)=0$ and $|u|\le
 
 \begin{definition}{Two times differentiable function}
 
-    We keep the same hypotheses as in \ref{def:diff} and assume that $W= \mathbb{R}$. If the map $x\mapsto \nabla_xf $ is differentiable in $x$, the we say that $f$ is two times differentiable in $x$. In that case we note $f"(x)$ the second-order derivative, that satisfies:
+    We keep the same hypotheses as in \ref{def:diff} and assume that $W= \mathbb{R}$. If the map $x\mapsto \nabla_xf(x) $ is differentiable in $x$, the we say that $f$ is two times differentiable in $x$. In that case we note $f"(x)$ the second-order derivative, that satisfies:
 
     \begin{equation*}
-	\nabla_{x+h}f=\nabla_xf+f"(x)(h)+o(h)
+	\nabla_{x}f(x+h)=\nabla_xf(x)+f"(x)(h)+o(h)
     \end{equation*}
 \end{definition}
 
@@ -516,7 +516,7 @@ Let $u_1, \dots, u_n$ be i.i.d. random variables, such that $E(u)=0$ and $|u|\le
     We keep the same hypotheses. Given $x$ and $h$, $f"(x)(h)$ is an element of $V$, that can also be identified to an element of its dual space $V^*$. With the notation $f"(x)(h, h')=f"(x)(h)(h')$, we can show that
 
     \begin{equation*}
-	f(x+h)=f(x)+\nabla_xf(h)+ \frac{1}{2} f"(x)(h,h)+o(||h||^2)        
+	f(x+h)=f(x)+\langle\nabla_xf(x),h\rangle+ \frac{1}{2} f"(x)(h,h)+o(||h||^2)        
     \end{equation*}
 \end{lemma}
 
@@ -525,7 +525,7 @@ Let $u_1, \dots, u_n$ be i.i.d. random variables, such that $E(u)=0$ and $|u|\le
 In this paragraph, we consider the case when $V= \mathbb{R}^d$, which is the most frequent situation encountered in machine learning.
 \\
 
-\textbf{{Jacobian matrix:}} If $f: \mathbb{R}^d\rightarrow \mathbb{R}^p$ is differentiable on $ \mathbb{R}^d$ we note $L^f_x$ the differential in $x$. It is an map from $ \mathbb{R}^d$ to $ \mathbb{R}^p$. We can then equivalently consider its matrix, that can be noted also $L^f_x\in \mathbb{R}^{p, d}$. 
+\textbf{{Jacobian matrix:}} If $f: \mathbb{R}^d\rightarrow \mathbb{R}^p$ is differentiable on $ \mathbb{R}^d$ we note $L^f_x$ the differential in $x$. It is a map from $ \mathbb{R}^d$ to $ \mathbb{R}^p$. We can then equivalently consider its matrix, that can be noted also $L^f_x\in \mathbb{R}^{p, d}$. 
 
 \begin{equation*}
     f(x+h)=f(x)+L^f_xh+o(h)
@@ -537,7 +537,7 @@ $L^f_x$ is called the \textbf{{Jacobian matrix}}  of $f$ in $x$.
 \textbf{{Link with the gradient}}: we note that if the function $f$ has real values ($p=1$), then 
 
 \begin{equation*}
-    \nabla_xf=(L^f_x)^T\in \mathbb{R}^{d, 1}
+    \nabla_xf(x)=(L^f_x)^T\in \mathbb{R}^{d, 1}
 \end{equation*}
 
 \textbf{{Jacobian of a product.}} 
@@ -583,10 +583,10 @@ With the same functions $g$ and $f$ and if $q=1$, we deduce from \ref{eq:jacobpr
     \end{aligned}
 \end{equation*}
 
-\textbf{{Hessian}}: if $f: \mathbb{R}^d\rightarrow \mathbb{R} $ is two times differentiable in $x$, then the map $\nabla f: \mathbb{R}^d\rightarrow \mathbb{R}^d$, $x\mapsto\nabla_xf$ has a matrix $H^f_x\in \mathbb{R}^{d,d}$, called the Hessian.
+\textbf{{Hessian}}: if $f: \mathbb{R}^d\rightarrow \mathbb{R} $ is two times differentiable in $x$, then the map $\nabla f: \mathbb{R}^d\rightarrow \mathbb{R}^d$, $x\mapsto\nabla_xf(x)$ has a matrix $H^f_x\in \mathbb{R}^{d,d}$, called the Hessian.
 
 \begin{equation*}
-    \nabla_{x+h}f=\nabla_xf+H^f_xh+o(h)
+    \nabla_{x}f(x+h)=\nabla_xf(x)+H^f_xh+o(h)
 \end{equation*}
 
 Then, the development of $f$ around $x$ can be written
