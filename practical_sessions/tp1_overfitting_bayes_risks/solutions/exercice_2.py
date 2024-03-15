@@ -96,8 +96,9 @@ def main():
     n_train will also have an influence on the result
     """
     n_train = 300
-    X_train_subsample = rng.choice(X_train, size=n_train)
-    y_train_subsample = rng.choice(y_train, size=n_train)
+    train_indexes = rng.choice(np.arange(len(X_train)), size=n_train)
+    X_train_subsample = X_train[train_indexes]
+    y_train_subsample = y_train[train_indexes]
     estimator = LinearRegression()
     estimator.fit(X_train_subsample, y_train_subsample)
     study_test_error_empirical_std(
