@@ -4,13 +4,15 @@
         - dependence of the risk on the dimensions n and d
         - (optionally) stability of the OLS estimator
 """
+
+
 from utils_algo import ols_risk
 from utils_plots import plot_stds, plot_test_errors_ols
 
 
 def main() -> None:
     # dimensions of the problem
-    n_list = list(range(30, 51, 2))
+    n_list = list(range(30, 200, 2))
     d_list = [2, 5, 10, 20, 30]
 
     # number of tests to estimate the excess risk
