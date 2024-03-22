@@ -42,7 +42,7 @@ def ols_risk(n, d, n_tests) -> tuple[float, float]:
     return 1, 1
 
 
-def ridge_risk(n, d, lambda_, n_tests) -> tuple[float, float]:
+def ridge_risk(n, d, lambda_, n_tests) -> tuple:
     """
     Statistical evaluation of the excess risk of the Ridge regression
     estimator
