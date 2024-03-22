@@ -10,6 +10,13 @@ import numpy as np
 from constants import SIGMA
 
 
+def generate_low_rank_design_matrix(n, d):
+    """
+    Edit this function.
+    """
+    pass
+
+
 def ols_risk(n, d, n_tests) -> tuple[float, float]:
     """
     Statistical evaluation of the excess risk of the OLS estimator.
@@ -40,8 +47,13 @@ def ridge_risk(n, d, lambda_, n_tests) -> tuple[float, float]:
     Statistical evaluation of the excess risk of the Ridge regression
     estimator
 
+    In order to observe a benefit in using Ridge as compared to OLS,
+    you can generate a specific design matrix X, that for instance
+    has a low rank, or a d (number of features/columns) that is close
+    to n (number of samples/lines).
+
     n_test times, do:
-        - Draw output vector Y, according to the linear model, fixed
+        - Draw output vector y, according to the linear model, fixed
         design setup.
         - compute the corresponding Ridge estimator
         - generate a test set in order to have an estimation of the excess risk of
@@ -59,12 +71,7 @@ def ridge_risk(n, d, lambda_, n_tests) -> tuple[float, float]:
     # instantiate a PRNG
     rng = np.random.default_rng()
 
-    # use a specific design matrix
-    # data_path = os.path.join("data", f"design_matrix_n={n}_d={d}.npy")
-    # if not os.path.exists(data_path):
-    #     print("generate matrix")
-    #     X = generate_low_rank_design_matrix(n, d, rng)
-    # else:
-    #     X = np.load(data_path)
+    generate_low_rank_design_matrix(n=n, d=d)
+
 
     return 1
