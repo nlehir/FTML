@@ -6,7 +6,8 @@
 """
 
 
-from utils_algo_solution import ols_risk
+# from utils_algo_solution import ols_risk
+from utils_algo import ols_risk
 from utils_plots import plot_test_errors_ols
 
 
