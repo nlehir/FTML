@@ -4,6 +4,7 @@
         - dependence of the risk on the dimensions n and d
 """
 
+# from utils_algo_solution import ridge_risk
 from utils_algo import ridge_risk
 from utils_plots import plot_test_errors_ridge
 

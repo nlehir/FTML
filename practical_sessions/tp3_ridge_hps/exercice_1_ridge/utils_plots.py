@@ -8,7 +8,6 @@ import os
 import matplotlib.pyplot as plt
 
 from constants import BAYES_RISK, SIGMA
-from utils_algo import ols_risk
 
 
 def plot_test_errors_ols(
