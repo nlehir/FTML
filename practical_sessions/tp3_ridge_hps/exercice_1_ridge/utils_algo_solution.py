@@ -49,26 +49,6 @@ def generate_low_rank_design_matrix(n: int, d: int, rng) -> np.ndarray:
     return X
 
 
-def OLS_estimator(X: np.ndarray, y: np.ndarray) -> np.ndarray:
-    """
-    Compute OLS estimators from the data.
-
-    We use numpy broadcasting to accelerate computations
-    and obtain several OLS estimators (one for each column of y).
-
-    Parameters:
-        X: (n, d) matrix
-        y: (n, n_tests) matrix
-
-    Returns:
-        theta_hat: (d, n_tests) matrix
-    """
-    covariance_matrix = X.T @ X
-    inverse_covariance = np.linalg.inv(covariance_matrix)
-    theta_hat = inverse_covariance @ (X.T @ y)
-    return theta_hat
-
-
 def ridge_regression_estimator(
     X: np.ndarray, y: np.ndarray, lambda_: float
 ) -> np.ndarray:
