@@ -6,8 +6,8 @@
 """
 
 
-from utils_algo import ols_risk
-from utils_plots import plot_stds, plot_test_errors_ols
+from utils_algo_solution import ols_risk
+from utils_plots import plot_test_errors_ols
 
 
 def main() -> None:
@@ -22,7 +22,7 @@ def main() -> None:
     risks = dict()
     for n in n_list:
         for d in d_list:
-            risks[(n, d)], _ = ols_risk(n, d, n_tests)
+            risks[(n, d)] = ols_risk(n, d, n_tests)
     plot_test_errors_ols(risks, n_list, d_list)
 
 

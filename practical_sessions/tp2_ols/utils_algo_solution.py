@@ -7,18 +7,20 @@ def generate_output_data(
     X: np.ndarray, theta_star: np.ndarray, sigma: float, rng, n_tests: int
 ) -> np.ndarray:
     """
+    (Exact same function as in tp 2 dedicated to OLS)
+
     generate input and output data (supervised learning)
     according to the linear model, fixed design setup
     - X is fixed
     - y is random, according to
 
-    Y = Xtheta_star + epsilon
-
-    We use numpy matrix manipulations in order
-    to directly generate a number of output vectors.
+    y = Xtheta_star + epsilon
 
     where epsilon is a centered gaussian noise vector with variance
     sigma*In
+
+    We use numpy matrix manipulations in order
+    to directly generate a number of output vectors.
 
     Parameters:
         X: (n, d) design matrix
@@ -26,7 +28,9 @@ def generate_output_data(
         sigma (float): variance of the noise
 
     Returns:
-        Y (float matrix): output vector (n, 1)
+        y (float matrix): output vectors in a matrix of size (n, n_tests)
+        n_tests > 1 allows to perform several tests and to statistically
+        average the results.
     """
     n = X.shape[0]
     noise = rng.normal(0, sigma, size=(n, n_tests))
@@ -45,8 +49,14 @@ def OLS_estimator(X: np.ndarray, y: np.ndarray) -> np.ndarray:
         X: (n, d) matrix
         y: (n, n_tests) matrix
 
+    We use numpy broadcasting to accelerate computations
+    and actually obtain several OLS estimators (one for each column of y)
+
+    This allows to statistically average the test errors obtained,
+    ans estimator the expected value of the test error of the OLS estimator.
+
     Returns:
-        theta_hat: (d, n_tests) matrix
+        theta_hat: (d, n_tests) matrix, one column is one OLS estimator.
     """
     covariance_matrix = X.T @ X
     inverse_covariance = np.linalg.inv(covariance_matrix)
@@ -78,31 +88,58 @@ def ols_risk(n, d, n_tests) -> tuple[float, float]:
     rng = np.random.default_rng()
 
     # design matrix
-    X = rng.uniform(0, 1, size=(n, d))
+    X = rng.uniform(low=0, high=1, size=(n, d))
 
     # Different design matrix
     # X = np.load("data/design_matrix.npy")
     # n, d = X.shape
 
     # Bayes predictor
-    theta_star = rng.uniform(0, 1, size=(d, 1))
+    theta_star = rng.uniform(low=0, high=1, size=(d, 1))
 
-    # run several simulations to have an estimation of the excess risk
-    y = generate_output_data(X, theta_star, SIGMA, rng, n_tests)
+    # generate train data
+    # n_tests output vectors of size (n,1) are generated,
+    # in order to statistically average the results
+    y_train = generate_output_data(
+        X=X,
+        theta_star=theta_star,
+        sigma=SIGMA,
+        rng=rng,
+        n_tests=n_tests,
+    )
 
     # compute the OLS estimator
-    theta_hat = OLS_estimator(X, y)
+    theta_hat = OLS_estimator(X=X, y=y_train)
 
-    distances = np.linalg.norm(theta_hat - theta_star, axis=0)
-    relative_distances = distances / np.linalg.norm(theta_star)
-    std_relative_distance = relative_distances.std()
+    # compute the OLS regression estimators
+    # there will be one different estimator per
+    # output vector y
+    theta_hat = OLS_estimator(
+        X=X,
+        y=y_train,
+    )
 
     # generate test data
-    y_test = generate_output_data(X, theta_star, SIGMA, rng, n_tests)
+    # also n_tests output vectors of size (n,1) are generated
+    y_test = generate_output_data(
+        X=X,
+        theta_star=theta_star,
+        sigma=SIGMA,
+        rng=rng,
+        n_tests=n_tests,
+    )
 
     # compute predictions of each OLS estimator
     y_pred = X @ theta_hat
 
     mean_test_error = np.linalg.norm(y_pred - y_test) ** 2 / (n * n_tests)
 
-    return mean_test_error, std_relative_distance
+    return mean_test_error
+
+    """
+    Optional: study the variance of the relative distance
+    of OLS to the bayes estimator
+    """
+    # distances = np.linalg.norm(theta_hat - theta_star, axis=0)
+    # relative_distances = distances / np.linalg.norm(theta_star)
+    # std_relative_distance = relative_distances.std()

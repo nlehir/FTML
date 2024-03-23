@@ -53,7 +53,7 @@ def ridge_regression_estimator(
     X: np.ndarray, y: np.ndarray, lambda_: float
 ) -> np.ndarray:
     """
-    Compute the Ridge regression estimator
+    Compute the Ridge regression estimators from the data.
 
     Parameters:
         X: (n, d) matrix
@@ -61,10 +61,14 @@ def ridge_regression_estimator(
         lambda: regularization parameter
 
     We use numpy broadcasting to accelerate computations
-    and obtain several Ridge estimators (one for each column of y)
+    and actually obtain several Ridge estimators (one for each column of y).
+
+    This allows to statistically average the test errors obtained,
+    ans estimator the expected value of the test error of the Ridge
+    regression estimator.
 
     Returns:
-        theta_hat: (d, n_tests) matrix
+        theta_hat: (d, n_tests) matrix, one column is one Ridge estimator.
     """
     n, d = X.shape
     covariance_matrix = X.T @ X
