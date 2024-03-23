@@ -2,6 +2,9 @@
     Study the statistical properties of the Ridge estimator:
         - excess risk
         - dependence of the risk on the dimensions n and d
+
+    and compare those to the same quantities for OLS, in order to
+    witness the benefits of using Ridge regression.
 """
 
 # from utils_algo_solution import ridge_risk
