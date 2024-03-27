@@ -1,5 +1,18 @@
+"""
+Observe the convergence of the empirical risk to the real risk,
+when the dataset grows in size and is independent from the estimator.
+
+The data follow the distribution defined in the exercises at the beginning 
+of lecture 3.
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
+
+
+"""
+Define the 3 estimators to study
+"""
 
 
 def f1(X: np.ndarray) -> np.ndarray:
@@ -73,7 +86,7 @@ def compute_empirical_risk(f, X, y):
     return empirical_risk
 
 
-def plot_convergence(X, y,generalization_error_f, f):
+def plot_convergence(X, y, generalization_error, f):
     name = f.__name__
     max_n_samples = len(X)
 
@@ -82,7 +95,7 @@ def plot_convergence(X, y,generalization_error_f, f):
     for n in range(1, max_n_samples):
         X_sample = X[:n]
         y_sample = y[:n]
-        empirical_risks.append(compute_empirical_risk(f, X_sample, y_sample))
+        empirical_risks.append(compute_empirical_risk(f=f, X=X_sample, y=y_sample))
 
     # plot results
     plt.plot(
@@ -95,7 +108,7 @@ def plot_convergence(X, y,generalization_error_f, f):
     )
     plt.plot(
         range(1, max_n_samples),
-        (max_n_samples - 1) * [generalization_error_f],
+        (max_n_samples - 1) * [generalization_error],
         color="hotpink",
         label="real risk / generalization error",
     )
@@ -108,7 +121,7 @@ def plot_convergence(X, y,generalization_error_f, f):
         "Convergence of the empirical risk to the real risk"
         + "\n"
         + f"R({name})"
-        + f"={generalization_error_f:.2f}"
+        + f"={generalization_error:.2f}"
     )
     figname = f"empirical_risk_and_generalization_error_{name}.pdf"
     plt.tight_layout()
@@ -123,15 +136,15 @@ def main():
 
     # sample the dataset
     max_n_samples = int(3e3)
-    X, y = sample_dataset(max_n_samples, p, q)
+    X, y = sample_dataset(n_samples=max_n_samples, p=p, q=q)
 
     generalization_error_f_1 = (1 - p) / 2 + q / 2
     generalization_error_f_2 = 1 - generalization_error_f_1
     generalization_error_f_3 = (1 - p) / 2 + (1 - q) / 2
 
-    plot_convergence(X, y, generalization_error_f_1, f1)
-    plot_convergence(X, y, generalization_error_f_2, f2)
-    plot_convergence(X, y, generalization_error_f_3, f3)
+    plot_convergence(X=X, y=y, generalization_error=generalization_error_f_1, f=f1)
+    plot_convergence(X=X, y=y, generalization_error=generalization_error_f_2, f=f2)
+    plot_convergence(X=X, y=y, generalization_error=generalization_error_f_3, f=f3)
 
 
 if __name__ == "__main__":
