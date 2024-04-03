@@ -1490,18 +1490,18 @@ When the algorithm is \textbf{{underfitting}}, the capacity of the hypothesis sp
 
 \subsubsection{\large\color{Periwinkle}Expected value of empirical risk}
 
-For some \textbf{{fixed}} $h\in H$, $R_n(h)$ is a random variable, as it depends on the dataset $D_n$. Let us show that $ R_n(h)$ is an \textbf{{unbiased estimator}} of the real risk $R$. We assume that the samples $(x_i, y_i)$ are i.i.d, with the distribution of $(X,Y)$, noted $\rho$. 
+For some \textbf{{fixed}} $h\in H$, $R_n(h)$ is a random variable, as it depends on the dataset $D_n$. Let us show that $ R_n(h)$ is an \textbf{{unbiased estimator}} of the real risk $R$. We assume that the samples $(x_i, y_i)$ are i.i.d, with the distribution of $(X,Y)$, noted $\rho$. We will use the noration $D_n\sim \rho^n$ to mean that the dataset $D_n$ consists in $n$ i.i.d samples from $\rho$.
 
     \begin{equation*}
 	    \begin{aligned}
-		E_{D_n\sim \rho}(R_n(h)) &= \frac{1}{n} \sum^{n}_{i=1} E_{D_n\sim \rho}(l(h(x_i), y_i)) \\
-		&= \frac{1}{n} \sum^{n}_{i=1} E_{(X,Y)\sim \rho}(l(h(X), Y)) \\
-		&=  E_{(X,Y)\sim \rho}(l(h(X), Y)) \\
+		E_{D_n\sim \rho^n}[R_n(h)] &= \frac{1}{n} \sum^{n}_{i=1} E_{D_n\sim \rho^n}[l(h(x_i), y_i)] \\
+		&= \frac{1}{n} \sum^{n}_{i=1} E_{(X,Y)\sim \rho}[l(h(X), Y)] \\
+		&=  E_{(X,Y)\sim \rho}[l(h(X), Y)] \\
 		&= R(h)
 	    \end{aligned}
     \end{equation*}
 
-    However, this is not true for $ \tilde{f}_n$, as $ \tilde{f}_n$ depends on the training dataset $ D_n$. We cannot say that for all $i\in [1, n]$, $E_{D_n\sim \rho}(l( \tilde{f}_n(X_i), Y_i)) = E_{(X,Y)\sim\rho}(l( \tilde{f}_n(X), Y))$.
+    However, this is not true for $ \tilde{f}_n$, as $ \tilde{f}_n$ depends on the training dataset $ D_n$. We cannot say that for all $i\in [1, n]$, $E_{D_n\sim \rho^n}(l( \tilde{f}_n(X_i), Y_i)) = E_{(X,Y)\sim\rho}(l( \tilde{f}_n(X), Y))$.
     \\
 
     For instance, let us consider the following situation. $X$ follows a uniform law on $]0, 1]$, and $Y=3X+\sigma\epsilon$, with $\epsilon$ being a standard Gaussian random variable independent from $X$, hence $ \mathcal{X} = ]0, 1]$ and $ \mathcal{Y} = \mathbb{R} $. We assume that $n=1$, and $D_1 = \{(x_1, y_1)\}=\{(\alpha, \beta)\}$. We assume that $F$, the space of available functions for $ \tilde{f}_n$, is the space of linear functions, of the form $ x\mapsto ax$, with $a\in \mathbb{R}$. If our learning rule is empirical risk minimization, with quadratic loss, then the estimator $ \tilde{f}_n$ writes $ \tilde{f}_n(x)= \frac{\beta}{\alpha}x$, and $l( \tilde{f}_n(\alpha), \beta)=0$. Hence,
