@@ -2,7 +2,7 @@
     Observe a knn adaptivity: by adaptivity, we mean that 
     the estimator automatically benefits by essence from a specific structure in the data.
 
-    Adaptivity is a igood property of estimators, and we will
+    Adaptivity is a good property of estimators, and we will
     discuss it more in the course.
 """
 import numpy as np
