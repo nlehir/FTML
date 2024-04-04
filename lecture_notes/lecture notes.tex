@@ -488,7 +488,7 @@ Let $u_1, \dots, u_n$ be i.i.d. random variables, such that $E(u)=0$ and $|u|\le
 \begin{definition}{Differentiable function}
     \label{def:diff}
 
-    Let $V$ and $W$ be real Hilbert spaces (complete vector space with an inner product). Let $f: V\rightarrow W $. We say that $f$ is differentiable in $x\in V$ if there exsists a continuous linear map $L_x:V\rightarrow \mathbb{R} $ such that
+    Let $V$ and $W$ be real Hilbert spaces (complete vector space with an inner product, like $\mathbb{R}^d$). Let $f: V\rightarrow W $. We say that $f$ is differentiable in $x\in V$ if there exsists a continuous linear map $L_x:V\rightarrow \mathbb{R} $ such that
 
     \begin{equation*}
 	f(x+h)=f(x)+L_x(h)+o(h)
@@ -497,27 +497,34 @@ Let $u_1, \dots, u_n$ be i.i.d. random variables, such that $E(u)=0$ and $|u|\le
     with $ \lim_{h\rightarrow 0} \frac{|o(h)|}{||h||} =0$.
 \end{definition}
 
-\begin{remark}
+\begin{definition}{Gradient}
+    \label{def:gradient}
 
-    We consider the case (that we will often encounter) where $W= \mathbb{R}$. Then for a fiven $x\in B$, $L_x$ is a linear form, and since $V$ is a Hilbert space, with Riesz representation theorem we know that, there exists a unique vector $p_x\in V$ such that $\forall h\in V, L_x(h)= \langle p, h \rangle$. $p$ is sometimes noted $f'(x)$,  $ \nabla_xf$ or $\nabla f(x)$. We note that we do not assume here that $V$ is of finite dimension.
-    
+    We consider the case (that we will often encounter) where $W= \mathbb{R}$. Then for a given $x\in B$, $L_x$ is a linear form, and since $V$ is a Hilbert space, with Riesz representation theorem we know that, there exists a unique vector $p_x\in V$ such that $\forall h\in V, L_x(h)= \langle p_x, h \rangle$. $p_x$ is called the \textbf{gradient} of $f$ in $x$, and is sometimes noted $f'(x)$,  $ \nabla_xf(x)$ or $\nabla f(x)$. We note that we do not assume here that $V$ is of finite dimension.
+\end{definition}
+
+\url{https://en.wikipedia.org/wiki/Riesz_representation_theorem} 
+
+\begin{remark}
+    The notation $\nabla_x f(x)$ indicates that the differentiation is considered with respect to $x$. It might be important because some functions might be differentiated with respect to different possible input variables. For instance, we could imagine a function that depends on $\theta \in \mathbb{R}^d$ and $x\in \mathbb{R}^p$, but consider the gradient $\nabla_{\theta}f(\theta, x)$, with respect to $\theta$ only, in the point $(\theta, x)$. However, when the context is unambiguous and we for instance can only differentiate with respect to $x$, the notation $\nabla f(x)$ is preferred.
 \end{remark}
 
 \begin{definition}{Two times differentiable function}
+    \label{def:twodiff}
 
-    We keep the same hypotheses as in \ref{def:diff} and assume that $W= \mathbb{R}$. If the map $x\mapsto \nabla_xf(x) $ is differentiable in $x$, the we say that $f$ is two times differentiable in $x$. In that case we note $f"(x)$ the second-order derivative, that satisfies:
+    We keep the same hypotheses as in \ref{def:diff} and assume that $W= \mathbb{R}$. If the map $x\mapsto \nabla f(x) $ is differentiable in $x$, the we say that $f$ is two times differentiable in $x$. In that case we note $f"(x)$ the second-order derivative, that satisfies:
 
-    \begin{equation*}
-	\nabla_{x}f(x+h)=\nabla_xf(x)+f"(x)(h)+o(h)
-    \end{equation*}
+    \begin{equation}
+	\nabla f(x+h)=\nabla f(x)+f"(x)(h)+o(h)
+    \end{equation}
 \end{definition}
 
 \begin{lemma}
     We keep the same hypotheses. Given $x$ and $h$, $f"(x)(h)$ is an element of $V$, that can also be identified to an element of its dual space $V^*$. With the notation $f"(x)(h, h')=f"(x)(h)(h')$, we can show that
 
-    \begin{equation*}
-	f(x+h)=f(x)+\langle\nabla_xf(x),h\rangle+ \frac{1}{2} f"(x)(h,h)+o(||h||^2)        
-    \end{equation*}
+    \begin{equation}
+	f(x+h)=f(x)+\langle\nabla f(x),h\rangle+ \frac{1}{2} f"(x)(h,h)+o(||h||^2)        
+    \end{equation}
 \end{lemma}
 
 \subsubsection{\large\color{Periwinkle}Jacobian matrix, gradient and Hessian}
@@ -537,7 +544,7 @@ $L^f_x$ is called the \textbf{{Jacobian matrix}}  of $f$ in $x$.
 \textbf{{Link with the gradient}}: we note that if the function $f$ has real values ($p=1$), then 
 
 \begin{equation*}
-    \nabla_xf(x)=(L^f_x)^T\in \mathbb{R}^{d, 1}
+    \nabla f(x)=(L^f_x)^T\in \mathbb{R}^{d, 1}
 \end{equation*}
 
 \textbf{{Jacobian of a product.}} 
@@ -576,36 +583,36 @@ With the same functions $g$ and $f$ and if $q=1$, we deduce from \ref{eq:jacobpr
 
 \begin{equation*}
     \begin{aligned}
-	\nabla_x(g\circ f)&= (L^{g\circ f}_x)^T\\
+	\nabla (g\circ f)(x)&= (L^{g\circ f}_x)^T\\
 	&=(L^{g}_{f(x)}L^f_x)^T\\
 	&=(L^f_x)^T(L^{g}_{f(x)})^T\\
-	&= (L^f_x)^T\nabla_{f(x)}g\in \mathbb{R}^{d, 1}
+	&= (L^f_x)^T\nabla g(f(x))\in \mathbb{R}^{d, 1}
     \end{aligned}
 \end{equation*}
 
-\textbf{{Hessian}}: if $f: \mathbb{R}^d\rightarrow \mathbb{R} $ is two times differentiable in $x$, then the map $\nabla f: \mathbb{R}^d\rightarrow \mathbb{R}^d$, $x\mapsto\nabla_xf(x)$ has a matrix $H^f_x\in \mathbb{R}^{d,d}$, called the Hessian.
+\textbf{{Hessian}}: if $f: \mathbb{R}^d\rightarrow \mathbb{R} $ is two times differentiable in $x$, then the map $\nabla f: \mathbb{R}^d\rightarrow \mathbb{R}^d$, $x\mapsto\nabla f(x)$ has a matrix $H^f_x\in \mathbb{R}^{d,d}$, called the Hessian.
 
-\begin{equation*}
-    \nabla_{x}f(x+h)=\nabla_xf(x)+H^f_xh+o(h)
-\end{equation*}
+\begin{equation}
+    \nabla f(x+h)=\nabla f(x)+H^f_xh+o(h)
+\end{equation}
 
 Then, the development of $f$ around $x$ can be written
 
-\begin{equation*}
-    f(x+h)=f(x)+L^f_xh+ \frac{1}{2} h^T(H^f_x)h+o(||h||^2)
-\end{equation*}
+\begin{equation}
+    f(x+h)=f(x)+L^f_xh+ \frac{1}{2} h^TH^f_xh+o(||h||^2)
+\end{equation}
 
 \textbf{{Examples}} 
 
 \begin{itemize}
     \item[ \textbf{{Quadratic function}}] Let $A\in \mathbb{R}^{d,d}$ be a symmetric real matrix. If $f(x)= \frac{1}{2} x^TAx-b^Tx$, then
 	\begin{itemize}
-	    \item $\nabla_xf=Ax-b$ 
+	    \item $\nabla f(x)=Ax-b$ 
 	    \item $H_x^f=A$.
 	\end{itemize}
     \item[ \textbf{{Least squares}} ] Let $X\in \mathbb{R}^{n,d}$, $\theta\in \mathbb{R}^d$, $y\in \mathbb{R}^n$. If $f(\theta)= \frac{1}{2} ||X\theta-y||_2^2$, then
 	\begin{itemize}
-	    \item $\nabla_{\theta}f=X^T(X\theta-y)$
+	    \item $\nabla f(\theta)=X^T(X\theta-y)$
 	    \item $H_{\theta}^f=X^TX$.
 	\end{itemize}
 \end{itemize}
@@ -634,8 +641,8 @@ L^f_x=
 \end{equation*}
 
 If $f$ has real values ($p=1$), then
-\begin{equation*}
-    \nabla_xf=
+\begin{equation}
+    \nabla f(x)=
     \begin{pmatrix}
 	\frac{\partial f}{\partial x_1} (x)\\
 ...\\
@@ -643,7 +650,7 @@ If $f$ has real values ($p=1$), then
 ...\\
 	\frac{\partial f}{\partial x_d} (x)\\
 \end{pmatrix}
-\end{equation*}
+\end{equation}
 
 and if we keep $p=1$ and assume that $f$ is two times differentiable, then the Hessian reads:
 
@@ -679,7 +686,7 @@ H^f_x=
 
     Let $f$ be a differentiable function and $L>0$. We say that $f$ has $L$-Lipschitz continuous gradients if $\forall x,y\in \mathbb{R}^d$, 
     \begin{equation*}
-	||\nabla_xf-\nabla_yf||\leq L||x-y||
+	||\nabla f(x)-\nabla f(y)||\leq L||x-y||
     \end{equation*}
 \end{definition}
 
@@ -687,10 +694,11 @@ H^f_x=
 \subsubsection{\large\color{Periwinkle}Smoothness}
 
 \begin{definition}{Smoothness}
+    \label{def:smoothness}
 
     A differentiable function $f$ with real values is said $L$-smooth if and only if
     \begin{equation*}
-	\forall x, y\in \mathbb{R}^d, |f(y)-f(x)-\nabla_xf(y-x)|\leq \frac{L}{2} ||y-x||^2
+	\forall x, y\in \mathbb{R}^d, |f(y)-f(x)-\nabla f(y-x)|\leq \frac{L}{2} ||y-x||^2
     \end{equation*}
 \end{definition}
 
@@ -710,14 +718,14 @@ u  : \left\{
 \right.
 $$
 
-    $u$ is differentiable in $ \mathbb{R} $ and $u'(t) = \langle\nabla_{x+t(y-x)}f, y-x \rangle$. Hence, 
+    $u$ is differentiable in $ \mathbb{R} $ and $u'(t) = \langle\nabla f(x+t(y-x)), y-x \rangle$. Hence, 
 
     \begin{equation}
 	\begin{aligned}
 	    \label{eq:application}
 	    f(y)-f(x) &= u(1)-u(0)\\
 	    &= \int^{1}_{0} u'(t)  dt \\
-	    &= \int^{1}_{0}  \langle\nabla_{x+t(y-x)}f, y-x \rangle dt \\
+	    &= \int^{1}_{0}  \langle\nabla f(x+t(y-x)), y-x \rangle dt \\
 	\end{aligned}
     \end{equation}
 
@@ -725,7 +733,7 @@ $$
 
     \begin{equation}
 	\label{eq:difference}
-	\nabla_{x+t(y-x)}f = \nabla_{x}f +\Big(\nabla_{x+t(y-x)}f- \nabla_{x}f\Big) 
+	\nabla f(x+t(y-x)) = \nabla f(x) +\Big(\nabla f(x+t(y-x))- \nabla f(x)\Big) 
     \end{equation}
 
     Inserting \ref{eq:difference} in \ref{eq:application}, we get that
@@ -733,8 +741,8 @@ $$
     \begin{equation}
 	\begin{aligned}
 	    \label{eq:}
-	    f(y)-f(x) &= \int^{1}_{0} \langle\nabla_{x}f, y-x \rangle dt +\int^{1}_{0}  \langle(\nabla_{x+t(y-x)}f- \nabla_{x}f) , y-x \rangle   dt \\
-	    &= \langle\nabla_{x}f, y-x \rangle +\int^{1}_{0}  \langle(\nabla_{x+t(y-x)}f- \nabla_{x}f) , y-x \rangle   dt \\
+	    f(y)-f(x) &= \int^{1}_{0} \langle\nabla f(x), y-x \rangle dt +\int^{1}_{0}  \langle(\nabla f(x+t(y-x))- \nabla f(x)) , y-x \rangle   dt \\
+	    &= \langle\nabla f(x), y-x \rangle +\int^{1}_{0}  \langle(\nabla f(x+t(y-x))- \nabla f(x)) , y-x \rangle   dt \\
 	\end{aligned}
     \end{equation}
 
@@ -743,8 +751,8 @@ $$
     \begin{equation}
         \begin{aligned}
             \label{eq:}
-	    |f(y)-f(x)-\langle\nabla_{x}f, y-x \rangle| &= |\int^{1}_{0}  \langle(\nabla_{x+t(y-x)}f- \nabla_{x}f) , y-x \rangle   dt |\\
-	    &\leq  \int^{1}_{0}  ||\nabla_{x+t(y-x)}f- \nabla_{x}f||\times || y-x|| dt \\
+	    |f(y)-f(x)-\langle\nabla f(x), y-x \rangle| &= |\int^{1}_{0}  \langle(\nabla f(x+t(y-x))- \nabla f(x)) , y-x \rangle   dt |\\
+	    &\leq  \int^{1}_{0}  ||\nabla f(x+t(y-x))- \nabla f(x)||\times || y-x|| dt \\
 	    &\leq  \int^{1}_{0}  L||t(y-x)||\times|| y-x|| dt \\
 	    &\leq  ||y-x||^2\int^{1}_{0}  Ltdt\\
 	    &= \frac{L}{2} ||y-x||^2
@@ -819,11 +827,14 @@ Reference: \cite[]{Allaire2012}
 
 Convexity is a key property of function, that allows to have theoretical proofs on the existence of solutions to a optimization problem, and on the convergence of optimization algorithms. It is useful in finite dimensional spaces and also in infinite dimensional spaces.
 
+We still consider a Hilbert space $V$, like $ \mathbb{R}^d$ (\ref{def:diff}).
+
 \subsubsection{\large\color{Periwinkle}Definitions}
 
 \begin{definition}{Convex function}
+    \label{def:convexity}
 
-    The function $f:\Omega \rightarrow \mathbb{R} $ with $\Omega$ convex is:
+    The function $f:\Omega \rightarrow \mathbb{R} $ with $\Omega$ a convex subset of $V$ is:
     \begin{itemize}
 	\item \textbf{{convex}} if $\forall x, y\in \Omega, \alpha\in [0,1]$,
 	    \begin{equation*}
@@ -861,14 +872,14 @@ Convexity is a key property of function, that allows to have theoretical proofs 
     \item $x\mapsto \theta^Tx$ is convex on $ \mathbb{R}^d$ with $\theta \in \mathbb{R}^d$ (linear form)
     \item if $Q$ is a symmetric semidefinite positive matrix (matrice positive), then the positive quadratic form $x\mapsto x^TQx$ is convex.
     \item if $Q$ is a symmetric definite positive matrix (matrice définie positive) with smallest eigenvalue $\lambda_{min}>0$, then the positive definite quadratic form $x\mapsto x^TQx$ is $ 2\lambda_{min}$- strongly convex.
-    \item if $X\in \mathbb{R}^{n\times d}$, and $Y\in \mathbb{R}^n$, $\theta\mapsto ||X\theta-Y||^2$ is convex on $ \mathbb{R}^d$ (Least-squares)
+    \item if $X\in \mathbb{R}^{n\times d}$, and $y\in \mathbb{R}^n$, $\theta\mapsto ||X\theta-y||^2$ is convex on $ \mathbb{R}^d$
     \item If $f$ is increasing and convex and $g$ is convex, then $f \circ g $ is convex.
     \item Is $f$ in convex and $g$ is linear, then $f \circ g $ is convex.
 \end{itemize}
 
 \begin{definition}{Condition number}
 
-    If $f$ is $L$-smooth and $\mu$-strongly convex, we define its \textbf{{condition number}} as:
+    If $f$ is $L$-smooth (\ref{def:smoothness}) and $\mu$-strongly convex (\ref{def:convexity}), we define its \textbf{{condition number}} as:
 
     \begin{equation*}
         \kappa = \frac{L}{\mu} 
@@ -888,10 +899,14 @@ Convexity is a key property of function, that allows to have theoretical proofs 
     Let $f:V \rightarrow \mathbb{R} $ be a differentiable function. The following conditions are equivalent.
     \begin{itemize}
         \item $f$ is convex.
-	\item $\forall x, y\in V, f(y)\geq f(x)+(f'(x)|y-x)$ ($f$ is above its tangent space)
-	\item $\forall x, y\in V, (f'(x)-f'(y)|x-y)\geq 0$ ($f'$ grows)
+	\item $\forall x, y\in V, f(y)\geq f(x)+\langle\nabla f(x)|y-x\rangle$ ($f$ is above its tangent space)
+	\item $\forall x, y\in V, \langle \nabla f(x)-\nabla f(y)|x-y\rangle\geq 0$
     \end{itemize}
 \end{proposition}
+
+\begin{remark}
+    If $V=\mathbb{R}$, this is equivalent to the fact that the derivative $f'$ is non-decreasing.
+\end{remark}
 
 \begin{remark}
     Equivalently
@@ -905,8 +920,8 @@ Convexity is a key property of function, that allows to have theoretical proofs 
     Let $f:V \rightarrow \mathbb{R} $ be a differentiable function, and $\mu>0$. The following conditions are equivalent.
     \begin{itemize}
         \item $f$ is $ \mu$-convex
-	\item $\forall x, y\in V, f(y)\geq f(x)+(f'(x)|y-x)+ \frac{  \mu}{2} ||y-x||^2$
-	\item $\forall x, y\in V, (f'(x)-f'(y)|x-y)\geq \mu ||x-y||^2$
+	\item $\forall x, y\in V, f(y)\geq f(x)+\langle\nabla f(x)|y-x\rangle+ \frac{  \mu}{2} ||y-x||^2$
+	\item $\forall x, y\in V, \langle\nabla f(x)-\nabla f(y)|x-y\rangle\geq \mu ||x-y||^2$
     \end{itemize}
 \end{proposition}
 
@@ -914,30 +929,30 @@ Convexity is a key property of function, that allows to have theoretical proofs 
 
     Let $f: \mathbb{R}^d\rightarrow \mathbb{R} $ be a $\mu$-strongly convex differentiable function with a unique minimiser $x^*$. Then, we have that for all $x\in \mathbb{R}^d$, 
 
-    \begin{equation*}
-	||\nabla_xf||_2^2\geq 2\mu \big(f(x)-f(x^*)\big)
-    \end{equation*}
+    \begin{equation}
+	||\nabla f (x)||_2^2\geq 2\mu \big(f(x)-f(x^*)\big)
+    \end{equation}
 \end{lemma}
 
 \begin{proposition}{Convexity of two-times differentiable functions}
 
-    We now assume that $f$ is two times differentiable.
+    We now assume that $f$ is two times differentiable (\ref{def:twodiff}).
 
     \begin{itemize}
 	\item $f$ is convex if anf only if
 	    \begin{equation*}
-		\forall x, h\in y, J"(x)(h, h)\geq 0
+		\forall x, h\in y, f"(x)(h, h)\geq 0
 	    \end{equation*}
 	\item $f$ is $\mu$-strongly convex if and only if
 	    \begin{equation*}
-		\forall x, h\in y, J"(x)(h, h)\geq \mu ||h||^2
+		\forall x, h\in y, f"(x)(h, h)\geq \mu ||h||^2
 	    \end{equation*}
     \end{itemize}
 
 \end{proposition}
 
 \begin{remark}
-    In the case of $V= \mathbb{R}^d$, the two previous conditions mean respectively that 
+    In the case of $V= \mathbb{R}^d$, if we note $H_xf$ the hessian of $f$ in $x$, the two previous conditions mean respectively that 
 
 	    \begin{equation}
 		\label{eq:hessconv}
@@ -965,7 +980,7 @@ Convexity is a key property of function, that allows to have theoretical proofs 
     \begin{itemize}
         \item If $f$ is convex, any local minimum is a global minimum. The set of global minimizers is a convex set.
 	\item If $f$ is strictly convex, there exists at most one local minimum (that is thus global).
-	\item If $f$ is convex and $C^1$ (differentiable, $a\mapsto df_a$ continuous), then $x$ is a minimum (thus global) of $f$ on $V$ if and only if the gradient cancels in $x$, $\nabla_xf=0$. $V$ need not be finite-dimensional.
+	\item If $f$ is convex and $C^1$ (differentiable, $a\mapsto df_a$ continuous), then $x$ is a minimum (thus global) of $f$ on $V$ if and only if the gradient cancels in $x$, $\nabla f(x)=0$. $V$ need not be finite-dimensional.
     \end{itemize}
 \end{proposition}
 
@@ -976,9 +991,9 @@ Convexity is a key property of function, that allows to have theoretical proofs 
 
     Let $K$ be a closed non-empty subset of the Hilbert space $H$, and $f: \mathbb{R}^d\rightarrow \mathbb{R} $ a continuous $\mu$-strongly convex function. Then, there exists a unique a global minimum $u$ of $f$ on $K$, and
 
-    \begin{equation*}
+    \begin{equation}
 	\forall x\in K, ||x-u||^2\leq \frac{4}{\mu} [ f(x)-f(u)]
-    \end{equation*}
+    \end{equation}
 \end{theorem}
 
 \begin{theorem}{Existence of a global minimum, convex case}
@@ -992,11 +1007,11 @@ Convexity is a key property of function, that allows to have theoretical proofs 
 
 \begin{theorem}
     
-We assume that $K=V$ ans $f$ is two-times différentiable in $x$.
+We assume that $K=V$ and $f$ is two-times différentiable in $x$.
 
 If $x$ is a local minimizer of $f$, then
 \begin{itemize}
-    \item $f'(x)=0$
+    \item $\nabla f(x)=0$
     \item $\forall h\in V, f"(u)(h,h)\geq 0$
 \end{itemize}
 
@@ -1083,7 +1098,7 @@ The following lemma shows that if the step size is small enough, then GD is a \t
 \begin{remark}
     \ref{eq:gdconv} could seem surprising at first sight, since it implies that $ (1-\mu\gamma)\geq 0$ if $0<\gamma< \frac{1}{2l}$. However, we have
 \begin{equation*}
-    \mu ||x-y||^2\leq \langle \nabla_xf-\nabla_yf, x-y \rangle \leq L||x-y||^2
+    \mu ||x-y||^2\leq \langle \-\nabla f(y), x-y \rangle \leq L||x-y||^2
 \end{equation*}
 
 Hence, $\mu\leq L$, so $\mu\gamma < \frac{1}{2} $.
@@ -1723,7 +1738,7 @@ considered space of functions.
 \subsubsection{\large\color{Periwinkle}Context}
 \label{con:ols}
 
-The OLS is an important supervised learning problem. $ \mathcal{X} = \mathbb{R}^d$, $ \mathcal{Y}  = \mathbb{R} $, and the estimator is a \textbf{{linear function}} parametrized by $ \theta\in \mathbb{R}^d$.
+The OLS is an important supervised learning problem. $ \mathcal{X} = \mathbb{R}^d$, $ \mathcal{y}  = \mathbb{R} $, and the estimator is a \textbf{{linear function}} parametrized by $ \theta\in \mathbb{R}^d$.
 
 \begin{equation*}
     F = \{ x\mapsto x^T \theta, \theta \in \mathbb{R}^d\}
@@ -1756,12 +1771,12 @@ x_{n}^T
 \end{pmatrix}
 \end{equation*}
 
-The vector of predictions of the estimator writes $Y = X\theta$.  Hence,
+The vector of predictions of the estimator writes $y = X\theta$.  Hence,
 
 \begin{equation*}
     \begin{aligned}
 	R_n(\theta) &= \frac{1}{n} \sum^{n}_{i=1} (y_i-\theta^Tx_i)^2\\
-	&= \frac{1}{n} ||Y-X\theta||_2^2
+	&= \frac{1}{n} ||y-X\theta||_2^2
     \end{aligned}
 \end{equation*}
 
@@ -1782,7 +1797,7 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
 
     \begin{equation}
 	\label{def:ols}
-	\hat{ \theta}= (X^TX)^{-1}X^TY
+	\hat{ \theta}= (X^TX)^{-1}X^Ty
     \end{equation}
 \end{proposition}
 
@@ -1798,7 +1813,7 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
     Then $ \hat{\Sigma}$ is invertible and
 
     \begin{equation}
-	\hat{\theta} = \frac{1}{n} \hat{\Sigma}^{-1} X^TY
+	\hat{\theta} = \frac{1}{n} \hat{\Sigma}^{-1} X^Ty
     \end{equation}
     
 \end{remark}
@@ -1817,16 +1832,16 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
 
     \begin{equation*}
 	\begin{aligned}
-	    dR_n(\theta)(h) &= \frac{1}{n} du_{Y-X\theta}(-Xh)\\
-	    &= \frac{2}{n} \langle Y-X\theta, -Xh \rangle\\
-	    &= \frac{2}{n} \langle X^T(X\theta-Y), h \rangle
+	    dR_n(\theta)(h) &= \frac{1}{n} du_{y-X\theta}(-Xh)\\
+	    &= \frac{2}{n} \langle y-X\theta, -Xh \rangle\\
+	    &= \frac{2}{n} \langle X^T(X\theta-y), h \rangle
 	\end{aligned}
     \end{equation*}
 
     where we have used \ref{ssec:linalg}. We deduce that the gradient of $R_n$ in $\theta$ writes
     \begin{equation}
 	\label{eq:olseq}
-        \nabla_{\theta} R_n = \frac{2}{n} (X^TX\theta-X^TY)
+        \nabla_{\theta} R_n = \frac{2}{n} (X^TX\theta-X^Ty)
     \end{equation}
 
     Let us show that $X^TX$ is \textbf{{inversible.}} As it is a square matrix $\in \mathbb{R}^{d\times d}$, we only need to show that it is injective. Let $u\in \mathbb{R}^d$, such that $X^TXu = 0$. Then $ \langle X^TXu, u \rangle=0$, but this inner product equals $\langle Xu, Xu \rangle = ||Xu||^2$. Hence $Xu=0$, but as $X$ is injective, $u=0$, which shows that $X^TX$ is injective.
@@ -1834,14 +1849,14 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
     We conclude that the only solution to \ref{eq:olseq} is 
 
     \begin{equation*}
-	\hat{\theta} = (X^TX)^{-1}X^TY
+	\hat{\theta} = (X^TX)^{-1}X^Ty
     \end{equation*}
 
 
 % \textbf{{First proof:}} 
 % 
 % \begin{equation*}
-%     \tilde{R_n}(w) = \frac{1}{n} \sum^{n}_{i=1} (Y_i - w^TX_i)^2
+%     \tilde{R_n}(w) = \frac{1}{n} \sum^{n}_{i=1} (y_i - w^TX_i)^2
 % \end{equation*}
 % 
 % On remarque que le coût est convexe en $w$, puisque c'est une fonction convexe d'une application linéaire.
@@ -1850,12 +1865,12 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
 % 
 % \begin{equation*}
 %     \label{ols:min}
-%     Xw=Y
+%     Xw=y
 % \end{equation*}
 % 
 % Alors nécessairement
 % \begin{equation*}
-%     X^TXw-X^TY = 0
+%     X^TXw-X^Ty = 0
 % \end{equation*}
 % 
 % Supposons que $X$ soit injective. On remarque que c'est une application de $ \mathbb{R}^d$ vers $ \mathbb{R}^n$, et que c'est donc possible seulement si $ d\leq n$. Montrons qu'alors $X^TX: \mathbb{R}^d\rightarrow \mathbb{R}^d$ est \textbf{{inversible}}.
@@ -1865,7 +1880,7 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
 % Ainsi, \textbf{{nécessairement}} 
 % 
 % \begin{equation*}
-%     w = (X^TX)^{-1}X^TY
+%     w = (X^TX)^{-1}X^Ty
 % \end{equation*}
 % 
 % Il y a donc une solution unique dans ce cas.
@@ -1874,7 +1889,7 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
 
 \begin{remark}
 
-    We deduce that $ \hat{Y} = X \hat{\theta} = X(X^TX)^{-1}X^TY$ is the orthogonal projection of $Y$ on the linear subspace $ Im(X)$. Hence $P_X = X(X^TX)^{-1}X^T$ is the projection matrix on $Im(X)$.
+    We deduce that $ \hat{y} = X \hat{\theta} = X(X^TX)^{-1}X^Ty$ is the orthogonal projection of $y$ on the linear subspace $ Im(X)$. Hence $P_X = X(X^TX)^{-1}X^T$ is the projection matrix on $Im(X)$.
     
 \end{remark}
 
@@ -2024,7 +2039,7 @@ When the dimension $d$ becomes larger (i.e. $ \frac{d}{n} $ approaches $1$ or be
     It is defined as
 \begin{equation}
     \label{risk:ridge}
-    \hat{ \theta}_{\lambda} = \argmin_{\theta \in \mathbb{R}^d} \Big( \frac{1}{n} ||Y-X\theta||_2^2 + \lambda || \theta||_2^2 \Big)
+    \hat{ \theta}_{\lambda} = \argmin_{\theta \in \mathbb{R}^d} \Big( \frac{1}{n} ||y-X\theta||_2^2 + \lambda || \theta||_2^2 \Big)
 \end{equation}
 \end{definition}
 
@@ -2033,7 +2048,7 @@ When the dimension $d$ becomes larger (i.e. $ \frac{d}{n} $ approaches $1$ or be
 
     The Ridge regression estimator is unique even if $X^TX$ is not inversible and is given by
     \begin{equation*}
-	\hat{ \theta}_{\lambda} = \frac{1}{n} ( \hat{\Sigma} +\lambda I_d)^{-1}X^TY
+	\hat{ \theta}_{\lambda} = \frac{1}{n} ( \hat{\Sigma} +\lambda I_d)^{-1}X^Ty
     \end{equation*}
 \end{proposition}
 
@@ -2045,7 +2060,7 @@ We can show that the loss \ref{risk:ridge} is strongly convex. To do so, it is s
 
     Hence in $\mathbb{R} $, $ u\mapsto u^2$ is $2$-convex. By summing linear mappings (the projections $\theta\mapsto \theta_i$) and $2$-convex maps ($\theta_i\mapsto \theta_i^2$), $\theta\mapsto ||\theta||^2$ is $2$-convex in $ \mathbb{R}^n$.
 
-    By summation with $ \theta \mapsto \frac{1}{n} ||Y-X\theta||$, which is a convex function,  $\theta \mapsto \tilde{R}_n(\theta)$ is $2\lambda$-convex.
+    By summation with $ \theta \mapsto \frac{1}{n} ||y-X\theta||$, which is a convex function,  $\theta \mapsto \tilde{R}_n(\theta)$ is $2\lambda$-convex.
 
     Hence there exists a unique minimizer for $R_n$. As it is differentiable, the minimizer is uniquely defined by cancellation of the gradient. The gradient in $\theta$ writes
     \begin{equation*}
@@ -2159,7 +2174,7 @@ The \textbf{{Lasso}}  is another regularization method for OLS. The original ide
 It is defined as
 
 \begin{equation}
-    \tilde{\theta}_{\lambda}\in \argmin_{\theta\in \mathbb{R}^d}\{||Y-X\theta||^2+\lambda ||\theta||_1\}
+    \tilde{\theta}_{\lambda}\in \argmin_{\theta\in \mathbb{R}^d}\{||y-X\theta||^2+\lambda ||\theta||_1\}
 \end{equation}
 
 \subsubsection{\large\color{Periwinkle}Numerical resolutions}
@@ -2216,7 +2231,7 @@ However it is hard to minimize this empirical risk as it is neither differentiab
 
 \begin{definition}
 
-    When $Y\in \{-1, 1\}$, the logistic loss can be used as a convex surrogate: 
+    When $Y= \{-1, 1\}$, the logistic loss can be used as a convex surrogate: 
 	\begin{equation}
 	    \label{loss:logistic}
 	    l(\hat{y}, y) = \log(1+e^{- \hat{y}\times y})
@@ -2296,7 +2311,7 @@ By \textbf{{linearity}} of the expected value,
 
 \begin{equation}
     \label{eq:sgdest}
-    \nabla_{\theta}f_n = \frac{1}{n} \sum^{n}_{i=1} \nabla_{\theta}L(\theta, z_i)
+    \nabla_{\theta} f_n(\theta) = \frac{1}{n} \sum^{n}_{i=1} \nabla_{\theta}L(\theta, z_i)
 \end{equation}
 
 If at time $t$ we sample uniformly $i(t)\in \{1, \dots, n\}$, then if we define $g_t$ as
@@ -2305,27 +2320,11 @@ If at time $t$ we sample uniformly $i(t)\in \{1, \dots, n\}$, then if we define 
     g_t = \nabla_{\theta}L(\theta, z_{i(t)})
 \end{equation*}
 
-then $g_t$ is an unbiased estimator of $\nabla_{\theta}f_n$. SGD uses $g_t$ instead of the \textbf{{batch gradient}} $\nabla_{\theta}f_n$.
+then $g_t$ is an unbiased estimator of $\nabla_{\theta}f_n(\theta)$. SGD uses $g_t$ instead of the \textbf{{batch gradient}} $\nabla_{\theta}f_n(\theta)$.
 \\
 
 \textbf{{2] Expected risk minimization}} 
 
-% We can go further: as $f_n(\theta)$ is an unbiased estimator of $f(\theta)$ over the sampled $D_n$, we have $E_{D_n}[f_n(\theta)] = E_z[f(\theta)]$. Hence, 
-% 
-% \begin{equation*}
-%     \nabla_{\theta}E_{D_n}[f_n(\theta)] =\nabla_{\theta} E_z[f(\theta)]
-% \end{equation*} 
-% 
-% We have that 
-% 
-% \begin{equation*}
-%     \begin{aligned}
-%         \label{eq:}
-% 	\nabla_{\theta}E_{D_n}[f_n(\theta)] &= \nabla_{\theta}E_{D_n}[ \frac{1}{n} \sum^{n}_{i=1} L(\theta, z_i)] \\
-% 	&= \nabla_{\theta}E[L(\theta, z)]
-%     \end{aligned}
-% \end{equation*}
-% 
 If the hypotheses of Leibniz theorem are satisfied (which is the case most of the time in Machine Learning), we can write
 
 \begin{equation*}
