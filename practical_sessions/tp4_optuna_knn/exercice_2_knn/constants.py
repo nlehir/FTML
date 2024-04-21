@@ -7,7 +7,7 @@ k=2
 n_test = 1000
 
 # list of numbers of sample
-exponents = range(1, 3)
+exponents = range(1, 5)
 n_samples_list = [int(10**k) for k in exponents]
 
 # list of dimensions
