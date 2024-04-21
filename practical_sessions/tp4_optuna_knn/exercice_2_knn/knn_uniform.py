@@ -28,7 +28,7 @@ def predict(x_data: np.ndarray, y_data: np.ndarray, x_test: np.ndarray) -> np.nd
             x_data (float matrix): (n_samples, d) samples in input space
             y_data (float vector): (n_samples, 1) values of the target function
             (here, it is the euclidean norm, for these samples)
-            x_test (float matrix): (n_samples, d) data for which we
+            x_test (float matrix): (n_test, d) data for which we
             predict a value based on the dataset.
 
         Returns:
