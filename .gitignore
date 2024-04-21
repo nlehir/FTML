@@ -29,7 +29,6 @@ practical_sessions/tp13_14_feature_selection/
 practical_sessions/tp15_density_estimation/
 practical_sessions/tp16_sag/
 
-practical_sessions/tp4_optuna_knn/exercice_1_optuna/main_optuna_ridge_solution.py
 practical_sessions/tp4_optuna_knn/exercice_1_optuna/*.db
 practical_sessions/tp4_optuna_knn/exercice_1_optuna/examples_digits/
 practical_sessions/tp4_optuna_knn/exercice_2_knn/solutions/
