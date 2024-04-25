@@ -86,6 +86,7 @@ def gradient(theta, H, X, y):
 
     Returns:
         gradient of the objective function
+
+    Edit this function.
     """
-    n = y.shape[0]
-    return H @ theta - 1 / n * X.T @ y
+    return theta
