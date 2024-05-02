@@ -18,7 +18,7 @@ practical_sessions/tp3_ridge_hps/solutions/
 practical_sessions/**/latex/
 practical_sessions/**/latex_2H/
 practical_sessions/latex_stock/
-practical_sessions/tp6_svm/
+
 practical_sessions/tp7_acceleration/
 practical_sessions/tp8_nn/
 practical_sessions/tp9_ridge_II/
@@ -47,7 +47,21 @@ practical_sessions/tp5_line_search_logistic/TP5_solution.pdf
 practical_sessions/tp5_line_search_logistic/exercice_1_line_search/solutions/
 practical_sessions/tp5_line_search_logistic/exercice_1_line_search/generate_data.py
 
-practical_sessions/tp6_svm/svm_kernels/solution/
+practical_sessions/tp6_kmeans_vq_metrics/exercice_1_kmeans/images/*.pdf
+practical_sessions/tp6_kmeans_vq_metrics/exercice_1_kmeans/k_means_heuristics_solution.py
+practical_sessions/tp6_kmeans_vq_metrics/exercice_2_vector_quantization/images/*.pdf
+practical_sessions/tp6_kmeans_vq_metrics/exercice_2_vector_quantization/images/test_blur/*.pdf
+practical_sessions/tp6_kmeans_vq_metrics/exercice_2_vector_quantization/images/errors_*/
+practical_sessions/tp6_kmeans_vq_metrics/exercice_2_vector_quantization/main_solution.py
+practical_sessions/tp6_kmeans_vq_metrics/exercice_3_metrics/hybrid/
+practical_sessions/tp6_kmeans_vq_metrics/exercice_3_metrics/images/*.pdf
+practical_sessions/tp6_kmeans_vq_metrics/exercice_3_metrics/build_graphs_geometric_data_solution.ipynb
+practical_sessions/tp6_kmeans_vq_metrics/exercice_4_svm_sgd/svm_sgd_solution.py
+practical_sessions/tp6_kmeans_vq_metrics/exercice_4_svm_sgd/generate_data_SVM.py
+
+practical_sessions/arch/
+
+
 practical_sessions/tp6_svm/svm_sgd/solution/
 practical_sessions/tp7_acceleration/heavy_ball/solution/
 practical_sessions/tp8_nn/nn/solutions/
