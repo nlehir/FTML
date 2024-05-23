@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.16)  4 APR 2024 18:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.5.16)  23 MAY 2024 13:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1978,7 +1978,7 @@ ype1/urw/palatino/uplb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/ur
 w/palatino/uplbi8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/pala
 tino/uplr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/palatino/up
 lri8a.pfb>
-Output written on "lecture notes.pdf" (44 pages, 589855 bytes).
+Output written on "lecture notes.pdf" (44 pages, 589850 bytes).
 PDF statistics:
  1352 PDF objects out of 1440 (max. 8388607)
  1110 compressed objects within 12 object streams

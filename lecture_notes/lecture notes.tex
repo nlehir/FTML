@@ -3140,7 +3140,7 @@ Hence
 	R_n(\theta) &= - \frac{1}{n} \sum^{n}_{i=1} \log\big(p_{\theta}(y_i|x_i)\big)\\
 	&=- \frac{1}{n} \sum^{n}_{i=1} \log\Big(\big(\sigma(\theta^Tx_i)\big)^y_i\big(1-\sigma(\theta^Tx_i) \big)^{1-y_i}\Big)\\
 	&=- \frac{1}{n} \sum^{n}_{i=1} y_i\log\Big(\sigma(\theta^Tx_i)\Big)+ (1-y_i)\log\Big(\sigma(-\theta^Tx_i)\Big)\\
-	&=\frac{1}{n} \sum^{n}_{i=1} y_i\log\Big(1+e^{\theta^Tx_i}\Big)+ (1-y_i)\log\Big(1+e^{-\theta^Tx_i}\Big)\\
+	&=\frac{1}{n} \sum^{n}_{i=1} y_i\log\Big(1+e^{-\theta^Tx_i}\Big)+ (1-y_i)\log\Big(1+e^{\theta^Tx_i}\Big)\\
 	&=\frac{1}{n} \sum^{n}_{i=1} l(\theta^Tx_i,y_i)
     \end{aligned}
 \end{equation*}
