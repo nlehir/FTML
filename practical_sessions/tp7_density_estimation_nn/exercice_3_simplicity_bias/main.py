@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-from utils_solution import compute_gradients, forward_pass
+from utils import compute_gradients, forward_pass
 
 data_folder = "data"
 inputs = np.load(os.path.join(data_folder, "inputs.npy"))
@@ -38,7 +38,6 @@ def learn_neural_network(m: int, gamma: float):
     m (int): number of neurons in the hidden layer
     gamma (float): learning rate
 
-    EDIT THE INITIALIZATIONS !
     You can also experiment with different initializations of the parameters.
     """
 
@@ -46,7 +45,6 @@ def learn_neural_network(m: int, gamma: float):
     # We use Glorot initialization
     phi = np.random.uniform(-math.pi, math.pi, (1, m))
     wh = 1 / math.sqrt(m) * np.vstack((np.cos(phi), np.sin(phi)))
-    __import__('ipdb').set_trace()
     theta = np.random.uniform(-1 / math.sqrt(m), 1 / math.sqrt(m), m + 1)
 
     """
