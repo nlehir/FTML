@@ -9,8 +9,6 @@
 
 env/
 
-project/data/
-
 practical_sessions/tp3_ridge_hps/solutions/
 
 practical_sessions/**/latex/
