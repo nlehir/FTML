@@ -66,6 +66,7 @@ practical_sessions/tp7_density_estimation_nn/latex_solution/
 
 practical_sessions/arch/
 
+# tp 9
 practical_sessions/tp8_feature_selection_nn/latex_2H/
 practical_sessions/tp8_feature_selection_nn/feature_selection/vocabularies/*.txt
 practical_sessions/tp8_feature_selection_nn/feature_selection/images/*.pdf
@@ -76,15 +77,32 @@ practical_sessions/tp8_feature_selection_nn/feature_selection/exercice_4_wrapper
 practical_sessions/tp8_feature_selection_nn/feature_selection/stock.py
 practical_sessions/tp8_feature_selection_nn/feature_selection/*.pkz
 
+# tp 9
 practical_sessions/tp9_exploration_rl_svm_nn/exercice_1_exploration_exploitation/pitech/
 practical_sessions/tp9_exploration_rl_svm_nn/exercice_1_exploration_exploitation/conservative_policy.py
 practical_sessions/tp9_exploration_rl_svm_nn/exercice_1_exploration_exploitation/oscillating_with_threshold_policy.py
+
+practical_sessions/tp9_exploration_rl_svm_nn/exercice_2_value_iteration/images/value_iteration/*.pdf
+practical_sessions/tp9_exploration_rl_svm_nn/exercice_2_value_iteration/data/value_function.npy
+practical_sessions/tp9_exploration_rl_svm_nn/todo.txt
+
 practical_sessions/tp9_exploration_rl_svm_nn/exercice_3_svm_kernels/svm_kernels_solution.py
-practical_sessions/tp9_exploration_rl_svm_nn/exercice_4_heavy_ball/heavy_ball_solution.py
-practical_sessions/tp9_exploration_rl_svm_nn/exercice_5_overparametrization/
+
 practical_sessions/tp9_exploration_rl_svm_nn/latex_2H/
-practical_sessions/tp9_exploration_rl_svm_nn/latex_HB/
-practical_sessions/tp9_exploration_rl_svm_nn/latex_HB_solution/
+
+# tp 10
+practical_sessions/tp10_heavy_ball_sag/exercice_1_heavy_ball/
+practical_sessions/tp10_heavy_ball_sag/exercice_1_heavy_ball/heavy_ball_solution.py
+practical_sessions/tp10_heavy_ball_sag/exercice_1_heavy_ball/images/*.pdf
+
+practical_sessions/tp10_heavy_ball_sag/exercice_2_overparametrization/
+
+practical_sessions/tp10_heavy_ball_sag/exercice_3_acceleration/
+
+practical_sessions/tp10_heavy_ball_sag/latex/
+practical_sessions/tp10_heavy_ball_sag/latex_HB/
+practical_sessions/tp10_heavy_ball_sag/latex_HB_solution/
+
 
 
 practical_sessions/tp6_svm/svm_sgd/solution/

@@ -2,7 +2,7 @@ import os
 
 import numpy as np
 
-from plots import plot_position, plot_value_function, plot_all
+from plots import plot_all
 from utils import clean, pick_random_position, update_known_rewards, load_data
 
 # set discount factor
