@@ -22,7 +22,7 @@ def objective(trial):
     """
     Objective function
 
-    This function should return the r2 score on the test set,
+    This function should return the r2 score on the validation set,
     after fitting a ridge estimator with a given set of hyperparameters.
 
     Fix this function by using the optuna API.

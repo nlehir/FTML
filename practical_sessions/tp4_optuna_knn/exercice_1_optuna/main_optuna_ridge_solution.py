@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import optuna
 import seaborn as sns
-from pandas.api.types import is_period_dtype
 from sklearn.linear_model import Ridge
 from sklearn.model_selection import train_test_split
 
@@ -16,13 +15,14 @@ y = np.load(y_path)
 
 # train test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
+X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.33)
 
 
-def objective(trial):
+def objective(trial) -> float:
     """
     Objective function
 
-    This function should return the r2 score on the test set,
+    This function should return the r2 score on the validation set,
     after fitting a ridge estimator with a given set of hyperparameters.
 
     Fix this function by using the optuna API.
@@ -41,7 +41,8 @@ def objective(trial):
     # Fit inputs to outputs on train set
     estimator.fit(X_train, y_train)
 
-    return estimator.score(X_test, y_test)
+    # return validation score
+    return estimator.score(X_val, y_val)
 
 
 def prediction_squared_error(estimator, X, y):
@@ -80,16 +81,16 @@ def main():
 
     # analyze the hyperparameters
     sns.boxplot(data=df, x="params_solver", y="value")
-    plt.title("influence of the solver on the final R2 score")
-    plt.ylabel("test r2")
+    plt.title("influence of the solver on the validation R2 score")
+    plt.ylabel("validation r2")
     figpath = os.path.join("images", "solver.pdf")
     plt.savefig(figpath)
     plt.close()
 
     plt.plot(df.params_alpha, df.value, "o")
-    plt.title("influence of the regularization parameter on th R2 score")
+    plt.title("influence of the regularization parameter on the validation R2 score")
     plt.xlabel("regularization constant")
-    plt.ylabel("test r2")
+    plt.ylabel("validation r2")
     figpath = os.path.join("images", "regularization.pdf")
     plt.savefig(figpath)
     plt.close()
