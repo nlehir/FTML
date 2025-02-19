@@ -7,7 +7,7 @@ import numpy as np
 from oracle import oracle, sigma
 from utils import clean_filename
 
-N_SAMPLES = 10000
+N_SAMPLES = 100
 
 
 def main():
