@@ -12,12 +12,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 from oracle import oracle, sigma
 
-# open file
 file_name = "noisy_data.csv"
 data = np.genfromtxt(file_name, delimiter=",")
 inputs = data[:, 0]
 outputs = data[:, 1]
-
 
 xlim_left = -0.1
 xlim_right = 1.1
@@ -26,11 +24,13 @@ ylim_bottom = 1.3 * min(outputs)
 
 """
 randomly select training set and test set from the dataset
+Usually not done like that but using e.g. train_test_split()
+from scikit-learn.
 """
-nb_points = len(inputs)
-nb_training_points = int(0.7 * nb_points)
-training_indexes = random.sample(range(nb_points), nb_training_points)
-test_indexes = [index for index in range(nb_points) if index not in training_indexes]
+n_samples = len(inputs)
+nb_training_points = int(0.7 * n_samples)
+training_indexes = random.sample(range(n_samples), nb_training_points)
+test_indexes = [index for index in range(n_samples) if index not in training_indexes]
 
 x_train = [inputs[i] for i in training_indexes]
 y_train = [outputs[i] for i in training_indexes]
@@ -64,7 +64,7 @@ def plot_polynom_sample(polynom, x_train, y_train, test_error, train_error):
     to the training set
     """
     degree = len(polynom) - 1
-    title = f"Polynomial fit on training set, degree={degree}\ntrain error {train_error:.2E}, test error {test_error:.2E}"
+    title = f"Polynomial fit on training set, degree={degree}\ntrain error {train_error:.2E}, test error {test_error:.2E}\nnoise std {sigma}"
     filename = f"Fit_degree_{degree}.pdf"
     x_plot = np.linspace(xlim_left, xlim_right, 500)
     # training set
@@ -87,36 +87,44 @@ def plot_polynom_sample(polynom, x_train, y_train, test_error, train_error):
     plt.xlim(xlim_left, xlim_right)
     plt.ylim(ylim_bottom, ylim_top)
     plt.title(title)
+    plt.tight_layout()
     file_path = os.path.join("images", filename)
     plt.savefig(file_path)
     plt.close()
 
 
-max_degree = 20
-test_errors = list()
-train_errors = list()
-for degree in range(max_degree):
-    polynom = fit_polynom(degree, x_train, y_train)
-    test_error = compute_error(polynom, x_test, y_test)
-    train_error = compute_error(polynom, x_train, y_train)
-    test_errors.append(test_error)
-    train_errors.append(train_error)
-    plot_polynom_sample(polynom, x_train, y_train, test_error, train_error)
-    print(f"---\npolynom degree {degree}")
-    print(f"mean square error on training set: {train_error:.2E}")
-    print(f"mean square error on test set: {test_error:.2E}")
+def main():
+    max_degree = 40
+    test_errors = list()
+    train_errors = list()
+    for degree in range(max_degree):
+        polynom = fit_polynom(degree, x_train, y_train)
+        test_error = compute_error(polynom, x_test, y_test)
+        train_error = compute_error(polynom, x_train, y_train)
+        test_errors.append(test_error)
+        train_errors.append(train_error)
+        plot_polynom_sample(polynom, x_train, y_train, test_error, train_error)
+        print(f"---\npolynom degree {degree}")
+        print(f"mean square error on training set: {train_error:.2E}")
+        print(f"mean square error on test set: {test_error:.2E}")
 
 
-# plot test and train errors
-plt.plot(range(max_degree), train_errors, "o", label="train error", markersize=3)
-plt.plot(range(max_degree), test_errors, "x", label="test error", markersize=3)
-plt.plot(
-    range(max_degree),
-    np.ones(max_degree) * sigma**2,
-    label="Bayes risk",
-    color="aqua",
-)
-plt.xlabel("polynom degree")
-plt.legend(loc="best")
-plt.title("underfitting and overfitting")
-plt.savefig("images/overfitting.pdf")
+    # plot test and train errors
+    plt.plot(range(max_degree), train_errors, "o", label="train error", markersize=3)
+    plt.plot(range(max_degree), test_errors, "x", label="test error", markersize=3)
+    plt.plot(
+        range(max_degree),
+        np.ones(max_degree) * sigma**2,
+        label="Bayes risk",
+        color="aqua",
+    )
+    plt.xlabel("polynom degree")
+    plt.yscale("log")
+    plt.legend(loc="best")
+    plt.title(f"underfitting and overfitting, noise std: {sigma}\n{n_samples} samples")
+    fig_name = f"train_test_error_std_{sigma:.3E}_{n_samples}_samples"
+    fig_name = fig_name.replace(" ", "_")
+    plt.savefig(f"{fig_name}.pdf")
+
+if __name__ == "__main__":
+    main()
