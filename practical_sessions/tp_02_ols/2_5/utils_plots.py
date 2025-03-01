@@ -11,7 +11,10 @@ from constants import BAYES_RISK, SIGMA
 
 
 def plot_test_errors_ols(
-    test_errors: dict[tuple, float], n_list: list[int], d_list: list[int]
+    test_errors: float,
+    n_list: list[int],
+    d_list: list[int],
+    n_repetitions: int,
 ):
     """
     Display all the computed test_errors on a plot
@@ -64,11 +67,13 @@ def plot_test_errors_ols(
     # finish plot
     plt.xlabel("n")
     plt.ylabel("test error")
-    plt.title("OLS: test errors as a function of n and d")
+    plt.title(
+        f"OLS: test errors as a function of n and d\nn repetitions {n_repetitions}"
+    )
     plt.legend(loc="best")
 
     # save plot
-    fig_path = os.path.join("ols_test_errors.pdf")
+    fig_path = os.path.join(f"ols_test_errors_{n_repetitions}_repetitions.pdf")
     # plt.yscale("log")
     plt.savefig(fig_path)
     plt.close()
