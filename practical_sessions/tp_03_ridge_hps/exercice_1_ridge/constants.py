@@ -1,3 +1,3 @@
 # amount of noise (linear model, fixed design)
-SIGMA = 8
+SIGMA = 2
 BAYES_RISK = SIGMA**2

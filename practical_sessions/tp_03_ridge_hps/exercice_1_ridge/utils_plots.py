@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 
 from constants import BAYES_RISK, SIGMA
 
+FONTSIZE = 10
+
 
 def plot_test_errors_ols(
     risks: dict[tuple, float], n_list: list[int], d_list: list[int]
@@ -106,14 +108,19 @@ def plot_stds(stds: dict[tuple, float], n_list: list[int], d_list: list[int]):
 
 
 def plot_test_errors_ridge(
-    risks: dict[tuple, float], d_list: list[int], n: int, lambda_list: list[int]
+    risks: dict[tuple, float],
+    d_list: list[int],
+    n: int,
+    lambda_list: list[int],
+    n_repetitions: int,
+    theta_star_type: str,
+    design_matrix_type: str,
 ) -> None:
     """
     Display all the computed risks on a plot
     """
     colors = ["blue", "green", "darkred", "mediumvioletred", "darkmagenta"]
     index = 0
-    print("plot")
 
     # plot the risks for each n and d
     for index, d in enumerate(d_list):
@@ -150,17 +157,28 @@ def plot_test_errors_ridge(
     )
 
     # finish plot
-    plt.xlabel(r"$\lambda$")
-    plt.ylabel("test error")
-    plt.title(
-        "Ridge regression: risks as a function of " + r"$\lambda$" + f" and d\nn={n}"
+    plt.xlabel(r"$\lambda$", fontsize=FONTSIZE)
+    plt.ylabel("test error", fontsize=FONTSIZE)
+    title = (
+        "Ridge regression: risks as a function of " + r"$\lambda$"
+        f"\n{n} training samples"
+        f"\nn repetitions {n_repetitions}"
+        f"\n{design_matrix_type} design matrix"
+        f"\n{theta_star_type} Bayes estimator"
     )
+    plt.title(title, fontsize=FONTSIZE)
     plt.legend(loc="best", fontsize=6)
 
     # save plot
-    fig_path = os.path.join("ridge_risks.pdf")
+    fig_name = (
+        f"ridge_risks_{n_repetitions}_repetitions"
+        f"_{design_matrix_type}_X"
+        f"_{theta_star_type}_theta"
+    )
+    fig_path = os.path.join(f"{fig_name}.pdf")
 
     plt.yscale("log")
     plt.xscale("log")
+    plt.tight_layout()
     plt.savefig(fig_path)
     plt.close()

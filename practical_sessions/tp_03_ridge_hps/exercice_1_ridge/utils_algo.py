@@ -19,15 +19,17 @@ def generate_low_rank_design_matrix(n, d):
     pass
 
 
-def ridge_risk(n, d, lambda_, n_tests) -> float:
+def ridge_test_error(
+    n_train: int,
+    d: int,
+    n_repetitions: int,
+    lambda_: float,
+    theta_star_type: str,
+    design_matrix_type: str,
+) -> float:
     """
     Statistical evaluation of the excess risk of the Ridge regression
     estimator
-
-    In order to observe a benefit in using Ridge as compared to OLS,
-    you can generate a specific design matrix X, that for instance
-    has a low rank, or a d (number of features/columns) that is close
-    to n (number of samples/lines).
 
     n_test times, do:
         - Draw output vector y, according to the linear model, fixed
@@ -49,7 +51,5 @@ def ridge_risk(n, d, lambda_, n_tests) -> float:
     """
     # instantiate a PRNG
     rng = np.random.default_rng()
-
-    generate_low_rank_design_matrix(n=n, d=d)
 
     return 1
