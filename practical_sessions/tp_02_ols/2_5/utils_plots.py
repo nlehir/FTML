@@ -11,7 +11,7 @@ from constants import BAYES_RISK, SIGMA
 
 
 def plot_test_errors_ols(
-    test_errors: float,
+    test_errors: dict[int, float],
     n_list: list[int],
     d_list: list[int],
     n_repetitions: int,
@@ -65,7 +65,7 @@ def plot_test_errors_ols(
     )
 
     # finish plot
-    plt.xlabel("n")
+    plt.xlabel("number of sampler in the train set")
     plt.ylabel("test error")
     plt.title(
         f"OLS: test errors as a function of n and d\nn repetitions {n_repetitions}"

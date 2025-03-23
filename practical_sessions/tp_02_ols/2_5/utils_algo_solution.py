@@ -69,16 +69,18 @@ def ols_test_error(
         design setup.
         - compute the corresponding OLS estimators. Each OLS estimator will be
           different.
-        - generate a test test y_test in order to have an estimation of the generalization error of
+        - generate a y_test in order to have an estimation of the generalization error of
         this estimator
 
     Importantly, our expected value is taken over the whole data generation
     process. As the OLS estimator depends on the y_train, several OLS
     estimators will be computed.
 
+    In the fixed design setting, which is a specific case, y_train and y_test
+    contain the same number of samples, equal to n_train here.
 
     Parameters:
-        n (int): number of samples in the dataset
+        n_train (int): number of samples in the train dataset
         d (int): dimension of each sample (number of features)
         n_repetitions (int): number of simulations run in order to average the
         results
