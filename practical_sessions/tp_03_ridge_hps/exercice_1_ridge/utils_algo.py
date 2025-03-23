@@ -8,7 +8,7 @@ import numpy as np
 from constants import SIGMA
 
 
-def generate_low_rank_design_matrix(n, d):
+def generate_low_rank_design_matrix(n: int, d: int, rng) -> np.ndarray:
     """
     Edit this function.
 
@@ -16,7 +16,13 @@ def generate_low_rank_design_matrix(n, d):
         n (int): number of lines of the design matrix (number of samples)
         d (int): number of columns of the design matrix (number of features)
     """
-    pass
+    sigma_design = 1e-5
+    X = rng.uniform(0, 1, size=(n, d - 1))
+    X_last_column = X[:, -1].reshape(n, 1)
+    noise = np.random.normal(0, sigma_design, size=(X_last_column.shape))
+    X_added_column = X_last_column + noise
+    X = np.hstack((X, X_added_column))
+    return X
 
 
 def ridge_test_error(
@@ -30,6 +36,9 @@ def ridge_test_error(
     """
     Statistical evaluation of the excess risk of the Ridge regression
     estimator
+
+    The design matrix X can be generated uniformly
+    (it is not necessary to use generate_low_rank_design_matrix())
 
     n_test times, do:
         - Draw output vector y, according to the linear model, fixed
