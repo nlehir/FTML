@@ -61,4 +61,6 @@ def ridge_test_error(
     # instantiate a PRNG
     rng = np.random.default_rng()
 
+    X = generate_low_rank_design_matrix(n=n, d=d, rng=rng)
+
     return 1
