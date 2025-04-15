@@ -14,6 +14,12 @@ from algorithms import (
         OLS_estimator,
         )
 
+# from algorithms_solutions import (
+#         gradient_descent,
+#         line_search,
+#         OLS_estimator,
+#         )
+
 GAMMAS = [0.1, 0.01, 0.001]
 NUMBER_OF_ITERATIONS = 10000
 N = 60
