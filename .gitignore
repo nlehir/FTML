@@ -20,6 +20,8 @@ exercises_2024/
 
 slides_2024/
 
+practical_sessions/tp_01_overfitting_bayes_risks/solutions/exercice_3_statistics/data/*.npy
+
 practical_sessions/tp_04_optuna_knn/exercice_2_knn/generate_low_d.py
 practical_sessions/tp_04_optuna_knn/exercice_1_optuna/main_optuna_ridge_solution_multi.py
 
