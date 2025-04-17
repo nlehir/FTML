@@ -37,6 +37,7 @@ practical_sessions/tp_06_vq_metrics_sgd/exercice_2_metrics/images/*.pdf
 practical_sessions/tp_06_vq_metrics_sgd/exercice_3_svm_sgd/images/*.pdf
 
 practical_sessions/tp_06_vq_metrics_sgd/exercice_1_vector_quantization/main_solution.py
+practical_sessions/tp_06_vq_metrics_sgd/exercice_1_vector_quantization/data/*.npy
 practical_sessions/tp_06_vq_metrics_sgd/exercice_2_metrics/hybrid/solutions/build_graphs_hybrid_data.ipynb
 practical_sessions/tp_06_vq_metrics_sgd/exercice_3_svm_sgd/svm_sgd_solution.py
 
