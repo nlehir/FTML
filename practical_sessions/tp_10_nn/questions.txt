@@ -1,3 +1,0 @@
-relu a beosin d'être appliquée à l'output aussi ? ça va changer les gradients (quand ça marche pas c'est à cause de ça ?) mais sans la relu ça a l'air de diverger +
-
-est-ce que sans les initialisations tordues ça marche ? non: dossier images_init_0
