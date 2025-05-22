@@ -13,7 +13,7 @@ from utils import compute_gradients, forward_pass
 # from utils_solution import compute_gradients, forward_pass
 
 data_folder = "data"
-results_folder = "images_ok"
+results_folder = "images"
 if not os.path.exists(results_folder):
     os.makedirs(results_folder)
 inputs = np.load(os.path.join(data_folder, "inputs.npy"))
