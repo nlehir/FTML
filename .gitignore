@@ -75,7 +75,6 @@ README_backup.md
 
 project/Bonus.pdf
 
-practical_sessions/tp_11_feature_selection/feature_selection/exercice_4_wrapper_solution.py
 practical_sessions/tp_11_feature_selection/feature_selection/images/*pdf
 practical_sessions/tp_11_feature_selection/feature_selection/*pdf
 practical_sessions/tp_11_feature_selection/feature_selection/vocabularies/*.txt
@@ -84,7 +83,6 @@ practical_sessions/tp_11_feature_selection/feature_selection/imdb.pkz
 practical_sessions/tp_11_feature_selection/feature_selection/imdb_wrapper.pkz
 practical_sessions/tp_11_feature_selection/feature_selection/stock.py
 
-practical_sessions/tp_12_lasso/exercice_1_lasso.py
 practical_sessions/tp_12_lasso/lasso_regression_x_10_y_1.pdf
 practical_sessions/tp_12_lasso/lasso_regression_x_10_y_10.pdf
 practical_sessions/tp_12_lasso/lasso_regression_x_1_y_1.pdf
