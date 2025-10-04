@@ -2,8 +2,9 @@
 Generate noisy linear data with an almost colinear column in X
 """
 
-import numpy as np
 import os
+
+import numpy as np
 
 
 def main():

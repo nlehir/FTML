@@ -2,9 +2,8 @@
 Template of function to edit to fulfill the exercise.
 """
 
-from constants import SIGMA
-
 import numpy as np
+from constants import SIGMA
 
 
 def ols_test_error(

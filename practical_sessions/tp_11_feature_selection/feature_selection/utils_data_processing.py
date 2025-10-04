@@ -1,25 +1,25 @@
-from matplotlib.cbook import _unmultiplied_rgba8888_to_premultiplied_argb32
-import utils
-from sklearn.base import BaseEstimator
-import fetch_dataset_stanford_sentiment
-from sklearn.feature_selection._base import SelectorMixin
-from joblib import Parallel, delayed
 import re
 import string
+
+import fetch_dataset_stanford_sentiment
+import utils
+from joblib import Parallel, delayed
+from matplotlib.cbook import _unmultiplied_rgba8888_to_premultiplied_argb32
+from sklearn.base import BaseEstimator
+from sklearn.feature_selection._base import SelectorMixin
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 
 
-
 def clean_text(txt: str) -> str:
     """Takes a document (str) as input and applies preprocessing on it :
-        - to lowercase
-        - remove URLs
-        - remove html tags such as <br />
-        - remove punctuation
-        - remove linebreaks
-        - remove words with numbers inside
-        - remove words with repeated letters
+    - to lowercase
+    - remove URLs
+    - remove html tags such as <br />
+    - remove punctuation
+    - remove linebreaks
+    - remove words with numbers inside
+    - remove words with repeated letters
     """
 
     # Change to lower case

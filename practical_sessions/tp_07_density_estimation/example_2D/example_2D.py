@@ -1,15 +1,17 @@
 """
-    Simple data in order to illustrate the concept of
-    Gaussian mixtures.
+Simple data in order to illustrate the concept of
+Gaussian mixtures.
 
-    https://scikit-learn.org/stable/modules/mixture.html
+https://scikit-learn.org/stable/modules/mixture.html
 
-    Script adapted from
-    https://scikit-learn.org/stable/auto_examples/mixture/plot_gmm_pdf.html
+Script adapted from
+https://scikit-learn.org/stable/auto_examples/mixture/plot_gmm_pdf.html
 """
-import numpy as np
+
 import os
+
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.colors import LogNorm
 from sklearn.mixture import GaussianMixture
 
@@ -46,7 +48,7 @@ def learn_gmm(n_components: int) -> None:
 
     for index, center in enumerate(clf.means_):
         print(center)
-        plt.plot(center[0], center[1], "o", label=f"center {index+1}", color="red")
+        plt.plot(center[0], center[1], "o", label=f"center {index + 1}", color="red")
 
     # display predicted scores by the model as a contour plot
     x = np.linspace(-20.0, 30.0)
@@ -63,10 +65,10 @@ def learn_gmm(n_components: int) -> None:
     plt.scatter(X_train[:, 0], X_train[:, 1], 0.8)
 
     title = (
-            "Negative log-likelihood predicted by a GMM"
-            f"\nwith {n_components} components"
-            f"\naverage log likelihood: {clf.score(X_train):.2f}"
-            )
+        "Negative log-likelihood predicted by a GMM"
+        f"\nwith {n_components} components"
+        f"\naverage log likelihood: {clf.score(X_train):.2f}"
+    )
     plt.title(title)
     plt.legend(loc="best")
     plt.axis("tight")
@@ -76,10 +78,12 @@ def learn_gmm(n_components: int) -> None:
     plt.savefig(fig_path)
     plt.close()
 
+
 def main():
     n_components_list = [1, 2, 3, 4, 5]
     for n_components in n_components_list:
         learn_gmm(n_components=n_components)
+
 
 if __name__ == "__main__":
     main()

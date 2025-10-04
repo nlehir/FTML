@@ -1,12 +1,11 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 d = 10
 sigma = 0.2
 
 
 def main():
-
     n_list = np.linspace(10, 100000, 100)
     test_errors = list()
     for n in n_list:

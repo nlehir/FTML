@@ -10,9 +10,9 @@ def clean(directory):
 
 
 def pick_random_position(
-        available_positions_i: np.ndarray,
-        available_positions_j: np.ndarray,
-        ) -> tuple[int, int]:
+    available_positions_i: np.ndarray,
+    available_positions_j: np.ndarray,
+) -> tuple[int, int]:
     """
     pick a random position in order to initialize the position of our agent
     """

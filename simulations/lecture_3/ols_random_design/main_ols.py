@@ -1,11 +1,11 @@
 """
-    Study the statistical properties of the OLS estimator:
-        - excess risk
-        - dependence of the risk on the dimensions n and d
-        - (optionally) stability of the OLS estimator
+Study the statistical properties of the OLS estimator:
+    - excess risk
+    - dependence of the risk on the dimensions n and d
+    - (optionally) stability of the OLS estimator
 
-    As opposed to the practical session, we use the "random design"
-    statistical setting where X is not fixed anymore.
+As opposed to the practical session, we use the "random design"
+statistical setting where X is not fixed anymore.
 """
 
 from utils_algo_solution import ols_test_error

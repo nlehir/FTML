@@ -1,7 +1,9 @@
-import numpy as np
 from time import time
 
+import numpy as np
+
 ALPHA = 0.3
+
 
 def gamma_line_search(H: np.ndarray, gradient: np.ndarray) -> float:
     """
@@ -38,7 +40,7 @@ def line_search(
     reached = False
     total_time = 0
     for iteration in range(1, n_iterations + 1):
-        if iteration % (n_iterations//10)==0:
+        if iteration % (n_iterations // 10) == 0:
             print(f"iteration {iteration}/{n_iterations}")
         distance_to_opt = np.linalg.norm(theta_LS - theta_hat) ** 2
         LS_squared_distances_to_opt.append(distance_to_opt)
@@ -88,7 +90,7 @@ def gradient_descent(
     reached = False
     total_time = 0
     for iteration in range(1, n_iterations + 1):
-        if iteration % (n_iterations//10)==0:
+        if iteration % (n_iterations // 10) == 0:
             print(f"iteration {iteration}/{n_iterations}")
         distance_to_opt = np.linalg.norm(theta_GD - theta_hat) ** 2
         GD_squared_distances_to_opt.append(distance_to_opt)
@@ -103,7 +105,10 @@ def gradient_descent(
 
     final_iteration = len(GD_squared_distances_to_opt)
     if reached:
-        label = "GD " + r"$\gamma=$" f"{gamma:.2f}, {final_iteration} iters, {total_time:.1E} s"
+        label = (
+            "GD " + r"$\gamma=$"
+            f"{gamma:.2f}, {final_iteration} iters, {total_time:.1E} s"
+        )
         ax_linear.axvline(x=final_iteration, alpha=ALPHA, color=color)
         ax_log.axvline(x=final_iteration, alpha=ALPHA, color=color)
     else:
@@ -153,18 +158,23 @@ def gradient(theta, H, X, y):
     n = y.shape[0]
     return H @ theta - 1 / n * X.T @ y
 
+
 def upper_bound(
-        theta_0,
-        theta_hat,
-        n_iterations,
-        H,
-        ):
+    theta_0,
+    theta_hat,
+    n_iterations,
+    H,
+):
     print("Compute upper bound")
     initial_distance_to_opt = np.linalg.norm(theta_0 - theta_hat) ** 2
     eigenvalues, _ = np.linalg.eig(H)
-    condition_number = eigenvalues.max()/eigenvalues.min()
-    upper_bounds = np.exp(-2*np.arange(n_iterations)/condition_number) * initial_distance_to_opt
+    condition_number = eigenvalues.max() / eigenvalues.min()
+    upper_bounds = (
+        np.exp(-2 * np.arange(n_iterations) / condition_number)
+        * initial_distance_to_opt
+    )
     return upper_bounds
+
 
 def heavy_ball(
     X,
@@ -191,7 +201,7 @@ def heavy_ball(
     total_time = 0
     theta_HB_before = theta_0.copy()
     for iteration in range(1, n_iterations + 1):
-        if iteration % (n_iterations//10)==0:
+        if iteration % (n_iterations // 10) == 0:
             print(f"iteration {iteration}/{n_iterations}")
         distance_to_opt = np.linalg.norm(theta_HB - theta_hat) ** 2
         HB_squared_distances_to_opt.append(distance_to_opt)

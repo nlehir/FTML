@@ -1,40 +1,38 @@
 """
-    Univariate filtering in order to 
-    reduce the vocabulary size and learn an estimator based on a smaller
-    vocabulary. In that sense, we have increased the sparsity of the
-    estimation.
+Univariate filtering in order to
+reduce the vocabulary size and learn an estimator based on a smaller
+vocabulary. In that sense, we have increased the sparsity of the
+estimation.
 
-    Univariate filtering consists in statistically evaluating
-    whether a feature is linked to the target variable or not. 
-    The features (here the n-grams in the vocabulary) are then 
-    ranked according to this degree of correlation.
+Univariate filtering consists in statistically evaluating
+whether a feature is linked to the target variable or not.
+The features (here the n-grams in the vocabulary) are then
+ranked according to this degree of correlation.
 """
 
-from utils_data_processing import preprocess_imdb
-from sklearn.metrics import make_scorer, accuracy_score
 import os
-from sklearn.model_selection import GridSearchCV
-from termcolor import colored
+
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.feature_selection import SelectKBest, chi2
+from constants import MIN_DF, NGRAM_RANGE, NUM_JOBS
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.preprocessing import MaxAbsScaler
+from sklearn.feature_selection import SelectKBest, chi2
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, make_scorer
+from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
-from constants import NGRAM_RANGE, MIN_DF, NUM_JOBS
+from sklearn.preprocessing import MaxAbsScaler
+from termcolor import colored
 from utils import save_vocabulary
+from utils_data_processing import preprocess_imdb
 
-# Size of the vocabulary to keep.
-NUMBER_OF_KEPT_FEATURES = 10
-C = 0.5
 
 def sparsity_scorer(classifier: Pipeline) -> float:
     """
     Define a sparsity score for the pipeline
 
     The sparsisity score can for instance be computed
-    from the fraction of ketpt words in the vocabulary.
+    from the fraction of kept words in the vocabulary.
     Optionally and if relevant, it may also include the sparsity of the
     linear estimator.
 
@@ -49,31 +47,35 @@ def sparsity_scorer(classifier: Pipeline) -> float:
     selected_dims = chi2_filter.get_support()
     kept_words = np.array(vectorizer.get_feature_names_out())[selected_dims]
     nb_kept_words = len(kept_words)
-    vocabulary_size=vectorizer.get_feature_names_out().size
+    vocabulary_size = vectorizer.get_feature_names_out().size
     fraction = nb_kept_words / vocabulary_size
     print(f"{selected_dims.sum()} kept words on a vocabulary of size {vocabulary_size}")
     print(f"fraction: {fraction:.4E}")
-    sparsity = 1 -  fraction
+    sparsity = 1 - fraction
     return sparsity
 
+
 def evaluate_k(
-        traindata,
-        testdata,
-        k,
-        ):
+    traindata,
+    testdata,
+    k,
+):
     """
     Evaluate scores when keeping k features
     """
+    print(f"\nUnivariate filtering keeping {k} features")
     classifier = Pipeline(
         [
-            ("vectorizer", CountVectorizer(binary=False, ngram_range=NGRAM_RANGE, min_df=MIN_DF),),
+            (
+                "vectorizer",
+                CountVectorizer(binary=False, ngram_range=NGRAM_RANGE, min_df=MIN_DF),
+            ),
             ("filter", SelectKBest(score_func=filter_function, k=k)),
             ("scaler", MaxAbsScaler()),
-            ("clf", LogisticRegression(C=C, solver="liblinear")),
+            ("clf", LogisticRegression(C=0.5, solver="liblinear")),
         ]
     )
 
-    print("fit")
     classifier.fit(traindata.data, traindata.target)
 
     # Extract the selected dimensions
@@ -84,9 +86,9 @@ def evaluate_k(
 
     # save vocabulary
     nb_kept_words = len(kept_words)
-    vocabulary_size=vectorizer.get_feature_names_out().size
+    vocabulary_size = vectorizer.get_feature_names_out().size
     print(f"{selected_dims.sum()} kept words on a vocabulary of size {vocabulary_size}")
-    print(f"fraction: {nb_kept_words/vocabulary_size:.4E}")
+    print(f"fraction: {nb_kept_words / vocabulary_size:.4E}")
 
     file_name = f"vocabulary_exercise_2_univariate_k_{k}.txt"
     save_vocabulary(clf=classifier, file_name=file_name, stat_filter=chi2_filter)
@@ -97,10 +99,10 @@ def evaluate_k(
     print(f"test accuracy : {acc_test:.4f}")
     fraction_kept = nb_kept_words / vocabulary_size
     scores = dict(
-            acc_train=acc_train,
-            acc_test=acc_test,
-            fraction_kept=fraction_kept,
-            )
+        acc_train=acc_train,
+        acc_test=acc_test,
+        fraction_kept=fraction_kept,
+    )
     return scores
 
 
@@ -108,8 +110,6 @@ if __name__ == "__main__":
     traindata, _, testdata = preprocess_imdb(num_jobs=NUM_JOBS)
 
     filter_function = chi2
-
-
     """
     Build a pipeline estimator with 4 steps.
 
@@ -125,22 +125,23 @@ if __name__ == "__main__":
     """
 
     """
-    Perform a Gridsearch in order to 
-    explore the influence of hyperparameters on the sparsity
+    1) First parameter search, only over the number
+    of kept features, in order to
+    explore its influence on the sparsity
     and on the accuracy.
     """
     # number of kept features
+    print(f"\n========\nSearch over the number of kept features only\n========\n")
     k_list = [1, 10, 100, 1000, 10000, 100000]
     acc_train_list = list()
     acc_test_list = list()
     fraction_kept_list = list()
     for k in k_list:
-        print(f"\nUnivariate filtering keeping {k} features")
         scores = evaluate_k(
-                traindata=traindata,
-                testdata=testdata,
-                k=k,
-                )
+            traindata=traindata,
+            testdata=testdata,
+            k=k,
+        )
         acc_train = scores["acc_train"]
         acc_test = scores["acc_test"]
         fraction_kept = scores["fraction_kept"]
@@ -155,24 +156,26 @@ if __name__ == "__main__":
     plt.plot(fraction_kept_list, acc_test_list, label="test accuracy")
     plt.xscale("log")
     plt.legend(loc="best")
-    title = (
-            "Accuracy of logistic regression after\n"
-            "univariate filtering"
-            )
+    title = "Accuracy of logistic regression after\nunivariate filtering"
     plt.title(title)
-    plt.savefig("Univariate_filtering.pdf")
+    plt.savefig("ex_2_univariate_filtering.pdf")
     plt.close()
 
     """
-    Grid search
+    2) (optional) Grid search over the number of kept features
+    AND
+    the regularization strength
     """
 
     classifier = Pipeline(
         [
-            ("vectorizer", CountVectorizer(binary=False, ngram_range=NGRAM_RANGE, min_df=MIN_DF),),
-            ("filter", SelectKBest(score_func=filter_function, k=NUMBER_OF_KEPT_FEATURES)),
+            (
+                "vectorizer",
+                CountVectorizer(binary=False, ngram_range=NGRAM_RANGE, min_df=MIN_DF),
+            ),
+            ("filter", SelectKBest(score_func=filter_function)),
             ("scaler", MaxAbsScaler()),
-            ("clf", LogisticRegression(C=C, solver="liblinear")),
+            ("clf", LogisticRegression(C=0.5, solver="liblinear")),
         ]
     )
 
@@ -186,6 +189,9 @@ if __name__ == "__main__":
     estimator is best for each score separately, and also
     to plot both scores on the same plot.
     """
+    print(
+        f"\n========\nSearch over the number of kept features and the regularization strength\n========\n"
+    )
     grid = GridSearchCV(
         classifier,
         n_jobs=NUM_JOBS,
@@ -219,25 +225,25 @@ if __name__ == "__main__":
     print(colored(message, "green", attrs=["bold"]))
     print(best_pred_metrics)
 
-    """
-    We can use the results of the gridsearch
-    in order to plot the two scores as a function of the hyperparameters.
-    """
-    K, C = np.meshgrid(k_values, c_values)
-    mean_sparsity = results["mean_test_sparsity"].reshape((len(c_values), len(k_values)))
-    mean_accuracy = results["mean_test_accuracy"].reshape((len(c_values), len(k_values)))
-
-    fig = plt.figure()
-    ax = fig.add_subplot(projection="3d")
-    ax.plot_wireframe(K, C, mean_sparsity, color="blue", label="sparsity")
-    ax.plot_wireframe(K, C, mean_accuracy, color="orange", label="accuracy")
-    ax.set_xlabel(r"Number of features kept by $\chi^2$")
-    ax.set_ylabel("Inverse of regularization (C)")
-    ax.set_zlabel("Sparsity (blue) / Accuracy (orange)")
-    # ax.yaxis._set_scale("log")
-    plt.xticks(rotation=15)
-    plt.legend(loc="best")
-
-    fig_name = "filter.pdf"
-    fig_path = os.path.join("images", fig_name)
-    plt.savefig(fig_path)
+    # """
+    # We can use the results of the gridsearch
+    # in order to plot the two scores as a function of the hyperparameters.
+    # """
+    # K, C = np.meshgrid(k_values, c_values)
+    # mean_sparsity = results["mean_test_sparsity"].reshape((len(c_values), len(k_values)))
+    # mean_accuracy = results["mean_test_accuracy"].reshape((len(c_values), len(k_values)))
+    #
+    # fig = plt.figure()
+    # ax = fig.add_subplot(projection="3d")
+    # ax.plot_wireframe(K, C, mean_sparsity, color="blue", label="sparsity")
+    # ax.plot_wireframe(K, C, mean_accuracy, color="orange", label="accuracy")
+    # ax.set_xlabel(r"Number of features kept by $\chi^2$")
+    # ax.set_ylabel("Inverse of regularization (C)")
+    # ax.set_zlabel("Sparsity (blue) / Accuracy (orange)")
+    # # ax.yaxis._set_scale("log")
+    # plt.xticks(rotation=15)
+    # plt.legend(loc="best")
+    #
+    # fig_name = "ex_2_univariate_filtering.pdf"
+    # plt.savefig(fig_name)
+    # plt.close()

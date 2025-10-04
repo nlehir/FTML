@@ -1,9 +1,8 @@
 import os
 
 import numpy as np
-
 from plots import plot_all
-from utils import clean, pick_random_position, update_known_rewards, load_data
+from utils import clean, load_data, pick_random_position, update_known_rewards
 
 # set discount factor
 GAMMA = 0.8
@@ -52,9 +51,9 @@ def main() -> None:
     known_reward = np.zeros(world.shape)
     available_positions_i, available_positions_j = np.where(world)
     agent_position = pick_random_position(
-            available_positions_i,
-            available_positions_j,
-            )
+        available_positions_i,
+        available_positions_j,
+    )
 
     # set image folder
     image_folder = os.path.join("images")
@@ -80,21 +79,21 @@ def main() -> None:
         )
 
         plot_all(
-                agent_position=agent_position,
-                value_function=value_function,
-                step=step,
-                world=world,
-                image_folder=image_folder,
-                known_reward=known_reward,
-                )
+            agent_position=agent_position,
+            value_function=value_function,
+            step=step,
+            world=world,
+            image_folder=image_folder,
+            known_reward=known_reward,
+        )
 
         # periodically reinitialize the position of the agent.
         if (step % 15 == 0) and (step > 0):
             print("----- re initialize agent position")
             agent_position = pick_random_position(
-                    available_positions_i,
-                    available_positions_j,
-                    )
+                available_positions_i,
+                available_positions_j,
+            )
 
     # save our evaluation for usage later
     value_function_path = os.path.join("data", "value_function.npy")

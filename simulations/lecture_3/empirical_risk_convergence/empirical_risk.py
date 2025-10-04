@@ -2,13 +2,12 @@
 Observe the convergence of the empirical risk to the real risk,
 when the dataset grows in size and is independent from the estimator.
 
-The data follow the distribution defined in the exercises at the beginning 
+The data follow the distribution defined in the exercises at the beginning
 of lecture 3.
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
-
+import numpy as np
 
 """
 Define the 3 estimators to study

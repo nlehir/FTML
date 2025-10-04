@@ -6,7 +6,6 @@ If you prefer, you can also start from scratch and write your own functions.
 import os
 
 import matplotlib.pyplot as plt
-
 from constants import BAYES_RISK, SIGMA
 
 FONTSIZE = 10

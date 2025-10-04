@@ -38,7 +38,7 @@ def compute_bayes_risk(n_x: float, p_x: float, p_all) -> np.float64:
 
     # conditional variance of the target given fixed x
     # see class to understand why we compute this
-    n_binom_all = 3**(1 + np.arange(n_x + 1))
+    n_binom_all = 3 ** (1 + np.arange(n_x + 1))
     variances = n_binom_all * p_all * (1 - p_all)
 
     # weighted sum to get the expected value, which

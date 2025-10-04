@@ -1,19 +1,21 @@
 """
-    Find the optimal number of components in order to
-    estimate the density of the digits dataset.
+Find the optimal number of components in order to
+estimate the density of the digits dataset.
 
-    We score each number of components with the Akaike information
-    criterion.
+We score each number of components with the Akaike information
+criterion.
 
-    https://en.wikipedia.org/wiki/Akaike_information_criterion
+https://en.wikipedia.org/wiki/Akaike_information_criterion
 
-    https://scikit-learn.org/stable/modules/generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture
+https://scikit-learn.org/stable/modules/generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture
 """
-from sklearn.datasets import load_digits
+
+import os
+
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn.datasets import load_digits
 from sklearn.mixture import GaussianMixture
-import os
 
 digits = load_digits()
 X_train = digits.data

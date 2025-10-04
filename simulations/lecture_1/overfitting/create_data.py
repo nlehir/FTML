@@ -33,5 +33,6 @@ def main():
     fig_name = clean_filename(fig_name)
     plt.savefig(f"{fig_name}.pdf")
 
+
 if __name__ == "__main__":
     main()

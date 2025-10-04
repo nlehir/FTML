@@ -1,13 +1,15 @@
 """
-    Create csv with hybrid data
-    (both numerical and categorical attributes)
+Create csv with hybrid data
+(both numerical and categorical attributes)
 """
 
 import csv
 
 with open("hybrid_data.csv", "w") as csvfile:
     filewriter = csv.writer(csvfile, delimiter=",")
-    filewriter.writerow(["Name", "Fifa note", "speed", "favorite meal", "nationality", "world cups"])
+    filewriter.writerow(
+        ["Name", "Fifa note", "speed", "favorite meal", "nationality", "world cups"]
+    )
     filewriter.writerow(["Toni Kroos", "90", "70", "pasta", "German", "1"])
     filewriter.writerow(["David De Gea", "91", "70", "fries", "Spanish", "0"])
     filewriter.writerow(["Sergio Ramos", "91", "80", "pasta", "Spanish", "1"])

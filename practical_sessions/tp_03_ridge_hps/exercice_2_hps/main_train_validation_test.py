@@ -6,12 +6,11 @@ score.
 """
 
 import numpy as np
+from data_loading import dataset, load_data, shuffle_data
+from params import grid, nb_tests, test_size, validation_size
 from sklearn.model_selection import ParameterGrid, train_test_split
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
-
-from data_loading import dataset, load_data, shuffle_data
-from params import grid, nb_tests, test_size, validation_size
 
 
 def train_validation_test(X, y, test_size, validation_size) -> tuple[float, float]:
@@ -51,7 +50,7 @@ def main() -> None:
     validation_scores = list()
     test_scores = list()
     for index in range(nb_tests):
-        print(f"simu {index+1}/{nb_tests}")
+        print(f"simu {index + 1}/{nb_tests}")
         X, y = load_data(dataset)
         X, y = shuffle_data(X, y)
         validation_score, test_score = train_validation_test(

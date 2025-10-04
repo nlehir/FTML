@@ -20,6 +20,7 @@ y = np.load(y_path)
 # train test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
 
+
 def objective(trial) -> float:
     """
     Objective function
@@ -67,7 +68,9 @@ def main():
     study.optimize(func=objective, n_trials=50)
 
     # print best trial
-    print(f"\nBest cross validation score: {study.best_value:.3f} (params: {study.best_params})")
+    print(
+        f"\nBest cross validation score: {study.best_value:.3f} (params: {study.best_params})"
+    )
     for key, value in study.best_trial.params.items():
         if type(value) == float:
             print(f"{key}: {value:.2f}")
@@ -84,13 +87,11 @@ def main():
     test_r2 = estimator.score(X=X_test, y=y_test)
     print(f"Final test r2: {test_r2:.3f}")
 
-
     # analyze the hyperparameters
     sns.boxplot(data=df, x="params_solver", y="value")
     title = (
-        "influence of the solver on the validation R2 score"
-        f"\ntest R2: {test_r2:.3f}"
-            )
+        f"influence of the solver on the validation R2 score\ntest R2: {test_r2:.3f}"
+    )
     plt.title(title)
     plt.ylabel("Cross validation r2")
     figpath = os.path.join("images", "solver.pdf")
@@ -99,9 +100,9 @@ def main():
 
     plt.plot(df.params_alpha, df.value, "o")
     title = (
-            "Influence of the regularization parameter on the validation R2 score"
-            f"\ntest R2: {test_r2:.3f}"
-            )
+        "Influence of the regularization parameter on the validation R2 score"
+        f"\ntest R2: {test_r2:.3f}"
+    )
     plt.title(title)
     plt.xlabel("regularization constant")
     plt.ylabel("Cross validation r2")

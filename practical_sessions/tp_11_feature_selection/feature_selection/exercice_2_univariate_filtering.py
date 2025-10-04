@@ -1,19 +1,20 @@
 """
-    Univariate filtering
+Univariate filtering
 """
 
-from utils_data_processing import preprocess_imdb
-from sklearn.metrics import make_scorer, accuracy_score
 import os
-from sklearn.model_selection import GridSearchCV
+
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.feature_selection import SelectKBest, chi2
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.preprocessing import MaxAbsScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.pipeline import Pipeline
 from constants import NUM_JOBS
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_selection import SelectKBest, chi2
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, make_scorer
+from sklearn.model_selection import GridSearchCV
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import MaxAbsScaler
+from utils_data_processing import preprocess_imdb
 
 
 def sparsity_scorer(clf: Pipeline) -> float:
@@ -21,7 +22,7 @@ def sparsity_scorer(clf: Pipeline) -> float:
     Define a sparsity score for the pipeline
 
     The sparsisity score can for instance be computed
-    from the fraction of ketpt words in the vocabulary.
+    from the fraction of kept words in the vocabulary.
     Optionally and if relevant, it may also include the sparsity of the
     linear estimator.
 

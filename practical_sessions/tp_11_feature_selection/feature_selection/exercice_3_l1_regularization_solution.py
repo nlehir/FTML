@@ -1,19 +1,19 @@
 """
-    Encourage sparsity by using a L1 regularization (embedded algorithm)
+Encourage sparsity by using a L1 regularization (embedded algorithm)
 """
 
-from utils_data_processing import preprocess_imdb
-from sklearn.metrics import make_scorer, accuracy_score
 import os
-from sklearn.model_selection import GridSearchCV
-from sklearn.model_selection import cross_val_score
+
 import matplotlib.pyplot as plt
 import numpy as np
+from constants import MIN_DF, NGRAM_RANGE, NUM_JOBS
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.preprocessing import MaxAbsScaler
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, make_scorer
+from sklearn.model_selection import GridSearchCV, cross_val_score
 from sklearn.pipeline import Pipeline
-from constants import NUM_JOBS, MIN_DF, NUM_JOBS, NGRAM_RANGE
+from sklearn.preprocessing import MaxAbsScaler
+from utils_data_processing import preprocess_imdb
 
 C = 0.5
 
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     traindata, _, testdata = preprocess_imdb(num_jobs=NUM_JOBS)
 
     """
-    First learn a Pipeline with a hardcoded regularization parameter C
+    1) First learn a Pipeline with a hardcoded regularization parameter C
     """
     classifier = Pipeline(
         [
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     print("Selected words : {selected_terms[sorted_idx]}")
 
     """
-    Perform a Gridsearch in order to 
+    2) Perform a Gridsearch over the regularization strength in order to 
     explore the influence of hyperparameters on the sparsity
     and on the accuracy.
     """
@@ -97,7 +97,9 @@ if __name__ == "__main__":
     results = grid.cv_results_
 
     fig, ax1 = plt.subplots()
-    ax1.set_title("Sparsity and accuracy of a logistic regression with L1 penalty")
+    ax1.set_title(
+        "Sparsity and cross-validated accuracy\nof a logistic regression with L1 penalty"
+    )
     ax1.set_xlabel("Inverse of the regularization coefficient (C)")
     color = "green"
     ax1.set_ylabel("Mean accuracy on the test folds", color=color)
@@ -111,6 +113,6 @@ if __name__ == "__main__":
     ax2.plot(results["param_clf__C"].data, results["mean_test_sparsity"], color=color)
     ax2.tick_params(axis="y", labelcolor=color)
 
-    fig.tight_layout()
-    fig_path = os.path.join("images", "sparsity_l1.pdf")
-    plt.savefig(fig_path)
+    fig_name = "ex_3_l1_regularization.pdf"
+    plt.savefig(fig_name)
+    plt.close()

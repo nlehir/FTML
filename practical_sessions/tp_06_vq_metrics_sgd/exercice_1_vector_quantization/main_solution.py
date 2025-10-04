@@ -2,7 +2,6 @@
 Use Vector quantization for classification
 """
 
-
 import os
 
 import cv2
@@ -13,7 +12,6 @@ from scipy.spatial.distance import cdist
 from sklearn.cluster import KMeans
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics.cluster import adjusted_rand_score, rand_score
-
 from utils import clean_filename, create_directory_if_missing
 
 sigma = 0.3

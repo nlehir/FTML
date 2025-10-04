@@ -2,13 +2,14 @@
 Use Vector quantization for classification
 """
 
-import numpy as np
-from utils import clean_filename, create_directory_if_missing
+import os
+
 import cv2
 import matplotlib.pyplot as plt
+import numpy as np
 import optuna
-import os
 from scipy.spatial.distance import cdist
+from utils import clean_filename, create_directory_if_missing
 
 sigma = 0.3
 

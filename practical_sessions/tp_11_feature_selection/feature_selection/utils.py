@@ -9,6 +9,7 @@ import codecs
 import logging
 import os
 import pickle
+
 from sklearn.pipeline import Pipeline
 
 
@@ -21,7 +22,7 @@ def save_vocabulary(clf: Pipeline, file_name: str, stat_filter=None) -> None:
     vocabulary = vectorizer.get_feature_names_out()
     if stat_filter is not None:
         selected_dims = stat_filter.get_support()
-        vocabulary=vocabulary[selected_dims]
+        vocabulary = vocabulary[selected_dims]
     print(f"Feature space size : {len(vocabulary)}")
 
     file_path = os.path.join("vocabularies", file_name)
@@ -44,19 +45,18 @@ def load_cache(cache_name: str, keys: list[str]) -> tuple:
              The tuple has as many elements as keys and are the
              the data fetched from the cache
     """
-    logger = logging.getLogger('dimred')
+    logger = logging.getLogger("dimred")
     if os.path.exists(cache_name):
         logger.info(f"Loading cache {cache_name}")
         try:
-            with open(cache_name, 'rb') as f:
+            with open(cache_name, "rb") as f:
                 compressed_content = f.read()
-            uncompressed_content = codecs.decode(
-                compressed_content, 'zlib_codec')
+            uncompressed_content = codecs.decode(compressed_content, "zlib_codec")
             cache = pickle.loads(uncompressed_content)
         except Exception as e:
-            print(80 * '_')
-            print('Cache loading failed')
-            print(80 * '_')
+            print(80 * "_")
+            print("Cache loading failed")
+            print(80 * "_")
             print(e)
 
         data = ()
@@ -70,12 +70,12 @@ def load_cache(cache_name: str, keys: list[str]) -> tuple:
 def save_cache(cache_name: str, d: dict) -> None:
     """Save data in a compressed file
 
-        d: a dictionnary with keys the variable names and values the values
-           to save. The keys are the ones to provide to load_cache for
-           reloading
+    d: a dictionnary with keys the variable names and values the values
+       to save. The keys are the ones to provide to load_cache for
+       reloading
     """
     logger = logging.getLogger("dimred")
     logger.info(f"Saving the cache {cache_name}")
-    compressed_content = codecs.encode(pickle.dumps(d), 'zlib_codec')
-    with open(cache_name, 'wb') as f:
+    compressed_content = codecs.encode(pickle.dumps(d), "zlib_codec")
+    with open(cache_name, "wb") as f:
         f.write(compressed_content)

@@ -29,6 +29,7 @@ def objective(trial):
     """
     return 1
 
+
 def main():
     # database for the optuna dashboard
     storage_name = "ridge.db"
@@ -57,6 +58,7 @@ def main():
     df = study.trials_dataframe()
 
     # analyze the hyperparameters
+
 
 if __name__ == "__main__":
     main()

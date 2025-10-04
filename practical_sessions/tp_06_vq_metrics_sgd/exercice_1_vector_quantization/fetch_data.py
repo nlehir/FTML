@@ -3,9 +3,10 @@ Fetch MNIST dataset
 Save a subset of the dataset to a local file.
 """
 
-import sklearn.datasets
 import os
+
 import numpy as np
+import sklearn.datasets
 
 
 def main():

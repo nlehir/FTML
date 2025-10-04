@@ -1,7 +1,8 @@
 """
-    Example review from the Stanford dataset
-    and the result of the same text after cleaning.
+Example review from the Stanford dataset
+and the result of the same text after cleaning.
 """
+
 from utils_data_processing import clean_text
 
 text = """Is it worth seeing? If you can look past the technical and budgetary limitations, and get into the story, I think you

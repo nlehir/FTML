@@ -1,26 +1,25 @@
 """
-    Download the 50K sentiment analysis dataset from Stanford
+Download the 50K sentiment analysis dataset from Stanford
 
-    https://ai.stanford.edu/~amaas/data/sentiment/
+https://ai.stanford.edu/~amaas/data/sentiment/
 
-    25000 train samples
-    25000 test samples
+25000 train samples
+25000 test samples
 """
 
+import codecs
 import os
-import tarfile
 import pickle
 import shutil
-import codecs
+import tarfile
 
-from sklearn.datasets._base import RemoteFileMetadata
-from sklearn.datasets._base import _fetch_remote, _pkl_filepath
 from sklearn.datasets import get_data_home, load_files
+from sklearn.datasets._base import RemoteFileMetadata, _fetch_remote, _pkl_filepath
 
 ARCHIVE = RemoteFileMetadata(
     filename="aclImdb_v1.tar.gz",
     url="http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz",
-    checksum=("c40f74a18d3b61f90feba1e17730e0d3" "8e8b97c05fde7008942e91923d1658fe"),
+    checksum=("c40f74a18d3b61f90feba1e17730e0d38e8b97c05fde7008942e91923d1658fe"),
 )
 
 CACHE_NAME = "imdb.pkz"

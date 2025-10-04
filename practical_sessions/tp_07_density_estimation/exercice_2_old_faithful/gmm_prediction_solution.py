@@ -1,13 +1,15 @@
 """
-    Use the Gaussian mixtures as a prediction tool
-    for the Old Faithful geyser dataset.
+Use the Gaussian mixtures as a prediction tool
+for the Old Faithful geyser dataset.
 
-    https://www.stat.cmu.edu/~larry/all-of-statistics/=data/faithful.dat
+https://www.stat.cmu.edu/~larry/all-of-statistics/=data/faithful.dat
 """
-import sys
-import numpy as np
+
 import os
+import sys
+
 import matplotlib.pyplot as plt
+import numpy as np
 from sklearn.mixture import GaussianMixture
 
 data = np.loadtxt("old_faithful.txt")

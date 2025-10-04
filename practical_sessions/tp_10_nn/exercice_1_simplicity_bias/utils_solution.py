@@ -1,6 +1,6 @@
 """
-    Utilities for application of SGD on the neural network.
-    Fix this file.
+Utilities for application of SGD on the neural network.
+Fix this file.
 """
 
 import numpy as np

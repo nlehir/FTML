@@ -1,5 +1,4 @@
 import numpy as np
-
 from constants import SIGMA
 
 
@@ -48,7 +47,7 @@ def OLS_estimator(X: np.ndarray, y: np.ndarray) -> np.ndarray:
         theta_hat: (d, n_repetitions) matrix, one column is one OLS estimator.
     """
     X_transpose = np.transpose(X, axes=(0, 2, 1))
-    covariance_matrices =  X_transpose @ X
+    covariance_matrices = X_transpose @ X
     inverse_covariance = np.linalg.inv(covariance_matrices)
     theta_hat = inverse_covariance @ (X_transpose @ y)
     return theta_hat
@@ -108,7 +107,6 @@ def ols_test_error(
         n_repetitions=n_repetitions,
     )
 
-
     # compute the OLS regression estimators
     # there will be one different estimator per
     # output vector y
@@ -116,7 +114,6 @@ def ols_test_error(
         X=X_train,
         y=y_train,
     )
-
 
     # test design matrix
     X_test = rng.uniform(low=0, high=1, size=(n_repetitions, n_train, d))

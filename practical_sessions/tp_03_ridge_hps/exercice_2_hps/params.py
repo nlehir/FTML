@@ -2,7 +2,6 @@
 Set the HP grids to use for grid search.
 """
 
-
 import json
 
 predictor = "SVC"
@@ -35,6 +34,7 @@ Display the grid.
 print(f"predictor: {predictor}")
 print("\nparameter grid:")
 from pprint import pp
+
 pp(grid)
 
 

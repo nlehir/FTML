@@ -1,6 +1,6 @@
 """
-    Utilities for application of SGD on the neural network.
-    Fix this file.
+Utilities for application of SGD on the neural network.
+Fix this file.
 """
 
 import numpy as np
@@ -21,9 +21,7 @@ def relu_derivative(x: np.ndarray) -> np.ndarray:
 
 
 def forward_pass(
-    X: np.ndarray,
-    wh: np.ndarray,
-    theta: np.ndarray
+    X: np.ndarray, wh: np.ndarray, theta: np.ndarray
 ) -> dict[str, np.ndarray]:
     """
     Compute the forward pass of a neural network with an output dimension

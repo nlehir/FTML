@@ -3,9 +3,10 @@ Study overfitting and variance of the test error estimation
 by monitoring the R2 train and test scores after subsampling the datasets
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
+import numpy as np
 from sklearn.linear_model import LinearRegression
 
 
@@ -21,11 +22,11 @@ def test_error_empirical_std(n_test, estimator, rng, X_test, y_test):
     test_scores = list()
     for _ in range(n_tests_to_compute_variance):
         X_test_subsampled, y_test_subsampled = downsample_dataset(
-                X=X_test,
-                y=y_test,
-                n=n_test,
-                rng=rng,
-                )
+            X=X_test,
+            y=y_test,
+            n=n_test,
+            rng=rng,
+        )
         test_scores.append(estimator.score(X_test_subsampled, y_test_subsampled))
     std = np.asarray(test_scores).std()
     return std
@@ -50,7 +51,7 @@ def study_test_error_empirical_std(estimator, rng, X_test, y_test, n_train):
     log_n_test = np.log10(n_test_list).reshape(len(n_test_list), 1)
     log_std = np.log10(std_list)
     linear_reg_std_log.fit(X=log_n_test, y=log_std)
-    # x_linear 
+    # x_linear
     y_pred_linear = linear_reg_std_log.predict(log_n_test)
     plt.plot(log_n_test, log_std, "o", alpha=0.7)
     text = f"linear regression on logs: {linear_reg_std_log.coef_.item():.2f}"
@@ -60,7 +61,7 @@ def study_test_error_empirical_std(estimator, rng, X_test, y_test, n_train):
     plt.ylabel("log10 of empirical standard deviation of the test error")
     # plt.yscale("log")
     # plt.xscale("log")
-    title = "Empirical standard deviation of the test error\n" f"n_train: {n_train}"
+    title = f"Empirical standard deviation of the test error\nn_train: {n_train}"
     plt.title(title)
     plt.savefig(f"std_{n_train=}.pdf")
     plt.close()
@@ -80,11 +81,11 @@ def study_overfitting(
     for n_train in n_train_list:
         print(f"{n_train=}")
         X_train_subsampled, y_train_subsampled = downsample_dataset(
-                X=X_train,
-                y=y_train,
-                n=n_train,
-                rng=rng,
-                )
+            X=X_train,
+            y=y_train,
+            n=n_train,
+            rng=rng,
+        )
         estimator = LinearRegression()
         estimator.fit(X_train_subsampled, y_train_subsampled)
         train_score = estimator.score(X_train_subsampled, y_train_subsampled)
@@ -118,11 +119,11 @@ def main():
     """
     n_train = 200
     X_train_subsampled, y_train_subsampled = downsample_dataset(
-            X=X_train,
-            y=y_train,
-            n=n_train,
-            rng=rng,
-            )
+        X=X_train,
+        y=y_train,
+        n=n_train,
+        rng=rng,
+    )
     estimator = LinearRegression()
     estimator.fit(X_train_subsampled, y_train_subsampled)
     study_test_error_empirical_std(

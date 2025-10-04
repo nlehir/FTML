@@ -108,7 +108,6 @@ def main():
         print(f"mean square error on training set: {train_error:.2E}")
         print(f"mean square error on test set: {test_error:.2E}")
 
-
     # plot test and train errors
     plt.plot(range(max_degree), train_errors, "o", label="train error", markersize=3)
     plt.plot(range(max_degree), test_errors, "x", label="test error", markersize=3)
@@ -125,6 +124,7 @@ def main():
     fig_name = f"train_test_error_std_{sigma:.3E}_{n_samples}_samples"
     fig_name = fig_name.replace(" ", "_")
     plt.savefig(f"{fig_name}.pdf")
+
 
 if __name__ == "__main__":
     main()

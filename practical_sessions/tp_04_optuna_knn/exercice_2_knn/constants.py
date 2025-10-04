@@ -1,7 +1,7 @@
 import numpy as np
 
 # number of neighbors
-k=2
+k = 2
 
 # number of tests for each choice of (n, d)
 n_test = 1000

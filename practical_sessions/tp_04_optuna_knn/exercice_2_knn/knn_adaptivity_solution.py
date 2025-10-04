@@ -1,24 +1,27 @@
 """
-    Observe a knn adaptivity: by adaptivity, we mean that 
-    the estimator automatically benefits by essence from a specific structure in the data.
+Observe a knn adaptivity: by adaptivity, we mean that
+the estimator automatically benefits by essence from a specific structure in the data.
 
-    Adaptivity is a good property of estimators, and we will
-    discuss it more in the course.
+Adaptivity is a good property of estimators, and we will
+discuss it more in the course.
 """
-import numpy as np
+
 import os
+
 import matplotlib.pyplot as plt
+import numpy as np
+from constants import k
 from scipy.optimize import curve_fit
 from sklearn.decomposition import PCA
 from utils_solutions import predict_knn
-from constants import k
 
 
-
-def knn(n_samples: int, x_data: np.ndarray, y_data: np.ndarray, x_data_test: np.ndarray) -> float:
+def knn(
+    n_samples: int, x_data: np.ndarray, y_data: np.ndarray, x_data_test: np.ndarray
+) -> float:
     """
-        Compute the test error of the knn predictor
-        for a given number of input samples.
+    Compute the test error of the knn predictor
+    for a given number of input samples.
     """
     print(f"\n{k} neighbors, {n_samples} samples")
     x_data_n = x_data[:n_samples]
@@ -27,7 +30,7 @@ def knn(n_samples: int, x_data: np.ndarray, y_data: np.ndarray, x_data_test: np.
     y_predictions = predict_knn(x_data_n, y_data_n, x_data_test)
     y_truth = np.linalg.norm(x_data_test, axis=1)
 
-    mean_squared_error = np.linalg.norm(y_predictions - y_truth)**2/n_tests
+    mean_squared_error = np.linalg.norm(y_predictions - y_truth) ** 2 / n_tests
     print(f"mean squared error {mean_squared_error:.2E}")
     return mean_squared_error
 
@@ -49,24 +52,27 @@ def main() -> None:
     for n_samples in n_list:
         mean_squared_errors.append(knn(n_samples, x_data, y_data, x_data_test))
 
-    plt.plot(n_list, mean_squared_errors, "o", label="mean squared error of knn estimator")
+    plt.plot(
+        n_list, mean_squared_errors, "o", label="mean squared error of knn estimator"
+    )
     plt.xscale("log")
     plt.yscale("log")
     plt.xlabel("number of samples")
     plt.ylabel("Mean squared error")
-    plt.title(f"knn, k={k}, d={d}")#\ndata on a subspace of dimension {support_dim}")
-
+    plt.title(f"knn, k={k}, d={d}")  # \ndata on a subspace of dimension {support_dim}")
 
     # find slope of error as a function of the number of samples
     log_x_n = np.log(n_list)
     log_mse = np.log(mean_squared_errors)
+
     def objective(x, slope, b):
         return slope * x + b
+
     popt, _ = curve_fit(objective, list(log_x_n), list(log_mse))
     slope, b = popt
     xx = np.linspace(min(n_list), max(n_list), num=10)
-    yy = np.power(xx, 1/slope)
-    zz = np.power(xx, -1/d)
+    yy = np.power(xx, 1 / slope)
+    zz = np.power(xx, -1 / d)
     print(f"slope: {slope:2f}")
     plt.plot(xx, yy, label=f"y=x^(1/{slope:.2f})")
     plt.plot(xx, zz, label=f"y=x^(-1/d)")
@@ -92,12 +98,13 @@ def main() -> None:
 
     variance_ratio = pca.explained_variance_ratio_
     nb_components = 20
-    plt.plot(range(1, nb_components+1),
-             np.cumsum(variance_ratio[:nb_components]), "o")
-    plt.xticks(range(1, nb_components+1))
+    plt.plot(
+        range(1, nb_components + 1), np.cumsum(variance_ratio[:nb_components]), "o"
+    )
+    plt.xticks(range(1, nb_components + 1))
     plt.title("variance in the PCA projected data")
-    plt.xlabel('number of components')
-    plt.ylabel('cumulative explained variance')
+    plt.xlabel("number of components")
+    plt.ylabel("cumulative explained variance")
     plt.savefig("images_knn/explained_variance.pdf")
 
 

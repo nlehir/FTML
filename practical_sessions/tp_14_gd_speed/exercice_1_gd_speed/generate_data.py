@@ -1,8 +1,7 @@
 import math
 
 import numpy as np
-
-from params import N, D
+from params import D, N
 
 n_list = [N]
 d_list = [D]
@@ -17,7 +16,7 @@ for n in n_list:
         # diagonal
         X = np.zeros((n, d))
         for j in range(d):
-            X[j, j] = 1/(j+1)
+            X[j, j] = 1 / (j + 1)
         np.save(f"data/X_diagonal_n={n}_d={d}", X)
 
         # random singular

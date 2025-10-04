@@ -1,20 +1,19 @@
 """
-    Recursive feature elimination (RFE) with logistic regression as estimator
+Recursive feature elimination (RFE) with logistic regression as estimator
 """
 
-from utils_data_processing import preprocess_imdb
 import os
-from sklearn.model_selection import cross_val_score
-import numpy as np
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.preprocessing import MaxAbsScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.pipeline import Pipeline
-from utils_data_processing import LinearPipeline
-from sklearn.feature_selection import RFE
-import utils
-from constants import NGRAM_RANGE, MIN_DF, NUM_JOBS
 
+import numpy as np
+import utils
+from constants import MIN_DF, NGRAM_RANGE, NUM_JOBS
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_selection import RFE
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_val_score
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import MaxAbsScaler
+from utils_data_processing import LinearPipeline, preprocess_imdb
 
 if __name__ == "__main__":
     traindata, _, testdata = preprocess_imdb(num_jobs=NUM_JOBS)
@@ -26,7 +25,6 @@ if __name__ == "__main__":
         )
     except RuntimeError as err:
         traindata, _, testdata = preprocess_imdb(num_jobs=NUM_JOBS)
-
 
         print("Vectorizing the data")
         vectorizer = CountVectorizer(ngram_range=NGRAM_RANGE, min_df=MIN_DF)

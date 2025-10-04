@@ -1,5 +1,5 @@
 """
-    Approximate a dataset with SGD on a one hidden layer neural network
+Approximate a dataset with SGD on a one hidden layer neural network
 """
 
 import math
@@ -8,8 +8,8 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
-
 from utils import compute_gradients, forward_pass
+
 # from utils_solution import compute_gradients, forward_pass
 
 data_folder = "data"

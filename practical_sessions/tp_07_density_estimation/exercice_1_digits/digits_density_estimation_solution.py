@@ -1,19 +1,21 @@
 """
-    Find the optimal number of components in order to 
-    estimate the density of the digits dataset.
+Find the optimal number of components in order to
+estimate the density of the digits dataset.
 
-    We score each number of components with the Akaike information
-    criterion.
+We score each number of components with the Akaike information
+criterion.
 
-    https://en.wikipedia.org/wiki/Akaike_information_criterion
+https://en.wikipedia.org/wiki/Akaike_information_criterion
 
-    https://scikit-learn.org/stable/modules/generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture
+https://scikit-learn.org/stable/modules/generated/sklearn.mixture.GaussianMixture.html#sklearn.mixture.GaussianMixture
 """
-from sklearn.datasets import load_digits
+
+import os
+
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn.datasets import load_digits
 from sklearn.mixture import GaussianMixture
-import os
 
 digits = load_digits()
 X_train = digits.data
@@ -66,7 +68,7 @@ def main() -> None:
     n_cols = int(np.sqrt(nb_components))
     for n in range(nb_components):
         plt.subplot(n_rows, n_cols, n + 1, xticks=[], yticks=[])
-        __import__('ipdb').set_trace()
+        __import__("ipdb").set_trace()
         plt.imshow(
             np.reshape(GMM.means_[n, :], newshape=(8, 8)),
             cmap="gray_r",
@@ -93,7 +95,10 @@ def main() -> None:
     for n in range(nb_generated):
         plt.subplot(n_rows, n_cols, n + 1, xticks=[], yticks=[])
         plt.imshow(
-            np.reshape(data_new_X[n, :], newshape=(8,8)), cmap="gray_r", vmin=0, vmax=16
+            np.reshape(data_new_X[n, :], newshape=(8, 8)),
+            cmap="gray_r",
+            vmin=0,
+            vmax=16,
         )
     title = (
         "Images generated with the GMM"
@@ -101,7 +106,9 @@ def main() -> None:
         f"\n{covariance_type} covariance"
     )
     plt.suptitle(title)
-    fig_name = f"generated_images_{nb_components}_components_{covariance_type}_covariance.pdf"
+    fig_name = (
+        f"generated_images_{nb_components}_components_{covariance_type}_covariance.pdf"
+    )
     fig_path = os.path.join("images", fig_name)
     plt.savefig(fig_path)
 

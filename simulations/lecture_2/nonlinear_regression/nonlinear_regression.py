@@ -1,7 +1,7 @@
 """
-    File illustrating the analysis of a time series.
-    The time series stores measurements of the level
-    of tide as a function of time.
+File illustrating the analysis of a time series.
+The time series stores measurements of the level
+of tide as a function of time.
 """
 
 import csv
@@ -86,7 +86,7 @@ def fit_sinus(X, y):
         return A * np.sin(w * new_time + phi) + offset
 
     print(f"amplitude : {A}")
-    print(f"period : {1./f}")
+    print(f"period : {1.0 / f}")
     print(f"offset : {offset}")
 
     return fitted_function

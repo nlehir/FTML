@@ -1,47 +1,49 @@
 """
-    Goal: obsevrve curse of dimensionality for local averaging
-    with nearest neighbors algorithm, on a dataset uniformly
-    sampled in the input space R^d.
+Goal: obsevrve curse of dimensionality for local averaging
+with nearest neighbors algorithm, on a dataset uniformly
+sampled in the input space R^d.
 
-    The target function to predict is the euclidean norm on R^d,
-    but you may also try other functions.
+The target function to predict is the euclidean norm on R^d,
+but you may also try other functions.
 
-    If epsilon is the order of magnitude of the approximation error,
-    we have epsilon=O(n^{-1/d})
+If epsilon is the order of magnitude of the approximation error,
+we have epsilon=O(n^{-1/d})
 
-    hence, log epsilon = O( -1/d * log n )
+hence, log epsilon = O( -1/d * log n )
 
-    The function knn_d_n() and predict() should be edited.
+The function knn_d_n() and predict() should be edited.
 """
-import numpy as np
+
 import os
+
 import matplotlib.pyplot as plt
+import numpy as np
+from constants import d_list, k, n_samples_list, n_test, rng
 from scipy.spatial.distance import cdist
-from constants import k, n_test, n_samples_list, rng, d_list
 
 
 def predict(x_data: np.ndarray, y_data: np.ndarray, x_test: np.ndarray) -> np.ndarray:
     """
-        Predict with knn estimation
+    Predict with knn estimation
 
-        Parameters:
-            x_data (float matrix): (n_samples, d) samples in input space
-            y_data (float vector): (n_samples, 1) values of the target function (labels)
-            (here, it is the euclidean norm, for these samples)
-            x_test (float matrix): (n_test, d) data for which we
-            predict a value based on the dataset.
+    Parameters:
+        x_data (float matrix): (n_samples, d) samples in input space
+        y_data (float vector): (n_samples, 1) values of the target function (labels)
+        (here, it is the euclidean norm, for these samples)
+        x_test (float matrix): (n_test, d) data for which we
+        predict a value based on the dataset.
 
-        Returns:
-            y_predictions (float matrix): predictions for the data
-            in x_test.
-            y_predictions must be of shape (n_test,)
+    Returns:
+        y_predictions (float matrix): predictions for the data
+        in x_test.
+        y_predictions must be of shape (n_test,)
 
-        The samples are called "data" instead of "train" because there
-        is no training involved here !
+    The samples are called "data" instead of "train" because there
+    is no training involved here !
 
-        You need to edit this function.
-        You can use cdist from scipy.
-        https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html
+    You need to edit this function.
+    You can use cdist from scipy.
+    https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html
 
     """
     return 1
@@ -49,17 +51,17 @@ def predict(x_data: np.ndarray, y_data: np.ndarray, x_test: np.ndarray) -> np.nd
 
 def knn_d_n(n_samples: int, d: int) -> tuple[float, float]:
     """
-        Run knn simulation for (n, d) fixed by generating samples
-        and computing the test error of a knn predictor.
+    Run knn simulation for (n, d) fixed by generating samples
+    and computing the test error of a knn predictor.
 
-        Parameters:
-            n_samples: number of samples in dataset
-            d: dimension of the input space
+    Parameters:
+        n_samples: number of samples in dataset
+        d: dimension of the input space
 
-        Returns:
-            mean_squared_test_error, maximum_test_error
+    Returns:
+        mean_squared_test_error, maximum_test_error
 
-        Edit this function.
+    Edit this function.
     """
     # generate a random dataset
     # uniformly sampled un the input space
@@ -71,17 +73,17 @@ def knn_d_n(n_samples: int, d: int) -> tuple[float, float]:
 
 def knn_d(d, ax_mean, ax_max) -> None:
     """
-        For some fixed dimension d,
-        run knn for several number of samples in the dataset,
-        in order to monitor the evolution of the test error as a function of
-        the number of samples.
+    For some fixed dimension d,
+    run knn for several number of samples in the dataset,
+    in order to monitor the evolution of the test error as a function of
+    the number of samples.
 
-        Both the mean test error and the maximum test error are plotted.
+    Both the mean test error and the maximum test error are plotted.
 
-        Parameters:
-            d (integer): dimension of the input space
-            ax_mean, ax_max : python subplots used
-            to show the results.
+    Parameters:
+        d (integer): dimension of the input space
+        ax_mean, ax_max : python subplots used
+        to show the results.
     """
     mean_squared_errors = list()
     max_errors = list()
@@ -120,7 +122,10 @@ def main() -> None:
     fig.suptitle(f"knn, k={k}")
     fig.set_tight_layout(True)
     fig_name = f"knn_k={k}_ntest={n_test}.pdf"
-    fig_path = os.path.join("images", fig_name,)
+    fig_path = os.path.join(
+        "images",
+        fig_name,
+    )
     fig.savefig(fig_path)
 
 

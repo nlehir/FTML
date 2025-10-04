@@ -5,6 +5,8 @@ with this method.
 """
 
 import numpy as np
+from data_loading import dataset, load_data, shuffle_data
+from params import grid, n_splits, nb_tests, test_size
 from sklearn.model_selection import (
     KFold,
     ParameterGrid,
@@ -12,9 +14,6 @@ from sklearn.model_selection import (
     train_test_split,
 )
 from sklearn.svm import SVC
-
-from data_loading import dataset, load_data, shuffle_data
-from params import grid, n_splits, nb_tests, test_size
 
 
 def cross_validation(X, y, test_size, n_splits) -> None:

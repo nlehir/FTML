@@ -1,13 +1,13 @@
 """
-    Define a target function
-    and generate data
+Define a target function
+and generate data
 """
+
 import math
 import os
 
 import matplotlib.pyplot as plt
 import numpy as np
-
 from constants import M_TARGET, N_SAMPLES, SIGMA
 from utils import forward_pass
 

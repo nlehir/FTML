@@ -1,7 +1,9 @@
-import numpy as np
 from time import time
 
+import numpy as np
+
 ALPHA = 0.3
+
 
 def gamma_line_search(H: np.ndarray, gradient: np.ndarray) -> float:
     """
@@ -39,7 +41,7 @@ def line_search(
     reached = False
     total_time = 0
     for iteration in range(1, n_iterations + 1):
-        if iteration % (n_iterations//10)==0:
+        if iteration % (n_iterations // 10) == 0:
             print(f"iteration {iteration}/{n_iterations}")
         distance_to_opt = np.linalg.norm(theta_LS - theta_hat) ** 2
         LS_squared_distances_to_opt.append(distance_to_opt)
@@ -52,7 +54,7 @@ def line_search(
             print(f"iteration to reach distance of {tol}: {iteration}")
             total_time = toc - tic
             print(f"time to reach distance of {tol}: {total_time:.1E}")
-            final_iteration =  iteration
+            final_iteration = iteration
             break
 
     if reached:
@@ -90,7 +92,7 @@ def gradient_descent(
     reached = False
     total_time = 0
     for iteration in range(1, n_iterations + 1):
-        if iteration % (n_iterations//10)==0:
+        if iteration % (n_iterations // 10) == 0:
             print(f"iteration {iteration}/{n_iterations}")
         distance_to_opt = np.linalg.norm(theta_GD - theta_hat) ** 2
         GD_squared_distances_to_opt.append(distance_to_opt)
@@ -101,7 +103,7 @@ def gradient_descent(
             print(f"iteration to reach distance of {tol}: {iteration}")
             total_time = toc - tic
             print(f"time to reach distance of {tol}: {total_time:.1E}")
-            final_iteration =  iteration
+            final_iteration = iteration
             break
 
     if reached:

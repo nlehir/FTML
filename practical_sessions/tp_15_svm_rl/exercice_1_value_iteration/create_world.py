@@ -1,6 +1,7 @@
 """
 generate a simple world to study value iteration
 """
+
 import os
 
 import matplotlib.pyplot as plt

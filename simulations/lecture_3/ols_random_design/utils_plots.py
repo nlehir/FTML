@@ -6,7 +6,6 @@ If you prefer, you can also start from scratch and write your own functions.
 import os
 
 import matplotlib.pyplot as plt
-
 from constants import BAYES_RISK, SIGMA
 
 
@@ -27,7 +26,9 @@ def plot_test_errors_ols(
         print(f"d={d}")
         color = colors[index]
         risk_estimates = [test_errors[n, d] for n in n_list]
-        risks_theory = [BAYES_RISK + SIGMA**2 * d / n * (1/(1-(d+1)/n)) for n in n_list]
+        risks_theory = [
+            BAYES_RISK + SIGMA**2 * d / n * (1 / (1 - (d + 1) / n)) for n in n_list
+        ]
         alpha = 0.6
         # extended label for the first ont
         if index == 0:

@@ -1,6 +1,6 @@
 """
-    Assess the quality of the clustering using the inertia knee criterion
-    https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html
+Assess the quality of the clustering using the inertia knee criterion
+https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html
 """
 
 import os

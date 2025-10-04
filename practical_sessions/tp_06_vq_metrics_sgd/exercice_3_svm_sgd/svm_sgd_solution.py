@@ -1,10 +1,12 @@
 """
-    Assess the impact of data scaling on the quality of a linear separator
-    obtained by SGD.
+Assess the impact of data scaling on the quality of a linear separator
+obtained by SGD.
 
-    https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html
+https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html
 """
+
 import os
+
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.linear_model import SGDClassifier
@@ -38,7 +40,7 @@ def test_classifier(
     y_train,
     coefs,
     intercept,
-    classifier_name
+    classifier_name,
 ) -> None:
     """
     Function used in order to test the quality of the classifier
@@ -47,7 +49,7 @@ def test_classifier(
     # evaluate the quality of the estimator using the labels
     # on the test set
     classifier_score = classifier.score(X_test, y_test)
-    print(classifier_name + colored(f", score={100*classifier_score:.2f} %", "blue"))
+    print(classifier_name + colored(f", score={100 * classifier_score:.2f} %", "blue"))
 
     # produce a visualization of the quality of the estimator
     plt.scatter(
@@ -70,7 +72,6 @@ def test_classifier(
         edgecolor="black",
         s=20,
     )  # marker size
-
 
     """
     Plot the found linear separator
@@ -96,7 +97,7 @@ def test_classifier(
     xlim_left = min(x_data)
     xlim_right = max(x_data)
     x_plot = np.linspace(xlim_left, xlim_right, x_data.shape[0])
-    y_plot = -(b+a_1*x_plot)/a_2
+    y_plot = -(b + a_1 * x_plot) / a_2
     plt.plot(x_plot, y_plot, "-", color="green", label="linear separator")
     plt.legend(loc="best")
 
@@ -104,7 +105,7 @@ def test_classifier(
     plt.axis("tight")
     title = (
         f"{dataset}\n{classifier_name}\n"
-        f"score on test set {100*classifier_score:.2f} %"
+        f"score on test set {100 * classifier_score:.2f} %"
     )
     plt.title(title)
     figname = f"prediction_test_set_{dataset}_{classifier_name}.pdf"

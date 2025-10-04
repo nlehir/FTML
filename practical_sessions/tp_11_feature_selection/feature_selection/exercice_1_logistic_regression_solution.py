@@ -1,31 +1,27 @@
 """
-    Learn a baseline estimator.
+ Learn a baseline estimator.
 
-    We build a Pipeline that contains
-   - a one-hot encoding of the data
-   - a scaling of the data
-   - a logistic regression
+ We build a Pipeline that contains
+- a one-hot encoding of the data
+- a scaling of the data
+- a logistic regression
 
-   The one-hot encoding part has some important parameters, about which
-   you can find more info in the doc.
-   -  ngram range: choice of the length of the ngrams that are used in the
-      CountVectorizer. A possible choice is to use
-   the value ngram_range = (1, 2), but you may experiment with other values.
-   -  min_df: minimum number of documents or document frequency for a word to be 
-   kept in the dicitonary.
+The one-hot encoding part has some important parameters, about which
+you can find more info in the doc.
+-  ngram range: choice of the length of the ngrams that are used in the
+   CountVectorizer. A possible choice is to use
+the value ngram_range = (1, 2), but you may experiment with other values.
+-  min_df: minimum number of documents or document frequency for a word to be
+kept in the dicitonary.
 """
 
-from utils_data_processing import preprocess_imdb
+from constants import MIN_DF, NGRAM_RANGE, NUM_JOBS
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.preprocessing import MaxAbsScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import MaxAbsScaler
 from utils import save_vocabulary
-
-from constants import NGRAM_RANGE, MIN_DF, NUM_JOBS
-
-
-
+from utils_data_processing import preprocess_imdb
 
 if __name__ == "__main__":
     """

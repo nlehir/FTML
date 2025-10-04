@@ -1,13 +1,15 @@
 """
-    Use the Gaussian mixtures as a prediction tool
-    for the Old Faithful geyser dataset.
+Use the Gaussian mixtures as a prediction tool
+for the Old Faithful geyser dataset.
 
-    https://www.stat.cmu.edu/~larry/all-of-statistics/=data/faithful.dat
+https://www.stat.cmu.edu/~larry/all-of-statistics/=data/faithful.dat
 """
-import sys
-import numpy as np
+
 import os
+import sys
+
 import matplotlib.pyplot as plt
+import numpy as np
 from sklearn.mixture import GaussianMixture
 
 data = np.loadtxt("old_faithful.txt")
@@ -67,7 +69,6 @@ def main() -> None:
     fig_path = os.path.join("images", fig_name)
     plt.savefig(fig_path)
 
-
     """
     EDIT FROM HERE
     """
@@ -77,6 +78,7 @@ def main() -> None:
     # fit a gmm with this optimal number of components
 
     # compute the predictions for a sequence of x values
+
 
 if __name__ == "__main__":
     main()

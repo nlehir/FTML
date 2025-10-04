@@ -4,7 +4,6 @@ If you prefer, you can also start from scratch and write your own functions.
 """
 
 import numpy as np
-
 from constants import SIGMA
 
 

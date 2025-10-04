@@ -1,18 +1,19 @@
 """
-    Recursive feature elimination (RFE) with logistic regression as estimator
+Recursive feature elimination (RFE) with logistic regression as estimator
 """
 
-from utils_data_processing import preprocess_imdb, LinearPipeline
 import os
-from sklearn.model_selection import cross_val_score
+
 import numpy as np
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.preprocessing import MaxAbsScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.pipeline import Pipeline
-from sklearn.feature_selection import RFE
 import utils
-from constants import NGRAM_RANGE, MIN_DF, NUM_JOBS
+from constants import MIN_DF, NGRAM_RANGE, NUM_JOBS
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_selection import RFE
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_val_score
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import MaxAbsScaler
+from utils_data_processing import LinearPipeline, preprocess_imdb
 
 C = 0.5
 FINAL_NB_FEATURES = 10000
@@ -53,6 +54,9 @@ if __name__ == "__main__":
     classifier = Pipeline(
         [("scaler", MaxAbsScaler()), ("clf", LogisticRegression(solver="liblinear"))]
     )
+    """
+    TODO: justify use of LinearPipeline
+    """
     classifier = LinearPipeline(classifier, "clf")
 
     selector = RFE(

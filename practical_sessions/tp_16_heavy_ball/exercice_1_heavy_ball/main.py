@@ -1,27 +1,26 @@
 """
-    Gradient descent (GD) on a strongly convex
-    loss function.
-    The design matrix is randomly generated.
+Gradient descent (GD) on a strongly convex
+loss function.
+The design matrix is randomly generated.
 
-    Compare the GD speed with the theoretical bound found for strongly convex
-    functions.
+Compare the GD speed with the theoretical bound found for strongly convex
+functions.
 
 """
+
 import os
 from time import time
 
 import matplotlib.pyplot as plt
 import numpy as np
-
-from utils import generate_output_data
-
 from algorithms import (
-        gradient_descent,
-        upper_bound,
-        heavy_ball,
-        line_search,
-        OLS_estimator,
-        )
+    OLS_estimator,
+    gradient_descent,
+    heavy_ball,
+    line_search,
+    upper_bound,
+)
+
 # from algorithms_solutions import (
 #         gradient_descent,
 #         upper_bound,
@@ -30,6 +29,7 @@ from algorithms import (
 #         OLS_estimator,
 #         )
 from params import MATRIX_TYPE
+from utils import generate_output_data
 
 GAMMAS = [0.01]
 GAMMAS = list()
@@ -38,12 +38,13 @@ NUMBER_OF_ITERATIONS = 10000
 TOL = 1e-7
 FONTSIZE = 10
 COLORS = [
-        "blue",
-        "orange",
-        "green",
-        "red",
-        "magenta",
-        ]
+    "blue",
+    "orange",
+    "green",
+    "red",
+    "magenta",
+]
+
 
 def load_data(n, d, matrix_type):
     """
@@ -74,7 +75,6 @@ def main() -> None:
     X = np.load(X_path)
     y = np.load(y_path)
 
-
     # generate output data
     n, d = X.shape
     sigma = 0
@@ -85,15 +85,15 @@ def main() -> None:
     """
     Compute the OLS estimator and the Hessian
     """
-    tic  =  time()
+    tic = time()
     theta_hat = OLS_estimator(X, y)
-    toc  =  time()
+    toc = time()
     ols_time = toc - tic
     print(f"OLS time {ols_time:1E}")
     H = 1 / n * np.transpose(X) @ X
     eigenvalues, _ = np.linalg.eig(H)
     L = eigenvalues.max()
-    GAMMAS.append(1/L)
+    GAMMAS.append(1 / L)
     mu = eigenvalues.min()
     kappa = L / mu
 
@@ -102,6 +102,7 @@ def main() -> None:
     print(f"kappa: {kappa}")
 
     import math
+
     gamma_HB = 4 / (math.sqrt(L) + math.sqrt(mu)) ** 2
     beta = ((math.sqrt(L) - math.sqrt(mu)) / (math.sqrt(L) + math.sqrt(mu))) ** 2
 
@@ -111,70 +112,70 @@ def main() -> None:
     theta_0 = np.zeros((d, 1))
     for index, gamma in enumerate(GAMMAS):
         print(f"\nGradient descent with gamma {gamma}")
-        gamma_from_H = True if index == len(GAMMAS)-1 else False
+        gamma_from_H = True if index == len(GAMMAS) - 1 else False
         gradient_descent(
-                X=X,
-                H=H,
-                y=y,
-                theta_hat=theta_hat,
-                gamma=gamma,
-                n_iterations=NUMBER_OF_ITERATIONS,
-                ax_linear=ax_linear,
-                ax_log=ax_log,
-                tol=TOL,
-                color=COLORS[color_index],
-                theta_0=theta_0,
-                gamma_from_H=gamma_from_H,
-                )
+            X=X,
+            H=H,
+            y=y,
+            theta_hat=theta_hat,
+            gamma=gamma,
+            n_iterations=NUMBER_OF_ITERATIONS,
+            ax_linear=ax_linear,
+            ax_log=ax_log,
+            tol=TOL,
+            color=COLORS[color_index],
+            theta_0=theta_0,
+            gamma_from_H=gamma_from_H,
+        )
         color_index += 1
 
     upper_bounds = upper_bound(
-            theta_0=theta_0,
-            theta_hat=theta_hat,
-            H=H,
-            n_iterations=NUMBER_OF_ITERATIONS,
-            )
+        theta_0=theta_0,
+        theta_hat=theta_hat,
+        H=H,
+        n_iterations=NUMBER_OF_ITERATIONS,
+    )
     label = (
-            "upper bound "
-            r"$\exp(\frac{-2t}{\kappa})$"
-            )
+        "upper bound "
+        r"$\exp(\frac{-2t}{\kappa})$"
+    )
     ax_linear.plot(upper_bounds, label=label)
     ax_log.plot(upper_bounds, label=label)
 
     heavy_ball(
-            X=X,
-            H=H,
-            y=y,
-            theta_hat=theta_hat,
-            gamma=gamma_HB,
-            beta=beta,
-            n_iterations=NUMBER_OF_ITERATIONS,
-            ax_linear=ax_linear,
-            ax_log=ax_log,
-            tol=TOL,
-            color=COLORS[color_index],
-            theta_0=theta_0,
-            )
+        X=X,
+        H=H,
+        y=y,
+        theta_hat=theta_hat,
+        gamma=gamma_HB,
+        beta=beta,
+        n_iterations=NUMBER_OF_ITERATIONS,
+        ax_linear=ax_linear,
+        ax_log=ax_log,
+        tol=TOL,
+        color=COLORS[color_index],
+        theta_0=theta_0,
+    )
 
     print(f"\nLine search")
     line_search(
-            X=X,
-            H=H,
-            y=y,
-            theta_hat=theta_hat,
-            n_iterations=NUMBER_OF_ITERATIONS,
-            ax_linear=ax_linear,
-            ax_log=ax_log,
-            tol=TOL,
-            color=COLORS[color_index],
-            )
+        X=X,
+        H=H,
+        y=y,
+        theta_hat=theta_hat,
+        n_iterations=NUMBER_OF_ITERATIONS,
+        ax_linear=ax_linear,
+        ax_log=ax_log,
+        tol=TOL,
+        color=COLORS[color_index],
+    )
     title = (
-        'Gradient descent: squared distance to the OLS estimator\n'
+        "Gradient descent: squared distance to the OLS estimator\n"
         r"$||\theta-\hat{\theta}||^2$"
         f"\nn={n}, d={d}\n"
         f"{MATRIX_TYPE} matrix\n"
         f"OLS time: {ols_time:.1E}"
-            )
+    )
     fig.suptitle(title)
     ax_linear.set_title("Linear scale")
     ax_linear.set_ylabel(r"$||\theta-\hat{\theta}||^2$")

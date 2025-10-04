@@ -1,27 +1,29 @@
 """
-    Observe a knn adaptivity: by adaptivity, we mean that 
-    the estimator automatically benefits by essence from a specific structure in the data.
+Observe a knn adaptivity: by adaptivity, we mean that
+the estimator automatically benefits by essence from a specific structure in the data.
 
-    Adaptivity is a good property of estimators, and we will
-    discuss it more in the course.
+Adaptivity is a good property of estimators, and we will
+discuss it more in the course.
 """
-import numpy as np
+
 import os
+
 import matplotlib.pyplot as plt
+import numpy as np
+from constants import k
+from knn_1 import predict
 from scipy.optimize import curve_fit
 from sklearn.decomposition import PCA
-from knn_1 import predict
-from constants import k
 
 
-
-def knn(n_samples: int, x_data: np.ndarray, y_data: np.ndarray, x_data_test: np.ndarray) -> float:
+def knn(
+    n_samples: int, x_data: np.ndarray, y_data: np.ndarray, x_data_test: np.ndarray
+) -> float:
     """
-        Compute the test error of the knn predictor
-        for a given number of input samples.
+    Compute the test error of the knn predictor
+    for a given number of input samples.
     """
     return 1
-
 
 
 def main() -> None:

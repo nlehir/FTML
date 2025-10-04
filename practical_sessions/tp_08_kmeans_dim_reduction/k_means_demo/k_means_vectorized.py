@@ -1,6 +1,7 @@
 """
-    Perform the k-means algorithm (unsupervised learning)
+Perform the k-means algorithm (unsupervised learning)
 """
+
 import os
 
 import matplotlib.pyplot as plt
@@ -32,13 +33,12 @@ def main(nbs_of_iterations: int) -> None:
     print("initial centroid positions")
     print(f"centroids: {centroids}")
 
-
     for iteration in range(nbs_of_iterations):
         print(f"\niteration: {iteration}")
 
-        diff_0 = data-centroids[0]
-        diff_1 = data-centroids[1]
-        diff_2 = data-centroids[2]
+        diff_0 = data - centroids[0]
+        diff_1 = data - centroids[1]
+        diff_2 = data - centroids[2]
 
         dist_0 = np.linalg.norm(diff_0, axis=1)
         dist_1 = np.linalg.norm(diff_1, axis=1)
