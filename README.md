@@ -1,5 +1,5 @@
 # Fondamentaux théoriques du machine learning / Python & machine learning
-This repository contains material for Epita students of the 2025 FTML course.
+This repository contains material for Epita students of the 2026 FTML course.
 
 ## Content of the repository
 
