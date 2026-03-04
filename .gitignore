@@ -30,3 +30,13 @@ README_backup.md
 project/Bonus.pdf
 
 plan.txt
+
+practical_sessions/tp_01_train_test_overfitting/1_empirical_risk/images/datasets/*.pdf
+practical_sessions/tp_01_train_test_overfitting/1_empirical_risk/data/*.npy
+practical_sessions/tp_01_train_test_overfitting/1_empirical_risk/images/polynomial_regression/*.pdf
+practical_sessions/tp_01_train_test_overfitting/1_empirical_risk/images/*.pdf
+practical_sessions/tp_01_train_test_overfitting/1_empirical_risk/main_optimal_params_solution.py
+practical_sessions/tp_01_train_test_overfitting/1_empirical_risk/main_polynomial_regression.py
+practical_sessions/tp_01_train_test_overfitting/1_empirical_risk/utils_solution.py
+practical_sessions/tp_01_train_test_overfitting/1_empirical_risk/main_scikit.py
+practical_sessions/tp_01_train_test_overfitting/solutions/
