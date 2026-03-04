@@ -10,7 +10,6 @@ opencv-python
 optuna
 optuna-dashboard
 pandas
-pudb
 scikit-learn
 scipy
 seaborn
