@@ -11,11 +11,10 @@ import numpy as np
 
 # from utils_solution import empirical_risk
 from constants import STD_NOISE
+from mse import mse
+from termcolor import colored
 from utils import empirical_risk
 from utils_files import load_data
-from termcolor import colored
-
-from mse import mse
 
 
 def main() -> None:
@@ -46,7 +45,7 @@ def main() -> None:
             theta=theta,
             b=b,
             y_true=y_train,
-                )
+        )
         if train_error < best_train_error:
             best_train_error = train_error
             best_theta = theta
@@ -82,7 +81,7 @@ def main() -> None:
         theta=best_theta,
         b=best_b,
         y_true=y_test,
-            )
+    )
     print(
         "\n--------"
         f"\nbest theta:          {best_theta:.2f}"

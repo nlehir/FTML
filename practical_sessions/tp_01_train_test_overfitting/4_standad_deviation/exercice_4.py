@@ -1,4 +1,4 @@
-4"""
+"""
 Study overfitting and variance of the test error estimation
 by monitoring the R2 train and test scores after subsampling the datasets
 """
