@@ -35,3 +35,6 @@ Example simulations that will be useful for the class.
 
 Slides for the lectures, will also be updated along the duration
 of the course.
+
+
+this is a test
