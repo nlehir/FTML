@@ -6,7 +6,6 @@ and plot the prediction made by this estimator.
 import os
 
 import matplotlib.pyplot as plt
-import numpy as np
 
 # from utils_solution import empirical_risk
 from constants import STD_NOISE

@@ -5,8 +5,6 @@ Evaluate the quality of randomly drawn parameters for a
 The function empirical_risk() must be completed in utils.py
 """
 
-import os
-
 import numpy as np
 
 # from utils_solution import empirical_risk
