@@ -64,7 +64,12 @@ def plot_polynom_sample(polynom, x_train, y_train, test_error, train_error):
     to the training set
     """
     degree = len(polynom) - 1
-    title = f"Polynomial fit on training set, degree={degree}\ntrain error {train_error:.2E}, test error {test_error:.2E}\nnoise std {sigma}"
+    title = (
+        f"Polynomial fit on training set, "
+        f", degree={degree}"
+        f"train error {train_error:.2E}, test error {test_error:.2E}"
+        f"\nnoise std {sigma}"
+    )
     filename = f"Fit_degree_{degree}.pdf"
     x_plot = np.linspace(xlim_left, xlim_right, 500)
     # training set
