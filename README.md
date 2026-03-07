@@ -18,8 +18,7 @@ of the couse.
 
 ### practical_sessions/
 
-Instructions for the practical sessions, with the solutions uploaded after the
-relevant session.
+Instructions for the practical sessions, with the solutions uploaded after the relevant session.
 
 These subfolders will be updated before each session.
 
