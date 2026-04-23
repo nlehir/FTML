@@ -64,7 +64,7 @@ def plot_test_errors_ols(
     )
 
     # finish plot
-    plt.xlabel("number of sampler in the train set")
+    plt.xlabel("number of samples in the train set")
     plt.ylabel("test error")
     plt.title(
         f"OLS: test errors as a function of n and d\nn repetitions {n_repetitions}"
