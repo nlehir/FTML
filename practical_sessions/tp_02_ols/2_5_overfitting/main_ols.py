@@ -11,20 +11,6 @@ from utils_algo import ols_test_error
 # from utils_algo import ols_test_error
 from utils_plots import plot_test_errors_ols
 
-# FIX
-
-# FIX
-
-# TODO
-
-# FIX
-
-# FIX
-
-# FIX
-
-# FIX
-
 
 def main() -> None:
     # dimensions of the problem
