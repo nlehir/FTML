@@ -10,8 +10,8 @@ witness the benefits of using Ridge regression.
 import numpy as np
 
 
-# from utils_algo import ridge_test_error
-from utils_algo_solution import ridge_test_error
+from utils_algo import ridge_test_error
+# from utils_algo_solution import ridge_test_error
 from utils_plots import plot_test_errors_ridge
 
 
