@@ -11,8 +11,8 @@ from utils_algo_solution import ols_test_error
 
 from utils_plots import plot_test_errors_ols
 
-STATISTICAL_SETTING = "random_design_gaussian"
-# STATISTICAL_SETTING = "fixed_design_gaussian"
+# STATISTICAL_SETTING = "random_design_gaussian"
+STATISTICAL_SETTING = "fixed_design_gaussian"
 
 
 def main() -> None:
