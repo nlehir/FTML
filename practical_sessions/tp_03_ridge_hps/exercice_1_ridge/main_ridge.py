@@ -22,9 +22,9 @@ def main() -> None:
     d_list = [10, 20, 30, 40]
     # d_list = [40]
     # number of tests to estimate the excess risk
-    # n_repetitions_list = [10, 100, 1000, 10000, 100000]
+    n_repetitions_list = [10, 100, 1000]
     # n_repetitions_list = [10000]
-    n_repetitions_list = [100000]
+    # n_repetitions_list = [100000]
 
     exponents = np.arange(-5, 5, 0.5)
     lambda_list = [10 ** (u) for u in exponents]
