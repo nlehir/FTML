@@ -28,6 +28,13 @@ def ols_test_error(
         n_repetitions (int): number of simulations run in order to average the
         results
 
+    n_repetitions times, do:
+        - generate a train set of length n_train, according to the linear model, fixed
+        design setup.
+        - compute the corresponding OLS estimator
+        - generate a test set of length n_tests in order to have an estimation of the excess risk of
+        this estimator (generalization error)
+
     Returns:
         mean_test_error (float): estimation of the generalization error of the OLS
         estimator in this statistical setting

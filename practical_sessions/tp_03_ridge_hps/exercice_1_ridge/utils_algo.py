@@ -39,12 +39,15 @@ def ridge_test_error(
     The design matrix X can be generated uniformly
     (it is not necessary to use generate_low_rank_design_matrix())
 
-    n_test times, do:
-        - Draw output vector y, according to the linear model, fixed
+    n_repetitions times, do:
+        - generate a train set of length n_train, according to the linear model, fixed
         design setup.
         - compute the corresponding Ridge estimator
-        - generate a test set in order to have an estimation of the excess risk of
+        - generate a test set of length n_tests in order to have an estimation of the excess risk of
         this estimator (generalization error)
+
+    theta_star_type: optional argument  to try various methods of theta_star_type
+    design_matrix_type: optional argument to try various design matrices X
 
     Parameters:
         n (int): number of samples in the dataset
