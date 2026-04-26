@@ -14,6 +14,7 @@ def plot_test_errors_ols(
     n_list: list[int],
     d_list: list[int],
     n_repetitions: int,
+    statistical_setting: str,
 ):
     """
     Display all the computed test_errors on a plot
@@ -26,12 +27,29 @@ def plot_test_errors_ols(
         print(f"d={d}")
         color = colors[index]
         risk_estimates = [test_errors[n, d] for n in n_list]
-        risks_theory = [BAYES_RISK + SIGMA**2 * d / n for n in n_list]
+        if statistical_setting == "fixed_design_gaussian":
+            risks_theory = [BAYES_RISK + SIGMA**2 * d / n for n in n_list]
+        elif statistical_setting == "random_design_gaussian":
+            risks_theory = [
+                BAYES_RISK + (SIGMA**2 * d / n) * (1 / (1 - (d + 1) / n))
+                for n in n_list
+            ]
+        else:
+            messsage = (
+                f"Unknown statistical_setting {statistical_setting}! "
+                "Should be one of 'random_design_gaussian', 'fixed_design_gaussian'"
+            )
+            raise ValueError(messsage)
         alpha = 0.6
         # extended label for the first ont
         if index == 0:
             label_est = f"test error, d={d}"
-            label_th = r"$\sigma^2+\frac{\sigma^2d}{n}$" + f", d={d}"
+            if statistical_setting == "fixed_design_gaussian":
+                label_th = r"$\sigma^2+\frac{\sigma^2d}{n}$" + f", d={d}"
+            elif statistical_setting == "random_design_gaussian":
+                label_th = (
+                    r"$\sigma^2+\frac{\sigma^2d}{n}\frac{1}{1-(d+1)/n}$" + f", d={d}"
+                )
             plt.plot(
                 n_list,
                 risk_estimates,
@@ -63,18 +81,20 @@ def plot_test_errors_ols(
         color="aqua",
     )
 
-    # finish plot
-    plt.xlabel("number of sampler in the train set")
+    plt.xlabel("number of samples in the train set")
     plt.ylabel("test error")
-    plt.title(
+    title = (
         f"OLS: test errors as a function of n and d\nn repetitions {n_repetitions}"
+        f"\n{clean_filename(statistical_setting)}"
     )
+    plt.title(title)
+    plt.tight_layout()
     plt.legend(loc="best")
 
     # save plot
-    fig_path = os.path.join(f"ols_test_errors_{n_repetitions}_repetitions.pdf")
+    fig_name = f"ols_test_errors_{statistical_setting}_{n_repetitions}_repetitions.pdf"
     # plt.yscale("log")
-    plt.savefig(fig_path)
+    plt.savefig(fig_name)
     plt.close()
 
 
@@ -107,3 +127,8 @@ def plot_stds(stds: dict[tuple, float], n_list: list[int], d_list: list[int]):
     plt.yscale("log")
     plt.savefig(fig_path)
     plt.close()
+
+
+def clean_filename(name):
+    name = name.replace("_", " ")
+    return name

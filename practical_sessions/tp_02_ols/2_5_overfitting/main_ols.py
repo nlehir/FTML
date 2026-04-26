@@ -5,32 +5,25 @@ Study the statistical properties of the OLS estimator:
     - (optionally) stability of the OLS estimator
 """
 
-# from utils_algo_solution import ols_test_error
-from utils_algo import ols_test_error
+from utils_algo_solution import ols_test_error
 
 # from utils_algo import ols_test_error
+
 from utils_plots import plot_test_errors_ols
 
-# FIX
-
-# FIX
-
-# TODO
-
-# FIX
-
-# FIX
-
-# FIX
-
-# FIX
+STATISTICAL_SETTING = "random_design_gaussian"
+# STATISTICAL_SETTING = "fixed_design_gaussian"
 
 
 def main() -> None:
+    print(f"{STATISTICAL_SETTING=}")
     # dimensions of the problem
     n_train_list = list(range(30, 200, 2))
     d_list = [2, 5, 10, 20, 30]
-    n_repetitions_list = [10, 100, 1000, 10000]
+    n_repetitions_list = [10, 100, 1000, 5000]
+    if STATISTICAL_SETTING == "random_design_gaussian":
+        n_repetitions_list = [10, 100, 1000]
+        n_train_list = list(range(60, 200, 2))
 
     # Assess the influence of different values of n and d
     # store the test errors in a dict, each key being a (n, d) pair
@@ -43,12 +36,14 @@ def main() -> None:
                     n_train=n_train,
                     d=d,
                     n_repetitions=n_repetitions,
+                    statistical_setting=STATISTICAL_SETTING,
                 )
         plot_test_errors_ols(
             test_errors=test_errors,
             n_list=n_train_list,
             d_list=d_list,
             n_repetitions=n_repetitions,
+            statistical_setting=STATISTICAL_SETTING,
         )
 
 
