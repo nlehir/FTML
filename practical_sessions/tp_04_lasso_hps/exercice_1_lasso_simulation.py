@@ -27,8 +27,9 @@ def run_lasso(x_value, y_value):
     plt.plot(lambdas, coefs, label=r"$\theta_{\lambda}$")
     title = (
         "Solution of the Lasso regression\n"
-        r"$\theta_{\lambda} = \text{argmin}_{\theta}\:\frac{1}{2}(y-\theta)^2+\lambda |\theta| $"
-        # f"\nx={x_value}"
+        "1 dimension, 1 sample\n"
+        r"$\theta_{\lambda} = \text{argmin}_{\theta}\:\frac{1}{2}(y-\theta x)^2+\lambda |\theta| $"
+        f"\nx={x_value}"
         f"\ny={y_value}"
     )
     plt.title(title)
