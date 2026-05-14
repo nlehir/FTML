@@ -8,7 +8,10 @@ dependencies = [
     "ipdb>=0.13.13",
     "matplotlib>=3.10.8",
     "numpy>=2.4.2",
+    "optuna>=4",
+    "optuna-dashboard>=0.20.0",
     "scikit-learn>=1.8.0",
+    "seaborn>=0.13.2",
     "snakeviz>=2.2.2",
     "termcolor>=3.3.0",
 ]
