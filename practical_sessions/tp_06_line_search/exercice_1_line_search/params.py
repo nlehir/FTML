@@ -1,3 +1,3 @@
-N = 1000
-D = 500
+N = 200
+D = 30
 MATRIX_TYPE = "gaussian"
