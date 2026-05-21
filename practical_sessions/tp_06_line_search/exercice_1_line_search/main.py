@@ -71,7 +71,7 @@ def main() -> None:
     toc = time()
     ols_time = toc - tic
     print(f"OLS time {ols_time:1E}")
-    H = 1 / N * np.transpose(X) @ X
+    H = 1 / N * X.T @ X
 
     fig, (ax_linear, ax_log) = plt.subplots(nrows=1, ncols=2, figsize=(14, 10))
     color_index = 0
