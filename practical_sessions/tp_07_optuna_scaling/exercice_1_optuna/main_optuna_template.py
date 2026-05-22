@@ -1,3 +1,11 @@
+"""
+To launch the optuna dashboard, run the following
+command:
+     uv run optuna-dashboard sqlite:///ridge.db
+
+Then, the study will be displayed in the browser
+(at this address on my machine http://127.0.0.1:8080/)
+"""
 import os
 
 import matplotlib.pyplot as plt
