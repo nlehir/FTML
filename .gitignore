@@ -55,5 +55,5 @@ practical_sessions/tp_05_knn/exercice_2_knn/images_knn/explained_variance.pdf
 # practical_sessions/tp_07_optuna_scaling/**/*solution*
 
 practical_sessions/tp_08_density_estimation/**/*solution*
-practical_sessions/tp_08_density_estimation/**/*.pdf
+practical_sessions/tp_08_density_estimation/*/*/*.pdf
 practical_sessions/tp_08_density_estimation/todo.txt
