@@ -10,10 +10,7 @@
 env/
 
 practical_sessions/**/*latex*/
-practical_sessions/**/latex_2H/
-practical_sessions/**/latex_4H/
 practical_sessions/latex_stock/
-practical_sessions/tp_05_line_search/latex_line_search_solution/
 
 practical_sessions_2024/
 
