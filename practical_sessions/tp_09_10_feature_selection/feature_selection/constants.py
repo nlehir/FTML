@@ -1,0 +1,3 @@
+NGRAM_RANGE = (1, 2)
+MIN_DF = 2
+NUM_JOBS = -1

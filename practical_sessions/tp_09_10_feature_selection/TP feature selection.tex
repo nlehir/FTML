@@ -1,0 +1,223 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML practical session 11}} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{2} 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=1\linewidth]{sparsity_l1}
+    \label{fig:risks}
+\end{figure}
+
+\tableofcontents
+
+\section{\large\color{Blue}Feature selection}
+
+\subsection*{Introduction}
+
+In this session we will work with the Stanford sentiment analysis dataset.
+
+\url{https://ai.stanford.edu/~amaas/data/sentiment/}
+
+The dataset contains $25000$ train samples and $25000$ test samples. Each input is a review about a movie. The task is a binary classification: predict whether a review about a movie is positive or negative. 
+\\
+
+Our objective is to find linear estimators that are sparse but still keep a good prediction performance. Sparsity is nice because the prediction might be faster than a dense estimator at runtime, and also because a sparse estimator is easier to interpret.
+
+Note that for this problem, we intuitively expect that it should be possible to have a good prediction with a sparse estimator. Indeed, the presence of some specific words in the review, like "bad", "good", or "awful" should be very informative about its polarity.
+
+\subsection{Dataset loading and preprocessing}
+
+The file \textbf{fetch\textunderscore dataset\textunderscore Stanford\textunderscore sentiment.py} loads the dataset and puts it in a cache for later use. In the following exercises, the dataset is preprocessed before learning algorithms are applied. The text files are cleaned by the function \textbf{clean\textunderscore text()} in \textbf{utils\textunderscore data\textunderscore processing.py}. To see the result of the cleaning, run \textbf{exercice\textunderscore $0$\textunderscore test\textunderscore preprocessing.py} and read \textbf{clean\textunderscore text()}.
+
+
+\subsection{Vanilla logistic regression}
+\label{sec:basic}
+
+We will start by trying a classical baseline, with a logistic regression on a one-hot encoding of the texts.
+
+{\color{Purple}{Build a baseline estimator, with a pipeline that will contain the following steps:}}
+\begin{itemize}
+	\item a one-hot encoding of the data.
+	\item a scaling of the one-hot representation (optional)
+	\item a vanilla logistic regression. ("vanilla" is a term used to mean "standard", "basic", "default").
+\end{itemize}
+
+You can use the tools and docs listed in \ref{sec:ressources_1}.
+
+Explore manually different hyperparameter values (see \ref{sec:hyper_1} just
+below), and evaluate whether the scaling as an impact on performance or not.
+Save the vocabulary built by the one-hot encoding stage to a txt file that
+contains all the n-grams (each line contains a n-gram in the vocabulary).
+\\
+
+It is possible to reach a test accuracy of $0.9$.
+\\
+
+File: \textbf{exercice\textunderscore $1$\textunderscore logistic\textunderscore regression.py}
+
+\subsubsection{Hyperparameters}
+\label{sec:hyper_1}
+
+The one-hot encoding step as some important parameters. The first one is the size of the \textbf{n-grams} used. A n-gram is a sequence of $n$ words, for instance "is good" is a $2$ gram. When doing a one-hot encoding, the size of the one-hot representation will directly depend on the range of integers $n$ for which we keep the n-grams. Parameter: \textbf{ngram\textunderscore range} in CountVectorizer.
+
+Another important parameter is the minimum document frequency that is necessary to keep a word in the one-hot representation. Parameter: \textbf{min\textunderscore df} in CountVectorizer.
+
+
+\subsubsection{Ressources}
+\label{sec:ressources_1}
+
+\url{https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html} 
+
+\url{https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html} 
+
+\url{https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MaxAbsScaler.html} 
+
+
+\subsection{Univariate filtering}
+
+Univariate filtering consists in statistically evaluating whether each feature carries information about the target, and then keeping some number of most informative features. To do so, several statistical tests are possible. In the case of text documents, the $\chi_2$ test is a relevant option because the features are non-negative, as they represents counts or frequencices.
+\\
+
+{\color{Purple}{Implement an univariate filtering in order to remove some
+features from the data and monitor the change in test accuracy after doing a
+logistic regression, as in the previous exercise. Observe the compromise
+between sparsity and quality of prediction, as a function of the number of kept
+features, and save the filtered vocabularies to different files. }}
+\\
+
+To do so, you will need to evaluate the sparsity of an estimator, an for this,
+a sparsity scorer might be used. A possibility is to measure the degree of
+sparsity by a number in $[0, 1]$ ($1$ meaning fully sparse, and $0$ full 
+dense). Here, we can define the sparsity as $1-f$, where $f$ is the fraction of
+    kept features.
+\\
+
+Now, the pipeline contains a filtering step between the one-hot encoding and
+the scaling. The \textbf{SelectKBest} has a \textbf{get\textunderscore
+support()} method that retrieves the features that are kept by the statistical test (this is useful to save the filtered vocabulary).
+
+We can visualize the compromise between accuracy and sparsity, in different
+manners.
+
+\begin{itemize}
+    \item In figure \ref{fig:Univariate_filtering}, the compromise between the
+        fraction of kept feature and the accuracy is shown.
+    \item In figure \ref{fig:univariate_filter_C}, the regularization constant $C$
+        of logistic regression is added to the plot.
+\end{itemize}
+
+%In \textbf{utils\textunderscore data\textunderscore processing.py} the function \textbf{sparsity\textunderscore scorer()} that can be used after optimizing the pipeline to have an evaluation of the sparsity of the obtained linear estimator. It returns a float number in $[0, 1]$, $1$ meaning that the estimator is fully sparse, and $0$ that it is totally dense (no null component). This function i
+
+File: \textbf{exercice\textunderscore $2$\textunderscore univariate\textunderscore filtering.py}
+
+It is possible to have a test accuracy of around 89$\%$ with a sparsity score of around $83\%$.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Univariate_filtering}
+    \caption{Univariate filtering: compromise between accuracy and fraction
+    of kept features after applying SelectKBest and logistic regression.}
+    \label{fig:Univariate_filtering}
+\end{figure}
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=1\textwidth]{filter}
+    \caption{Compromise between sparsity ($1-f$, where $f$ is the fraction of
+    kept features), accuracy, and the regularization strength. Both sparsity and accuracy are in $[0, 1]$, so they can be represented on the same axis in this image.}
+	\label{fig:univariate_filter_C}
+\end{figure}
+
+\subsubsection{Hyperparameters}
+
+For the statistical test, some hyperparameters of CountVectorizer are especially important. For instance, let us consider the \textbf{binary} argument of the class.
+\begin{itemize}
+    \item if \textbf{binary=True}, then each feature of the vector that
+        represents a document is the presence or absence of the n-gram in this
+        document, hence it is set to $0$ or $1$.
+    \item if \textbf{binary=False}, then each feature represents the frequency or counter of the n-gram in the document.
+\end{itemize}
+
+These two options are both valid in our case !
+
+\subsubsection{Ressources}
+
+\url{https://scikit-learn.org/stable/modules/feature_selection.html#univariate-feature-selection} 
+
+\url{https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html#sklearn.feature_selection.SelectKBest} 
+
+\url{https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.chi2.html#sklearn.feature_selection.chi2} 
+
+\url{https://fr.wikipedia.org/wiki/Test_du_%CF%87%C2%B2} 
+
+\subsection{Embedded algorithm}
+
+We will now study whether the sparsity can be enforced in the estimator itsself, similarly to a sparse Lasso estimator (linear regression with L1 regularization).
+\\
+
+{\color{Purple}{Perform a new pipieline, similar to the first one (without
+filtering, section \ref{sec:basic}) but with a L1 regularization in the logistic regression step.
+\\
+
+Save the vocabulary effectively used by the obtained estimator, along with the
+weights corresponding to each word. Rank the used words according to the
+weight, and interpret the meaning of this ranking. Evaluate the influence of
+the regularization parameter $C$ (which corresponds to the inverse of the
+regularization strength) on the sparsity and on the accuracy (e.g. by plotting
+the cross validated accuracy, like in figure \ref{fig:l1}).}}
+\\
+
+
+File: \textbf{exercice\textunderscore $3$\textunderscore l1\textunderscore regularization.py}
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{sparsity_l1}
+    \caption{Sparsity and cross-validated accuracy as a function of the regularization strength.}
+    \label{fig:l1}
+\end{figure}
+
+\subsection{Wrappers}
+
+As a last method, we will now use a wrapper, in order to reduce the number of features used by the estimators. When using a wrapper, we score feature subsets, based on a previously trained estimator (as opposed to univariate filtering, where we remove features of the inputs without taking an estimator into account). We will use the recursive feature elimination (RFE) method, which is one possibility out of several other available choices. Features are removed iteratively: at each iteration, a chosen number of features is removed (this number is a parameter of the algorithm), and the estimator is trained again. This iteration is performed until the number of features kept is equal to a specified number (which is another parameter of the RFE).
+\\
+
+By default, in the case of a linear estimator, the score for each feature used by the scikit implementation of RFE is the squared value of the coefficient that corresponds to this feature. In \textbf{utils\textunderscore data\textunderscore processing.py}, there is a function \textbf{LinearPipeline} that makes it possible to apply RFE to a pipeline directly, with this same feature scoring. 
+\\
+
+{\color{Purple}{Apply RFE with a chosen number of final features and a step
+size, and save the final vocabulary used to a file, again sorted according to the weights.}}
+\\
+
+With this method on this example, it is possible to keep the 0.9 test accuracy with a vocabulary of 10000 words.
+
+File: \textbf{exercice\textunderscore $5$\textunderscore wrapper.py}
+
+\subsubsection{Ressources}%
+\label{ssub:Ressources}
+
+\url{https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.RFE.html#sklearn.feature_selection.RFE} 
+
+\subsection{Conclusion}
+
+We have seen several methods in order to obtain a sparse estimator for this binary classification task. These methods lead to slightly different vocabularies being used, but all work well as they keep an accuracy that is as high or almost as high as the vanilla logistic regression that uses all the vocabulary.
+
+\end{document}
