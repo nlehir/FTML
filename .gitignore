@@ -13,6 +13,8 @@ practical_sessions/**/*latex*/
 practical_sessions/latex_stock/
 practical_sessions/*/*.log
 practical_sessions/*/*.fls
+practical_sessions/*/*.blg
+practical_sessions/*/*.bbl
 practical_sessions/*/*.fdb_latexmk
 practical_sessions/*/*.out
 practical_sessions/*/*.toc
@@ -74,3 +76,6 @@ practical_sessions/tp_09_10_feature_selection/feature_selection/vocabularies/
 practical_sessions/tp_09_10_feature_selection/feature_selection/stock.py
 practical_sessions/tp_09_10_feature_selection/todo.txt
 
+practical_sessions/tp_11_nn/**/*solution*
+practical_sessions/tp_11_nn/questions.txt
+practical_sessions/tp_11_nn/exercice_1_simplicity_bias/images*/

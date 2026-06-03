@@ -1,0 +1,177 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML practical session 10}} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{2} 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{prediction_it_1_00E+05_m_100_gam_0_01}
+    \label{fig:risks}
+\end{figure}
+
+\tableofcontents
+
+\newpage
+
+\section{\large\color{Blue}Simplicity bias of neural networks}
+
+\subsection*{Introduction}
+
+This exercise assumes a basic knowledge of neural networks. We will witness that
+with some neural networks, it is unlikely to overfit the data and
+illustrate this with networks using the ReLU activation. In order to have some visual feedback,
+we will, use $\mathcal{X}= \mathbb{R}$ and $\mathcal{Y}= \mathbb{R}$ and the data to be learned are 
+like the data displayed in \ref{fig:target}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{data}
+    \caption{Example target function and dataset}
+    \label{fig:target}
+\end{figure}
+
+Let $m$ be the number of neurons in the hidden layer, and $n$ the number of samples in the dataset.
+We will see that with the specific type of networks and datasets used here, even when $m>n$ (which implies that the number of parametrers of the network is larger than $n$, since it is of order at least $\mathcal{O}(dm)$, $d$ being the input dimension), no overfitting happens. This is related to the "interpolation regime", a contemporary topic in machine learning research. You can see an example of such a phenomena in figure \ref{fig:no_overfitting}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{prediction_it_1_00E+05_m_100_gam_0_01}
+    \caption{Although the network has a high capacity (a large number of free parameters during the learning stage), it does not overfit the data.}
+    \label{fig:no_overfitting}
+\end{figure}
+
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{learning_curves_it_1_00E+05_m_100_gam_0_01}
+    \caption{Learning curves, same network as in figure \ref{fig:no_overfitting}}
+    \label{fig:}
+\end{figure}
+
+
+\newpage
+\subsection{Definition of the neural network}
+
+We use the following architecture:
+
+\begin{itemize}
+    \item $ \mathcal{X} = \mathbb{R}$, $ \mathcal{Y} = \mathbb{R}$, the loss is the squared loss.
+    \item In order to add intercepts between the input layer and the hidden layer, we add a component to the inputs $x\in \mathbb{R}^d$ and build a vector
+	$\bar{x} = (x,1)\in \mathbb{R}^{1, d+1}$. In our case, $d=1$.
+	If we have $n$ samples, we add a column of $1$s to the matrix $X\in \mathbb{R}^{n, d+1}$. 
+    \item The same operation is applied to the hidden layer $h$, in order to add an intercept before the output. 
+	We build an "extended hidden layer" $\bar{h} = (h, 1)\in \mathbb{R}^{1, m+1}$. 
+    \item The hidden layer contains $m$ neurons. The matrix $w_h$ containing
+        the weigths between the input layer and the hidden layer, is
+	in $ \mathbb{R}^{d+1, m}$  (the $d+1$ comes from the intercept)
+    \item nonlinearity: ReLU (noted $\sigma$), applied to the hidden layer. Also applied to the output.
+    \item $\text{pre}_h$ is the variable obtained before applying $\sigma$, in order to compute $h$. The same variable $\text{pre}_y$ is defined for $y$.
+\item The output of the network is a single real number, hence the matrix $ \theta$
+    containing the weights between the hidden layer and the output layer is
+	a vector in $ \mathbb{R}^{m+1, 1}$ (the $m+1$ again comes from the intercept).
+    \item Finally, the output of the neural network writes:
+
+        \begin{equation}
+	    \label{eq:yhat2}
+	    \hat{y}=f(x) = \sigma(\langle \theta, \bar{h} \rangle) \in \mathbb{R}
+        \end{equation}
+\end{itemize}
+
+
+\subsubsection{Ressources}%
+\label{ssub:Ressources}
+
+Useful ressources:
+\begin{itemize}
+\item 	\url{https://playground.tensorflow.org/}
+\item \url{https://francisbach.com/quest-for-adaptivity/} 
+    \item \url{http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf} 
+    \item \cite{LeCun2012}
+\end{itemize}
+
+\subsection{Implementation}%
+\label{ssub:Implementation}
+
+{\color{Blue}{Train neural networks with SGD (Stochastic gradient descent) with varying number $m$ of neurons in the (unique) hidden layer, including $m>n$ (where $n$ is the number of samples in the dataset) in order to observe the simplicity bias.}}
+
+You will need to compute the gradients of the loss function with respect to the network parameters. There will be a gradient with respect to $\theta$, noted $
+\nabla_{\theta}l(\theta, w_h)$, and a gradient with respect to $w_h$, noted $\nabla_{w_h}l(\theta, w_h)$. You will also need to edit the main SGD algorithm. For the implementation,  you are free to either compute the gradients manually and write the computations in numpy, or to use automatic differentiation with libraries like torch of tensorflow.
+
+\subsubsection{Python files}%
+\label{ssub:Python files}
+
+The template files are more useful if you use the numpy / manual approach.
+
+\begin{itemize}
+    \item \textbf{main.py}: main file, runs SGD on the neural network. You need to fix the algorithm.
+    \item \textbf{utils.py}: computes the forward passes and the gradient computations. You need to fix the computations.
+    \item \textbf{generate\textunderscore data.py}: generates the data, you don't need to edit it.
+\end{itemize}
+
+\subsubsection{Initialization}
+
+You can use the following type of initialization.
+\begin{itemize}
+    \item $ \theta$ is initialized uniformly in $[ - \frac{1}{ \sqrt{m} } , - \frac{1}{ \sqrt{m} } ]^{m+1}$
+    \item Each column of $w_h$, that belongs to $ \mathbb{R}^2$ (because $d=1$), is initialized
+        on the sphere of radius $ \frac{1}{ \sqrt{m} }$. 
+\end{itemize}
+
+\subsubsection{Derivatives}%
+\label{ssub:Derivatives}
+
+As the derivative of ReLU, you can use the heaviside function.
+
+\url{https://numpy.org/doc/stable/reference/generated/numpy.heaviside.html} 
+
+\url{https:/numpy.org/doc/stable/reference/generated/numpy.maximum.html} 
+
+\subsubsection{Learning rate}%
+\label{ssub:lLearning rate}
+
+You will need to experiment with the hyperparameters, such as the learning rate $ \gamma$ in order to observe learning and the simplicity bias. As the learning algorithm and dataset generation are stochastic, you might observe different outputs.
+
+Note that learning does not always happen, depending on the hyperparameters and dataset. In figure \ref{fig:nolearn}, the network has not been able to approximate the target function.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{prediction_it_1_00E+05_m_10_gam_0_1}
+    \caption{This network has not been able to learn the data.}
+    \label{fig:nolearn}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{learning_curves_it_1_00E+05_m_10_gam_0_1}
+    \caption{Same network as in \ref{fig:nolearn}}
+    \label{fig:learning_curves_it_1_00E+05_m_5_gam_0_01}
+\end{figure}
+
+\subsection{Conclusion}
+
+These neurons tend to not overfit, although some of them have a number of parameters
+way larger than of the minimal space containing the target function ! Note that this observation is not intuitive when we have the classical interpretation of machine learning in mind, with the famous bias-variance tradeoff, which predicts that we should observe some overfitting when the number of parameters (capacity of the model) is high compared to the number of samples.
+
+See more in this post:  \url{https://francisbach.com/quest-for-adaptivity/} 
+
+\bibliographystyle{apalike}
+\bibliography{../../../../epita.bib} 
+
+\end{document}
