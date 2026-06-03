@@ -1,0 +1,184 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML practical session 5}} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{2} 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=1.1\linewidth]{knn_k=2_ntest=1000.pdf}
+    \label{fig:risks}
+\end{figure}
+
+\tableofcontents
+
+\section{\large\color{Blue}Curse of dimensionality and adaptivity to a low dimensional support}
+
+\subsection{Nearest neighbors algorithms}
+
+A nearest neighbors algorithm is a method of prediction, based on a dataset, but without any optimization. It consists in averaging the predictions of the nearest neighbors
+ of a sample $x$ in a given dataset. See two examples below, where both input and output spaces are $\mathbb{R}$. The two example differ by the number of samples in the dataset.
+
+ \begin{figure}[H]
+ 	\centering
+ 	\includegraphics[width=0.8\textwidth]{knn100}
+ 	\caption{knn}
+ 	\label{fig:knn}
+ \end{figure}
+
+ \begin{figure}[H]
+ 	\centering
+ 	\includegraphics[width=0.8\textwidth]{knn}
+ 	\caption{knn}
+ 	\label{fig:knn}
+ \end{figure}
+
+ A natural question would be: why do we not use this method all the time ? The answer is that as soon as the input space dimension is not very small (for instance not < 10), the number of samples that would be required to obtain a satisfactory error is simply too large.
+
+\subsection{1D and 2D case}
+
+\subsubsection{1D case}
+
+We consider a $L$-Lipshitz-continuous function $f$, defined over $[0,1]$.
+
+\begin{equation}
+    \forall x,y\in [0,1], |f(x)-f(y)|\leq L|x-y|
+\end{equation}
+
+{\color{Purple}{Show that if we have $n$ samples, we can approximate $f$ with a nearest neighbor method with an error smaller than $\frac{L}{2n}$}}.
+
+\subsubsection{2D case}
+
+We consider a $L$-Lipshitz-continuous function $f$, now defined over $[0,1]^2$.
+
+\begin{equation}
+    \forall x,y\in [0,1]^2, |f(x)-f(y)|\leq L|x-y|
+\end{equation}
+
+{\color{Purple}{Show that if we have $n$ samples, we can approximate $f$ with a nearest neighbor method with an error smaller than $\frac{L}{\sqrt{2n}}$}}.
+
+\subsection{Curse of dimensionality: general case}
+
+
+
+In the general case, it is possible to show that if the target function $f^*$ is Lipshitz-continuous,
+and if the $n$ samples in the dataset are on a lattice that divides $[0, 1]^d$ in
+cubes of equal size, then the error made by a k-NN esimator can be upper bounded by a bound of the form $\mathcal{O}( n^{-1/d})$. 
+
+Note that this is a rough bound. It is possible to have more subtle results,
+and the constant in the $ \mathcal{O} $ depends on $d$ and on the Lipshitz
+constant of the target function However, it is
+not possible to have a bound that is "way better" (i.e. "way smaller") than
+this bound. This means that if $d$ is large, then $1/d$ is small, and the decrease of the
+error is in general very slow (meaning: in general, we should expect to have a decrease that is a slow as this one).
+
+With additional hypotheses, it is also possible to show that in order to guarantee an error as small as some value $\epsilon>0$, 
+the number of sampled needed  $n_{\epsilon}$ verifies
+
+\begin{equation}
+\label{eq:error}
+    n_{\epsilon} \geq \frac{\epsilon^{-d}d^{d/2}}{\alpha^{d/2}} 
+\end{equation}
+
+where $\alpha > 0$ is a constant. $n_{\epsilon}$ hence grows exponentially with
+$1/\epsilon$, and more than exponentially with $d$ which is a example of curse of dimensionality.
+\\
+
+We note that our target function is indeed Lipshitz continuous and thus respect the hypothesis to obtain equation $\ref{eq:error}$. If a function is not Lipshitz continuous, the situation is even worse !
+
+\subsubsection{Simulation: uniformly distributed data in the input space}
+
+We will study the influence of the input space dimension on the possibility to
+approximate a function with a nearest neighbors approach in a specific setting:
+
+\begin{itemize}
+	\item input space: $ \mathcal{X} = [0, 1]^d$. Hence, here the
+        dimensionality of the problem is $d$. The data will be uniformly
+        sampled in the input space.
+	\item output space: $\mathcal{Y} = \mathbb{R}$
+	\item toy function to approximate: $f: x\in \mathbb{R}^d\mapsto ||x||$ (euclidean norm).
+\end{itemize}
+
+{\color{Purple}{Run a simulation that computes the test error of a kNN
+estimator, for different values of $n$ and $d$, in order to observe the curse
+of dimensionality. The dataset should be uniformly sampled in the input space.
+You can experiment with the number of neighbors used of $k$, for instance $2$}}.
+\\
+
+You can use the template file \textbf{knn\textunderscore uniform.py}. Note that as we know the function that we try to approximate, it is possible to perfeclty evaluate the error made by the k-NN algorithm for each sample.
+For instance, you can observe images like the one in figure 
+\ref{fig:glu}. In the simulation that generated the figure, the samples (both
+the dataset and the test samples) were
+drawn randomly in $ \mathcal{X}$, with a uniform distribution (hence the dataset is
+not on a regular lattice, although you can do use a regular lattice in your
+simulation).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.1\linewidth]{knn_k=2_ntest=1000.pdf}
+    \caption{Curse of dimensionality. We observe that the logarithm of the
+    error is linear in the logarithm of the number of samples, with a slope
+    that depends on the dimension $d$. When $d$ is large, the problem is that
+    the curve is very flat, which means that the error decreases very slowly.}
+    \label{fig:glu}
+\end{figure}
+
+%\subsubsection{\large\color{Periwinkle}Template}
+%
+%You can use \textbf{{knn\textunderscore 1.py}}, and edit the function
+%\textbf{{predict()}}, that implements the k-NN algorithm.
+
+\subsection{Adaptivity}
+
+However, the situation is not always that catastrophic in high dimensions and we will illustrate this with an example. We keep exactly the same setting, but now the input dataset $X$ is given and fixed, and we use $d=30$.
+\\
+
+
+{\color{Purple}{
+Perform a k-NN estimation using the data stored in
+\textbf{{data\textunderscore knn/}} and use a varying number of samples $n$
+that you use from the dataset. Plot the error as a function of $n$.}}
+
+You can use the template file \textbf{knn\textunderscore adaptivity.py}. You should observe something like figure \ref{fig:2}. We note that the learning rate is way better than $ \mathcal{O} (n^{-1/d})$.
+
+{\color{Purple}{
+\begin{itemize}
+    \item What could be an explanation of this phenomenon ?
+    \item How could we test this hypothesis ?
+\end{itemize}
+}}
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{x_test_knn_k=2}
+    \caption{Nearest neighbors estimation on a different dataset.}
+    \label{fig:2}
+\end{figure}
+
+%\subsubsection{\large\color{Periwinkle}Template files}
+%\begin{itemize}
+%    \item You can start from \textbf{{knn\textunderscore 2.py}} and import the
+%        relevant functions from the previous file.
+%    \item \textbf{{x\textunderscore data\textunderscore .npy}} and  \textbf{{y\textunderscore data\textunderscore .npy}}: dataset that
+%        is used by the k-NN algorithm.
+%    \item \textbf{{x\textunderscore data\textunderscore test.npy}} : data on
+%        which we estimate using the k-NN algorithm.
+%\end{itemize}
+
+\end{document}

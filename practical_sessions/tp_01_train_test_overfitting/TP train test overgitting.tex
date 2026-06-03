@@ -1,0 +1,275 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML practical session 1}} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{optimal_linear_regression_standard_deviation_10_0}
+    \label{fig:risks}
+\end{figure}
+
+\tableofcontents
+
+
+
+\pagebreak
+\section*{\large\color{Blue}Introduction}
+
+The goal of this practical session is to experiment with some statistical or probabilistic concepts that are important machine learning: namely, empirical risks, overfitting, and the law of large numbers. During the following lectures, we will study and formalize the definitions of the different types of risks in more depth.
+
+You can do the different parts in whatever order. You do not have to finish everything during the session.
+
+\section*{\large\color{Blue}Installation and Python}
+\label{sec:misc}
+
+\subsection*{Environments}
+
+To install libraries, you can use virtual environments.
+
+\url{https://docs.python.org/3/library/venv.html} 
+
+You can use for instance \textbf{uv} as a package manager. uv will use \textbf{pyproject.toml} to install the virtual environment.
+
+\url{https://github.com/astral-sh/uv}.
+ 
+When using uv, a pyton script can be run by typing "uv run script.py" in a terminal.
+
+The list of libraries used in the practical sessions is also in \textbf{requirements.txt}. You can use it to install all libraries directly with pip, e.g. with \textbf{pip instlall -r requirements.txt} 
+
+\subsection*{Demos}
+
+In the \textbf{demos/} subfolder of this session, you can find a couple of simples demo files to use matplotlib, numpy (if needed).
+
+\subsection*{Operations in Python}
+
+Time complexity of elementary operations in python:
+
+\url{https://wiki.python.org/moin/TimeComplexity} 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ùù
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ùù
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ùù
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ùù
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ùù
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ùù
+
+\pagebreak
+
+\section{\large\color{Blue}Train and test sets, empirical risk, overfitting}
+
+\subsection{Introduction}
+
+In this exercise we work with the dataset used in lecture 1b (electricity production).
+
+\subsection{Computation of the empirical risk for random parameters}
+
+    \textbf{cd practical\textunderscore sessions/tp\textunderscore 01\textunderscore train\textunderscore test\textunderscore overfitting/1\textunderscore empirical\textunderscore risk/}
+
+    \begin{itemize}
+        \item Generate some data using \textbf{main\textunderscore create\textunderscore data.py}. You can choose the amplitude of the noise by setting STD\textunderscore NOISE in \textbf{constants.py}. This noise represents the existence of \textbf{hidden variables}, as discussed during the lecture. The images are generated in the \textbf{images/datasets/} folder. An example output is shown in figure ~\ref{fig:data}
+        \item Launch \textbf{main\textunderscore random\textunderscore params.py} in order to test several random values for $\theta$ and $b$ by evaluating their empirical risk. To do so, you will need to fix empirical\textunderscore risk() inside \textbf{utils.py}. Note that you can know whether your result is correct thanks to the ground truth (mse()).
+    \end{itemize}
+
+    \textbf{Remark:} In VSCode, you need to execute the python script from the correct location (namely from \textbf{1D\textunderscore linear\textunderscore regression}) in order for the paths to properly work.
+
+    \begin{figure}
+        \begin{center}
+            \includegraphics[width=0.95\textwidth]{figures/dataset_with_split_standard_deviation_20_0}
+        \end{center}
+        \caption{Example dataset. You can use different noise magnitudes and different number of samples.}\label{fig:data}
+    \end{figure}
+    
+\subsection{Linear regression: computation of the optimal parameters}
+
+    Launch \textbf{main\textunderscore optimal\textunderscore params.py} in order to evaluate the empirical risk for the optimal values of the parameters, as found during the lecture $1
+$b. To do so, you will need to fix compute\textunderscore optimal\textunderscore params() inside \textbf{utils.py}. Plot the predictions obtained by the optimal linear estimator.
+You should observe a plot similar to Figure~\ref{fig:optimal}.
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{figures/optimal_linear_regression_standard_deviation_10_0}
+    \end{center}
+    \caption{Linear regression}\label{fig:optimal}
+\end{figure}
+
+
+\subsection{Polynomial regression and overfitting}
+
+Now, we will experiment with different models and use \textbf{polynoms} to try to fit the data. Here, our objective is to study the interaction between the number of samples, the amount of noise in the data, overfitting, and importantly, the \textbf{degree} of the polynom.
+
+\begin{itemize}
+    \item Before implementing the polynomial fit or looking at the images, try to anticipate the results. What behavior do you expect ?
+    \item Implement a polynoial regression and observe this interaction. You should obtain results similar to figures~\ref{fig:good}, \ref{fig;overfitting}, \ref{fig:many_samples}, \ref{fig:nonoise}.
+
+
+\end{itemize}
+
+
+You can use function from numpy like polyfit and polyval.
+
+Polynomial regression can actually be written as a linear regression, but in a different space. Can you think of which one, and determine how to write it ?
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{figures/polyomial_regression_std_10_0_degree_2}
+    \end{center}
+    \caption{Relevant polynom for these data}\label{fig:good}
+\end{figure}
+
+
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{figures/polyomial_regression_std_10_0_degree_29}
+    \end{center}
+    \caption{Overfitting, when the degree of the polynom is larger, and not balanced by  sufficient number of training samples}\label{fig:overfitting}
+\end{figure}
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{figures/polyomial_regression_std_10_0_degree_38}
+    \end{center}
+    \caption{Although the degree of the polynom is high, the number of samples is high enough to prevent overfitting.}\label{fig:many_samples}
+\end{figure}
+
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=0.95\textwidth]{figures/polyomial_regression_std_0_0_degree_38}
+    \end{center}
+    \caption{Without noise, there is no overfitting !}\label{fig:nonoise}
+\end{figure}
+
+
+
+\pagebreak
+
+
+\section{\large\color{Blue}Experimenting with the law of large numbers and array programming}
+\label{sec:law}
+
+Let us consider the same variable as in exercice P3: $Z_2=Z_1$ and is $Z_1^2$ is a uniform law in $[1, 2]$. We have seen that $E[Z_2] = 7/3$. Hence, according to the law of large numbers, the empirical average of $n$ draws of this variable converges in probability to this expected value.
+
+In \textbf{2\textunderscore arrays\textunderscore programming/law\textunderscore of\textunderscore large\textunderscore numbers.py}, the function \textbf{empirical\textunderscore average\textunderscore loop} computes the empirical average with a for loop
+
+
+\begin{itemize}
+    \item Edit the function \textbf{empirical\textunderscore average\textunderscore array()} in order to use numpy and array operations to perform the same computation in an optimized way, only using array operations and without a loop.
+	\item Compare the speed of the methods by monitoring the \textbf{profile.prof} profiling file, for instance using \textbf{snakeviz profile.prof}.
+\end{itemize}
+
+\textbf{References}:
+\begin{itemize}
+	\item \url{https://en.wikipedia.org/wiki/Array\textunderscore programming} 
+	\item \url{https://jiffyclub.github.io/snakeviz/} 
+\end{itemize}
+
+Note that it is also possible to save the profiling to a text file.
+
+\subsection{More Python profiling}%
+\label{ssub:More Python profiling}
+
+It is also possible to profile individual lines:
+
+\url{https://pypi.org/project/line-profiler/} 
+\\
+
+Or to profile memory usage (this package is not maintained anymore, though):
+
+\url{https://pypi.org/project/memory-profiler/} 
+
+\pagebreak
+
+\section{\large\color{Blue}Example of risks and Bayes risks}
+\label{sec:bayes}
+
+The goal of this exercise is to compute some practical exemples of empirical risks, risks, and to introduce the notion of Bayes risk, a theoretical notion that we will study more extensively during the couse.
+
+\subsection{Example empirical risks}%
+\label{ssub:Bayes estimator}
+
+{
+    \color{Purple}For the two following problems: sample a small number (e.g. $4, 5$) of samples from the simulation and compute empirical risks of the estimators of your choice.
+}
+
+\subsubsection{Problem 1: penalty shootout}%
+\label{ssub:Problem 1: penalty shootout}
+
+We represent a football penalty shootout. $X\in\{0, 1\}$ is the variable representing that team 1 shoots first. $Y\in\{0,1\}$ is the variable representing the fact that team 1 wins. We assume that: 
+\begin{itemize}
+	\item $X$ is uniformly distributed.
+	\item If $X=1$, $Y$ follows a Bernoulli law of parameter $0.6$. If $X=0$, $Y$ follows a law of parameter $0.4$.
+	\item $l$ is the $0-1$ loss ($1$ if there is a mistake, $0$ otherwise)
+\end{itemize}
+
+\subsubsection{Problem 2: prediction of the number of spotify streams}%
+\label{ssub:Problem 1}
+
+A music label is interested in predicting the number of streams of an artist, as a function of the investment. We will consider that the investment is represented by the number of persons who work with the artist during the production. This variable is noted $X$. More precisely, we predict the number of streams of the song on Spotify, noted $Y$, during the first week after release, as a function of $X$. We assume that:
+\begin{itemize}
+    \item $X-1\in \mathbb{N}$ follows a binomial law of parameters $n_X=20$ and $p_X=0.2$. Hence, $X>0$.
+    \item Given a value $x$ of $X$, $Y$ follows a binomial law of parameters $n_Y(x)=3^x$ and $p_Y(x) = 0.5$.
+    \item $l$ is the squared loss.
+\end{itemize}
+
+\subsection{Bayes estimators and Bayes risks}%
+\label{ssub:Bayes estimator}
+
+Under some simple hypotheses, for a given supervised learning problem, there exists an optimal estimator $f^*$ called the \textbf{Bayes estimator}: its definition is that is has the smallest possible the "generalization error", given a distribution $\rho$. The generalization error is the expected value of the error, given the distribution of the data. The generalization error of the Bayes estimator is also called the \textbf{Bayes risk}.
+
+
+{
+\color{Purple}For the two problems, find the Bayes estimator and the Bayes risk.
+}
+
+
+\begin{itemize}
+	\item For problem 1, the Bayes risk is $0.4$.
+	\item For problem 2, the Bayes risk is around $627$.
+\end{itemize}
+
+\pagebreak
+
+\section{\large\color{Blue}Overfitting and variance of the test error}
+\label{sec:overfitting}
+
+In this exercice we experimentally study the amount of overfitting and the empirical variance of the test error as a function of the number of samples used in the datasets. To do so, we use a linear regression problem.
+
+\subsection{Standard deviation of the test error}
+\label{sec:std_test}
+
+In statistical learning, we consider that datasets are sampled from random variables. Hence, any quantity that is computed from a dataset is also a random variable. For instance, the \textbf{test error}, which is the empirical risk on a \textbf{test set} (a dataset that was not used at all for training) is a real random variable, that has a standard deviation. Intuitively, and according to the law of large numbers, the test error converges to the generalization error when the number of samples becomes large enough.
+
+{\color{Purple}{Using scikit-learn, optimize a linear estimator on the train set, and monitor the standard deviation of the test error as a function of the number of samples used in the test set.}}
+
+You can find a template file to edit \textbf{exercice\textunderscore 4.py} in \textbf{exercice\textunderscore 2\textunderscore statistics/}. It uses the LinearRegression class from scikit. You should observe a plot like Figure~\ref{fig:test_std}. 
+
+{\color{Purple}{You may also experiment with the number of samples used in the train set. This parameter will also influence the test error.
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{std_n_train=200}
+	\caption{This behavior is typical of the law of large numbers. Why do we observe a linear decrease of the standard deviation, when represented in log scale ?}
+	\label{fig:test_std}
+\end{figure}
+
+\end{document}
+

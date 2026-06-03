@@ -1,0 +1,374 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML practical session 2}} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{ols_test_errors_10_repetitions}
+    \label{fig:risks}
+\end{figure}
+
+\tableofcontents
+
+\pagebreak
+\section*{\large\color{Blue}Introduction}
+
+The goal of this session is to keep exploring the concepts linked to risks: Bayes risk,
+empirical risk, overfitting. We keep exploring them in a linear regression
+context, but dive a bit deeper technically and start studying the influence of
+the dimensions (number of samples, number of features) on the statistical
+properties of the results. Some aspects of this session are a bit technical, it
+is normal if you need to take some time to understand all the objects used in
+the session.
+
+There are some template files in \textbf{tp\textunderscore 02\textunderscore ols/} that you can use in the repo, but you can also
+start from scratch with your own files if you prefer.
+
+Inside \textbf{2\textunderscore 5\textunderscore overfitting/}
+\begin{itemize}
+    \item \textbf{main\textunderscore ols.py}
+    \item \textbf{utils\textunderscore plots.py}
+    \item \textbf{utils\textunderscore algo.py}
+    \item \textbf{constants.py}
+\end{itemize}
+
+\section{\large\color{Blue}Linear regression}
+\label{sec:ols}
+
+A \textbf{{linear model}}, such as the Ordinary least squares (OLS, presented below), can be interpreted as
+predicting an output value (dependent variable) from combining the contributions from the $d$
+\textbf{{features}} of the input data (independent variables), in a linear
+way. This can be useful for classification as well as for regression.
+
+\subsection{A simple example of linear function}%
+
+For instance, if I want to predict the amount of money that I will spend when
+buying some clothes, I can use a linear mapping (aka function). We assume that there are $d$ possible clothes in a shop. If $\theta\in \mathbb{R}^d$ is a vector that contains the price
+of each type of clothe, and $x\in\mathbb{N}^d$ the number of each type of clothe that I buy,
+then I have to spend $x^T\theta$. If there exists $d=4$ types of clothes with a
+price $\theta_i$:
+\begin{itemize}
+    \item socks: $\theta_1=2$
+    \item T-shirts: $\theta_2=25$
+    \item pants: $\theta_3 = 50$
+    \item hats = $\theta_4 = 20$
+\end{itemize}
+
+\begin{equation*}
+\theta=\begin{pmatrix}
+2\\
+25\\
+50\\
+20
+\end{pmatrix}
+\end{equation*}
+
+If I want to buy $10$ socks, $2$ T-shirts, $1$ pants and $1$ hat, then $x^T=(10,
+2, 1, 1)$ and I spend
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+        x^T\theta &= 10\times 2 + 2\times 25 + 1\times 50 + 1\times 20\\
+        &= 140
+    \end{aligned}
+\end{equation}
+
+\subsection{Linear models}
+
+When doing a \textbf{linear regression} in a supervised learning context, we are using a linear function of the form $x\mapsto x^T\theta$ in order to approximate the outputs, where $x\in \mathbb{R}^d$ is an element of our input space, and $\theta\in \mathbb{R}^d$. The objective is then to find the best $\theta$ for this purpose.
+\\
+
+Of course, not all phenomena can be approximated well in a linear way. For many tasks, neural networks and many other models outperform linear regression.  However,
+linear regression is a foundation for more advanced modelisation that we will
+study in future classes (feature maps, kernel methods, neural networks, etc).
+\\
+
+It is also important to note that linear regression can often be used as a first benchmark when comparing different kinds of models, in a supervised learning context. A model that is more difficult to train or takes a longer time to train than a linear regression should have a better performance than linear regression, in order to be worth using it !
+\\
+
+As we will study the influence of the dimensions of the problem $n$ (number of
+samples) and $d$ (number of features of each sample), we
+will work with abstract datasets, instead of a given "physical dataset".
+However, you can always refer to the previous example in order to interpret
+linear models that we will use.
+
+\subsection{Formalization}
+\label{sec:formalization}
+
+Let us abstract the notations a little bit. In the OLS setting,
+\begin{itemize}
+	\item $ \mathcal{X} = \mathbb{R}^d$ (input space)
+	\item $ \mathcal{Y}  = \mathbb{R} $ (output space)
+\end{itemize}
+
+An input sample is stored in a column vector $x_a\in \mathbb{R}^d$, with $a\in \mathbb{N}$ like
+\begin{equation}
+    x_a=
+\begin{pmatrix}
+x_{a1}\\
+...\\
+x_{ai}\\
+...\\
+x_{ad}
+\end{pmatrix}\in \mathbb{R}^d
+\end{equation}
+
+The estimator is a \textbf{{linear mapping}} parametrized by $ \theta\in
+\mathbb{R}^d$. The prediction associated with $x\in \mathbb{R}^d$ is $f(x)=
+\theta^Tx = x^T\theta$. If we use the squared-loss, the discrepancy between two real numbers $y$ and $y'$ writes $l(y,y')=(y-y')^2$. Finally, the input dataset is stored in the \textbf{{design matrix}} $X\in \mathbb{R}^{n\times d}$.
+
+\begin{equation}
+X=
+\begin{pmatrix}
+x_{1}^T\\
+...\\
+x_{i}^T\\
+...\\
+x_{n}^T
+\end{pmatrix}
+=
+\begin{pmatrix}
+    x_{11}, \:\dots\:,\: x_{1j}\:, \:\dots\: x_{1d}\\
+...\\
+    x_{i1}, \:\dots\:,\: x_{ij}\:, \:\dots\: x_{id}\\
+...\\
+    x_{n1}, \:\dots\:,\: x_{nj}\:, \:\dots\: x_{nd}\\
+\end{pmatrix}
+\end{equation}
+
+and the output labels are stored in a vector
+
+\begin{equation}
+    y=
+\begin{pmatrix}
+y_{1}\\
+...\\
+y_{i}\\
+...\\
+y_{n}
+\end{pmatrix}\in \mathbb{R}^n
+\end{equation}
+
+
+\subsection{Empirical risk and generalization error}
+
+The \textbf{empirical risk} of an estimator $\theta$ (when we talk about an estimator, it is here equivalent to refer to $\theta$ directly or to the mapping defined by $\theta$) writes:
+
+
+\begin{equation}
+    \begin{aligned}
+	R_n(\theta) &= \frac{1}{n} \sum^{n}_{i=1} (y_i-f(x_i))^2\\
+		    &= \frac{1}{n} \sum^{n}_{i=1} (y_i-\theta^Tx_i)^2\\
+    \end{aligned}
+\end{equation}
+
+{\color{Purple}{How can we write the empirical risk using only matrices and vectors, $X$, $\theta$ and $y$ defined in \ref{sec:formalization} and an euclidean norm ?}}
+\\
+
+By contrast, the \textbf{generalization error} (risque réel) of an estimator does not depend on the dataset. It is a fixed number equal to:
+
+\begin{equation}
+    R(\theta) = E[(y-\theta^Tx)^2]
+\end{equation}
+
+where the expected value is taken over the law of $x\in \mathbb{R}^d$ and $y \in\mathbb{R}$, the random variables representing the input and output respectively. This law is unknown, in general.
+
+\pagebreak
+
+\section{\large\color{Blue}Ordinary least squares: empirical risk and overfitting}
+
+In this exercice, we want to study the influence of the dimensions $n$ and $d$ on the amount of \textbf{overfitting} of a linear regression. In order to do so, we will need to make statistical assumptions about the data that we use.
+
+\subsection{OLS estimator}
+
+The \textbf{OLS estimator}, noted $\hat{\theta}$, is the value of $\theta$ that minimizes $R_n(\theta)$. It is thus the solution to the problem of \textbf{empirical risk minimization}, a standard approach in supervised learning. We admit the following proposition (that we will prove later in the course):
+
+
+\begin{proposition}{Closed form solution}
+
+    We keep the notations from \ref{sec:formalization}. If $X$ is injective, there exists a unique minimiser of $R_n(\theta)$, called the \textbf{{OLS estimator}}, given by
+
+    \begin{equation}
+	\label{def:ols}
+	\hat{ \theta}= (X^TX)^{-1}X^Ty
+    \end{equation}
+\end{proposition}
+
+%{\color{Purple}{With the results of the exercises made today, you can try to prove this result.}}
+
+\subsection{Excess risk the OLS estimator}
+
+Given an estimator $\theta$, we are interested in its \textbf{excess risk}. It is the
+difference between its generalization error and the bayes risk. We will evaluate the excess risk of the OLS estimator as a function of $n$ and $d$, for a given statistical setting, in order to observe the results of figure \ref{fig:test_errors_10}, \ref{fig:test_errors_1000}, and
+\ref{fig:test_errors_10000}.
+
+\subsection{Statistical setting}%
+\label{ssub:Statistical setting}
+
+In order to compute these quantities, it is necessary to make statistical
+assumptions. We will use the \textbf{{linear model}}, with \textbf{{fixed
+design}}, a classical framework to analyze OLS. In this setting, we assume that
+$X$ is given and fixed, and that there exists a vector $ \theta^*\in \mathbb{R}^d$, such that $\forall i\in \{1, \dots, n\}$, 
+\begin{equation}
+    y_i = x_i^T\theta^*+\epsilon_i
+\end{equation}
+
+where for all $i\in \{1, \dots, n\}$, $\epsilon_i$ are independent, with
+expectation $E[\epsilon_i]=0$ and variance $E[\epsilon_i^2]=\sigma^2$. The
+$\epsilon_i$ represent a variability in the output, that is due to
+\textbf{{noise}}, or to the presence of unobserved variables. Put together in a
+vector $\epsilon\in \mathbb{R}^n$, this allows to write
+
+\begin{equation}
+    y = X\theta^*+\epsilon
+\end{equation}
+
+{\color{Purple}{Considering the previous practical session observations, what do
+we expect to be the Bayes estimator ?}}
+\\
+
+We admit for now (but you can also prove it) that the corresponding Bayes risk is $\sigma^2$.
+\\
+
+\subsection{Verification of the Bayes estimator}%
+\label{sub:Verification of the Bayes estimator}
+
+
+{\color{Purple}{For a given $n$ and $d$ (with $d\leq n$), run a simulation that reproduces the fixed design, linear model
+statistical setting and verify that the the estimator that you have chosen
+achieves the Bayes risk. Verify that different estimators have worse (larger)
+risks. You need to generate first a $X$ and a $\theta^*$.}}
+\\
+
+You will again need to approximate the real risk by the test error, a
+number of times that is sufficient to observe the convergence of the law of
+large numbers.
+\\
+
+You should observe something similar to figure \ref{fig:convergence}.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{convergence}
+    \caption{Convergence of the test error to the generalization error.}
+    \label{fig:convergence}
+\end{figure}
+
+\subsection{Empirical risk minimization and impact of the dimensions on the OLS overfitting}
+
+We have seen that in this statistical setting, the Bayes risk is $\sigma^2$. In
+practical applications, we of course do not have access to $\theta^*$ and we
+must find a relevant $\theta$, based on the data only. We must resort to
+\textbf{empirical risk minimization}.
+\\
+
+We want to compare the risk of the OLS estimator (obtained by empirical risk minimization) to the Bayes risk, to know how
+good the OLS estimator compares to the Bayes estimator. Again, remember that in
+practical applications, we will not have access to the Bayes estimator or to the
+Bayes risk.
+\\
+
+{
+    \color{Purple}{Run a simulation that approximates the expected value of the generalization error of the OLS
+    estimator. Remember that as the train data should be seen as random
+    variables, the OLS estimator $\hat{\theta}$ himself should also be seen as
+    a random variable, and so should be its generalization error. This is why
+    we are approximating an \textbf{expected value} !
+
+    To do so, we can generate several train and test data, and average the
+    results of the tests errors in order to approximate this exepcted value. Depending on the number of repetitions of the experiment, on which we perform
+the average, we should observe results simlar to that of figures
+\ref{fig:test_errors_10}, \ref{fig:test_errors_1000}, and
+\ref{fig:test_errors_10000}.
+}
+}
+\\
+
+\textbf{Remarks}
+\begin{itemize}
+	\item In order to generate the $X$ matrices in various dimensions, you can use uniformly distributed entries. This should ensure that $X$ is injective. 
+	\item We will prove during the lectures the different results mentioned in this
+exercice.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{ols_test_errors_10_repetitions}
+    \caption{Dependence of the test error (which approximates the generalization error (risque réel)) to the dimensions.}
+    \label{fig:test_errors_10}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{ols_test_errors_1000_repetitions}
+    \caption{Dependence of the test error (which approximates the generalization error (risque réel)) to the dimensions.}
+    \label{fig:test_errors_1000}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{ols_test_errors_10000_repetitions}
+    \caption{Dependence of the test error (which approximates the generalization error (risque réel)) to the dimensions.}
+    \label{fig:test_errors_10000}
+\end{figure}
+
+We can make the following, intuitive observations:
+\begin{itemize}
+	\item  overfitting is smaller when $n$ is larger
+	\item  overfitting is larger when $d$ is larger
+\end{itemize}
+
+It is possible to show that the amount of overfitting is given by $\sigma^2\frac{d}{n}$. Let me know if you are interested in proving this result.
+
+
+\subsection{When $d>n$}%
+\label{sub:When $d>n$}
+
+
+If $d>n$, the $\sigma^2d/n$ law is not respected !
+\\
+
+{\color{Purple}{Why can we still output an OLS estimator when $d > n$ ?}}
+\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{ols_risks_d_big}
+    \caption{Test errors with cases where $d>n$.}
+    \label{fig:ols_risks_d_big}
+\end{figure}
+
+{\color{Purple}{Optional: monitor the stability of the OLS estimator as a
+function of $n$ and $d$, for instance by computing the sample standard deviation of
+the random variable  $||\hat{\theta}-\theta^*||/||\theta^*||$ as a function of
+$n$ and $d$. When $d$ is closer to $n$, $\hat{\theta}$ can become very
+unstable (a small variation of the noise might lead to a large variation of
+$\hat{\theta}$). This behavior depends on the conditioning of $X^TX$, as we will
+see later.)}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{ols_stds}
+    \caption{Instability of the OLS estimator when $d$ gets close to $n$.}
+    \label{fig:}
+\end{figure}
+
+\end{document}

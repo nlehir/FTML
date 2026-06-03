@@ -1,0 +1,228 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML practical session 3}} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{2} 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{ridge_risks_n=30}
+    \label{fig:risks}
+\end{figure}
+
+\tableofcontents
+
+\pagebreak
+\section*{\large\color{Blue}Introduction}
+
+In this session, we study Ridge regression, which is an extension of OLS, and which leads us to the notion of \textbf{hyperparameter} (HP). The choice of HPs is part of the topic of \textbf{model selection}. There are two important aspects of HP tuning that we will discuss:
+\begin{itemize}
+	\item how to select HP set values
+	\item how to evaluate the quality of a set of HPs
+\end{itemize}
+
+\url{https://scikit-learn.org/stable/model_selection.html} 
+
+%In the previous session, we encountered our first hyperparameter (HP), namely the regularisation constant $\lambda$ in a Ridge regression problem. We saw that in that situation, there are some optimal values for $\lambda$, that lead to an optimal generalization error.
+
+% But unfortunately, most of the time, we do not have access to these optimal values, by lack of information of the data.
+
+%The goal of this session is to study different methods used to tune
+%hyperparameters in a machine learning problem. Most machine learning problems,
+%and many optimization problems, do have some hyperparameters (often several of
+%them), that must be tuned from the data. This session is more oriented towards
+%implementation and manipulating ML libraries, hence we will use some algorithms
+%like SVC, trees, or logistic regression as black-boxes for now, but you can
+%read their documentation.
+%\\
+
+\subsection*{Template files}
+
+You can find some template files in the \textbf{exercice\textunderscore 1\textunderscore ridge/} folder.
+
+\section{\large\color{Blue}Ridge regression and regularization}
+\label{sec:ridge}
+
+The goal of this exercice is to experimentally observe the benefit of using
+Ridge regression instead of OLS. As we have just witnessed in the previous session, the
+excess risk of the OLS estimator in the linear model, fixed design is $ \frac{\sigma^2d}{n} $, where $n$ is the number of samples and $d$ the number of features. We also keep the same notations for the quantities defined for OLS such as the design matrix $X\in\mathbb{R}^{n, d}$, $\theta\in\mathbb{R}^d$, $y\in\mathbb{R}^n$.
+\\
+
+\subsection{Ridge regression estimator}
+
+Ridge regression replaces the minimization of the empirical risk by a slightly different
+objective function.
+
+\begin{definition}{Ridge regression estimator}
+
+    It is defined as
+\begin{equation}
+    \label{risk:ridge}
+    \hat{ \theta}_{\lambda} = \argmin_{\theta \in \mathbb{R}^d} \Big( \frac{1}{n} ||y-X\theta||_2^2 + \lambda || \theta||_2^2 \Big)
+\end{equation}
+\end{definition}
+
+As you can see, there is a parameter $\lambda$, that controls the magnitude of
+the \textbf{regularization}. The goal is to penalize estimators with a large
+amplitude. $\lambda$ is called a \textbf{hyperparameter}, a very important notion in machine
+learning. Most optimization algorithms (hence ML algorithms) have
+hyperparameters and we will study several methods to choose them.
+\\
+
+We admit the following proposition for now, but we will prove it during the lectures (you may also try to prove it now).
+
+\begin{proposition}
+
+    The Ridge regression estimator is unique even if $X^TX$ is not inversible and is given by
+    \begin{equation*}
+	\hat{ \theta}_{\lambda} = \frac{1}{n} ( \frac{1}{n}X^TX +\lambda I_d)^{-1}X^Ty
+    \end{equation*}
+\end{proposition}
+
+{\color{Purple}{What is $\hat{\theta}_{\lambda}$ when $\lambda = 0$ ?}}
+\\
+
+A natural question is then: is the excess risk of the Ridge regressor better
+(smaller) than that of the OLS estimator, for a good choice of $\lambda$ ? If
+yes, how can we tune a good value for $\lambda$ ? The answer will depend on the values of $n$, $d$, and $\sigma$: for some combinations of values, Ridge will indeed perform
+strictly better than OLS in terms of generalization (like in Figure~\ref{fig:ridge_vs_ols}).
+
+\subsection{Excess risk of the ridge regression estimator}
+
+{\color{Purple}{Implement a simulation in order to observe situations where the
+Ridge regression estimator has a better (smaller) generalization error than the
+OLS estimator for good values of $\lambda$. This might happen if one or several of the following conditions
+are satisfied:
+\begin{itemize}
+    \item $\sigma$ is large
+    \item $d\leq n$ or $d$ is close to $n$
+    \item $X$ has a low rank
+\end{itemize}
+}}
+
+Hence, you can tune your simulation in order to satisfy the previous
+conditions, in order to observe results like in figure \ref{fig:ridge_vs_ols}. You might use either scikit-learn or a manual implementation of Ridge regression, based on the OLS functions written during the previous session (both for data generation and estimator learning).
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=1\linewidth]{ridge_risks}
+    \caption{Comparison of OLS and Ridge regression in a specific setting.}
+    \label{fig:ridge_vs_ols}
+\end{figure}
+
+
+\section{\large\color{Blue}Validation tests and cross validation}
+
+\subsection{Problem}
+
+In section \ref{sec:ridge}, we saw that in some situations, some values of the HP exist, that strictly improve the performance. In some cases, these optimal values might be found theoretically, with equations that depend on the statistical properties of the data, like for instance on $\sigma$. However, in practical applications, these quantities are unknown and experimentation is needed to find good HPs.
+
+\subsection{Validation sets}
+
+\subsubsection{Definitions}%
+\label{ssub:Definitions}
+
+A basic approach for comparing hyperparameter sets is to separate the dataset into $3$ parts:
+\begin{itemize}
+    \item a train set: e.g. given a set of HPs, used to solve the optimization problem if we do empirical risk minimization.
+    \item a validation set: used to compute the score of the predictor that was learned with this set of HPs.
+    \item a test set: after trying all sets of HPs, used to compute the score of the predictor that had the best validation score (score on the validation set)
+\end{itemize}
+
+Ideally, the test set must be used \textbf{only once}: it gives an unbiased estimation of the generalization error, as opposed to the validation error, that is \textbf{not} unbiased.
+
+\subsubsection{Issues}%
+\label{ssub:Issues}
+
+There are several possible issues with this approach, the main one being that it is possible that the HPs "overfit the validation set". This means that it is possible that a given set of HPs lead to a good score on a specific choice of the validation set, but does not generalize as well. As the choice of the validation set is usually arbitrary and random, this might lead to a large variance of the predictor obtained, and a worse generalization error.
+
+\subsubsection{Simulation}%
+\label{ssub:Simulation}
+
+The previous issue is not always a big one. Usually, it happens when predictors
+with large variance are used, and / or with datasets that are too small to
+contain enough relevant statistical information about the data. We will
+illustrate this on a classification problem.
+\\
+
+{\color{Purple}{Perform a simulation with the train / validation / test split in order to perform a hyperparameter tuning for which the test score is significantly, and robustly worse than the validation score.}}
+\\
+
+Suggestions:
+\begin{itemize}
+	\item use for instance the digits dataset or the wine from scikit, and
+        extract only a random subset of this dataset; e.g. $300$ points or
+        less.
+
+        \url{https://scikit-learn.org/stable/datasets/toy_dataset.html} 
+
+	\item use \textbf{train\textunderscore test\textunderscore split()} from scikit to perform the splits.
+
+	    \url{https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html} 
+
+	\item use \textbf{ParameterGrid()} to build a \textbf{grid} that you can iterate over to compare HPs.
+	    \url{https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.ParameterGrid.html} 
+    \item use \textbf{DecisionTreeClassifier()} or \textbf{SVC()} (support
+        vector classifier) from scikit and choose some HPs from these classes to tune the tree learned.
+
+        \url{https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html} 
+
+
+	    \url{https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier}
+\end{itemize}
+
+You will see that the validation score is not always worse than the test score,
+depending on the HP grid, and of the size of the dataset !
+
+\subsection{Cross validation}
+
+\textbf{Cross-validation (CV)} is another approach to test the quality of a set of
+HPs, that is usually more robust to statistical noise. The dataset is split
+only in a train set and a test set, but the train set is used differently. It
+is itsself splitted multiple times in \textbf{folds}, and an \textbf{average}
+of errors on test folds is computed. The main issue with CV is that it is
+longer: more optimizations have to be performed.
+\\
+
+    \url{https://scikit-learn.org/stable/modules/cross_validation.html} 
+    \\
+
+    \url{https://en.wikipedia.org/wiki/Cross-validation_(statistics)} 
+    \\
+
+    \subsubsection{Simulation}%
+    \label{ssub:Simulation}
+    
+
+    {\color{Purple}{Run cross validation on the same problem as before in order
+    to obtain a better test score than with the classical train / validation /
+    test approach.}} You will notice that cross validation itsself has
+    parameters, such as the number of splits in the dataset.
+    \\
+
+    \begin{itemize}
+        \item \url{https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html} 
+        \item \url{https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html} 
+            \item In scikit-learn, many estimators have wrappers in order to directly tune
+    hyperparameters with cross validation.
+
+    \url{https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.RidgeCV.html} 
+    \end{itemize}
+
+\end{document}

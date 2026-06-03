@@ -1,0 +1,75 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML practical session 6}} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\section{\large\color{Blue}Line search for least squares}
+
+We first note that 
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:1}
+	\nabla_{\theta}f(\alpha( \gamma)) &= H \alpha( \gamma) - \frac{1}{n} X^Ty\\
+	&= H (\theta_{t}- \gamma \nabla_{ \theta}f(\theta_t)) - \frac{1}{n} X^Ty\\
+	&= \nabla_{\theta}f(\theta_{t})- \gamma H \nabla_{\theta}f(\theta_{t})
+    \end{aligned}
+\end{equation}
+
+Let us derivate $g(\gamma)=f(\alpha(\gamma))$ with respect to $\gamma$. By a composition:
+
+\begin{equation}
+    \label{eq:calcgrad}
+    \begin{aligned}
+	g'( \gamma) &= \langle\nabla_{\theta}f(\alpha(\gamma)),  \alpha'( \gamma) \rangle\\
+	&= - \langle \nabla_{\theta}f(\theta_{t})- \gamma H \nabla_{\theta}f(\theta_t),\nabla_{\theta}f(\theta_{t}) \rangle\\
+	&= - || \nabla_{ \theta}f(\theta_t) ||^2+ \gamma\langle H \nabla_{ \theta}f(\theta_t), \nabla_{ \theta}f(\theta_t)\rangle
+    \end{aligned}
+\end{equation}
+
+In order to cancel the derivative, we must have that
+
+\begin{equation}
+    \gamma^* = \frac{|| \nabla_{ \theta_{t}}f ||^2}{\langle H \nabla_{\theta}f(\theta_t), \nabla_{\theta}f(\theta_t)\rangle} 
+\end{equation}
+
+We note that this is correct if $ \nabla_{ \theta}f(\theta_t)\neq 0$. If $ \nabla_{\theta}f(\theta_t)=0$, this means that $ \theta_{t}= \eta^*$, as $f$ is convex.
+\\
+
+This computation may then be done at each iteration.
+\\
+
+An important remark is that if we note $ \theta_{t+1}^* = \theta_{t}- \gamma^* \nabla_{ \theta}f(\theta_t) = \alpha(\gamma^*)$, then equations  \ref{eq:1} and \ref{eq:calcgrad} shows that
+
+\begin{equation}
+    \langle\nabla_{\theta}f(\theta_{t+1}^*), \nabla_{ \theta}f(\theta_t) \rangle=0
+\end{equation}
+
+Two optimal directions of the gradient updates are \textbf{{orthogonal}}. Importantly, this is true in the general case, not only for least-squares.
+
+\subsubsection{\large\color{Periwinkle}Backtracking line search}
+
+In many practical situations, it is not possible to compute explicitely the optimal step $\gamma^*$. Or it could be possible, but too expensive computationnally.
+
+In such situations, it is possible to compute an approximation of $ \gamma^*$, for instance using \textbf{{backtracking line search.}}  This method attempts to find a good $\gamma$ by trying several decreasing values until a sufficient decrease in $f$ after the gradient update is obtained.
+
+\url{https://en.wikipedia.org/wiki/Backtracking_line_search} 
+
+\end{document}

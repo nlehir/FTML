@@ -1,0 +1,195 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML practical session 8}} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{2} 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{gmm_2_components}
+    \label{fig:risks}
+\end{figure}
+
+\tableofcontents
+
+\newpage
+
+\section{\large\color{Blue}Density estimation with Gaussian mixtures}
+
+In this exercise, we will learn a probability distribution from a dataset (density estimation). We use Gaussian mixtures (GMM) as parametric models.
+
+\subsection{Gaussian mixtures}
+
+Gaussian mixtures model the considered data by a number $p$ of Gaussian distributions. Each one of the $p$ subdistributions is called a "component".
+
+\url{https://fr.wikipedia.org/wiki/Mod%C3%A8le_de_m%C3%A9lange_gaussien} 
+
+\url{https://scikit-learn.org/stable/modules/mixture.html} 
+
+You can read and run the file \textbf{example\textunderscore 2D.py}, that generates a dataset in 2D, and learns Gaussian mixtures models for different numbers of components. The results are displayed in figures~\ref{fig:1}, \ref{fig:2},  \ref{fig:3}, \ref{fig:4}, and \ref{fig:5}.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{gmm_1_components}
+    \caption{Gaussian mixture with $1$ component.}
+    \label{fig:1}
+\end{figure}
+
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{gmm_2_components}
+    \caption{Gaussian mixture with $2$ component.}
+    \label{fig:2}
+\end{figure}
+
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{gmm_3_components}
+    \caption{Gaussian mixture with $3$ component.}
+    \label{fig:3}
+\end{figure}
+
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{gmm_4_components}
+    \caption{Gaussian mixture with $4$ component.}
+    \label{fig:4}
+\end{figure}
+
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{gmm_5_components}
+    \caption{Gaussian mixture with $5$ component.}
+    \label{fig:5}
+\end{figure}
+
+The main parameter of a Gaussian mixture is its number of components. Intuitively, it can be seen as an analogous to the number of centroids in a k-means clustering algorithm. In the previous images, we note that the average log-likelihood does not improve as much when we increase the number of components from $3$ to $4$, as it does when increasing it from $2$ to $3$. Take a few minutes to read some of the documentation on the scikit-learn page.
+
+\url{https://scikit-learn.org/stable/modules/mixture.html#gmm} 
+
+\subsection{Digits dataset}
+
+Gaussian distributions are correctly defined in any finite dimension $d$. Hence, we can also learn a distribution over high dimensional datasets. We will work with the digits dataset from scikit.
+
+
+{\color{Purple}{Estimate a Gaussian mixture distribution from the dataset, choosing the number of components that minimizes the Akaike information criterion (AIC) (in order to save computation time, you might try stepped numbers of components, below 200), like in figure \ref{fig:aic}. Plot the mean of each component. (see figures \ref{fig:means_121_components_full_covariance} and \ref{fig:means_10_components_diag_covariance})}}
+
+\url{https://fr.wikipedia.org/wiki/Crit%C3%A8re_d%27information_d%27Akaike} 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{AIC}
+    \caption{Akaike information criterion.}
+    \label{fig:aic}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{means_121_components_full_covariance}
+    \caption{Means of the components learned by the GMM, with 121 components and "full"" covariance (see the scikit documentation).}
+    \label{fig:means_121_components_full_covariance}
+\end{figure}
+
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{means_10_components_diag_covariance}
+    \caption{Means of the components learned by the GMM, with 10 components and diagonal covariance (see the scikit documentation).}
+    \label{fig:means_10_components_diag_covariance}
+\end{figure}
+
+\newpage
+\subsection{Generation of digits}
+
+One interesting aspect of having fitted a probabilistic model to a dataset, is that we can sample this model ! 
+
+{\color{Purple}{Use your previously learned Gaussian mixture model in order to generate images and compare them to images from the dataset. Explore the influence of hyperparameters (like the number of components, the covariance type) on the generated images.}}
+
+An example output is shown in figure~\ref{fig:gen}.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{generated_images_121_components_full_covariance.pdf}
+    \caption{Images generated by sampling a GMM trained on the dataset}
+    \label{fig:gen}
+\end{figure}
+
+\subsection{Using Gaussian mixtures for prediction}
+
+\subsubsection{Method}%
+\label{ssub:Method}
+
+We consider a supervised learning problem, where we need to predict some output $y$ as a function of an input $x$. Let us admit that we perform a density estimation on the joint variable $(x, y)$, and obtain a distribution $p$.
+\\
+
+{\color{Purple}{How could we build a prediction function with $p$ ?}}
+
+\subsubsection{Application to prediction}%
+\label{ssub:Application to }
+
+We will apply this approach to the Old faithful geyser dataset.
+
+\url{https://www.stat.cmu.edu/~larry/all-of-statistics/=data/faithful.dat} 
+\\
+
+The data are stored in a txt file and plotted on figure~\ref{fig:faithful}. By looking at the image, it seems that it should be possible to fit a GMM reasonably well to the data.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{data_old_faithful}
+    \caption{Old faithful Geyser dataset}
+    \label{fig:faithful}
+\end{figure}
+
+{\color{Purple}{Fit a GMM to the dataset, by first finding the optimal number of components, this time according to the Bayesian information criterion (for this dataset, we expect that a number of components of $2$ should be reasonable).}}
+
+\url{https://scikit-learn.org/stable/modules/linear_model.html#aic-bic} 
+\\
+
+
+{\color{Purple}Then, build a predictor with this GMM and plot the prediction of the time between two eruptions as a function of the eruption time.} You should observe results like figures~\ref{fig:pred20} and \ref{fig:pred5}.
+\\
+
+\url{https://en.wikipedia.org/wiki/Riemann_sum} 
+\\
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{preds_old_faithful_prediction_nb_y_20}
+	\caption{Prediction computed from the learned GMM. In this case, $20$ samples in the $y$ space were used in order to approximate the integrals required to compute the conditional expectation of $y|x$.}
+	\label{fig:pred20}
+\end{figure}
+
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=0.8\textwidth]{preds_old_faithful_prediction_nb_y_5}
+	\caption{Prediction computed from the learned GMM. In this case, $5$ samples in the $y$ space were used.}
+	\label{fig:pred5}
+\end{figure}
+
+\url{https://www.nps.gov/yell/learn/photosmultimedia/indepth-predictingoldfaithful.htm} 
+
+\pagebreak
+
+\end{document}

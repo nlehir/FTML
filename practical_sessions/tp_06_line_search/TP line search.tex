@@ -1,0 +1,194 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML practical session 6}} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{2} 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=1\linewidth]{Gradient_descent}
+    \label{fig:risks}
+\end{figure}
+
+\tableofcontents
+
+\newpage
+
+
+\section{\large\color{Blue}Gradient descent and line search for a least squares problem}
+
+We come back to a least squares problem, that we will use to show an example of gradient descent algorithm, with a non-constant learning rate.
+
+\subsection{Setting}
+
+\subsubsection{Notations}%
+\label{ssub:Notations}
+
+
+We recall the setting and the notations here:
+
+\begin{itemize}
+    \item $ \mathcal{X}  = \mathbb{R}^d$
+    \item $ \mathcal{Y} = \mathbb{R} $
+    \item $ \theta = \mathbb{R}^d $ defines the estimator, which is
+        the function $x\rightarrow x^T\theta$.
+    \item design matrix: $X\in \mathbb{R}^{n,d}$
+    \item vector of outputs (labels): $y \in \mathbb{R}^n$.
+\end{itemize}
+
+We want to minimize the function $f$ representing the empirical risk:
+
+\begin{equation}
+    f( \theta) = \frac{1}{2n} || X \theta - y||^2
+\end{equation}
+
+The $ \frac{1}{2}$ is just convenient here because it disappears in the gradient.
+
+\subsubsection{Gradient descent}
+
+We recall that the gradient of $f$ and its Hessian write:
+
+    \begin{equation}
+	\begin{aligned}
+	    \label{eq:}
+        \nabla_{\theta}f(\theta) &=  \frac{1}{n} X^T(X\theta-y)\\
+	    &= H \theta - \frac{1}{n} X^Ty
+	\end{aligned}
+    \end{equation}
+
+    \begin{equation}
+        H = \frac{1}{n} X^TX
+    \end{equation}
+
+An \textbf{iteration} of the gradient algorithm writes:
+\begin{equation}
+    \theta_{t+1} = \theta_{t}- \gamma \nabla_{\theta}f(\theta_t)
+\end{equation}
+
+where $\gamma>0$ is the learning rate.
+
+\subsubsection{Global minimizers}
+
+We consider the global minimizers of $f$, noted $\theta^*$. They all necessary verify
+
+    \begin{equation}
+        \nabla_{\theta}f(\theta^*) = 0
+    \end{equation}
+
+    Which means that 
+
+    \begin{equation}
+        H\theta* = \frac{1}{n} X^Ty
+    \end{equation}
+
+    As $\theta\rightarrow f(\theta)$ is convex, we know that this
+    condition is also sufficient: any vector that cancels the gradient is a global
+    minimum.
+
+If $H$ is not invertible, there might be several minimizers. However, if $f$ is
+strongly convex, then $H$ is invertible and $ \theta^*$ is unique, we note it $\theta^*$. We will
+consider such a case here. In general, $H$ is a positive semi-definite matrix,
+and here we hence consider a case where it is definite positive.
+
+\subsection{Vanilla gradient descent}
+
+{\color{Purple}Implement a gradient descent (GD) on the data contained in \textbf{{exercice\textunderscore 1\textunderscore line\textunderscore search/data/}}, and experiment the learning rate in order to observe convergence or divergence.}
+
+Template files in the folder:
+\begin{itemize}
+	\item \textbf{main.py}
+	\item \textbf{algorithms.py} (to edit)
+\end{itemize}
+
+You should observe something like figure \ref{fig:vanilla_gd} in the cases of convergence.
+
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=1\textwidth]{Gradient_descent}
+	\caption{Constant step size gradient descent and for several learning rates.}
+	\label{fig:vanilla_gd}
+\end{figure}
+
+\subsection{Line search: a nested optimization problem}
+
+Considering a fixed iteration step $ \theta_{t}$, we note 
+
+\begin{equation}
+    \alpha( \gamma) = \theta_{t}- \gamma \nabla_{\theta}f(\theta_t)\in \mathbb{R}^d
+\end{equation}
+
+The \textbf{{exact line seach}}  method attempts to find the optimal step $ \gamma^*$, at each iteration. This means, given the position $ \theta_{t}$, the parameter $ \gamma$ that minimizes the function defined by
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	g( \gamma) &= f(\theta_{t}- \gamma \nabla_{\theta}f(\theta_t))\\
+	&= f( \alpha( \gamma))
+    \end{aligned}
+\end{equation}
+
+{\color{Purple}{Is $g: \mathbb{R} \rightarrow \mathbb{R}$ a convex function ?}}
+\\
+
+{\color{Purple}{Find the value $\gamma^*$ that minimizes $\gamma\rightarrow g(\gamma)$ for a given
+$\theta_t$, and perform gradient descent where $\gamma$ is set optimally thanks to this
+method (exact line search). Compare the convergence speeds by measuring the
+distance between the iterate and the OLS estimator $\hat{\theta}$ at each iteration, and experiment with the dimensions of the problem. }} 
+\\
+
+You can uncomment the lines that call the line\textunderscore search() function in the main file.
+
+You should observe something like figure \ref{fig:ls_gd}
+
+\begin{figure}[htpb]
+\hspace*{-2cm}                                                           
+	\centering
+	\includegraphics[width=1.2\textwidth]{Gradient_descent_n_200_d_100_gaussian}
+	\caption{Comparison between constant step size gradient descent and line
+    search. In this image, we compare the number of iterations and running time
+    to reach a value for $||\theta-\hat{\theta}||$ where $\hat{\theta}$ is the
+    OLS estimator and $\theta$ the iterate. The right plot is also in full-log
+    scale, as opposed to the previous plots. We note that for these dimensions,
+    OLS solved analytically is way faster than GD and line search. For way
+    larger dimensions (typically $d>10^5$), the balance might be in favor of
+    GD-type methods.}
+	\label{fig:ls_gd}
+\end{figure}
+
+\begin{figure}[htpb]
+\hspace*{-2cm}                                                           
+    \centering
+    \includegraphics[width=1.2\textwidth]{Gradient_descent_n_200_d_100_gaussian_div}
+    \caption{If the learning rate is too large, we might have a divergence !}
+    \label{fig:Gradient_descent_n_200_d_100_gaussian_div}
+\end{figure}
+
+\begin{figure}[htpb]
+\hspace*{-2cm}                                                           
+	\centering
+	\includegraphics[width=1.2\textwidth]{Gradient_descent_n_1000_d_500_gaussian}
+    \caption{Same image for larger dimensions of the problem.}
+	\label{fig:ls_gd_500}
+\end{figure}
+
+
+
+
+
+\end{document}

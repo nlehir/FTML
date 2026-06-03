@@ -11,6 +11,16 @@ env/
 
 practical_sessions/**/*latex*/
 practical_sessions/latex_stock/
+practical_sessions/*/*.log
+practical_sessions/*/*.fls
+practical_sessions/*/*.fdb_latexmk
+practical_sessions/*/*.out
+practical_sessions/*/*.toc
+practical_sessions/*/*.aux
+practical_sessions/*/stru/
+practical_sessions/*/figures/
+practical_sessions/*/Figures/
+practical_sessions/**/4h.txt
 
 practical_sessions_2024/
 
@@ -45,7 +55,7 @@ practical_sessions/tp_01_train_test_overfitting/solutions/exercice_3_statistics/
 practical_sessions/tp_02_ols/2_4_test_error_convergence/
 
 # practical_sessions/tp_03_ridge_hps/exercice_1_ridge/utils_algo_solution.py
-practical_sessions/tp_03_ridge_cross_val/
+# practical_sessions/tp_03_ridge_cross_val/
 
 practical_sessions/tp_05_knn/exercice_2_knn/generate_low_d.py
 practical_sessions/tp_05_knn/exercice_2_knn/images_knn/explained_variance.pdf

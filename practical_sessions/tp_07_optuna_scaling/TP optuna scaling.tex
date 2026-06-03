@@ -1,0 +1,208 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML practical session 7}} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{2} 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\linewidth]{regularization}
+    \label{fig:risks}
+\end{figure}
+
+\tableofcontents
+
+\newpage
+
+\section{\large\color{Blue}Hyperparameter tuning methods}
+
+In this exercise we summarize the most common hyperparameter tuning methods and use \textbf{optuna}
+as a bayesian optimization framework.
+
+\subsection{Grid search and random search}
+
+Grid search is the most basic approach to hyperparameter tuning: choose a list of
+values for each and iterate through a grid containing all possible
+combinations.
+
+\url{https://scikit-learn.org/stable/modules/grid_search.html#} 
+\\
+
+See also:
+\begin{itemize}
+	\item random search
+	\item successive halving.
+\end{itemize}
+
+\subsubsection{Issues}
+
+Grid search might be suboptimal in the sense that all hyperparameter combinations will be tried, although many of them might be irrelevant. Also, the size of the grid is exponential in the number of parameters.
+
+\subsubsection{Question}%
+\label{ssub:Questino}
+
+{\color{Purple}{Why can we often not run a gradient-based optimization algorithm to look for better HP values ?}}
+
+
+\subsection{Bayesian optimization}
+
+More modern approaches use smarter optimization methods to tune the hyperparameters. For instance, \textbf{Bayesian optimization}.
+\\
+
+\url{https://en.wikipedia.org/wiki/Bayesian_optimization} 
+\\
+
+\subsubsection{Frameworks}%
+\label{ssub:Frameworks}
+
+Several frameworks exist to perform Bayesian optimization over HPs values, and automate the search.
+
+\begin{itemize}
+    \item[skopt] \url{https://scikit-optimize.github.io/stable/} 
+    \item[optuna] \url{https://optuna.org/}
+\end{itemize}
+
+With these methods, we can specify ranges for scalar HP values, instead of grids of values.
+\\
+
+\subsubsection{Optuna and optuna dashboard}%
+\label{ssub:Optuna dashboard}
+
+Optuna creates "studies", in which HP sets are tested in a sequence. A set of
+HPs is tested in a "trial".
+\\
+
+	\url{https://optuna.readthedocs.io/en/stable/reference/study.html} 
+    \\
+
+Some interesting optuna aspects to consider:
+\begin{itemize}
+    \item some trials can be "pruned": they are considered as not interesting by
+        optuna, and are discarded before the optimization is finished.
+    \item it is possible to start a study, stop the program, and resume the
+        study later, with the previous trials still in the study database.
+        \item you can analyze the results of a study by processing the study
+            object with other libraries like pandas, seaborn, matplotlib,
+            etc.
+\end{itemize}
+
+With optuna, you can display and analyze the influence of the HP with a dashboard that opens in your browser.
+
+\url{https://github.com/optuna/optuna-dashboard} 
+\\
+
+{\color{Purple}{Perform HP optimization with optuna over a problem of your choice. Visualize the results in the optuna dashboard}}
+\\
+
+Suggestion: if you want, you can use \textbf{main\textunderscore optuna\textunderscore template.py} and the data contained in
+\textbf{data/}, in \textbf{exercise\textunderscore 3\textunderscore optuna/} folder (for apply a ridge regression on this dataset), but you are encouraged to try also in a different problem, for instance with scikit's toy datasets or any dataset of your choice.
+
+
+\pagebreak
+\section{\large\color{Blue}Influence on data scaling on the convergence of SGD}
+
+We would like to perform a binary clasification on the following $3$ datasets (figures \ref{fig:data_to_separate_dataset_1}, \ref{fig:data_to_separate_dataset_2}, \ref{fig:data_to_separate_dataset_3}). Each one has a different difficulty for a linear classifier, such as a SVM. We also note that the scales are different on the $x$ and $y$ axes.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{data_to_separate_dataset_1}
+    \caption{Dataset 1}
+    \label{fig:data_to_separate_dataset_1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{data_to_separate_dataset_2}
+    \caption{Dataset 2}
+    \label{fig:data_to_separate_dataset_2}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{data_to_separate_dataset_3}
+    \caption{Dataset 3}
+    \label{fig:data_to_separate_dataset_3}
+\end{figure}
+
+The data are located in \textbf{{exercice \textunderscore 3 \textunderscore svm\textunderscore sgd/data/}}.
+
+Data standardization consists in transforming the data so that each feature (each column) is centered (zero mean) and has a variance equal to $1$. It is experimentally often noticed that algorithms trained by SGD give a better performance (generalization error) when the data are standardized.
+\\
+
+\url{https://scikit-learn.org/stable/modules/preprocessing.html#preprocessing-scaler}.
+\\
+
+
+% {\color{Purple}{In general, why can the fact tha the data are non-standardized be a bad thing for most }}
+%Intuitively, a bad case where the data are not standardized is when one of the features is orders of magnitude larger than the other features. A optimizer might then only concentraite on optimizing this feature, although this might only come from the fact that this feature was measured in a different unit than others, and in fact does not carry more information on the problem than other features.
+%\\
+
+{\color{Purple}{Perform a linear classification on these data, optimized by SGD, and compare quality of the results with and without preprocessing the data by standardizing them. You may use scikit-lean to do it, in particular:}}
+
+\begin{itemize}
+    \item 
+	\url{https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html}. By default, this class trains a linear SVM (no kernel).
+    \item 
+	\url{https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html} 
+    \item 
+	\url{https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html} 
+\end{itemize}
+
+You should obtain results like the following figures.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{prediction_test_set_dataset_1_with_standardization}
+    \label{fig:name}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{prediction_test_set_dataset_1_without_standardization}
+    \label{fig:name}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{prediction_test_set_dataset_2_with_standardization}
+    \label{fig:name}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{prediction_test_set_dataset_2_without_standardization}
+    \label{fig:name}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{prediction_test_set_dataset_3_with_standardization}
+    \label{fig:name}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{prediction_test_set_dataset_3_without_standardization}
+    \label{fig:name}
+\end{figure}
+
+In this example, we saw that data standardization may give an improved performance, on a linear SVM trained by SGD. {\color{Purple}{You can perform the same study on different datasets such as the toy datasets from scikit or other datasets.}}
+
+
+\end{document}
