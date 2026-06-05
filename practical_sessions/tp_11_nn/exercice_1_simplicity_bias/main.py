@@ -61,6 +61,9 @@ def learn_neural_network(m: int, gamma: float):
     times = list()
     train_errors = list()
     test_errors = list()
+    print("---")
+    print("Start SGD")
+    print("---")
     for t in range(NB_ITERATIONS):
         # sample a random index
         i = np.random.randint(n_train)

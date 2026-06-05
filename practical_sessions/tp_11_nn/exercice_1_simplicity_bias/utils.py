@@ -38,7 +38,7 @@ def forward_pass(
     X:     (n, d) array
     (inputs: n inputs in dimension d)
     In this exercice, d=1
-    Each input is thus a line vector.
+    Each individual input x is thus a line vector.
 
     wh:    (d+1, m) array
     (weights between the input layer and the hidden layer)
@@ -47,6 +47,12 @@ def forward_pass(
     (weights between the hidden layer and the output)
     """
 
+    """
+    Becausewe do SGD,
+    during the backpropagation we send only
+    1 sample: in this case X.shape is an
+    empty tuple
+    """
     if X.shape:
         n = X.shape[0]
     else:
