@@ -101,6 +101,18 @@ def learn_neural_network(m: int, gamma: float):
     """
     Plot the results
     """
+
+    """
+    Get the total number of parameters
+    """
+    nb_parameters = 2*m + m + 1
+    # nb_parameters_matrices = wh.shape[0]*wh.shape[1] + theta.shape[0]
+    infos = (
+            f"{n_train} train samples"
+            f", {n_test} test samples"
+            f"\nm={m}, " + r"$\gamma=$" + f"{gamma:.2f}"
+            f"\nnumber of parameters {nb_parameters}"
+            )
     plt.plot(times, train_errors, label="train error")
     plt.plot(times, test_errors, label="test error")
     plt.xscale("log")
@@ -108,9 +120,7 @@ def learn_neural_network(m: int, gamma: float):
     plt.legend(loc="best")
     plt.xlabel("log10 iteration")
     plt.ylabel("mean squared error")
-    title = (
-        f"train and test learning curves\n" + f"m={m}\n" + r"$\gamma=$" + f"{gamma:.2f}"
-    )
+    title = f"train and test learning curves\n{infos}"
     plt.title(title)
     plt.tight_layout()
     figname = f"learning_curves_it_{NB_ITERATIONS:.2E}_m_{m}_gam_{gamma}"
@@ -125,7 +135,7 @@ def learn_neural_network(m: int, gamma: float):
     plt.plot(inputs, predictions, label="neural network")
     plt.xlabel("input")
     plt.ylabel("output")
-    title = f"neural net prediction\nm={m}\n" + r"$\gamma=$" + f"{gamma:.2f}"
+    title = "neural net prediction\n{infos}"
     plt.title(title)
     plt.tight_layout()
     figname = f"prediction_it_{NB_ITERATIONS:.2E}_m_{m}_gam_{gamma}"

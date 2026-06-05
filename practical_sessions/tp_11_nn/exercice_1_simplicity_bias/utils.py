@@ -48,7 +48,7 @@ def forward_pass(
     """
 
     """
-    Becausewe do SGD,
+    Because we do SGD,
     during the backpropagation we send only
     1 sample: in this case X.shape is an
     empty tuple
