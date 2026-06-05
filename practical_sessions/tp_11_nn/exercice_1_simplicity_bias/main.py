@@ -135,7 +135,7 @@ def learn_neural_network(m: int, gamma: float):
     plt.plot(inputs, predictions, label="neural network")
     plt.xlabel("input")
     plt.ylabel("output")
-    title = "neural net prediction\n{infos}"
+    title = f"neural net prediction\n{infos}"
     plt.title(title)
     plt.tight_layout()
     figname = f"prediction_it_{NB_ITERATIONS:.2E}_m_{m}_gam_{gamma}"
