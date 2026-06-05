@@ -7,18 +7,20 @@
 *__pycache__/
 *.db
 
+
 env/
+
 
 practical_sessions/**/*latex*/
 practical_sessions/latex_stock/
-practical_sessions/*/*.log
-practical_sessions/*/*.fls
-practical_sessions/*/*.blg
-practical_sessions/*/*.bbl
-practical_sessions/*/*.fdb_latexmk
-practical_sessions/*/*.out
-practical_sessions/*/*.toc
-practical_sessions/*/*.aux
+*.log
+*.fls
+*.blg
+*.bbl
+*.fdb_latexmk
+*.out
+*.toc
+*.aux
 practical_sessions/*/stru/
 practical_sessions/*/figures/
 practical_sessions/*/Figures/
