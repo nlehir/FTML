@@ -3,6 +3,7 @@ Utilities for application of SGD on the neural network.
 Fix this file.
 """
 
+from sys import prefix
 import numpy as np
 
 
@@ -20,11 +21,6 @@ def relu_derivative(x: np.ndarray) -> np.ndarray:
     return np.heaviside(x, 0)
 
 
-# TODO
-
-# FIX
-
-
 def forward_pass(
     X: np.ndarray, wh: np.ndarray, theta: np.ndarray
 ) -> dict[str, np.ndarray]:
@@ -32,13 +28,13 @@ def forward_pass(
     Compute the forward pass of a neural network with an output dimension
     of 1, and with only one hidden layer of m neurons.
 
-    Also returns the intermediate results, that are useful for gradient computations.
+    Also return the intermediate results, that are useful for gradient computations.
     A dict is used to avoid dependence on the order of the returned variables.
 
     X:     (n, d) array
     (inputs: n inputs in dimension d)
     In this exercice, d=1
-    Each individual input x is thus a line vector.
+    Each input is thus a line vector.
 
     wh:    (d+1, m) array
     (weights between the input layer and the hidden layer)
@@ -58,28 +54,30 @@ def forward_pass(
     else:
         n = 1
 
-    """
-    FIX THIS FUNCTION
-    """
     # stack X with a column of 1s in order to add the intercepts
     ones_X = np.ones(shape=(n, 1))
     X_stacked = np.column_stack((X, ones_X))
 
     # linear product between inputs and first hidden layer
-    pre_h = np.ones((n, wh.shape[1]))
+    pre_h = X_stacked @ wh
+    # if n> 1:
+    #     print(f"{X_stacked.shape=}")
+    #     print(f"{pre_h.shape=}")
+    #     print(f"{wh.shape=}")
+    #     __import__('ipdb').set_trace()
 
     # apply non linearity
-    h = pre_h
+    h = relu(pre_h)
 
     # stack h with a column of 1s in order to add the intercepts
     ones_h = np.ones(shape=(n, 1))
-    h_stacked = np.column_stack((h, ones_h))
+    h_bar = np.column_stack((h, ones_h))
 
     # linear operation between hidden layer and output layer
-    pre_y = 1
+    pre_y = h_bar @ theta
 
     # apply non linearity
-    y_hat = np.ones((n, 1))
+    y_hat = relu(pre_y)
 
     # return all the steps (useful for gradients)
     outputs = dict()
@@ -111,14 +109,27 @@ def compute_gradients(
     l is the squared loss.
 
     We use the chain rule to write the computation.
-
-    FIX these gradients !
     """
     # first compute the gradient with respect to theta
     dl_dy_hat = y_hat - y
 
-    # return
+    dy_hat_dpre_y = relu_derivative(pre_y)
+    # dy_hat_dpre_y = pre_y
+
+    h_bar = np.append(h, 1)
+    dpre_y_dtheta = h_bar
+    dl_dtheta = dl_dy_hat * dy_hat_dpre_y * dpre_y_dtheta
+
+    # then compute the gradient with respect to w_h
+    # see pdf "Gradients.pdf" for details
+    theta_tilde = theta[:-1]
+    x_bar = np.append(x, 1)
+    x_bar = x_bar.reshape(1, len(x_bar))
+    u = theta_tilde * relu_derivative(pre_h)
+    dl_dwh = (dl_dy_hat * dy_hat_dpre_y) * u.T @ x_bar
+
+    # transpose the jacobians to obtain the gradients
     gradients = dict()
-    gradients["dl_dtheta"] = theta
-    gradients["dl_dwh"] = np.ones((2, len(theta) - 1))
+    gradients["dl_dtheta"] = dl_dtheta.T
+    gradients["dl_dwh"] = dl_dwh.T
     return gradients
