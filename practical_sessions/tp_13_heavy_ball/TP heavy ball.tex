@@ -1,0 +1,159 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML practical session 16}}
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Gradient_descent_n_80_d_60_gaussian}
+    \label{fig:risks}
+\end{figure}
+
+\tableofcontents
+
+\pagebreak
+
+\section{\large\color{Blue}The Heavy-Ball method}
+
+\subsection{Convergence rates of GD for convex functions}
+
+We consider the optimization of a convex function $f: \theta \rightarrow f(\theta)$ using a gradient descent (GD). In particular, we consider the \textbf{convergence speed} of GD. This speed can be expressed in several manners. For instance, as the distance between the iterate $\theta_t$ and a minimizer $\theta^*$ (of course assuming that this minimizer exists and is unique), as a function of the iteration number $t$. It if possible to show the following results for two-times differentiable convex functions:
+
+    \begin{itemize}
+	\item if $H$ is invertible ($\mu >0$), we have a convergence rate in $\exp( - \frac{2t}{\kappa} )$.
+	\item if $H$ is not invertible ($\mu = 0$), we have a convergence rate in $ \mathcal{O} ( \frac{1}{t} )$ (probably one of the exercises of the project).
+    \end{itemize}
+
+    These rates are speed \textbf{upper bounds}, meaning that the convergence is at least as fast as those. Also note that these rates of convergence require the use of specific values of the learning rate $\gamma$, like for instance $\frac{1}{L}$ (but other values might also be used, depending on the context). We also see that these rates depend on the \textbf{condition number} of the Hessian $H$. If we note $\mu$ the smallest eigenvalue of the Hessian $H$, and $L$ the largest, and if this Hessian is for instance symetric and definite positive, then 
+
+\begin{equation}
+    \kappa = \frac{L}{\mu}
+\end{equation}
+
+However, the condition number might be defined also for general matrices, and even functions.
+
+\url{https://en.wikipedia.org/wiki/Condition_number}
+
+\subsubsection{Large condition numbers}
+
+Hence, when $\kappa$ is very large ($>>1$), the convergence to the optimum might be very slow. Note that matrices with large condition numbers are not rare in large-scale machine learning and scientific computing applications. If the smallest eigen value $\mu$ of a given matrix $H$ is very small, or even $0$ (which will happen as soon as $H$ is not full rank), $\kappa$ will be very large as soon as the largest eigenvalue $L$ is not also very small.
+
+\subsubsection{Inertial methods}
+
+When $\kappa$ is large, some methods still exist in order to speed the convergence of gradient descent, such as \textbf{{Heavy-ball.}}  This method consists in adding a \textbf{{momentum term}} to the gradient update term, such as the iteration now writes
+
+\begin{equation}
+    \theta_{t+1} = \theta_{t}- \gamma \nabla_{ \theta}f(\theta_{t})+ \beta( \theta_{t}- \theta_{t-1})  
+\end{equation}
+
+where $\beta$ and $\gamma$ are real constants that should be tuned. The update $ \theta_{t+1}- \theta_{t}$ is then a combination of the gradient $ \nabla_{ \theta}f(\theta_{t})$ and of the previous update $ \theta_{t}-  \theta_{t-1}$. The goal of this method it to balance the effet of oscillations in the gradient. The heavy-ball method is called an \textbf{{inertial method.}} When $f$ is a general convex function (not necessary quadratic), some generalizations exist, such as \textbf{{Nesterov acceleration.}}  Many of the most famous variations of SGD, like RMSProp and Adam, optionally include such a momentum term.
+
+
+\subsection{Simulation}
+
+
+{\color{Purple}{
+Using \textbf{exercise\_1\_heavy\_ball/main.py}, try to manually find
+$\gamma$ and $\beta$ values such that the convergence is faster with the
+Heavy-Ball method than with a standard GD.
+    }}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Gradient_descent_n_80_d_60_gaussian}
+    \caption{Heavy ball vs GD, semilog scale}
+    \label{fig:hb}
+\end{figure}
+
+\subsection{Analytical proof of $\gamma$ and $\beta$ values}
+
+Assuming $\mu>0$, in a least squares problem, it is possible to show that the
+characteristic convergence time with the heavy-ball momentum term is $
+\sqrt{\kappa} $ instead of $ \kappa$, \textbf{if $\beta$ and $\gamma$ are tuned
+well}. With the heavy-ball momentum term, we can change the convergence (upper bound) from $ \mathcal{O} (\exp( - \frac{2t}{ \kappa }))$ to $ \mathcal{O} (\exp( - \frac{2t}{ \sqrt{\kappa} }))$. If $ \kappa$ is large, which is the case we are interested in, this can be a significant improvement.
+
+The update $ \theta_{t+1}- \theta_{t}$ is then a combination of the gradient $ \nabla_{\theta}f(\theta_{t})$ and of the previous update $ \theta_{t}-  \theta_{t-1}$. This method might balance the effet of oscillations in the gradient. We will use these parameters:
+
+\begin{equation}
+    \gamma = \frac{4}{( \sqrt{L} + \sqrt{\mu} )^2} 
+\end{equation}
+
+and
+\begin{equation}
+    \beta = \Big( \frac{\sqrt{L} - \sqrt{\mu}}{\sqrt{L} + \sqrt{\mu}}  \Big)^2
+\end{equation}
+
+We keep the same notations as in the former practical sessions dedicated to the least squares problem. $\mu$ is the smallest eigenvalue of the Hessian $H$ and $L$ is the largest. Assuming $\mu>0$ (strongly convex function), we will show that the characteristic convergence time with the heavy-ball momentum term is $ \sqrt{\kappa} $ instead of $ \kappa$.
+
+Let $ \lambda$ be an eigenvalue of $ H$ and $ u_{\lambda}$ a eigenvector for thie eigenvalue. We are interested in the evolution of $ \langle \theta_{t}- \eta^*, u_{\lambda} \rangle$.
+
+We note
+\begin{equation}
+    a_t = \langle \theta_{t}- \eta^*, u_{\lambda} \rangle
+\end{equation}
+
+\exercice{} Show that 
+
+\begin{equation}
+    a_{t+1} = (1- \gamma \lambda +\beta) a_t- \beta a_{t-1}
+\end{equation}
+
+\exercice{\textbf{}} Compute the constant-recursive sequence $a_t$, and show
+that there exists  a constant $C_{\lambda}$ that depends on the initial
+conditions, such that
+
+\begin{equation}
+    \forall t, a_t\leq ( \sqrt{\beta} )^t C_{\lambda}
+\end{equation}
+
+\url{https://en.wikipedia.org/wiki/Constant-recursive_sequence} 
+
+If $u_i$ is a basis of orthonormal vectors with eigenvalues $\lambda_i$, we have that
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	|| \theta_{t}-\eta^*||^2 &= \sum^{d}_{i=1}(\langle\theta_{t}-\eta^*, u_i \rangle)^2 \\
+	&\leq \sum^{d}_{i=1} (\sqrt{\beta})^{2t} C_{\lambda_i}\\
+	&= (\sqrt{\beta})^{2t} D\\
+    \end{aligned}
+\end{equation}
+
+with 
+
+\begin{equation}
+    D = \sum^{d}_{i=1}  C_{\lambda_i}\\
+\end{equation}
+
+We can now remark that
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	\sqrt{\beta} &= \frac{ \sqrt{L} - \sqrt{\mu} }{ \sqrt{L} + \sqrt{\mu} } \\
+	&=  \frac{1- \sqrt{ \frac{\mu}{L}}}{1+ \sqrt{ \frac{\mu}{L}}} \\
+	&\leq 1- \sqrt{\frac{\mu}{L}}\\
+	&= 1- \frac{1}{ \sqrt{\kappa} } 
+    \end{aligned}
+\end{equation}
+
+\exercice{} Conclude
+
+\end{document}
