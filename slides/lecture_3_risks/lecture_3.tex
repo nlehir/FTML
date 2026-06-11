@@ -1,0 +1,765 @@
+\documentclass[usenames,dvipsnames]{beamer}
+
+\mode<presentation> {
+\usetheme{Montpellier}
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setcounter{tocdepth}{3}
+\graphicspath{{../Figures/}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newtheorem*{proposition}{Proposition}
+% exercices comptés
+\newcounter{numexos}%Création d'un compteur qui s'appelle numexos
+\setcounter{numexos}{0}%initialisation du compteur
+\newcommand{\exercice}[1]{%Création d'une macro ayant un paramètre
+\addtocounter{numexos}{1}%chaque fois que cette macro est appelée, elle ajoute 1 au compteur numexos
+\textcolor{DarkOrchid}{Exercice\,\thenumexos\,:}\,#1%Met en rouge Exercice et la valeur du compteur appelée par \thenumeexos
+}
+
+\setbeamertemplate{title page}{
+    \centering
+
+    \huge\bfseries
+    Fondamentaux théoriques du machine learning
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{empirical_risk_and_generalization_error_f3}
+\end{figure}
+
+    }
+
+\title[FTML]{title}
+
+
+\date{} % Date, can be changed to a custom date
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview of lecture 3} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+\section{Recap on risks and Bayes estimators}
+
+\begin{frame}{Supervised learning}
+    \begin{itemize}
+	\item The dataset $D_n$ is a collection of $n$ samples $\{(x_i, y_i), 1\leq i\leq n\}$, that are assumed \textbf{{independent and identically distributed}} draws of from the \textbf{joint random variable} $(X, Y)$.
+        \item the law of $(X,Y)$ is unknown, we can note it $\rho$.
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Risks (reminder of the definition)}
+    Let $l$ be a loss function.
+
+    \begin{itemize}
+        \item The \textbf{{empirical risk (ER)}} of an estimator $f$ writes
+
+    \begin{equation}
+	R_n(f) = \frac{1}{n} \sum^{n}_{i=1} l(y_i, f(x_i))
+    \end{equation}
+    \item The \textbf{{risk}} (or \textbf{{statistical risk, generalization error, test error)}} of estimator $f$ writes
+
+    \begin{equation}
+	R(f)=E_{(X,Y)\sim \rho}[l(Y,f(X)]
+    \end{equation}
+    \end{itemize}
+
+
+\end{frame}
+
+\subsection{Binary classification example}
+
+\begin{frame}{Generalization of the penalty shootout example}
+    We consider the following random variable $(X,Y)$.
+    \begin{itemize}
+	\item $ \mathcal{X} = \{0, 1\}$, $ \mathcal{Y}  = \{0, 1\}$.
+        \item 
+            $ X\sim B( \frac{1}{2} )$, 
+         $$
+            Y = \left\{
+                \begin{array}{ll}
+                    B(p) \text{ if } X=1   \\
+                    B(q) \text{ if } X=0   \\
+                \end{array}
+                \right.
+                $$
+    With $B(p)$ a Bernoulli law with parameter $p$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{}
+    We consider $3$ \textbf{estimators}:
+    \begin{itemize}
+    	\item 
+         $$
+            f_1 = \left\{
+                \begin{array}{ll}
+                    1 \text{ if } x=1   \\
+                    0 \text{ if } x=0   \\
+                \end{array}
+                \right.
+                $$
+    	\item 
+         $$
+            f_2 = \left\{
+                \begin{array}{ll}
+                    0 \text{ if } x=1   \\
+                    1 \text{ if } x=0   \\
+                \end{array}
+                \right.
+                $$
+	\item 
+
+	    \begin{equation}
+		\forall x\in \mathcal{X}, f_3(x)=1
+	    \end{equation}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{}
+    \exercice{}
+
+    We observe the following dataset:
+    \begin{equation*}
+        D_4 = \{(0, 1), (0, 0), (0, 0), (1, 0)\}
+    \end{equation*}
+
+    Compute the \textbf{empirical risks} $R_4(f_1)$, $R_4(f_2)$, $R_4(f_3)$ with the "0-1" loss.
+
+    \begin{equation*}
+	R_n(f) = \frac{1}{n} \sum^{n}_{i=1} l(y_i, f(x_i))
+    \end{equation*}
+    
+\end{frame}
+
+\begin{frame}{Law of total probability}
+    If for instance $ \Omega = A\cup B\cup C$ and $A$, $B$, $C$ are mutually
+    exclusive and collectively exhaustive (système complet d'événements), then
+
+    \begin{equation}
+        P(X) = P(X\cap A)+P(X\cap B)+P(X\cap C)
+    \end{equation}
+
+\url{https://en.wikipedia.org/wiki/Law_of_total_probability} 
+\\
+
+$\Omega$ is the \textbf{sample space}.
+\end{frame}
+
+\begin{frame}{Conditional probabilities}
+    \begin{equation}
+        P(A\cap B) = P(A|B)P(B)
+    \end{equation}
+\end{frame}
+
+
+\begin{frame}{Real risks}
+    \exercice{}
+    Now, compute the real risks $R(f_1), R(f_2), R(f_3)$.
+
+    \begin{equation}
+           R(f)= E[l(Y, f(X))]
+    \end{equation}
+\end{frame}
+
+\begin{frame}{}
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+            R(f_1)&= E[l(Y, f(X))] \\
+	    &= 1\times P\Big(l(Y, f(X))=1\Big)+ 0\times P\Big(l(Y, f(X))=0\Big)\\
+            &= 1\times P(Y\neq f(X))+ 0\times P(Y=f(X))\\
+            &= P(Y\neq f(X))
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Random variables or deterministic quantities}
+
+    \begin{itemize}
+        \item $R_4(f)$ (empirical risk) \textbf{{depends}} on $D_4$. If we sample another dataset, $R_4(f)$ is
+            likely to change, it is a \textbf{{random variable}}.
+        \item $R(f)$ (generalization error) is \textbf{{deterministic}}, given
+            the joint law of $(X,Y)$.
+    \end{itemize}
+\end{frame}
+
+\subsection{Problem of empirical risk minimization}
+
+\begin{frame}{Optimization problem}
+    \begin{itemize}
+	\item The smaller the generalization error $R(f)$ is, the better $f$ is.
+	\item The situation is more tricky for $R_n(f)$: it is not obvious that as estimator that has a very small empirical risk $R_n(f)$ has a small generalization error $R(f)$ ! This is the problem of \textbf{overfitting}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.95\textwidth]{Fit_degree_19}
+	\caption{Too complex estimator}
+        \label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Empirical risk minimization}
+
+    Look for $f_n$ that minimizes $R_n(f)$.
+    \vspace{\baselineskip}
+
+    Not all function approximations are based on finite datasets consists in empirical risk minimization ! (nearest neighbors are not)
+
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.42\textwidth]{knn10000.pdf}
+    	\label{fig:}
+    \end{figure}
+
+\end{frame}
+
+
+\begin{frame}{Optimization problem}
+
+    \textbf{Empirical risk minimization (ERM)}: finding the estimator $f_n$ that minimizes the empirical risk $R_n$.
+    \\
+
+    This raises important questions:
+    \begin{itemize}
+	\item 1) does $f_n$ have a good generalization error $R(f_n)$ ?
+	\item 2) how can we have guarantees on the generalization error $R(f_n)$ ?
+	\item 3) how can we find the empirical risk minimizer $f_n$ ?
+	\item 4) is it even interesting to strictly minimize $R_n$ ?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Generalization error}
+    \textbf{Question 1)} {\color{Blue}Does $f_n$ have a good generalization error $R(f_n)$ ?}
+    \\
+
+    This will depend on:
+    \begin{itemize}
+	\item the number of samples $n$
+	\item the shape of $f$ (the map such that $Y=f(X)$), in particular on its \textbf{regularity} (or equivalently the distribution $\rho$)
+	\item the dimensions of the input space and of the output space.
+	\item the space of functions where $f_n$ is taken from.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Statistical bounds}
+    \textbf{Questions 2)} {\color{Blue}How can we have guarantees on the generalization error $R(f_n)$ ?}
+    \\
+
+    By making \textbf{assumptions} on the problem (learning is impossible without making assumptions), for instance assumptions on $\rho$.
+\end{frame}
+
+\begin{frame}{Optimization}
+
+    \textbf{Question 3)} {\color{Blue}how can we find the empirical risk minimizer $f_n$ ?}
+    \\
+
+    By using an optimization algorithm or by solving the minimization in closed-form.
+%     \begin{itemize}
+% 	\item for instance if $ \mathcal{X}= \mathbb{R}^d$ and $ \mathcal{Y}=\mathbb{R}$, if we use only linear models as a space of function, we have a closed-form solution. If $d$ is not too large (approximately $d \leq 10^4$), it is perfectly valid to use it.
+% 	\item in high dimensions, it is likely that an iterative algorithm and / or approximations will be necessary.
+%     \end{itemize}
+\end{frame}
+
+\begin{frame}{Convex functions}
+    Convex functions are easier to minimize.
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\textwidth]{convex}
+        \label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Non convex functions}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\textwidth]{nonconvex}
+        \label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{What is convex here ?}
+    In this context, the convexity that is involved is the dependence of $R_n$ in $g$. More precisely, for instance if $g$ depends on $ \theta\in \mathbb{R}^d$, e.g. $g(x) = \langle  \theta, x \rangle$, the convexity is that of
+    \begin{equation}
+	\theta \mapsto R_n( \theta)
+    \end{equation}
+
+    Example (ordinary least squares):
+
+    \begin{equation}
+	R_n( \theta) = \frac{1}{n}\sum_{i=1}^{n}( \langle \theta, x_i \rangle - y_i)^2
+    \end{equation}
+    with $x_i\in \mathbb{R}^d$, $y_i\in \mathbb{R}$.
+\end{frame}
+
+\begin{frame}{Optimization error}
+
+    \textbf{Question 4)} {\color{Blue}is it even interesting to strictly minimize $R_n$ ?}
+    \\
+
+    Most of the time it is \textbf{not}, as we are interested in $R$, not in $R_n$, so we should not try to go to machine precision in the minimization of a quantity that is itsself an approximation !
+
+    (This is linked to the \textbf{estimation error} that is often of order $ \mathcal{O}(1/ \sqrt{n})$.)
+\end{frame}
+
+% \begin{frame}{Optimization}
+%     Two numbers are very important when dealing with optimization in ML:
+%     \begin{itemize}
+%         \item the number of samples $n$
+% 	\item the dimension of the input space $d$
+%     \end{itemize}
+% 
+%     Both can be very large, e.g. $d\geq 10^7$ for an image that has several mega pixels.
+% 
+%     Most configurations can be encountered
+%     \begin{itemize}
+% 	\item $d<<n$
+%         \item $n<<d$
+% 	    \item $d \simeq n$
+%     \end{itemize}
+% 
+%     The rate of convergence of optimization algorithms
+% \end{frame}
+
+
+\begin{frame}{Bayes risk}
+
+We define the \textbf{{Bayes estimator}} $f^*$ by
+
+\begin{equation*}
+    f^*\in \argmin_{f:X\rightarrow Y} R(f)
+\end{equation*}
+
+    with $f:X\rightarrow Y$ set of measurable functions. The \textbf{Bayes risk} is $R(f^*)$.
+
+
+Fundamental problem of supervised learning: Approximate $f^*$ given only $D_n$.
+\end{frame}
+
+\begin{frame}{Bayes estimators}
+
+    As we have admitted during the TPs:
+    \begin{itemize}
+    	\item if we know the law $\rho$ of $(X,Y)$
+	\item if the loss $l$ is well known (e.g. the squared loss, the "0-1" loss)
+    \end{itemize}
+    Then we can sometimes explicitely derive en expression of the Bayes estimator, as in the first two practical sessions.
+\end{frame}
+
+\begin{frame}{Practical sessions}
+
+    During the practical sessions with experimented with several notions related to risks in supervised learning.
+    \begin{itemize}
+    	\item \textbf{TP1:} given a problem, find the Bayes estimator
+	\item \textbf{TP2:} given a problem, compare some estimator (OLS, Ridge) to the Bayes estimator.
+    \end{itemize}
+
+    In both cases, we assumed that we had a \textbf{perfect statistical knowledge} of the problems.
+
+\end{frame}
+
+\begin{frame}{Practical situations}
+
+    Hence, if we knew $\rho$ in a situation as just described, \textbf{learning would not be necessary}.
+    \vspace{\baselineskip}
+
+    But in concrete problems, we do not now $\rho$. \textbf{Why even mention Bayes estimators and Bayes risks then ?}
+    \vspace{\baselineskip}
+    
+    Because in some contexts we can have a good idea of whether we can have a satisfactory approximation of $f^*$ based on the dataset only, aka whether \textbf{learning is possible}.
+
+
+\end{frame}
+
+\begin{frame}
+
+    Example: for OLS, we have experimentally seen that (in the specific statistical hypothesis that we assumed, named the "fixed design"):
+
+	    \begin{equation}
+		E[R(\hat{\theta})]-R( \theta^*) = \frac{\sigma ^2d}{n} 
+	    \end{equation}
+
+	    \begin{figure}[htpb]
+	    	\centering
+	    	\includegraphics[width=0.35\textwidth]{ols_risks.pdf}
+	    	\label{fig:ols_risks-pdf}
+	    \end{figure}
+
+	So for instance:
+    \begin{itemize}
+    	\item if $d<<n$, then yes, learning is possible with OLS
+	\item if $d=n$, then the OLS is only half as good as $f^*$ (because $R(\theta^*)=\sigma^2$).
+    \end{itemize}
+
+\end{frame}
+
+
+%
+% \begin{frame}{Statistical estimators}
+%
+%     The term \textbf{estimator} is also common in statistics, with a different meaning (from a "supervised learning estimator").
+%
+% \url{https://en.wikipedia.org/wiki/Estimator} 
+%
+% \url{https://en.wikipedia.org/wiki/Bias_of_an_estimator} 
+%     \vspace{\baselineskip}
+%
+%     Example: if the samples $(x_i)_{i\in [1, n]}$ are iid draws from a random variable $X$, then the \textbf{sample mean} is an unbiased estimator of $E(X)$.
+%
+% \end{frame}
+%
+%
+% \begin{frame}{Empirical risk as an estimator of the generalization error}
+%     Let $f$ be a fixed, predictor, that does not depend on the dataset. (Unfortunately, $f$ is also often called an estimator).
+%     \\
+%
+%     Then the empirical risk $R_n(f)$ is an unbiased estimator of $R(f)$ (shown in a future exercise).
+%
+% \end{frame}
+%
+% \begin{frame}{Simulations}
+%
+%     \begin{figure}[htpb]
+%         \centering
+%         \includegraphics[width=0.8\linewidth]{empirical_risk_and_generalization_error_f1}
+%         \label{fig:empirical_risk_and_generalization_error_f1}
+%     \end{figure}
+%
+% \end{frame}
+%
+%
+% \begin{frame}{Simulations}
+%
+%     \begin{figure}[htpb]
+%         \centering
+%         \includegraphics[width=0.8\linewidth]{empirical_risk_and_generalization_error_f2}
+%         \label{fig:empirical_risk_and_generalization_error_f2}
+%     \end{figure}
+%
+% \end{frame}
+%
+% \begin{frame}{Simulations}
+%
+%     \begin{figure}[htpb]
+%         \centering
+%         \includegraphics[width=0.8\linewidth]{empirical_risk_and_generalization_error_f3}
+%         \label{fig:empirical_risk_and_generalization_error_f3}
+%     \end{figure}
+%
+% \end{frame}
+%
+%
+% \begin{frame}{Empirical risk of the empirical risk minimizer}
+%
+%     Let us note $f_n$ the empirical risk minimizer (like the OLS). Then $R_n(f_n)$ is \textbf{not} an unbiased estimator of $R(f_n)$ ! $f_n$ adapts to $D_n$.
+%     \vspace{\baselineskip}
+%
+%
+%     \exercice{} We consider a linear regression in $1$ dimension with squared loss, and a dataset containing only $1$ sample $(x_1, y_1)=(0.5, 1.7)$. We assume that:
+%     \begin{itemize}
+% 	\item $X$ follows a uniform law on $[0, 1]$
+% 	\item $Y=3X+\sigma\epsilon$, with $\epsilon$ being a standard Gaussian random variable independent from $X$,
+%     \end{itemize}
+%
+%     What is $f_1$, $R_1(f_1)$, $E[R_1(f_1)]$, $R(f_1)$ ?
+%
+% \end{frame}
+
+
+\subsection{Bayes estimators in two specific cases}
+\frame{\tableofcontents[currentsection]}
+
+\begin{frame}{Bayes estimators}
+
+    We will compute the Bayes estimator for:
+    \begin{itemize}
+    	\item the squared-loss
+	\item the "0-1" loss
+    \end{itemize}
+
+    We assume again that $(X,Y)\sim \rho$. We look for the predictor $f^*$ that mininimizes:
+    \begin{equation}
+	R(f)=E_{(X,Y)\sim \rho}[l(Y,f(X)]
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Law of total expectation}
+
+    \url{https://en.wikipedia.org/wiki/Law_of_total_expectation} 
+
+\end{frame}
+
+\begin{frame}{Law of total expectation}
+    
+    \begin{equation}
+	\begin{aligned}
+	    R(f)&=E_{X,Y}[l(Y,f(X))]\\
+	    &=E_X\Big[E_Y[l(Y,f(X))|X]\Big]\\
+	    &=E_X\Big[h_f(X)\Big]\\
+	\end{aligned}
+    \end{equation}
+
+    $h_f(X) = E_{Y}[l(Y,f(X))|X]$ is a function of $X$, that depends on $f$.
+    \vspace{\baselineskip}
+
+    We might minimize $h$ independently for all values $x$ of $X$ !
+
+	\begin{equation}
+	    \label{eq:bayes}
+	    f^*(x) = \argmin_{z\in \mathcal{Y} }E_Y\big[ l(Y, z)|X=x\big]
+	\end{equation}
+\end{frame}
+
+\subsubsection{Classification with "0-1" loss}%
+\label{ssub:Classification with "0-1" loss}
+
+\begin{frame}{Classification with "0-1" loss}
+
+	\begin{equation}
+	    \label{eq:bayes}
+	    f^*(x) = \argmin_{z\in \mathcal{Y} }E_Y\big[ l(Y, z)|X=x\big]
+	\end{equation}
+
+    We assume that $Y\in\mathcal{Y}\in \mathbb{N}$ and that $l$ is the "0-1" loss.
+    \vspace{\baselineskip}
+
+    \exercice{} What is $f^*(x)$ ?
+
+
+\end{frame}
+
+
+\subsubsection{Regression with squared loss}%
+\label{ssub:Regression with squared loss}
+
+
+\begin{frame}{Regression with squared loss}
+
+	\begin{equation}
+	    \label{eq:bayes}
+	    f^*(x) = \argmin_{z\in \mathcal{Y} }E_Y\big[ l(Y, z)|X=x\big]
+	\end{equation}
+
+    We assume that $Y\in\mathcal{Y}\in \mathbb{R}$ and that $l$ is the squared loss.
+    \vspace{\baselineskip}
+
+    \exercice{} What is $f^*(x)$ ?
+
+\end{frame}
+
+\subsection{Statistical analysis of OLS}%
+\label{sub:statistical_analysis_of_ols}
+\frame{\tableofcontents[currentsection]}
+
+\begin{frame}{OLS}
+    \begin{itemize}
+	\item $ \mathcal{X} = \mathbb{R}^d$
+	\item $ \mathcal{Y} = \mathbb{R} $.
+	\item $   l(y,y') = (y-y')^2 $ (squared loss)
+	\item
+	    \begin{equation*}
+		F = \{ x\mapsto \theta^T x, \theta \in \mathbb{R}^d\}
+	    \end{equation*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{OLS}
+
+The dataset is stored in the \textbf{{design matrix}} $X\in \mathbb{R}^{n\times d}$.
+
+\begin{equation*}
+X=
+\begin{pmatrix}
+x_{1}^T\\
+...\\
+x_{i}^T\\
+...\\
+x_{n}^T
+\end{pmatrix}
+=
+\begin{pmatrix}
+    x_{11}, \:\dots\:,\: x_{1j}\:, \:\dots\: x_{1d}\\
+...\\
+    x_{i1}, \:\dots\:,\: x_{ij}\:, \:\dots\: x_{id}\\
+...\\
+    x_{n1}, \:\dots\:,\: x_{nj}\:, \:\dots\: x_{nd}\\
+\end{pmatrix}
+\end{equation*}
+
+    The vector of predictions of the estimator writes $y_{pred} = X\theta$.  Hence,
+
+\begin{equation*}
+    \begin{aligned}
+	R_n(\theta) &= \frac{1}{n} \sum^{n}_{i=1} (y_i-\theta^Tx_i)^2\\
+	&= \frac{1}{n} ||y-X\theta||_2^2
+    \end{aligned}
+\end{equation*}
+    
+\end{frame}
+
+\begin{frame}{OLS estimator}
+
+    The objective function $R_n(\theta)$ is convex in $\theta$.
+
+\begin{proposition}{Closed form solution}
+    
+    We $X$ is injective, there exists a unique minimiser of $R_n(\theta)$, called the \textbf{{OLS estimator}}, given by
+
+    \begin{equation}
+	\label{def:ols}
+	\hat{ \theta}= (X^TX)^{-1}X^Ty
+    \end{equation}
+\end{proposition}
+    
+\end{frame}
+
+
+\begin{frame}{Statistical setting: fixed design, linear model (TP2)}
+
+        \textbf{{Assumptions:}} 
+        \begin{itemize}
+            \item \textbf{{Linear model}}: $\exists \theta^*\in \mathbb{R}^d$,
+                \begin{equation*}
+                    y_i = \theta^{*T}x_i+\epsilon_i, \forall i\in [1, n]
+                \end{equation*}
+                and $\epsilon_i$ is a centered noise (or error)  ($E[\epsilon_i]=0$) with variance $
+                \sigma^2$. 
+            \item Fixed design $X$ (or random design where $X$ is also random)
+        \end{itemize}
+
+        In this setting, we can now derive:
+        \begin{itemize}
+            \item 1) the Bayes predictor
+            \item 2) the expected value of the OLS estimator
+	    \item 3) its excess risk (difference of its risk with Bayes risk)
+        \end{itemize}
+
+\end{frame}
+
+\begin{frame}{1) Bayes predictor}
+
+    With the squared loss, we always have that the Bayes predictor is the
+    conditional expectation (also in lecture\textunderscore .pdf section 3.1.3.)
+
+    \begin{equation}
+        f^*(u) = E[Y|x=u]
+    \end{equation}
+    
+\end{frame}
+
+\begin{frame}{1) Bayes predictor}
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+        f^*(u)&=E[Y|x=u]\\
+        &=E[x^T\theta^*+\epsilon|x=u]\\
+        &=E[x^T\theta^*|x=u]+E[\epsilon|x=u]\\
+        &=u^T\theta^*
+    \end{aligned}
+\end{equation}
+\end{frame}
+
+\begin{frame}{1) Bayes risk}
+
+    \textbf{Fixed design risk}: the inputs are fixed (it is also possible to use a random design).
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+        R^*&=E_{y}[(y-f^*(X))^2]\\
+        &=E_{\epsilon}[(X^T\theta^*+\epsilon-X^T\theta^*)^2]\\
+        &=E_{\epsilon}[\epsilon^2]\\
+        &=\sigma^2
+    \end{aligned}
+\end{equation}
+\end{frame}
+
+\begin{frame}{2) Expected value of $\hat{\theta}$}
+
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+        E[ \hat{\theta}]&= E[ (X^TX)^{-1}X^Ty]\\
+        &= E[ (X^TX)^{-1}X^T(X\theta^*+\epsilon)]\\
+        &= E[ (X^TX)^{-1}X^T(X\theta^*)]+E[(X^TX)^{-1}X^T\epsilon]\\
+        &= E[ (X^TX)^{-1}(X^TX)\theta^*]+(X^TX)^{-1}X^TE[\epsilon]\\
+        &= E[\theta^*]\\
+        &= \theta^*
+    \end{aligned}
+\end{equation}
+
+We conclude that the OLS estimator is an \textbf{{unbiased estimator}} of $\theta^*$.
+    
+\end{frame}
+
+\begin{frame}{3) Excess risk (fixed design)}
+    \begin{equation}
+        E\big[R(\hat{\theta})\big]-R(\theta^*) = \frac{\sigma ^2 d}{n} 
+    \end{equation}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.7\linewidth]{risks}
+        \label{fig:risks}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{3 bis) Excess risk (random design)}
+    \begin{equation}
+	E\big[R(\hat{\theta})\big]-R(\theta^*) = \frac{\sigma ^2 d}{n}\frac{1}{1-(d+1)/n}
+    \end{equation}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.6\textwidth]{random_design/ols_test_errors_100_repetitions}
+    	\label{fig:random_design-ols_test_errors_100_repetitions}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{4) Variance}
+    \begin{equation}
+        Var( \hat{\theta}) = \frac{\sigma^2}{n} \Sigma^{-1}
+    \end{equation}
+    with $\Sigma = \frac{1}{n}X^TX\in \mathbb{R}^{d\times d}$.
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.5\linewidth]{variation_n=30_d=10}
+        \label{fig:variation_n=30_d=10}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Issues in high dimension}
+
+    The problem can become \textbf{{ill-conditioned}}.
+
+    When $d$ is large (for instance when $ \frac{d}{n} $ is close to $1$), then
+    \begin{itemize}
+        \item the amount of excess risk is not way smaller than $ \sigma^2$.
+	\item if $d=n$ and $X^TX$ is invertible, we can fit the training data exactly, which is bad for generalization.
+    \end{itemize}
+    If $d>n$, $X^TX$ is not invertible, we do not have a unique closed form solution anymore, we can might have a \textbf{subspace} of solutions.
+
+    \textbf{{Remark:}} with $d<<n$, it is also possible to have an ill-conditioned matrix (for instance if $X$ has colinear columns).
+\end{frame}
+
+\end{document} 

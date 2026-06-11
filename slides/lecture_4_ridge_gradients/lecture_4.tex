@@ -1,0 +1,428 @@
+\documentclass[usenames,dvipsnames]{beamer}
+
+\mode<presentation> {
+\usetheme{Montpellier}
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{algorithm2e}
+\usepackage[utf8]{inputenc}
+\setcounter{tocdepth}{2}
+\graphicspath{{../Figures/}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newtheorem*{proposition}{Proposition}
+
+% exercices comptés
+\newcounter{numexos}%Création d'un compteur qui s'appelle numexos
+\setcounter{numexos}{0}%initialisation du compteur
+\newcommand{\exercice}[1]{%Création d'une macro ayant un paramètre
+\addtocounter{numexos}{1}%chaque fois que cette macro est appelée, elle ajoute 1 au compteur numexos
+\textcolor{DarkOrchid}{Exercice\,\thenumexos\,:}\,#1%Met en rouge Exercice et la valeur du compteur appelée par \thenumeexos
+}
+
+\setbeamertemplate{title page}{
+    \centering
+
+    \huge\bfseries
+    Fondamentaux théoriques du machine learning
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{ridge_risks_n=30.pdf}
+\end{figure}
+
+    }
+
+\title[FTML]{title}
+
+
+\date{} % Date, can be changed to a custom date
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview of lecture 4} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+\section{Ridge regression}
+
+\begin{frame}{Regularization of the empirical risk}
+
+    In the previous practical session, we studied, Ridge regression, a form \textbf{{regularization}} of the objective function for the linear regression problem.
+
+    This enforces the unicity of the solution, even when $X^TX$ is not invertible ($X$ is the design matrix like before) at the cost of introducing a \textbf{{bias}} in the estimator. The unicity is guaranteed by the \textbf{{strong convexity}} of the new loss function (studies in the next exercises).
+    
+\end{frame}
+
+
+\begin{frame}{Ridge regression estimator}
+    We use the same notations as in the previous lectures.
+    \begin{itemize}
+	\item $X\in \mathbb{R}^{n,d}$
+	\item $y\in \mathbb{R}^{n}$
+	\item $\theta\in \mathbb{R}^d$
+    \end{itemize}
+\begin{equation}
+    \label{risk:ridge}
+    \hat{ \theta}_{\lambda} = \argmin_{\theta \in \mathbb{R}^d} \Big( \frac{1}{n} ||y-X\theta||_2^2 + \lambda || \theta||_2^2 \Big)
+\end{equation}
+with $\lambda >0$.
+\end{frame}
+
+\begin{frame}{Ridge regression estimator}
+\begin{proposition}
+
+
+    The Ridge regression estimator is unique even if $X^TX$ is not inversible and is given by
+    \begin{equation*}
+	\hat{ \theta}_{\lambda} = \frac{1}{n} ( \hat{\Sigma} +\lambda I_d)^{-1}X^Ty
+    \end{equation*}
+\end{proposition}
+with 
+    \begin{equation}
+	\hat{\Sigma} = \frac{1}{n} X^TX\in \mathbb{R}^{d, d}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Statistical analysis of ridge regression}
+
+    We can compare the excess risk (difference between risk and Bayes risk) to that of OLS.
+
+\begin{proposition}
+    
+    Under the linear model assumption, with fixed design setting, the ridge regression estimator has the following excess risk
+
+    \begin{equation}
+	E[ R( \hat{\theta}_{\lambda}]-R^* = \lambda^2\theta^{*T} ( \hat{\Sigma}+\lambda I_d)^{-2} \hat{\Sigma} \theta^*+ \frac{\sigma^2}{n} tr[ \hat{\Sigma}^2( \hat{\Sigma}+\lambda I_d)^{-2} ]
+    \end{equation}
+\end{proposition}
+
+    
+\end{frame}
+
+\begin{frame}{Choice of $\lambda$}
+
+    Is it possible that the excess risk is smaller with ridge regression than OLS ?
+
+\begin{proposition}
+    With the choice 
+
+    \begin{equation}
+	\label{eq:lambdaopt}
+	\lambda^* = \frac{\sigma \sqrt{tr( \hat{\Sigma})}}{||\theta^*||_2 \sqrt{n} } 
+    \end{equation}
+    then
+
+    \begin{equation}
+	\label{ref:ridgeopt}
+	E[ R( \hat{\theta}_{\lambda}]-R^*\leq \frac{\sigma \sqrt{tr( \hat{\Sigma})}||\theta^*||_2 }{ \sqrt{n} } 
+    \end{equation}
+\end{proposition}
+\end{frame}
+
+\begin{frame}{Choice of $\lambda$}
+    \begin{itemize}
+	\item[Ridge]
+    \begin{equation}
+	\label{ref:ridgeopt}
+	E[ R( \hat{\theta}_{\lambda}]-R^*\leq \frac{\sigma \sqrt{tr( \hat{\Sigma})}||\theta^*||_2 }{ \sqrt{n} } 
+    \end{equation}
+
+\item[OLS]
+    \begin{equation}
+	\label{ref:ridgeopt}
+	E[R(\hat{\theta}]-R^*  = \sigma^2 \frac{d}{n} 
+    \end{equation}
+    \end{itemize}
+
+\begin{itemize}
+    \item $ \frac{1}{n} $ (OLS) vs $ \frac{1}{ \sqrt{n} } $ (ridge), with different constants
+    \item dimension-free bound for Ridge (maybe in the project)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Optimal $\lambda$}
+
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{ridge_risks_n=30.pdf}
+    	\label{fig:ridge_risks_n-30-pdf}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Hyperparameter search}
+    \begin{itemize}
+	\item In practical situations, the quantities involved in the computation of $\lambda^*$ in  \ref{eq:lambdaopt} are typically unknown. However this equation shows that there may \textbf{exist} a $\lambda$ with a better prediction performance than OLS, which can be found by cross validation in practice (previous and next TP).
+	\item $\lambda$ is an example of \textbf{{hyperparameter}}. 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Neural networks}
+    With neural networks, it seems that it is possible to have $ d>>n$ but no overfitting (simplicity bias).
+\end{frame}
+
+
+\section{Gradient algorithms}
+\label{sec:gradients}
+
+\begin{frame}{Context}
+
+    In machine learning, we often encounter problems in high dimension, where closed-form solutions are not avaible, or where even if they are available, the necessary computation time is too large.
+    
+\end{frame}
+
+\begin{frame}{Context}
+
+    In machine learning, we often encounter problems in high dimension, where closed-form solutions are not avaible, or where even if they are available, the necessary computation time is too large.
+    
+    \textbf{{Example 1:}} Computing the OLS estimator requires a matrix inversion, which is $ \mathcal{O} (d^3)$.
+
+    \begin{equation}
+	\label{def:ols}
+	\hat{ \theta}= (X^TX)^{-1}X^Ty
+    \end{equation}
+
+    High $d$ might be prohibitive for a numerical resolution.
+\end{frame}
+
+\begin{frame}{Context}
+
+    In machine learning, we often encounter problems in high dimension, where closed-form solutions are not avaible, or where even if they are available, the necessary computation time is too large.
+    
+    \textbf{{Example 2:}} The cancellation of the gradient of the objective function with logistic loss has no closed-form solution.
+
+\end{frame}
+
+\begin{frame}{Context}
+
+
+    Instead, we often use \textbf{{iterative}} algorithm such as Gradient descent (GD) or Stochastic gradient descent (SGD). SGD is the standard optimization algorithm for large-scale machine learning because (brutal summary):
+    \begin{itemize}
+    	\item SGD is roughly $n$ times faster than GD
+	\item SGD's convergence is often satisfactory
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Convergence speed}
+
+    The properties and speed of convergence of GD and SGD are important properties that are extensively studied. They typically depend on:
+    \begin{itemize}
+	\item the convexity or strong convexity of the objective function $f$ (often the empirical risk).
+	\item the regularity (smoothness constant) of the objective function $f$.
+	    \item the statistical properties of the dataset
+    \end{itemize}
+
+    We will study some of these aspects during the practical sessions.
+\end{frame}
+
+\begin{frame}{SGD vs Lapack}
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{computation_times}
+        \label{fig:computation_times}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}{Gradient descent}
+
+    We want to minimize a function $f:\mathbb{R}^d \rightarrow \mathbb{R}$. \textbf{Gradient descent} iteratively performs the following update, until some criterion is met.
+
+\begin{equation}
+	\theta\leftarrow \theta-\gamma \nabla_f(\theta)
+\end{equation}
+
+$\gamma$ is called the \textbf{learning rate}, and is a very important hyperparameter. We will study some methods to tune it in practical sessions, like line seach.
+
+\end{frame}
+
+\begin{frame}{First-order method}
+
+    GD is called a first-order method because it makes use of the first order derivative.
+
+    The direction $-\nabla_{\theta} f(\theta)$ is the direction that minimizes the first order Taylor expansion of $f$ in $\theta$.
+
+    \begin{equation}
+	f(\theta+h) = f(\theta) + \langle \nabla_{\theta} f(\theta)|h \rangle + o(h)
+    \end{equation}
+
+\end{frame}
+
+\begin{frame}
+    In the following examples, we use the function $f:x \rightarrow (x-1)^2 + 3$
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{gd_gamma_0.1_x0_1.0E+01}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{gd_gamma_0.01_x0_1.0E+01}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{gd_gamma_0.1_x0_6.0E+00}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{gd_gamma_0.3_x0_6.0E+00}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{gd_gamma_0.5_x0_6.0E+00}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{gd_gamma_0.9_x0_6.0E+00}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{gd_gamma_1_x0_6.0E+00}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{gd_gamma_1.1_x0_6.0E+00}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{gd_gamma_2_x0_6.0E+00}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Local minima}
+
+    GD is a greedy algorithm, and if $f$ is non-convex, it might fall in a local minimum.
+
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.7\textwidth]{function}
+    	\label{fig:function}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}{Stochastic gradient descent}
+    In machine learning, we often consider an objective function of the form
+    \begin{equation}
+	f(\theta) = \frac{1}{n} \sum^{n}_{i=1} l(y_i, g_{\theta}(x_i))+\Omega(\theta)
+    \end{equation}
+
+    Example:
+    \begin{itemize}
+	\item $\Omega(\theta)= \lambda ||\theta||^2$.
+	\item $l(y_i, g_{\theta}(x_i))=||y_i-\langle \theta|x_i \rangle||^2$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Batch gradient}
+    In machine learning, we often consider an objective function of the form
+    \begin{equation}
+	f(\theta) = \frac{1}{n} \sum^{n}_{i=1} l(y_i, g_{\theta}(x_i))+\Omega(\theta)
+    \end{equation}
+    Gradient descent computes the \textbf{batch gradient} (also called \textbf{full gradient}) of $f$, which requires at least $n$ calculations, and each calculation also has a complexity that depends on the dimension $d$. When $n$ and $d$ are large, this might not be the best way to proceed.
+\end{frame}
+
+\begin{frame}{SGD}
+
+    In machine learning, we often consider an objective function of the form
+    \begin{equation}
+	f(\theta) = \frac{1}{n} \sum^{n}_{i=1} l(y_i, g_{\theta}(x_i))+\Omega(\theta)
+    \end{equation}
+
+    SGD replaces the full gradient $\nabla_{\theta}f({\theta})$ by:
+
+    \begin{equation}
+	\nabla_{\theta}\Big[l(y_i, g_{\theta}(x_i))+\Omega(\theta)\Big](\theta)
+    \end{equation}
+
+    with $i$ being \textbf{randomly sampled} in $[1, n]$ (this is why it is called \textbf{stochastic}.)
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{accuracy}
+    	\caption{accuracy}
+    	\label{fig:accuracy}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{accuracy_2}
+    	\caption{accuracy}
+    	\label{fig:accuracy}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{convergence_nb_queries}
+    	\caption{accuracy}
+    	\label{fig:accuracy}
+    \end{figure}
+\end{frame}
+
+% \begin{frame}[allowframebreaks]
+% \frametitle{References}
+% \bibliographystyle{apalike}
+% \bibliography{../../epita.bib} 
+% \end{frame}
+
+\end{document} 

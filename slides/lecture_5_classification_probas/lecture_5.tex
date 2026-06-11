@@ -1,0 +1,524 @@
+\documentclass[usenames,dvipsnames]{beamer}
+
+\mode<presentation> {
+\usetheme{Montpellier}
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{algorithm2e}
+\usepackage[utf8]{inputenc}
+\setcounter{tocdepth}{2}
+\graphicspath{{../Figures/}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newtheorem*{proposition}{Proposition}
+
+% exercices comptés
+\newcounter{numexos}%Création d'un compteur qui s'appelle numexos
+\setcounter{numexos}{0}%initialisation du compteur
+\newcommand{\exercice}[1]{%Création d'une macro ayant un paramètre
+\addtocounter{numexos}{1}%chaque fois que cette macro est appelée, elle ajoute 1 au compteur numexos
+\textcolor{DarkOrchid}{Exercice\,\thenumexos\,:}\,#1%Met en rouge Exercice et la valeur du compteur appelée par \thenumeexos
+}
+
+\setbeamertemplate{title page}{
+    \centering
+
+    \huge\bfseries
+    Fondamentaux théoriques du machine learning
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{logistic}
+\end{figure}
+
+    }
+
+\title[FTML]{title}
+
+
+\date{} % Date, can be changed to a custom date
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview of lecture 5} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+\section{Classification}%
+\frame{\tableofcontents[currentsection]}
+\label{sec:classification}
+
+\subsection{Problem statement}%
+\label{sub:problem_statement}
+
+\begin{frame}{General classification problem}
+
+    \begin{itemize}
+        \item $ \mathcal{X} = \mathbb{R}^d$
+	\item $ \mathcal{Y}  = \{-1, 1\}$ or $ \mathcal{Y}  = \{0, 1\}$.
+	\item $l(y,z) = 1_{y\neq z}$ ("0-1" loss)
+	\item $F = \mathcal{Y}^{ \mathcal{X} }$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Problem}
+    Optimizing on $ F = \mathcal{Y}^{ \mathcal{X} }$ is equivalent to optimizing in the set of subsets of $ \mathcal{X}$.
+    
+    We cannot differentiate on this hypothesis space and it is not clear how to regularize.
+\end{frame}
+
+\begin{frame}{Subsets}
+
+    \exercice{\textbf{Combinatorial problem}}
+
+    If we wanted to try all applications in $ \mathcal{Y}^{ \mathcal{X}}$, if $ | \mathcal{X} |=n$, how many applications would there be ?
+    
+\end{frame}
+
+\begin{frame}{Real-valued function}
+
+    Instead of an application in  $ \mathcal{Y}^{ \mathcal{X} }$ , we will learn $g: \mathcal{X} \rightarrow \mathbb{R} $ and define $ f(x) = \text{sign}(g(x))$ with
+    
+         $$
+	    \text{sign}(x) = \left\{
+                \begin{array}{ll}
+                    1 \text{ if } x\geq 0   \\
+		    -1 \text{ if } x<0   \\
+                \end{array}
+                \right.
+                $$
+\end{frame}
+
+\begin{frame}{Risk}
+
+    The risk (generalization error) of $f = \text{sign} \circ g$ is.
+
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+	    R(g) &= P( \text{sign}(g(x))\neq y)\\
+	    &= E\Big[1_{\text{sign}(g(x))\neq y} \Big]\\
+	    &= E\Big[ 1_{yg(x)<0} \Big]
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Remark: several solutions}
+
+    If $f^*$ is the Bayes predictor, there might be many optimal functions $g$, i.e: such that $ \text{sign}(g(x)) = f^*(x)$.
+    
+\end{frame}
+
+\begin{frame}{Margin based 0-1 loss function $ \Phi_{0-1}$}
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+	    R(g) &= E\Big[1_{\text{sign}(g(x))\neq y} \Big]\\
+	    &= E\Big[ 1_{yg(x)<0} \Big]\\
+	    &= E\Big[ \Phi_{0-1}(yg(x)) \Big]
+        \end{aligned}
+    \end{equation}
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.5\linewidth]{margin}
+        \label{fig:margin}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}{Empirical risk minimization}
+
+    The corresponding empirical risk writes:
+
+\begin{equation}
+    \frac{1}{n} \sum^{n}_{i=1} \Phi_{0-1}(y_ig(x_i))
+\end{equation}
+    
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.4\linewidth]{margin}
+        \label{fig:margin}
+    \end{figure}
+
+    What is the issue with this objective function ?
+
+\end{frame}
+
+\begin{frame}{Empirical risk minimization}
+
+    The corresponding empirical risk writes:
+
+\begin{equation}
+    \frac{1}{n} \sum^{n}_{i=1} \Phi_{0-1}(y_ig(x_i))
+\end{equation}
+    
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.2\linewidth]{margin}
+        \label{fig:margin}
+    \end{figure}
+
+    What is the issue with this objective function ?
+    \begin{itemize}
+        \item non-convex
+	\item the differential is not defined or non informative.
+    \end{itemize}
+\end{frame}
+
+
+\subsection{Convexification of the risk and calibration}%
+\label{sub:convexification_of_the_risk}
+
+\begin{frame}{Convex surrogate}
+    Key idea: replace $ \Phi_{0-1}$ by another function $\Phi$ that is easier to optimize (convexity) but still represents the correctness of the classification.
+
+    \begin{definition}
+        The $\Phi$-risk is defined as
+
+	\begin{equation}
+	    R_{\Phi}(g) = E\Big[ \Phi(yg(x))\Big]
+	\end{equation}
+        The empirical $\Phi$-risk is defined as
+
+	\begin{equation}
+	    R_{\Phi, n}(g) = \frac{1}{n} \sum^{n}_{i=1}\Phi(y_ig(x_i))
+	\end{equation}
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Most common convex surrogates}
+
+    \begin{definition}{Logistic loss}
+    \label{loss:logistic}
+	\begin{equation}
+	    \Phi(u) = \log(1+e^{-u})
+	\end{equation}
+    \end{definition}
+
+    With linear predictors, this loss will lead to \textbf{{logistic regression}} (which is classification despite its name).
+    
+\end{frame}
+
+\begin{frame}{Most common convex surrogates}
+
+    If $ \mathcal{Y}= \{0, 1\}$, $ \hat{y}$ is the prediction and $y$ is the correct label, then we write:
+
+	\begin{equation}
+	    l(\hat{y}, y) = y\log(1+e^{- \hat{y}})+ (1-y)\log(1+e^{ \hat{y}})
+	\end{equation}
+    (cross entropy loss)
+    
+\end{frame}
+
+\begin{frame}{Logistic function}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{logistic}
+        \label{fig:logistic}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Most common convex surrogates}
+
+    \begin{definition}{Hinge loss}
+	\begin{equation}
+	    \Phi(u) = max(1-u, 0) 
+	\end{equation}
+    \end{definition}
+
+    With linear predictors, this loss will lead to \textbf{{Support vector machines}}.
+
+    \begin{definition}{Squared hinge loss}
+	\begin{equation}
+	    \Phi(u) = (max(1-u, 0))^2
+	\end{equation}
+    \end{definition}
+    
+\end{frame}
+
+\begin{frame}{Hinge loss}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{hinge}
+        \label{fig:hinge}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{}
+    Under some technical hypotheses, minimizing the empirical $\Phi$ risk leads to a good generalization errror for the "0-1" loss (notion of calibration function).
+\end{frame}
+
+
+\subsection{Logistic regression}%
+\label{sub:logistic_regression}
+
+\begin{frame}{Logistic regression}
+    
+    \begin{itemize}
+        \item $ g(x) = \langle x, \theta \rangle = x^T \theta $.
+	\item $f(x) = \text{sign}( \langle  x^T\theta \rangle )$
+	\item It can be seen as "linear regression applied to classification".
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Data to separate}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{classification_data}
+    	\label{fig:classification_data}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Data to separate}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{separation}
+    	\label{fig:classification_data}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Logistic regression}
+
+    In this section we use the setting $ \mathcal{Y}  = \{0, 1\}$.
+
+    \begin{itemize}
+        \item prediction: $ \hat{y} = x^T \theta$
+	\item surrogate loss: cross-entropy loss.
+    \end{itemize}
+	\begin{equation}
+	    l(\hat{y}, y) = y\log(1+e^{- \hat{y}})+ (1-y)\log(1+e^{ \hat{y}})
+	\end{equation}
+\end{frame}
+
+\begin{frame}{Logistic regression estimator}
+
+    If $l$ is the logistic loss, it is defined as
+    \begin{equation}
+	\hat{\theta}_{logit} = \argmin_{\theta\in \mathbb{R}^d} \frac{1}{n} \sum^{n}_{i=1} l(x_i^T\theta, y_i) 
+    \end{equation}
+    
+    We will show that this empirical risk is convex as a function of $\theta$ (exercises).
+\end{frame}
+
+\begin{frame}{No closed-form solution}
+
+    Since the loss is convex, to minimize it is sufficient to look for the cancellation of the gradient. However, the corresponding equation has no closed-form solution.
+
+    We thus need to use iterative algorithms in order to find a minimizer (e.g.: gradient descent, Newton's method, etc)
+\end{frame}
+
+\begin{frame}{Practical usage of logistic regression}
+
+    In practice, it is common to:
+    \begin{itemize}
+	\item regularize the logistic loss to avoid overfitting, for instance with a $L2$ penalty (as in ridge regression)
+	\item use feature maps and classify with $\phi(x)$ instead of $x$.
+    \end{itemize}
+    
+\end{frame}
+
+\section{Probabilistic modelling}%
+\frame{\tableofcontents[currentsection]}
+\label{sec:probabilistic_modelling}
+
+\begin{frame}{Context}
+We are given a set of observations $\{y_1, \dots, y_n\}\in \mathcal{Y} $ that we assume are generated i.i.d from an unknown distribution. We look for a \textbf{{probabilistic model}} that explains well the data. We could for instance use this model to generate new data, that would be statistically similar to the observed ones.
+    
+\end{frame}
+
+\begin{frame}{Density estimation}
+
+    We will consider \textbf{{parametric models}} for density estimation.
+
+\begin{definition}{Parametric model}
+
+    Let $ \Theta\subset \mathbb{R}^p$. A parametric model $ \mathcal{P} $ is a set of probability distributions on $ \mathcal{Y} $, indexed by elements of $ \Theta $.
+
+    \begin{equation*}
+	\mathcal{P}  = \{p_{\theta}|\theta \in \Theta \}
+    \end{equation*}
+\end{definition}
+
+    Examples:
+\begin{itemize}
+    \item Bernoulli model (parameter $p$)
+    \item Gaussian model (parameter $(\mu, \sigma)$)
+    \item Binomial model (parameter $(n, p)$)
+\end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Objective}
+
+If we assume that the data were generated from some $p_{\theta^*}\in \mathcal{P} $, with a unknown parameter $ \theta^*$, our goal if to find a good estimation of $\theta$. If the data are indeed generated by a distribution in $ \mathcal{P} $, the problem is said to be \textbf{{well specified}}. Otherwise, the problem is said to be \textbf{{misspecified}}.
+    
+\end{frame}
+
+
+\begin{frame}
+
+\begin{definition}{Likelihood}
+
+    Let $\mathcal{P}  = \{p_{\theta},\theta \in \Theta \}$ be a parametric model.
+    \\
+
+    Given $y\in \mathcal{Y} $, the \textbf{{likelihood}} is the function:
+    \begin{equation}
+	\theta\mapsto L(\theta|y) = p_{\theta}(y)
+    	\end{equation}
+
+     Given $D_n = (y_1, \dots, y_n)$, the likelihood $L(.|D_n)$ is the function:
+
+    \begin{equation}
+	\theta \mapsto L(\theta|D_n)= \prod^{n}_{i=1} p_{\theta}(y_i)
+    \end{equation}
+
+    The \textbf{{maximum likelihood estimator}}  (MLE) is the parameter $\theta$ that maximises the likelihood:
+
+    \begin{equation}
+	\hat{\theta}_n \in \argmax_{\theta\in \Theta}(L(\theta|D_n))
+    \end{equation}
+
+\end{definition}
+    
+\end{frame}
+
+\begin{frame}{Remarks}
+    \begin{itemize}
+	\item Since the samples $y_i$ are assumed to be independent, the likelihood corresponds to the probability (or probability density) of observing the dataset according to $p_{\theta}$.
+	\item We often maximise the $\log$ of the likelihood, as it is easier to differentiate a sum. Since $\log$ is an increasing function, the MLE is also the maximiser of the $\log$ of $L$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example 1}
+    \exercice{We observe the data $(1,0)$. We model these data with a Bernoulli distribution of parameter $p$.
+    \begin{itemize}
+    	\item What is the likelihood of these observations as a function of $p$ ?}
+	\item What is the value $\hat{p}$ that maximizes this likelihood ?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example 2}
+    \exercice{We observe the data $(1,0, 1)$ (same hypotheses)
+    \begin{itemize}
+    	\item What is the likelihood of these observations as a function of $p$ ?}
+	\item What is the value $\hat{p}$ that maximizes this likelihood ?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example 3}
+    We observe the data $(2.5, 3.5)$. We assume that these data come from a normal law of parameters $\mu$ and $\sigma$.
+    \begin{equation}
+	\begin{aligned}
+	    \label{eq:}
+	    L &= p(2.5|\mu, \sigma)p(3.5|\mu,\sigma)\\
+	    &= \frac{1}{ \sqrt{2\pi \sigma^2} } e^{ - \frac{1}{2} ( \frac{2.5-\mu}{\sigma}   )^2 }\times \frac{1}{ \sqrt{2\pi \sigma^2}  }e^{ - \frac{1}{2} ( \frac{3.5-\mu}{\sigma}   )^2 }
+	\end{aligned}
+    \end{equation}
+    We wan show that the likelihood is maximum for : 
+    \begin{itemize}
+	\item $\hat{\mu}= \frac{2.5+3.5}{2} $
+	\item $\hat{\sigma^2} = \frac{(2.5-\hat{\mu})^2+(3.5-\hat{\mu})^2}{2} $
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{ERM}
+
+In the context of density estimation, we can define a loss function as the \textbf{{negative log-likelihood.}}
+\begin{equation*}
+    \Theta\times \mathcal{Y} \mapsto - \log(p_{\theta}(y))
+\end{equation*}
+
+Given this loss, the risk writes:
+\begin{equation*}
+    R(\theta) = E_Y[-\log\big(p_{\theta}(y)\big)]
+\end{equation*}
+
+and the empirical risk:
+\begin{equation*}
+    R_n(\theta) =-\frac{1}{n} \sum^{n}_{i=1} \log\big(p_{\theta}(y_i)\big)]
+\end{equation*}
+
+The MLE is then also the empirical risk minimizer.
+    
+\end{frame}
+
+\begin{frame}{KL divergence}
+    
+The Kullback-Leibler divergence is a quantity used to compare two probability distributions.
+
+\begin{definition}{Kullback-Leibler divergence}
+
+    Given two distributions $p$ and $q$, the KL divergence from $p$ to $q$ is defined as:
+
+    \begin{equation*}
+	KL(p||q) = E_{Y\sim p} \Big[\log \frac{p(Y)}{q(Y)} \Big]
+    \end{equation*}
+\end{definition}
+
+\begin{lemma}
+    
+    If the data are generated by $p_{\theta^*}$, then $ KL(p_{\theta^*}||p_{\theta})$ is the excess risk of $p_{\theta}$, with the legative log-likelihood loss.
+\end{lemma}
+\end{frame}
+
+\begin{frame}{Link with supervised learning methods}
+
+    Probabilistic modelling can provide an interesting interpretation of several supervised learning methods, such as:
+    \begin{itemize}
+    	\item logistic regression
+	\item ordinary least squares
+    \end{itemize}
+
+    In a supervised learning context, we replace the likelihood $p_{\theta}(y)$ by a \textbf{conditional} likelihood $p_{\theta}(y|x)$ (conditional modelling).
+
+\begin{equation}
+    R_n(\theta) = - \frac{1}{n} \sum^{n}_{i=1} \log\big(p_{\theta}(y_i|x_i)\big)
+\end{equation}
+\end{frame}
+
+\begin{frame}{Link with logistic regression}
+
+    We consider a binary classification problem, with $\mathcal{Y} = \{0, 1\}$.
+
+Let us now consider the probabilistic model such that
+\begin{equation*}
+    p_{\theta}(1|x) = \sigma(\theta^Tx)
+\end{equation*}
+
+    Equivalently, this model can be written (remember that $y=0$ or $y=1$)
+
+\begin{equation}
+    p_{\theta}(y|x) = \big(\sigma(\theta^Tx)\big)^y\big(1-\sigma(\theta^Tx) \big)^{1-y}
+\end{equation}
+
+    \exercice{}
+    Show that the parameter $\theta$ with maximum likelihood is the logistic regression estimator $ \theta_{logit}$ (cross entropy version).
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}[allowframebreaks]
+\frametitle{References}
+\bibliographystyle{apalike}
+\bibliography{../../epita.bib} 
+\end{frame}
+
+\end{document} 

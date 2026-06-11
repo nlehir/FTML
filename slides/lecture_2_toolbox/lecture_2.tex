@@ -1,0 +1,528 @@
+\documentclass[usenames,dvipsnames]{beamer}
+
+\mode<presentation> {
+\usetheme{Montpellier}
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setcounter{tocdepth}{2}
+\graphicspath{{../Figures/}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newtheorem*{proposition}{Proposition}
+
+% exercices comptés
+\newcounter{numexos}%Création d'un compteur qui s'appelle numexos
+\setcounter{numexos}{0}%initialisation du compteur
+\newcommand{\exercice}[1]{%Création d'une macro ayant un paramètre
+\addtocounter{numexos}{1}%chaque fois que cette macro est appelée, elle ajoute 1 au compteur numexos
+\textcolor{DarkOrchid}{Exercice\,\thenumexos\,:}\,#1%Met en rouge Exercice et la valeur du compteur appelée par \thenumeexos
+}
+
+\setbeamertemplate{title page}{
+    \centering
+
+    \huge\bfseries
+    Fondamentaux théoriques du machine learning
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{optimal_regression}
+\end{figure}
+
+    }
+
+\title[FTML]{title}
+
+
+\date{} % Date, can be changed to a custom date
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview of lecture 2} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+\section{Mathematical toolbox for ML (part I)}%
+\frame{\tableofcontents[currentsection]}
+\label{sec:mathematical_tools_for_ml}
+
+\begin{frame}{Mathematical toolbox}
+    \begin{itemize}
+        \item The aim of the course if to give an introduction to \textbf{{fundamental principles}} in ML.
+	\item To do so, we will need an adapted mathematical toolbox and a bag of important results.
+    \end{itemize}
+
+    Why are mathematical aspects useful ? 
+    \begin{itemize}
+    	\item they allow a good comprehension of some theoretical results on ML
+	\item these results allow a good choice of algorithms on practical problems (hopefully fast, accurate, etc.)
+    \end{itemize}
+    This section will give you an overview of the tools that will make you benefit more from the course if you are comfortable with them.
+\end{frame}
+
+\subsection{Linear algebra}%
+\label{sub:linear_algebra}
+
+\begin{frame}{Matricial calculus}
+In machine learning, optimization or statistics we often write the inner product of two vectors of $ \mathbb{R}^d$ as a product of matrices. If $x\in \mathbb{R}^d$ writes:
+\begin{equation*}
+x=\begin{pmatrix}
+x_{1}\\
+...\\
+x_{i}\\
+...\\
+x_{d}
+\end{pmatrix}
+\end{equation*}
+
+And (with $T$ denoting the transposition),
+\begin{equation*}
+y^T=\begin{pmatrix}
+y_{1}, \dots y_j, \dots, y_d\\
+\end{pmatrix}
+\end{equation*}
+
+Then we have that
+
+\begin{equation*}
+    \langle x, y \rangle = y^Tx=x^Ty
+\end{equation*}
+\end{frame}
+
+\subsection{Metrics}
+
+\begin{frame}{Metrics}
+
+    Let $D = \{x_1, \dots, x_n\}\subset \mathcal{X} $ be a dataset of $n$ samples, with labels $\{y_1, \dots, y_n\} \subset \mathcal{Y}$.
+
+    There is a metric in the input space $ \mathcal{X}$ and in the output space $ \mathcal{Y}$.
+    \begin{itemize}
+    	\item The \textbf{metric} in $ \mathcal{X}$ determines to what extent two samples $x_i$ and $x_j$ should be considered similar or dissimilar.
+	\item The \textbf{metric} in $ \mathcal{Y}$ determines to what extent two labels $y_i$ and $y_j$ should be considered similar or dissimilar.
+    \end{itemize}
+
+    This is very important during the complete processing of the data.
+\end{frame}
+
+
+
+\begin{frame}{Metrics in output space}
+
+    A \textbf{{loss function}} $l$ is a map that measures the discrepancy between to elements of a set (for instance of a linear space).
+$$
+l: \left\{
+    \begin{array}{ll}
+	\mathcal{Y} \times \mathcal{Y} \rightarrow \mathbb{R}_+ & \\
+	(y,z) \mapsto l(y,z)& 
+    \end{array}
+\right.
+$$
+    Typically, $z$ can represent our prediction for a given input $x$, $z= \tilde{f}(x)$, and $y$ the correct label.
+
+\end{frame}
+
+\begin{frame}{Most common loss functions}
+%
+	\begin{itemize}
+
+			\item "0-1" loss for \textbf{binary classification}: $ \mathcal{Y}  = \{0, 1\}$ or $ \mathcal{Y}  = \{-1, 1\}$.
+
+	\begin{equation}
+	    l(y,z) = 1_{y\neq z}
+	\end{equation}
+
+
+		\item square loss for \textbf{{regression}}: $ \mathcal{Y}  = \mathbb{R} $. 
+
+	\begin{equation}
+	    l(y,z) = (y-z)^2
+	\end{equation}
+
+
+		\item absolute loss for \textbf{{regression}}: $ \mathcal{Y}  = \mathbb{R} $. 
+
+	\begin{equation}
+	    l(y,z) = |y-z|
+	\end{equation}
+
+	\end{itemize}
+\end{frame}
+\begin{frame}
+
+    In \textbf{unsupervised learning}, there is notion of \textbf{output space !} (this might depend on the point of view)
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Geometric distances in $\mathbb{R}^p $}
+    $x=(x_1,...,x_p)$ and $y=(y_1,...,y_p)$ are $p$-dimensional \textbf{vectors}.
+    \begin{itemize}
+	\item $L_2$ : $||x-y||_2=\sqrt{\sum_{k=1}^{p} (x_k-y_k)^2}$ (Euclidian distance, $2$-norm distance)
+	\item $L_1$ : $||x-y||_1=\sum_{k=1}^{p} |x_k-y_k|$ (Manhattan distance, $1$-norm distance)
+	\item weighted $L_1$ :  $\sum_{k=1}^{p} w_k|x_k-y_k|$, wich each $w_k >0$
+	\item $L_{\infty}$ : $\max ( x_1, \dots, x_n)$ (infinity norm distance, Chebyshev distance)
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Choice of the metric}
+    In some contexts, some usual metrics such as $L2$ might not be meaningful !
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{supelec}
+	\caption{In $ \mathbb{R}^{64}$, those three points form an equilateral triangle, \cite[]{Fix}}
+        \label{fig:supelec}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+   \exercice{}Using \textbf{simulations/lecture\textunderscore 2/metrics/geometric\textunderscore data/build\textunderscore graphs.ipynb}, choose the metric and the threshold so that this graph (and the ones on the next slides) are built.
+
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.6\textwidth]{thres_0_3_dist_weighted_manhattan}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{thres_0_4_dist_weighted_manhattan}
+    	\label{fig:thres_0_4_dist_weighted_manhattan}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{thres_0_55_dist_infinie}
+    	\label{fig:thres_0_55_dist_infinie}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Non-geometric data}
+
+    Not all data are geometric !
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Hamming distance}
+    \begin{itemize}
+	\item  $\#\{x_i\neq y_i\}$ (Hamming distance)
+	\item Levenshtein distance for strings (allows deletions and additions)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{General definition of a distance}
+    A \textbf{distance}  on a set $E$ is an application $d : E\times E \rightarrow \mathbb{R}_+$ that must : 
+    \begin{itemize}
+	\item be \textbf{symetric} : $\forall x,y, d(x,y)=d(y,x)$
+	\item \textbf{separate the values} : $\forall x,y, d(x,y)=0\Leftrightarrow x=y$
+	\item	respect the \textbf{triangular inequality} $\forall x,y,z, d(x,y)\leq d(x,z)+d(y,z)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Similarities}
+    Sometimes, it is not possible to define a proper \textbf{distance} in the input space $ \mathcal{X}$ ! This may happen for instance is $ \mathcal{X}$ is a dataset of texts.
+    \begin{itemize}
+	\item When distances are unavailable, we can use \textbf{{Similarities}} or \textbf{{Dissimilarity}} to compare points.
+	\item Dissimilarites are more general and don't always abide by the
+	    distance axioms.
+	\item Other examples: Adjacency in an oriented graph, custom agregated score to compare data. 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example: cosine similarity}
+
+    The \textbf{{cosine similarity}} may be used to compare texts.
+
+    If $u$ and $v$ are vectors,
+    \begin{equation}
+	S_C(u, v) = \frac{(u|v)}{||u|| ||v||} 
+    \end{equation}
+
+    \begin{itemize}
+	\item the \textbf{{bag of words representation}} allows us to build a vector from a text (one hot encoding).
+	\item \textbf{{cosine\textunderscore similarity/scraper.py}} 
+	\item \textbf{{cosine\textunderscore similarity/similarity.py}} 
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Hybrid data}
+
+    Sometimes each sample contains both numerical data and non-numerical data (text, categorical data.)
+
+    See \textbf{hybrid\textunderscore data/}
+
+    This is often the case in machine learning applications ! (database of customers, database of cars, etc.)
+
+\end{frame}
+
+
+
+\subsection{Statistics, probability theory}%
+\label{sub:statistics_probability_theory}
+
+\begin{frame}{Moments of a distribution}
+\begin{definition}{Moments of a distribution}
+
+    Let $X$ be a real random variabe on a probability space $\Omega$, and $k\in \mathbb{N}^*$. $X$ is said to have a moment of order $k$ if $E(|X|^k)<+\infty$, which means that:
+    \begin{itemize}
+	\item if $X$ is discrete, with image $X(\Omega)=(x_i)_{i\in \mathbb{N} }$, the series
+
+	    \begin{equation*}
+		\sum (x_i)^kP(X=x_i)
+	    \end{equation*}
+
+	    is \textbf{{absolutely}}  convergent. The moment is then equal to the sum of that series (without absolute value).
+    \end{itemize}
+\end{definition}
+\end{frame}
+
+
+\begin{frame}{Moments of a distribution}
+\begin{definition}{Moments of a distribution}
+
+    Let $X$ be a real random variabe on a probability space $\Omega$, and $k\in \mathbb{N}^*$. $X$ is said to have a moment of order $k$ if $E(|X|^k)<+\infty$, which means that:
+    \begin{itemize}
+	\item if $X$ is continuous with density $p(x)$, the integral
+	    \begin{equation*}
+	        \int^{+\infty}_{-\infty} x^kf(x)  dx 
+	    \end{equation*}
+	    is \textbf{{absolutely}}  convergent. The moment is then equal to the integral (without absolute value).
+    \end{itemize}
+\end{definition}
+\end{frame}
+
+\begin{frame}{Moments of a distribution}
+\begin{proposition}
+
+    Let $k_1<k_2$ be integers. Let $X$ be a real random variable. Then if $X$ has a moment of order $k_2$, $X$ also has a moment of order $k_1$.
+    
+\end{proposition}
+\end{frame}
+
+
+\begin{frame}{Moments of a distribution}
+    \exercice{\textbf{Prove the proposition}}
+\begin{proposition}
+
+    Let $k_1<k_2$ be integers. Let $X$ be a real random variable. Then if $X$ has a moment of order $k_2$, $X$ also has a moment of order $k_1$.
+    
+\end{proposition}
+\end{frame}
+
+
+\begin{frame}{Expected value, variance}
+
+\begin{definition}{Expected value, variance}
+
+    \begin{itemize}
+        \item If $X$ has a moment of order $1$, it is called the \textbf{{expected value}} 
+	\item If $X$ has a moment of order $2$, then $X-E(X)$ also has a moment of order $2$. This moment is called the variance of $X$.
+	    \begin{equation*}
+		V(X)=E\big((X-E(X))^2\big)
+	    \end{equation*}
+	    We often note $\sigma(X)= \sqrt{Var(X)}$ (standard deviation).
+    \end{itemize}
+\end{definition}
+
+\end{frame}
+
+\begin{frame}{Expected value, variance}
+\begin{proposition}
+    \label{prop:var}
+
+    Let $a$ and $b$ be real numbers, and $X$ a random variable that admits a moment of order $2$. Then
+    \begin{equation*}
+	Var(aX+b)=a^2Var(X)
+    \end{equation*}
+\end{proposition}
+\end{frame}
+
+\begin{frame}{Independence}
+\begin{proposition}
+    Let $(X_1, \dots, X_n)$ be $n$ mutually independent real random variables. Then if they all admit a moment of order $1$, then the product $X_1X_2\dots X_n$ also does admit a moment of order $1$ and 
+    \begin{equation*}
+	E(X_1X_2\dots X_n) = \prod^{n}_{i=1} E(X_i)
+    \end{equation*}
+    If they also admit moments of order $2$, then
+    
+    \begin{equation*}
+	Var( \sum^{n}_{i=1} X_i ) = \sum^{n}_{i=1} Var(X_i)
+    \end{equation*}
+\end{proposition}
+\end{frame}
+
+\begin{frame}{Covariance}
+
+    The covariance of the two real variables $X$ and $Y$ writes
+    \begin{equation}
+	Cov(X, Y) = E[(X-E[X])(Y-E[Y])]
+    \end{equation}
+\begin{lemma}
+    Let $X, Y, Z\in \mathbb{R} $ be real random variables with a moment of order $2$. We have:
+\begin{equation*}
+    Cov(X+Y, Z) = Cov(X,Z)+Cov(Y,Z)
+\end{equation*}
+
+\begin{equation*}
+    Var(X+Y) = Var(X)+Var(Y)+2Cov(X,Y)
+\end{equation*}
+
+\begin{equation*}
+    |Cov(X,Y)|\leq \sigma(X)\sigma(Y)
+\end{equation*}
+\end{lemma}
+    
+\end{frame}
+
+\begin{frame}{Convention}
+    From now on, if we write $E(X)$ or $Var(X)$, we implicitely assume that the quantities are correctly defined. 
+\end{frame}
+
+\begin{frame}{Random vectors}
+\begin{definition} 
+    Let $X\in \mathbb{R}^d$ be a random vector.
+\begin{equation*}
+X=\begin{pmatrix}
+X_{1}\\
+...\\
+X_{i}\\
+...\\
+X_{d}
+\end{pmatrix}
+\end{equation*}
+
+The \textbf{{expected value}} of the vector writes
+\begin{equation*}
+    E(X)=\begin{pmatrix}
+    E[X_{1}]\\
+...\\
+    E[X_{i}]\\
+...\\
+    E[X_{d}]
+\end{pmatrix}
+\end{equation*}
+
+    The \textbf{{variance matrix}} (or \textbf{{covariance matrix, variance-covariance, dispersion matrix}})  $Var(X)$ is defined as
+
+    \begin{equation*}
+	[Var(X)]_{ij} = Cov(X_i, X_j)       
+    \end{equation*}
+\end{definition}
+\end{frame}
+
+\begin{frame}{Random vectors}
+\begin{definition}
+
+\begin{equation*}
+X=\begin{pmatrix}
+X_{1}\\
+...\\
+X_{i}\\
+...\\
+X_{d}
+\end{pmatrix}
+\end{equation*}
+
+    The \textbf{{variance matrix}} (or \textbf{{covariance matrix, variance-covariance, dispersion matrix}})  $Var(X)$ is defined as
+
+    \begin{equation*}
+	[Var(X)]_{ij} = Cov(X_i, X_j)       
+    \end{equation*}
+\end{definition}
+\end{frame}
+
+\begin{frame}{Random vector}
+    \exercice{\textbf{Random vector}}
+
+    What does it mean to have a vector such that 
+
+    \begin{equation}
+	Var(X) = \lambda I_d
+    \end{equation}
+    
+    ?
+\end{frame}
+
+\begin{frame}{Expected value as a minimization}
+
+    \exercice{\textbf{Expected value as minimization.}}
+
+    Show that $E(X)$ is the value that minimizes the function
+
+    \begin{equation}
+	f(t)=E\big( (X-t)^2 \big)
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Markov inequality}
+\begin{proposition}{Markov inequality}
+
+    Let $X$ be a real non-negative random variable (variable aléatoire réelle positive), such that $E(|X|)<+\infty$. Let $a>0$. Then
+
+    \begin{equation*}
+	P(X\geq a)\leq \frac{E(X)}{a} 
+    \end{equation*}
+    
+\end{proposition}
+\end{frame}
+
+\begin{frame}{Chebychev inequality}
+\begin{proposition}{Chebyshev inequality}
+    Let $X$ ba a real random variable, such that $E(|X|^2)<+\infty$. Let $a>0$. Then
+
+    \begin{equation*}
+	P(|X-E[X]|>a)\leq \frac{Var(X)}{a^2} 
+    \end{equation*}
+\end{proposition}
+\end{frame}
+
+\begin{frame}{Weak law of large numbers}
+\begin{theorem}{Weak law of large numbers}
+
+    Let $(X_n)_{n\in \mathbb{N} }$ be a sequence of i.i.d. variables that have a moment of order $2$. We note $m$ their expected value. Then
+
+    \begin{equation*}
+	\forall \epsilon > 0, \lim_{n\rightarrow+\infty}P\big( |\frac{1}{n} \sum^{n}_{i=1} X_i-m|\geq \epsilon \big)= 0
+    \end{equation*}
+
+We say that we have \textbf{{convergence in probability}}.
+\end{theorem}
+\end{frame}
+
+\begin{frame}{Standard deviation of the average}
+    If $E(S_n)=m$, then
+
+    
+    \begin{equation}
+	\sqrt{Var\Big( S_n-m \Big)} = \frac{\sigma}{ \sqrt{n} } 
+    \end{equation}
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]
+\frametitle{References}
+\bibliographystyle{apalike}
+\bibliography{../../epita.bib} 
+\end{frame}
+
+\end{document} 

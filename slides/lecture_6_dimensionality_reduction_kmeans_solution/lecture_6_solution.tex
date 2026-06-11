@@ -1,0 +1,188 @@
+\documentclass[usenames,dvipsnames]{beamer}
+
+\mode<presentation> {
+\usetheme{Montpellier}
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{algorithm2e}
+\usepackage[utf8]{inputenc}
+\setcounter{tocdepth}{2}
+\graphicspath{{../Figures/}}
+
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newtheorem*{proposition}{Proposition}
+
+% exercices comptés
+\newcounter{numexos}%Création d'un compteur qui s'appelle numexos
+\setcounter{numexos}{0}%initialisation du compteur
+\newcommand{\exercice}[1]{%Création d'une macro ayant un paramètre
+\addtocounter{numexos}{1}%chaque fois que cette macro est appelée, elle ajoute 1 au compteur numexos
+\textcolor{DarkOrchid}{Exercice\,\thenumexos\,:}\,#1%Met en rouge Exercice et la valeur du compteur appelée par \thenumeexos
+}
+
+\setbeamertemplate{title page}{
+    \centering
+
+    \huge\bfseries
+    Fondamentaux théoriques du machine learning
+
+\begin{figure}[!h]
+\includegraphics[width=7cm]{it_0_move_centroids}
+\end{figure}
+
+    }
+
+\title[FTML]{title}
+
+
+\date{} % Date, can be changed to a custom date
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\section{K-means clustering}
+
+\begin{frame}{Minimization}
+
+    \exercice{\textbf{Gradient:}}
+
+    Compute the gradient of $J(\Omega, z)$ with respect to $\Omega$ and deduce the minimizer $\Omega^*$.
+    \begin{itemize}
+        \item $z$ is fixed
+	\item we can see $\Omega$ has a vector of $ \mathbb{R}^{Kd}$.
+    \end{itemize}
+
+    It is sufficient to compute the gradient with respect to all the $\omega_k$ separately.
+\end{frame}
+
+
+\begin{frame}{Minimization}
+    We compute the gradient of $J$ with respect to $\omega_{k_0}$.
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+	    \nabla_{\omega_{k_0}}J &= \nabla_{\omega_{k_0}}\sum^{n}_{i=1} \sum^{K}_{k=1} z_i^k||x_i-\omega_k||^2\\
+	    &= \sum^{n}_{i=1} \nabla_{\omega_{k_0}}\sum^{K}_{k=1} z_i^k||x_i-\omega_k||^2\\
+	    &= \sum^{n}_{i=1} z_i^{k_0}\nabla_{\omega_{k_0}} ||x_i-\omega_{k_0}||^2\\
+        \end{aligned}
+    \end{equation}
+
+    \textbf{Remark:} we could compute this also like that:
+
+    \begin{equation}
+	\nabla_{\omega_{k_0}}J= \nabla_{\omega_{k_0}}\sum^{n}_{i=1, i\in V_{\omega_{k_{0}}}} ||x_i-\omega_k||^2
+    \end{equation}
+\end{frame}
+
+\begin{frame}
+
+    We need to compute
+
+    \begin{equation}
+        \nabla_{\omega_{k_0}} ||x_i-\omega_{k_0}||^2
+    \end{equation}
+
+    Let 
+
+$$
+u = \left\{
+    \begin{array}{ll}
+	\mathbb{R}^d\rightarrow \mathbb{R}    \\
+	y \mapsto   ||y||^2 \\
+    \end{array}
+    \right.
+    $$
+
+$$
+v_i = \left\{
+    \begin{array}{ll}
+	\mathbb{R}^d\rightarrow \mathbb{R}    \\
+	\omega \mapsto   x_i-\omega
+    \end{array}
+    \right.
+    $$
+
+
+$$
+w_i = \left\{
+    \begin{array}{ll}
+	\mathbb{R}^d\rightarrow \mathbb{R}    \\
+	\omega \mapsto   ||x_i-\omega||^2
+    \end{array}
+    \right.
+    $$
+
+    We have
+
+    \begin{equation}
+       w_i = u\circ v_i 
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Differentials}
+
+We already know that
+
+    \begin{equation}
+	\forall (y, h)\in (\mathbb{R}^d)^2, du_y(h) = \langle 2y, h \rangle
+    \end{equation}
+
+    and that
+
+    \begin{equation}
+	\forall (\omega, h)\in (\mathbb{R}^d)^2, d(v_{i})_{\omega}(h) = -h
+    \end{equation}
+
+    By composition, 
+    
+    \begin{equation}
+	\nabla_{\omega_{k_0}} ||x_i-\omega_{k_0}||^2 = -2 (x_i-\omega_{k_0})
+    \end{equation}
+\end{frame}
+
+
+\begin{frame}{Gradient cancellation}
+
+    This gradient cancels if
+
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+	    \nabla_{\omega_{k_0}}J &= \sum^{n}_{i=1} z_i^{k_0}\nabla_{\omega_{k_0}} ||x_i-\omega_{k_0}||^2\\
+	    &= -\sum^{n}_{i=1} z_i^{k_0} 2(x_i-\omega_{k_0}) \\
+	    &= 0
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Gradient cancellation}
+
+    This gradient cancels if
+
+    \begin{equation}
+	2\omega_{k_0} \sum^{n}_{i=1} z_i^{k_0} = 2\sum^{n}_{i=1} z_i^{k_0} x_i
+    \end{equation}
+
+    or equivalently
+
+    \begin{equation}
+        \omega_{k_0} = \frac{\sum^{n}_{i=1} z_i^{k_0} x_i}{\sum^{n}_{i=1} z_i^{k_0}} 
+    \end{equation}
+    
+    Hence, the minimizer $w_{k_0}^*$ is the average of its cluster.
+\end{frame}
+
+\end{document} 

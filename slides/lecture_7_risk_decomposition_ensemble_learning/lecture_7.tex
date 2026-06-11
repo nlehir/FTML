@@ -1,0 +1,1477 @@
+\documentclass[usenames,dvipsnames]{beamer}
+
+\mode<presentation> {
+\usetheme{Montpellier}
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm2e}
+\setcounter{tocdepth}{2}
+\graphicspath{{../Figures/}}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newtheorem*{proposition}{Proposition}
+\newcommand\Fontvi{\fontsize{8}{8}\selectfont}
+
+% exercices comptés
+\newcounter{numexos}%Création d'un compteur qui s'appelle numexos
+\setcounter{numexos}{0}%initialisation du compteur
+\newcommand{\exercice}[1]{%Création d'une macro ayant un paramètre
+\addtocounter{numexos}{1}%chaque fois que cette macro est appelée, elle ajoute 1 au compteur numexos
+\textcolor{DarkOrchid}{Exercice\,\thenumexos\,:}\,#1%Met en rouge Exercice et la valeur du compteur appelée par \thenumeexos
+}
+
+\setbeamertemplate{title page}{
+    \centering
+
+    \huge\bfseries
+    Fondamentaux théoriques du machine learning
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{learning_curves_n_100_d_200_lasso}
+\end{figure}
+
+    }
+
+\title[FTML]{title}
+
+
+\date{} % Date, can be changed to a custom date
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentatio
+\end{frame}
+
+\section{Risks and risk decompositions}
+
+\subsection{Bias, variance and optimization error}
+
+\begin{frame}{Notion of risk decomposition}
+
+    Context: usual supervised learning.
+    \begin{itemize}
+	\item empirical risk of estimator $f$: $R_n(f)$ (random variable)
+	\item risk (real risk, generalization error) of estimator $f$: $R(f)$ (real number).
+	    \item dataset $D_n$.
+    \end{itemize}
+    
+We would like to interpret the risk of any estimator.
+
+\end{frame}
+
+\begin{frame}{Convergence of empirical risk}
+
+    We fix $f\in H$ (hypothesis space).  We assume that the samples $(x_i,
+    y_i)$ are i.i.d, with the distribution of $(X,Y)$, noted $\rho$. Then, according to the law of large numbers,
+    under some assumptions (for instance, if the empirical risks are bounded),
+    we have proven that in probability:
+
+    \begin{equation}
+        \lim_{n\rightarrow+\infty} R_n(f) = R(f)
+    \end{equation}
+
+    The empirical risk of a fixed $f$ converges to its real risk.
+    
+\end{frame}
+
+\begin{frame}{Notion of risk decomposition}
+
+    We would like to compare the real risk $R(g)$, for some estimator $g$, to $R^*=R(f^*)$, $f^*$ being the Bayes estimator.
+
+\end{frame}
+
+\begin{frame}{First decomposition}
+\begin{itemize}
+    \item $f^*$: Bayes predictor
+    \item $F$: Hypothesis space
+    \item $g$: some predictor ($\in F$).
+\end{itemize}
+
+\begin{equation}
+    R(g)-R^* = \Big(R(g)- \inf_{f\in F}R(f)\Big) +\Big(\inf_{f\in F}R(f)-R^* \Big)
+\end{equation}
+\end{frame}
+
+\begin{frame}{First decomposition}
+\begin{itemize}
+    \item $f^*$: Bayes predictor
+    \item $F$: Hypothesis space
+    \item $g$: some predictor
+	\item $f_n$: empirical risk minimizer
+\end{itemize}
+
+    Most of the time, we will be interested in such a decomposition for the learned estimator, e.g. the empirical risk minimizer $f_n$. Now, $R(f_n)$ is a \textbf{random variable} !
+
+\begin{equation}
+    E[R(f_n)]-R^* = \Big(E[R(f_n)]- \inf_{f\in F}R(f)\Big) +\Big(\inf_{f\in F}R(f)-R^* \Big)
+\end{equation}
+\end{frame}
+
+\begin{frame}{Underfitting and overfitting}
+
+\textbf{{Approximation error (bias)}}: depends on $f^*$ and $F$, not on $ f_n$, $D_n$.
+	\begin{equation*}
+	    \inf_{f\in F}R(f)-R^*\geq 0
+	\end{equation*}
+
+\textbf{{Estimation error (variance, fluctuation error, stochastic error)}}: depends on $D_n$, $F$, $ f_n$. 
+	\begin{equation*}
+	    E(R( f_n))- \inf_{f\in F}R(f)\geq 0
+	\end{equation*}
+
+	\begin{itemize}
+	    \item too small $F$ (compared to $f^*$): underfitting (large bias, small variance)
+	    \item too large $F$ (compared to $n$): overffitting (small bias, large variance)
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Deterministic bound on the estimation error}
+We consider the best estimator in the hypothesis space $F$.
+    \begin{equation*}
+	f_a = \argmin_{h\in F}R(h)
+    \end{equation*}
+
+    \exercice{} Show that
+    \begin{equation}
+	R( f_n)-R(f_a) \leq 2 \sup_{h\in F}|R(h)-R_n(h)|
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Deterministic bound on the estimation error}
+
+    \begin{equation}
+	R( f_n)-R(f_a)\leq 2 \sup_{h\in F}|R(h)-R_n(h)|
+    \end{equation}
+
+   Later in the course, based on \textbf{{concentration inequalities }} we will further build on this result and prove a probabilistic bound of the form
+
+    \begin{equation}
+	R( f_n)-R(f_a)\leq \frac{C}{ \sqrt{n} } 
+    \end{equation}
+
+    (remember that by definition $0 \leq R( f_n)-R(f_a)$)
+
+\end{frame}
+
+\begin{frame}{Approximate solution}
+
+    \begin{itemize}
+        \item In machine learning, it is often not necessary to find the actual
+            minimizer of the empirical risk, as there is an estimation error of $ \mathcal{O} ( \frac{1}{ \sqrt{n} }) $. \cite[]{Bottou2009}
+        \item We can use an approximate solution $ \hat{f}_n$, such that 
+            \begin{equation}
+                R_n( \hat{f}_n)\leq R_n(f_n)+\rho
+            \end{equation}
+            with $\rho$ a predefined tolerance.
+        \item This important because in large-scale ML, the \textbf{{computation time}} needs to be optimized.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Approximate solution}
+
+    This gives a new risk decomposition:
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+        E[R( \hat{f}_n)]-R^* &= \Big( E[R( \hat{f}_n)]-E[R(f_n)]\Big)\\
+        &+ \Big(E[R(f_n)]- \inf_{f\in F}R(f)\Big)\\
+        &+\Big(\inf_{f\in F}R(f)-R^* \Big)
+    \end{aligned}
+\end{equation}
+    
+\end{frame}
+
+\begin{frame}
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+        E[R( \hat{f}_n)]-R^* &= \Big( E[R( \hat{f}_n)]-E[R(f_n)]\Big)\\
+        &+ \Big(E[R( f_n)]- \inf_{f\in F}R(f)\Big)\\
+        &+\Big(\inf_{f\in F}R(f)-R^* \Big)
+    \end{aligned}
+\end{equation}
+
+$E[R( \hat{f}_n)]-E[R(\tilde{f}_n)] $ is the \textbf{{optimization error.}} 
+
+To conclude, we have:
+\begin{itemize}
+    \item an approximation error
+    \item an estimation error
+    \item an optimization error
+\end{itemize}
+    
+\end{frame}
+
+\subsection{Bounding the estimation error}
+
+\begin{frame}{Deterministic bound on the estimation error}
+
+    We will now focus on the estimation error
+
+	\begin{equation*}
+	    E\Big[R( f_n)\Big]- \inf_{f\in F}R(f)\geq 0
+	\end{equation*}
+
+	    $f_n$ is the empirical risk minimizer
+
+We consider the best estimator in hypothesis space
+    \begin{equation*}
+	f_a = \argmin_{h\in F}R(h)
+    \end{equation*}
+
+    We have seen that
+    \begin{equation}
+	R( f_n)-R(f_a) \leq 2 \sup_{h\in F}|R(h)-R_n(h)|
+    \end{equation}
+
+\end{frame}
+
+\begin{frame}{Deterministic bound on the estimation error}
+    \begin{equation*}
+	f_a = \argmin_{h\in F}R(h)
+    \end{equation*}
+
+    \begin{equation}
+	f_n = \argmin_{h\in F}R_n(h)
+    \end{equation}
+
+    \begin{equation}
+        \begin{aligned}
+	    R(f_n)-R(f_a) &= \big(R(f_n)-R_n( f_n)\big)\\
+	    &+\big(R_n( f_n)- R_n(f_a)\big)\\
+	    &+\big(R_n(f_a)-R(f_a)\big)
+        \end{aligned}
+    \end{equation}
+
+    But by definition $ f_n$ minimizes $R_n$, so $ \big( R_n ( f_n)-R_n(f_a)\big)\leq 0$.
+
+    Finally:
+    \begin{equation}
+	R( f_n)-R(f_a)\leq 2 \sup_{h\in F}|R(h)-R_n(h)|
+    \end{equation}
+
+\end{frame}
+
+\begin{frame}{Bound on the estimation error}
+    If we are able to bound $\sup_{h\in F}|R(h)-R_n(h)|$, then we have a bound on the estimation error.
+
+\end{frame}
+
+
+\begin{frame}{Deterministic bound on the estimation error}
+\begin{theorem}{Weak law of large numbers}
+
+    Let $(X_i)_{i\in \mathbb{N} }$ be a sequence of i.i.d. variables that have a moment of order $2$. We note $m$ their expected value. Then
+
+    \begin{equation}
+	\forall \epsilon > 0, \lim_{n\rightarrow+\infty}P\big( |\frac{1}{n} \sum^{n}_{i=1} X_i-m|\geq \epsilon \big)= 0
+    \end{equation}
+
+We say that we have \textbf{{convergence in probability}}.
+\end{theorem}
+
+\textbf{{However}}, this is only an asymptotical result: it is a limit for $ n \rightarrow +\infty$.
+    
+\end{frame}
+
+
+\begin{frame}{Bound on the estimation error}
+
+    If we are able to bound $\sup_{h\in F}|R(h)-R_n(h)|$, then we have a bound on the estimation error.
+
+    To do this, we will use some other mathematical results:
+
+    \begin{itemize}
+        \item Boole's inequality
+	\item Hoeffding's inequality (non-asymptotical probabilistic bound)
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Boole's inequality}
+\begin{proposition}
+
+    Let $A_1, A_2, \dots, $ be  acountable set of events of a probability space $\{\Omega, \mathcal{F}, P)$.
+
+    Then, 
+
+    \begin{equation}
+	P\Big( \cup_{i\geq 1}A_i \Big) \leq \sum_{i\geq 1} P(A_i)
+    \end{equation}
+    
+\end{proposition}
+
+
+    This set might be infinite.
+    
+\end{frame}
+
+\begin{frame}{Boole's inequality}
+\begin{proposition}
+
+    Let $A_1, A_2, \dots, $ be  acountable set of events of a probability space $\{\Omega, \mathcal{F}, P)$.
+
+    Then, 
+
+    \begin{equation}
+	P\Big( \cup_{i\geq 1}A_i \Big) \leq \sum_{i\geq 1} P(A_i)
+    \end{equation}
+    
+\end{proposition}
+
+
+    This set might be infinite.
+
+    \exercice{\textbf{}}Proove the proposition for tomorrow's practical session, in the case of a finite set of $A_i$, and optionnally for an infinite set.
+    
+\end{frame}
+
+\begin{frame}{Hoeffding's inequality}
+
+\begin{theorem}{Hoeffding's inequality}
+
+    Let $(X_i)_{1\leq i\leq n}$ be $n$ i.i.d real random variables such that $\forall i\in [1, n]$, $X_i\in [a,b]$ and $ E(X_i)= \mu \in \mathbb{R} $.  Let $	\bar{\mu} = \frac{1}{n} \sum^{n}_{i=1} X_i$.
+
+    Then $\forall \epsilon >0$,
+
+    \begin{equation*}
+	P\Big(| \bar{\mu}-\mu|\geq \epsilon \Big) \leq 2 \exp\Big( -\frac{2n\epsilon^2}{(b-a)^2} \Big)
+    \end{equation*}
+\end{theorem}
+
+We admit this theorem.
+    
+\end{frame}
+
+% \begin{frame}{Setting}
+%
+%     \begin{itemize}
+%         \item Supervised learning.
+% 	\item Finite space of estimator $F$.
+% 	\item The loss $l$ is uniformly bounded: $l( \hat{y}, y)\in [a, b]$ with $a$ and $b$ real numbers.
+%     \end{itemize}
+% \end{frame}
+%
+% \begin{frame}{Step 1}
+%    We have seen that 
+%     \begin{equation}
+% 	R( f_n)-R(f_a)\leq 2 \sup_{h\in F}|R(h)-R_n(h)|
+%     \end{equation}
+%
+%     As a consequence, for all $t\geq 0$:
+%
+%     \begin{equation}
+% 	P\Big(  R( f_n)-R(f_a)\geq t\Big) \leq P\Big(2 \sup_{h\in F}|R(h)-R_n(h)|\geq t\Big)
+%     \end{equation}
+% \end{frame}
+%
+%
+% \begin{frame}{Conclusion}
+%     \exercice{}Using Boole's inequality and Hoeffding's inequality, show that
+%
+%     \begin{equation}
+%         \begin{aligned}
+%             \label{eq:}
+% 	    P\Big(  R( f_n)-R(f_a)\geq t\Big) \leq2|F|\exp\Big( -\frac{nt^2}{2(b-a)^2} \Big)\\
+%         \end{aligned}
+%     \end{equation}
+%     
+% \end{frame}
+%
+% \begin{frame}{Conclusion}
+%     We write
+%     
+%     \begin{equation}
+%         \delta = 2|F|\exp\Big( -\frac{nt^2}{2(b-a)^2} \Big)
+%     \end{equation}
+%
+%     \exercice{} 
+%     
+%     We assume that $b-a=1$.  Show that with probability $ \geq 1-\delta$, 
+%
+% 	\begin{equation}
+% 	    R(f_n)\leq R(f_a)+2 \sqrt{ \frac{ \log(|F|)+ \log( \frac{2}{\delta} )}{2n} } 
+% 	\end{equation}
+% \end{frame}
+%
+%
+% \begin{frame}{Generalization}
+%
+%     It is possible to generalize to infinite sets:
+%     \begin{itemize}
+%         \item by sampling $F$
+% 	\item by using Rademacher complexity and Vapnik Vapnik-Chervonenkis theory.
+%     \end{itemize}
+%
+%     This classical bound on the statistical error does not guarantee that the generalization error is small when $\log(|F|)$ is large.
+%     
+% \end{frame}
+%
+% \subsection{Interpolation regime and double descent}%
+% \label{sub:interpolation_regime_and_double_descent}
+%
+% \begin{frame}{Interpolation regime}
+%
+%     \begin{itemize}
+%         \item If the number of parameters is sufficient, it is possible to have $R_n(f_n)=0$.
+%     \item In that case, it seems that the statistical error might to be way smaller than the previous bound.
+%     \end{itemize}
+%
+%     For instance, for Wide Resnet, $ \frac{p}{n}  = 179$ with
+%     \begin{itemize}
+%         \item $p$: number of parameters in the netwok
+% 	\item $n$: number of samples
+%     \end{itemize}
+% \end{frame}
+%
+%
+% \begin{frame}{Double descent}
+%     \cite{Belkin2019} 
+% \end{frame}
+
+\section{Model selection and sparsity}%
+\frame{\tableofcontents[currentsection]}
+\label{sec:sparsity}
+
+\subsection{Model selection}
+\label{sub:model_selection}
+
+\begin{frame}{Example}
+
+    \begin{itemize}
+        \item If $d>>n$ and we want to learn a linear model $ x \mapsto \langle \theta, x \rangle$, we have seen that this raises statistical issues (high variance, overfitting).
+	\item However, if we know in advance that $ \theta$ only has $s<d$ non-zero coordinates (sparse $ \theta$), we can reformulate to an easier problem.
+	\item But most of the time this is not the case, $s$ is not known, so we need to test several subsets of non-zero coordinates.
+    \end{itemize}
+
+    
+\end{frame}
+
+\begin{frame}{Example}
+
+
+    We could write the following regularized optimization problem
+
+    \begin{equation}
+	\hat{ \theta} = \argmin_{ \theta\in \mathbb{R}^d }\Big( ||y- X \theta|| + \lambda || \theta||_0 \Big)
+    \end{equation}
+
+    \begin{itemize}
+	\item $ y\in \mathbb{R}^n$ (labels)
+	\item $X\in \mathbb{R}^{n,d}$  (design matrix)
+	\item $ ||\theta||_0$: number of non-zero components of $ \theta$
+    \end{itemize}
+
+    
+\end{frame}
+
+\begin{frame}{Example}
+
+
+    We could write the following regularized optimization problem
+
+    \begin{equation}
+	\hat{ \theta} = \argmin_{ \theta\in \mathbb{R}^d }\Big( ||y- X \theta|| + \lambda || \theta||_0 \Big)
+    \end{equation}
+
+    \begin{itemize}
+	\item $ y\in \mathbb{R}^n$ (labels)
+	\item $X\in \mathbb{R}^{n,d}$  (design matrix)
+	\item $ ||\theta||_0$: number of non-zero components of $ \theta$
+    \end{itemize}
+
+    However,
+    \begin{itemize}
+        \item optimization issue (not convex)
+	\item computationally prohibitive to test all subsets of $[1, d]$.
+	    
+	    \exercice{How many subsets does $[1, d]$ contain ?} 
+    \end{itemize}
+\end{frame}
+
+\subsection{Lasso}%
+\label{sub:lasso}
+
+
+
+\begin{frame}{Lasso}
+
+Le Lasso replaces $||\theta||_0$ by $ ||\theta||_1$.
+
+\begin{equation}
+    || \theta_1|| = \sum^{d}_{i=1} | \theta_i|
+\end{equation}
+
+Lasso estimator:
+
+\begin{equation}
+    \tilde{\theta}_{\lambda}\in \argmin_{\theta\in \mathbb{R}^d}\{||y-X\theta||^2+\lambda ||\theta||_1\}
+\end{equation}
+
+For technically involved reasons, the optimization with the lasso leads to sparser solutions in some situations.
+    
+\end{frame}
+
+\begin{frame}{Lasso}
+
+Lasso estimator:
+
+\begin{equation}
+    \tilde{\theta}_{\lambda}\in \argmin_{\theta\in \mathbb{R}^d}\{||y-X\theta||^2+\lambda ||\theta||_1\}
+\end{equation}
+
+For technically involved reasons, the optimization with the lasso leads to sparser solutions. Frequently used optimization algorithm:
+
+\begin{itemize}
+    \item coordinate descent (algorithm used in scikit)
+    \item Fista
+    \item LARS
+\end{itemize}
+
+\url{https://en.wikipedia.org/wiki/Coordinate_descent} 
+    
+\end{frame}
+
+\begin{frame}{Example in 1D: TP 12}
+
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{lasso_regression_x_1_y_1}
+    	\label{fig:lasso_regression_x_1_y_1}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.6\linewidth]{path}
+        \caption{Regularization path with a Lasso optimization of a problem with $d=12$. Each line represents the evolution of a $ \theta_i$ when $ \lambda$ increases. Image from \cite{Azencott2022}.}
+        \label{fig:path}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.6\linewidth]{path_ridge}
+        \caption{Regularization path with a Ridge optimization of a problem with $d=12$. Each line represents the evolution of a $ \theta_i$ when $ \lambda$ increases. Image from \cite{Azencott2022}.}
+        \label{fig:path}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Elastic net}
+
+    Combination of $L1$ and $L2$ regularization.
+
+
+    Elastic-net estimator:
+\begin{equation}
+    \tilde{\theta}_{\lambda}\in \argmin_{\theta\in \mathbb{R}^d}\{||y-X\theta||^2+\lambda_1 ||\theta||_1+ \lambda_2 || \theta||_2\}
+\end{equation}
+    
+To choose $ \lambda_1$ and $\lambda_2$: cross validation.
+
+\end{frame}
+
+\begin{frame}{}
+    In the following examples, the data are linear, with a sparse $\theta^*$.
+
+    \begin{equation}
+    	y_i = x^T\theta^* + \epsilon_i
+    \end{equation}
+
+    We compare Ridge and Lasso, for several dimensions $(n, d)$.
+
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=1\textwidth]{learning_curves_n_200_d_30_ridge}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=1\textwidth]{learning_curves_n_200_d_30_lasso}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=1\textwidth]{learning_curves_n_200_d_100_ridge}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=1\textwidth]{learning_curves_n_200_d_100_lasso}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=1\textwidth]{learning_curves_n_100_d_200_ridge}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=1\textwidth]{learning_curves_n_100_d_200_lasso}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=1\textwidth]{learning_curves_n_20_d_100_ridge}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=1\textwidth]{learning_curves_n_20_d_100_lasso}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Multiple objective optimization}
+
+    A estimator might be considered good for several reasons:
+    \begin{itemize}
+    	\item quality of the predictions
+	\item short(er) optimization time
+	\item small(er) computational ressources
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Multiple-objective optimization}
+    In optuna for instance, it is possible to do \textbf{mutliple objective} optimization.
+
+    \url{https://en.wikipedia.org/wiki/Pareto_front} 
+
+    \url{https://optuna.readthedocs.io/en/stable/tutorial/20_recipes/002_multi_objective.html} 
+
+    \url{https://optuna.readthedocs.io/en/stable/reference/visualization/generated/optuna.visualization.plot_pareto_front.html} 
+
+\end{frame}
+
+\begin{frame}
+    \url{https://arxiv.org/pdf/2501.05515} 
+\end{frame}
+
+
+\section{Classification and regression trees}%
+\frame{\tableofcontents[currentsection]}
+\label{sec:decision_trees}
+
+\subsection{Decision trees}%
+\label{sub:decision_trees}
+
+\begin{frame}{CART}
+
+    \begin{itemize}
+	\item Segmentation method (partitionnement récursif), \textbf{{binary splits.}} 
+	\item First algorithm: \textbf{{CART}} (classification and regression tree, Breiman, 1984) \cite{Breiman2017} 
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Example dataset: fishes}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{fish_scatter_plot}
+        \label{fig:fish_scatter_plot}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Fish dataset}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{fish_weight_with_class}
+        \label{fig:fish_weight_with_class}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Fish dataset}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{fish_length_with_class}
+        \label{fig:fish_weight_with_class}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Example tree}
+    \begin{figure}[htpb]
+	\centering
+	\includegraphics[width=0.9\linewidth]{fish_minimal_max_depth_2}
+	\label{fig:name}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Splitting nodes}
+    Each split should lead to more \textbf{{homogeneous}} nodes (in a sense that is to be formally defined)
+
+    \begin{figure}[htpb]
+	\centering
+	\includegraphics[width=0.6\linewidth]{fish_minimal_max_depth_2}
+	\label{fig:name}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Splitting nodes}
+    A leaf node corresponds to a predicted value.
+
+    \begin{figure}[htpb]
+	\centering
+	\includegraphics[width=0.6\linewidth]{fish_minimal_max_depth_2}
+	\label{fig:name}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    Decision trees can  be used for regression. In that case, the prediction is \textbf{{piecewise constant}}. It can be seen as a form of local averaging. 
+
+ \begin{figure}[htpb]
+     \centering
+     \includegraphics[width=0.7\linewidth]{decision_tree_regression}
+     \label{fig:decision tree regression}
+ \end{figure}
+\end{frame}
+
+\subsection{Construction of a decision tree}%
+\label{sub:construction_of_a_decision_tree}
+
+\begin{frame}{Construction of a tree}
+    
+    A split node corresponds to:
+    \begin{itemize}
+        \item a segmentation variable $V$
+	\item a segmentation value / threshold if $V$ is quantitative. If $V$ is a class, it is a two-fold partitionning of the set of classes.
+    \end{itemize}
+   The construction of a tree requires a criterion to:
+    \begin{itemize}
+        \item choose the segmentation variable and value
+	\item decide when a node is terminal (leaf node)
+	\item associate a prediction value to all leaf nodes
+    \end{itemize}
+\end{frame}
+
+\subsubsection{Segmentation criterion}
+\label{ssub:segmentation_criterion}
+
+\begin{frame}{Homogeneity}
+
+    We want the homogeneity in the child nodes to be greater than in the parent node. Equivalently, we can define a non-negative heterogeneity function $H$ that describes each node and that must be:
+    \begin{itemize}
+	\item $0$ if the node is homogeneous (only one class or one output value is represented in this node)
+	\item maximal if the values of $y$ are uniformly distributed within the node.
+	\item if $H(L)$ it the value of $H$ for the left child node (and $H(R)$ for the right one), then the segmentation should minimize
+	    \begin{equation}
+		H(L)+H(R)
+	    \end{equation}
+    \end{itemize}
+\end{frame}
+
+\subsubsection{Homogeneity/heterogeneity criterion}%
+\label{ssub:homogeneity_criterion}
+
+\begin{frame}{Homogeneity criterion for regression}
+
+    In the case of regression, $ \mathcal{Y}  = \mathbb{R} $ and the heterogeneity $H(n)$ of node $n$ is its empirical variance:
+    \begin{equation}
+	H(n) = \frac{1}{|n|} \sum_{i\in n} (y_i - \bar{y_n})^2
+    \end{equation}
+    Each $y_i$ is a label for an input $x_i$ that arrives in node $n$.
+    
+\end{frame}
+
+\begin{frame}{Homogeneity criterion for classification}
+    In the case of classification, $ \mathcal{Y}  = [1, \dots, L]$ and several criteria exist.  
+\end{frame}
+
+\begin{frame}{Homogeneity criterion for classification: entropy (information gain)}
+    \begin{itemize}
+        \item We use the convention that $ 0 \log (0) = 0$
+	\item $p_n^l$ is the proportion of class $ l$ in node $n$.
+    \end{itemize}
+    The \textbf{{entropy}} writes:
+
+    \begin{equation}
+	H(n) = - \sum^{L}_{l=1} p_n^l\log( p_n^l)
+    \end{equation}
+
+    \exercice{\textbf{}}What are the maximum and minimum values of the entropy ?
+\end{frame}
+
+\begin{frame}{Homogeneity criterion for classification: Gini impurity}
+    The Gini impurity writes:
+
+    \begin{equation}
+	H(n) = \sum^{L}_{l=1} p_n^l(1-p_n^l)
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Homogeneity criterion for classification: Gini impurity}
+    The Gini impurity writes:
+
+    \begin{equation}
+	H(n) = \sum^{L}_{l=1} p_n^l(1-p_n^l)
+    \end{equation}
+    \exercice{\textbf{}}Interpret the meaning of the Gini impurity in terms of probabilities, assuming that we predict according to the proportions $p_n^l$.
+\end{frame}
+
+\begin{frame}{Homogeneity criterion for classification: misclassification probability}
+    \begin{equation}
+	H(n) = 1-  \max_l(p_n^l)
+    \end{equation}
+    If we predict the most represented class in $n$, then this is the misclassification probability.
+\end{frame}
+
+\subsubsection{Prediction}%
+\label{ssub:prediction}
+
+\begin{frame}{Prediction for a leaf node}
+    \begin{itemize}
+        \item \textbf{{regression}}: predict the average value in the node
+	\item \textbf{{classification}}: several possibilities
+	    \begin{itemize}
+	        \item most represented class in the node
+		\item most probable class \textit{{a posteriori}} if the \textit{{a priori}} probabilities are known (Bayesian probabilities) 
+		\item class that costs the less in case of missclassification
+	    \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\subsection{Tree pruning}%
+\label{sub:pruning}
+
+\begin{frame}{Pruning}
+    \begin{itemize}
+	\item If the segmentation is not restricted, the tree can fit the training dataset perfectly (overfitting).
+        \item learning would then be highly dependent on the choice of the training dataset, leading to \textbf{{instability.}} 
+	\item To avoid it, \textbf{{pruning}} (élaguage) is used: it consists in restricting the size of the tree (and can be seen as an equivalent to regularization like in ridge regression or logistic regression). 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Pre-pruning by restricting divisions}
+    We can impose
+    \begin{itemize}
+        \item minimum impurity decrease
+        \item a minimum number of samples in a leaf node
+        \item a minimum number of samples to authorize splitting a node
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Simulation: fish dataset, max depth=1}
+   \begin{figure}[htpb]
+       \centering
+       \includegraphics[width=0.7\linewidth]{fish_max_depth_1}
+       \label{fig:}
+   \end{figure} 
+\end{frame}
+
+\begin{frame}
+   \begin{figure}[htpb]
+       \centering
+       \includegraphics[width=0.7\linewidth]{fish_max_depth_2}
+       \label{fig:}
+   \end{figure} 
+\end{frame}
+
+\begin{frame}
+   \begin{figure}[htpb]
+       \centering
+       \includegraphics[width=0.7\linewidth]{fish_max_depth_12}
+       \label{fig:}
+   \end{figure} 
+\end{frame}
+
+\begin{frame}
+   \begin{figure}[htpb]
+       \centering
+       \includegraphics[width=0.7\linewidth]{fish_max_depth_34}
+       \label{fig:}
+   \end{figure} 
+\end{frame}
+
+\begin{frame}{Overfitting: Iris dataset, max depth=34}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{tree_iris_overfit}
+        \caption{Overfitting on the iris dataset.}
+        \label{fig:tree_iris_overfit}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Avoiding overfitting: Iris dataset}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.5\linewidth]{tree_iris}
+        \caption{Avoid overfitting with pre-pruning. In this case, impose a minimum impurity
+        decrease of 0.1}
+        \label{fig:tree_iris_overfit}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Post-pruning}
+
+    It is also possible to prune after the construction of a large tree.
+    
+\end{frame}
+
+\subsubsection{Remarks on decision trees}%
+\label{ssub:}
+
+\begin{frame}{Remarks on decision trees I}
+
+    \begin{itemize}
+        \item Decision trees do not require hypotheses on the distribution of de features.
+	\item Feature selection is integrated in the algorithm, so they might be relevant in a situation with many features (variables explicatives)
+	\item A segmentation is invariant to a monotonic change in a feature. It is thus robust  to outliers or to very asymetrical distributions.
+	\item Decision trees allow a straightforward \textbf{{interpretation}} of the model.
+    \end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}{Remarks on decision trees II}
+    \begin{itemize}
+        \item Decision trees are greedy: they might find a local minimum
+	\item they are hierarchical: a bad choice in a segmentation at the top of the tree propagates in the whole tree
+	\item Hence their instability and sensibility to the choice of the training set.
+    \end{itemize}
+\end{frame}
+
+\section{Ensemble learning}%
+\label{sec:ensemble_learning}
+
+\begin{frame}{Ensemble learning}
+    \begin{itemize}
+	\item \textit{{Bagging}}  and \textit{{boosting}} are methods that combine estimators (in parallel or sequentially)
+	\item they are often applied to decision trees
+	\item they reach state-of-the-art performance in several supervised learning tasks \cite{Fernandez-Delgado2014} 
+	\item they are an active area of research (both theoretically and for practical applications).
+    \end{itemize}
+
+    \url{https://scikit-learn.org/stable/modules/ensemble.html} 
+\end{frame}
+
+\subsection{Bagging}%
+\label{sub:bagging}
+
+
+\begin{frame}{Aggregating to reduce the variance}
+    \begin{itemize}
+        \item usual setup: input space $ \mathcal{X} $, output space $ \mathcal{Y} $.
+	\item we note $z_b$ a dataset sampled from the unknown distribution $ \rho$. We sample $b$ different datasets, $b\in [1, B]$, 
+	    \begin{equation}
+		z_b = \{(x_{1b}, y_{1b}), \dots (x_{nb}, y_{nb})\}
+	    \end{equation}
+	\item we note $ \hat{f_{z_b}}$ the estimator obtained after learning with $ z_b$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Aggregate to reduce the variance}
+    \begin{itemize}
+	\item we note $z_b$ a dataset sampled from the unknown distribution $ \rho$. If we sample $b$ different datasets, $b\in [1, B]$, 
+	    \begin{equation}
+		z_b = \{(x_{1b}, y_{1b}), \dots (x_{nb}, y_{nb})\}
+	    \end{equation}
+	\item we note $ \hat{f_{z_b}}$ the estimator obtained after learning with $ z_b$.
+    \end{itemize}
+    \textbf{{Aggregating}} consists in using as an estimator:
+    \begin{itemize}
+        \item for regression
+	    \begin{equation}
+		\hat{f_B} = \frac{1}{B} \sum^{B}_{b=1} \hat{f_{z_b}}
+	    \end{equation}
+	\item for classification
+	    \begin{equation}
+		\hat{f_B}(x) = \argmax_{j} | \{ b, \hat{f_{z_b}}(x)=j \}|
+	    \end{equation}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Bootstrapping and bagging}
+    If $B$ is large, it is not possible to sample $B$ independent datasets with $n$ samples, from a finite dataset.
+
+    \textbf{{Bootstrapping}} consists in sampling $B$ times a sample dataset with $n$ elements \textbf{{with replacement}}.
+    
+    \textbf{{Bagging}} is the combination of bootstrapping and aggregating.
+    
+\end{frame}
+
+\begin{frame}{Out-of-bag error}
+    
+    Vocabulary: for an observation $(x_i, y_i)$, the \textbf{{out-of-bag error}}  is the mean error on this observation among the estimators that were trained on a bootstrap dataset \textbf{{not}} containing it.
+
+    It can be seen as an equivalent to the test error, the difference being that when doing bootstrapping, there is not a single train set and a single test set.
+\end{frame}
+
+
+\begin{frame}{Simulation}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{bagging/Bagging_regression_nest_1}
+        \label{fig:bagging/Bagging regression_nest_1}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Simulation}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{bagging/Bagging_regression_nest_10}
+        \label{fig:bagging/Bagging regression_nest_1}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Simulation}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{bagging/Bagging_regression_nest_20}
+        \label{fig:bagging/Bagging regression_nest_1}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Simulation}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{bagging/Bagging_regression_nest_50}
+        \label{fig:bagging/Bagging regression_nest_1}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Simulation}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{bagging/Bagging_regression_nest_100}
+        \label{fig:bagging/Bagging regression_nest_1}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Individual estimators}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=1\linewidth]{bagging/estimator_0}
+        \caption{Estimator used in the averaging}
+        \label{fig:bagging/estimator_0}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Individual estimators}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=1\linewidth]{bagging/estimator_1}
+        \caption{Other estimator used in the averaging}
+        \label{fig:estimator_0}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Possible issues}
+    \begin{itemize}
+	\item number of trees to compute ($B$) in order to have a stable out-of-bag error.
+	\item need for storing all the base estimators
+	\item the final estimator is a \textit{{black-box}} model.
+    \end{itemize}
+\end{frame}
+
+\subsection{Random forest}%
+\label{sub:random_forests}
+
+\begin{frame}{Random forest}
+    \begin{itemize}
+        \item Random forest \cite{Breiman2001} is a bagging method with binary CART estimators, with additional randomness added to the choice of segmentation variables.
+	\item the goal is to increase the \textbf{{independence}} between the base trees.
+	\item although the theoretical properties of random forest are not yet fully understood, it is an important benchmark in supervised learning (but for instance not when the problem can be solved in a linear way).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Variance of an average: independent variables}
+
+Recall that if $(X_k)_{k\in \mathbb{N} }$ is a sequence of i.i.d. real variables that have a moment of order $2$, and hence a variance $ \sigma^2$, and an expected value of $m$. Then if $S_B= \frac{1}{B} \sum^{B}_{i=1} X_i$
+
+\begin{equation}
+\begin{aligned}
+    \label{eq:}
+    Var(S_B)&= \sum^{B}_{i=1} Var( \frac{1}{B}  X_i)\\
+    &= \frac{1}{B^2} \sum^{B}_{i=1} Var(X_i)\\
+    &= \frac{\sigma^2}{B} 
+\end{aligned}    
+\end{equation}
+    
+\end{frame}
+
+\begin{frame}{Variance of the average: correlated variables}
+    However, if the $X_i$ are identically distributed but correlated with correlation $c$, then we admit that
+    \begin{equation}
+	Vac(S_B) = c \sigma^2 + \frac{1-c}{B} \sigma^2
+    \end{equation}
+
+    Random forest diminishes $c$ by adding some randomness in the choice of the segmentation variables.
+    
+\end{frame}
+
+\begin{frame}{Random forest}
+
+    Let $d$ be the number of features. Let $m\leq d$ be an integer.
+
+\begin{algorithm}[H]
+	\KwResult{Random forest estimator}
+	\For{$b\in [1, B]$}
+ 	{
+	    Sample a bootstrap dataset $z_b$\;
+	    Estimate $ \hat{f_{z_b}}$ with \textbf{{randomization}}  of the variables. The search of the optimal segmentation is done on $m$ randomly sampled variables.\;
+  	}
+	    \begin{equation}
+		\hat{f_B} = \frac{1}{B} \sum^{B}_{b=1} \hat{f_{z_b}}
+	    \end{equation}
+	
+	
+	return $ \hat{f_B}$
+	\caption{Random forest}
+\end{algorithm}
+\end{frame}
+
+\begin{frame}{Remarks on random forest}
+    \begin{itemize}
+	\item With random forest, it is possible to use a more brutal pruning (for instance using only trees of depth $2$)
+	\item To tune $m$, heuristics are used. Common ones include:
+	    \begin{itemize}
+		\item $m = \sqrt{d} $ for classification ($d$ is the number of features)
+		\item $m = d/3$ for regression
+		\item cross validation.
+	    \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example in 1D (not representative of actual random forests !)}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{forest/Random_forest_regression_nest_1_d_3}
+        \label{fig:forest/Random_forest_regression_nest_1_d_3}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Example in 1D (not representative of actual random forests !)}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{forest/Random_forest_regression_nest_1_d_30}
+        \label{fig:forest/Random_forest_regression_nest_1_d_3}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Example in 1D (not representative of actual random forests !)}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{forest/Random_forest_regression_nest_10_d_3}
+        \label{fig:forest/Random_forest_regression_nest_1_d_3}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Example in 1D (not representative of actual random forests !)}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{forest/Random_forest_regression_nest_50_d_3}
+        \label{fig:forest/Random_forest_regression_nest_1_d_3}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Example in 1D (not representative of actual random forests !)}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{forest/Random_forest_regression_nest_20_d_5}
+        \label{fig:forest/Random_forest_regression_nest_1_d_3}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Estimators}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{forest/estimator_0}
+        \label{fig:}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}{Importance of the variables}
+    Although the obtained estimator is hard to interpret, we can still study the statistical importance of variables for the prediction.
+\end{frame}
+
+\begin{frame}{Mean decrease accuracy}
+
+    Consider a variable $j$.
+    For a given tree $b$
+   \begin{itemize}
+       \item compute the out-of-bag error.
+	\item shuffle the values of $j$ in the out-of-bag sample.
+	\item compute the new out-of-bag error
+	\item store the decrease in prediction quality, $D_j^b$.
+   \end{itemize} 
+
+    Average the $D_j^b$ on $b$ in order to measure the importance of the variable $j$.
+\end{frame}
+
+\subsection{Boosting}%
+\label{sub:boosting}
+
+\begin{frame}{Boosting}
+    \begin{itemize}
+        \item While bagging is a random method, \textbf{{boosting}} is an adaptive method.
+	\item Boosting builds on \textit{{weak classifiers}}, and like bagging, aggregates them, for instance with a \textbf{{weighted sum}}.
+	\item However, the weak classifiers are built \textbf{{sequentially}}. The classifier $b+1$ adapts the classifier $b$ by focusing on improving the prediction of incorrectly classified training samples.
+	\item Several variants exists (in the weighting, loss function, aggregating method, etc).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Adaboost}
+    \begin{itemize}
+	\item  Original boosting algorithm \cite{Freund1996} 
+	\item $ \mathcal{Y}  = \{-1, 1\}$ (but can also be adapted to a regression problem)
+	\item  Given the sample dataset $z =  \{(x_{1}, y_{1}), \dots (x_{n}, y_{n})\}$. We learn a \textbf{{sequence of estimators}} $(\delta_m)_{m\in [1..B]}$ (often CART).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+
+\begin{algorithm}[H]
+\Fontvi
+	\text{Initialize the weights} $w = \{w_i=\frac{1}{n}, i=1..n  \}$\;
+	\For{$m=1..B$}
+ 	{
+	    Estimate $\delta_m$ on the weighted dataset.
+	    Compute the error rate
+	    \begin{equation}
+		\hat{\epsilon_m} = \frac{ \sum^{n}_{i=1} w_i 1( \delta_m(x_i)\neq y_i)}{ \sum^{n}_{i=1} w_i}
+	    \end{equation}
+	    Compute the logit of $\hat{\epsilon_m}$
+	    \begin{equation}
+		c_m = \log \big( \frac{1- \hat{\epsilon_m}}{ \hat{\epsilon_m}} \big) 
+	    \end{equation}
+	    Update the weights
+	    \begin{equation}
+		w_i \leftarrow w_i \exp\Big(c_m 1( \delta_m(x_i)\neq y_i) \Big)
+	    \end{equation}
+  	}
+	    \begin{equation}
+		\hat{\delta_B} = \text{sign} \Big(\sum^{B}_{b=1} \delta_{z_b}\Big)
+	    \end{equation}
+	
+	
+	return $ \hat{f_B}$
+	\caption{Adaboost for binary classification (adaptive boosting)}
+\end{algorithm}
+    
+\end{frame}
+
+\begin{frame}{Remarks}
+
+    We need to enforce that $c_m \geq 0$. It is verified if $\hat{\epsilon_m} \leq \frac{1}{2} $.
+
+    \begin{equation}
+        c_m = \log \big( \frac{1- \hat{\epsilon_m}}{ \hat{\epsilon_m}} \big) 
+    \end{equation}
+    
+\end{frame}
+
+%\begin{frame}{Adaptive resampling}
+%    It is also possible to bootstrap a sample dataset by weighting the probabilities of sampling each point. For instance if we perform regression (see next slide)
+%\end{frame}
+%
+%\begin{frame}
+%
+%\begin{algorithm}[H]
+%\Fontvi
+%	\text{Initialize the probabilities} $p = \{p_i=\frac{1}{n}, i=1..n  \}$\;
+%	\For{$m=1..B$}
+% 	{
+%	    Sample with replacement $z_m$ according to $p$.
+%
+%	    Estimate $f_m$ on $z_m$.
+%
+%	    Compute the loss
+%	    \begin{equation}
+%		l_m(i) = l(y_i, \hat{f_m}(x_i)), i\in [1, n]
+%	    \end{equation}
+%	    \begin{equation}
+%		\epsilon_m(i) = \sum^{n}_{i=1} p_il_m(i)
+%	    \end{equation}
+%	    \begin{equation}
+%		w_i = g(l_m(i))p_i
+%	    \end{equation}
+%	    \begin{equation}
+%		p_i = \frac{w_i}{ \sum^{n}_{i=1} w_i} 
+%	    \end{equation}
+%  	}
+%	return $ \hat{f_B}$ as the weighted average or median of the $ \hat{f_m}$ by the coefficients $\log(\frac{1}{\beta_m})$.
+%	\caption{Adaboost for regression}
+%\end{algorithm}
+%\end{frame}
+%
+%\begin{frame}{Remarks}
+%
+%    \begin{itemize}
+%        \item $l$ is a loss, for example the quadratic loss, absolute loss, etc.
+%	\item we define $L_m = \sup_{i\in [1, n]}l_m(i)$ the maximum error.
+%	\item 
+%	    \begin{equation}
+%	        \beta_m =  \frac{ \hat{\epsilon_m}}{ L_m- \hat{\epsilon_m}} 
+%	    \end{equation}
+%	    If we enforce $ \epsilon_m \geq L_m/2$, then $ 0\leq \beta_m \leq 1$.
+%
+%
+%	\item 
+%
+%	    \begin{equation}
+%		g(l_m(i)) = \beta_m^{1-\frac{l_m(i)}{L_m} }
+%	    \end{equation}
+%	    This way, $ x\mapsto g(x)$ is increasing.
+%    \end{itemize}
+%    
+%\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+        \item It is experimentally shown that if the weak classifiers are \textit{{stump trees}} ($2$ leaves), then adaBoost performs better than one given tree with a number of leaves equal to the number of iterations of adaBoost (hence a comparable computation time).
+	\item A number of leaves $q$ between $4$ and $8$ for the weak classifiers is often recommended.
+	\item adaBoost can be adapted to multiclass classification and regression \cite{Schapire2003}. 
+    \end{itemize}
+\end{frame}
+
+
+\subsubsection{Gradient tree boosting}%
+\label{ssub:e}
+
+\begin{frame}{Gradient tree boosting}
+    \begin{itemize}
+	\item differentiate with respect to the predictions of the tree (compute a gradient)
+	\item approximate the gradient by a regression tree
+	\item update the tree following this gradient.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Gradient tree boosting}
+\begin{algorithm}[H]
+\Fontvi
+	\text{Initialize} $f_0 = \argmin_{z} \sum^{n}_{i=1} l(y_i, z)$\;
+	\For{$m=1..B$}
+ 	{
+	    Compute $r_{m_i} = - \frac{\partial l (y_i, f(x_i))}{\partial f(x_i)}(f=f_{m-1})  , i\in [1, n]$
+
+	    Train a decision tree $ \delta_m$ on $(x_i, r_{m_i})_{i\in [1, n]}$
+
+	    Compute $ \gamma_m$ minimizing
+
+	    \begin{equation}
+		\gamma \rightarrow \sum^{n}_{i=1} l(y_i, f_{m-1}(x_i) + \gamma \delta_m(x_i))
+	    \end{equation}
+
+	    Update the estimator
+	    \begin{equation}
+		\hat{f_m} = \hat{f_{m-1}}+ \gamma_m \delta_m
+	    \end{equation}
+  	}
+	return $ \hat{f_B}$
+	\caption{Gradient tree boosting}
+\end{algorithm}
+\end{frame}
+
+\begin{frame}{Simulation}
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{GB_regression_nest_40_d_3}
+        \label{fig:GB_regression_nest_40_d_3}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame}{Gradient tree boosting}
+
+    Many parameter can be tuned:
+    \begin{itemize}
+        \item  maximum depth of the estimators
+	\item shrinkage $\eta$ ($ \hat{f_m} = \hat{f_{m-1}}+ \eta\gamma_m \delta_m$, with $0\leq \eta \leq 1$). If $ \eta$ is low, e.g. $\leq 0.1$, it can lead to a slower convergence but might prevent overfitting.
+	\item number of trees learned $B$
+    \end{itemize}
+
+    \url{https://www.analyticsvidhya.com/blog/2016/02/complete-guide-parameter-tuning-gradient-boosting-gbm-python/} 
+
+    It is necessary to experiment, read documentations, cross validate, use heuristics, etc.
+    
+\end{frame}
+
+\begin{frame}{Extreme gradient boosting}
+
+    \begin{itemize}
+        \item XGBoost: variant of gradient boosting, very efficient on several
+            benchmarks \cite{Chen2016} 
+	\item can exploit parallelization
+	 \item \url{https://xgboost.readthedocs.io/en/latest/parameter.html} 
+        \item \url{https://github.com/dmlc/xgboost} 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Catboost}
+
+    \begin{itemize}
+        \item See also: Catboost
+
+	    \url{https://catboost.ai/} 
+    \end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]
+\frametitle{References}
+\bibliographystyle{apalike}
+\bibliography{../../epita.bib} 
+\end{frame}
+
+\end{document} 

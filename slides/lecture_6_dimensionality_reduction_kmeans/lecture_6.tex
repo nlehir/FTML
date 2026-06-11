@@ -1,0 +1,668 @@
+\documentclass[usenames,dvipsnames]{beamer}
+
+\mode<presentation> {
+\usetheme{Montpellier}
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm2e}
+\setcounter{tocdepth}{2}
+\graphicspath{{../Figures/}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newtheorem*{proposition}{Proposition}
+\newcommand\Fontvi{\fontsize{8}{8}\selectfont}
+
+% exercices comptés
+\newcounter{numexos}%Création d'un compteur qui s'appelle numexos
+\setcounter{numexos}{0}%initialisation du compteur
+\newcommand{\exercice}[1]{%Création d'une macro ayant un paramètre
+\addtocounter{numexos}{1}%chaque fois que cette macro est appelée, elle ajoute 1 au compteur numexos
+\textcolor{DarkOrchid}{Exercice\,\thenumexos\,:}\,#1%Met en rouge Exercice et la valeur du compteur appelée par \thenumeexos
+}
+
+\setbeamertemplate{title page}{
+    \centering
+
+    \huge\bfseries
+    Fondamentaux théoriques du machine learning
+
+\begin{figure}[!h]
+\includegraphics[width=7cm]{it_0_move_centroids}
+\end{figure}
+
+    }
+
+\title[FTML]{title}
+
+
+\date{} % Date, can be changed to a custom date
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentatio
+\end{frame}
+
+
+\section{Dimensionality reduction}%
+\frame{\tableofcontents[currentsection]}
+\label{sub:dimensionality_reduction}
+
+\begin{frame}{Dimensionality reduction}
+    We consider the space $ \mathcal{X} $ that contains the data, for either supervised or unsupervised learning. In machine learning, we often have $ \mathcal{X} \in \mathbb{R}^d$.
+    \begin{itemize}
+	\item If $d$ is large (e.g. $\geq 10^4$), the algorithms that run on the data might become too slow to be used, as their algorithmic complexity depends on $d$ (potentially in a quadratic or exponential way, curse of dimensionality)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Dimensionality reduction}
+    We consider the space $ \mathcal{X} $ that contains the data, for either supervised or unsupervised learning. In machine learning, we often have $ \mathcal{X} \in \mathbb{R}^d$.
+    \begin{itemize}
+	\item If $d$ is large (e.g. $\geq 10^4$), the algorithms that run on the data might become too slow to be used, as their algorithmic complexity depends on $d$ (potentially in a quadratic or exponential way, curse of dimensionality)
+	\item \textbf{{However}}, often the data might actually occupy a \textbf{{subspace}} of lower dimension $q$, or it may be possible to project the data on such a subspace without loosing too much information.
+	    \begin{itemize}
+		\item Working in a subspace of lower dimension might speed up the algorithms.
+		    \item It may also allow visualization of the data.
+	    \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Main methods of dimensionality reduction}
+    \begin{itemize}
+        \item \textbf{{feature selection}}: selecting a subset of the original dimensions.
+	\item \textbf{{feature extraction}}: computing new features from the original features.
+    \end{itemize}
+\end{frame}
+
+\subsection{Principal component analysis}%
+\label{ssub:principal_component_analysis}
+
+\begin{frame}{Principal component analysis (PCA)}
+    \begin{itemize}
+        \item PCA is a \textbf{{linear feature extraction}} technique.
+	\item Points in $ \mathbb{R}^d$ are linearly projected on a well chosen affine subspace of $ \mathbb{R}^q$, with $q\leq d$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Formalization as a (empirical) variance maximimisation problem}
+
+Without loss of generality, we assume the data are \textbf{{centered}}, which means that
+
+\begin{equation}
+\bar{x} = \sum^{n}_{i=1} x_n=0\in \mathbb{R}^d
+\end{equation}
+
+$X$ is the design matrix like in OLS. The \textbf{{first principal componenent}} is a vector $w\in \mathbb{R}^d$, with $||w||=1$, such that $ \hat{Var}(w^Tx)$ is maximal, where $ \hat{Var}$ denotes the empirical variance.
+\end{frame}
+
+
+\begin{frame}{Variance}
+    
+    \begin{equation}
+            \label{eq:}
+            \overline{w^Tx} = w^T \overline{x} = 0
+    \end{equation}
+
+    Hence,
+
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+	    \hat{Var}(w^Tx) &= \frac{1}{n-1}  \sum^{n}_{i=1} \big((w^Tx)_i- \overline{w^Tx}  \big)^2\\
+	    &= \frac{1}{n-1}  \sum^{n}_{i=1} \big(w^Tx_i \big)^2\\
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Variance maximisation problem}
+
+    We can then formulate the problem as finding $w$, $||w||=1$ such that
+
+    \begin{equation}
+	\sum^{n}_{i=1} \big(w^Tx_i \big)^2
+    \end{equation}
+     is maximal.
+    
+\end{frame}
+
+\begin{frame}{First principal component}
+    We look for $w$, $||w||=1$ such that
+    \begin{equation}
+	\sum^{n}_{i=1} \big(w^Tx_i \big)^2
+    \end{equation}
+     is maximal.
+    \begin{proposition}
+	$w$ is the eigenvector of $X^TX$ with largest eigenvalue $\lambda_{max}$.
+    \end{proposition}
+\end{frame}
+
+\begin{frame}{First principal component}
+    We look for $w$, $||w||=1$ such that
+    \begin{equation}
+	\sum^{n}_{i=1} \big(w^Tx_i \big)^2
+    \end{equation}
+     is maximal.
+    \begin{proposition}
+	\label{prop:pca}
+	$w$ is the eigenvector of $X^TX$ with largest eigenvalue $\lambda_{max}$.
+    \end{proposition}
+
+    \exercice{\textbf{}} Show the proposition.
+\end{frame}
+
+\begin{frame}{Reconstruction error}
+    Alternately, we can formulate the problem as a \textbf{{reconstruction error minimization.}} 
+
+    \begin{equation}
+	\mathbb{R}^d = \text{Vect}(w) \bigoplus\text{Vect}(w)^{\perp}
+    \end{equation}
+
+    and if $||w||=1$,
+    
+    \begin{equation}
+	\begin{aligned}
+	    \label{eq:}
+	    \forall x\in \mathbb{R}^d, ||x||^2 &= ||(x^Tw)w||^2+||x-(x^Tw)w||^2\\
+	    &= (x^Tw)^2+||x-(x^Tw)w||^2\\
+	\end{aligned}
+    \end{equation}
+    
+\end{frame}
+
+
+\begin{frame}{Reconstruction error}
+
+We can formulate the problem as a \textbf{{reconstruction error minimization.}} If $||w||=1$, 
+
+    \begin{equation}
+	\begin{aligned}
+	    \label{eq:}
+	    \forall x\in \mathbb{R}^d, ||x||^2 &= ||(x^Tw)w||^2+||x-(x^Tw)w||^2\\
+	    &= (x^Tw)^2+||x-(x^Tw)w||^2\\
+	\end{aligned}
+    \end{equation}
+
+    Hence,
+
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+	    \sum^{n}_{i=1} ||x_i||^2 &= \sum^{n}_{i=1} (x_i^Tw)^2+\sum^{n}_{i=1}||x_i-(x_i^Tw)w||^2\\
+	    &= \hat{Var}(w^Tx) + \sum^{n}_{i=1}||x_i-(x_i^Tw)w||^2\\
+        \end{aligned}
+    \end{equation}
+\end{frame}
+    
+\begin{frame}{Reconstruction error}
+
+    \begin{equation}
+	\sum^{n}_{i=1} ||x_i||^2 = \hat{Var}(w^Tx) + \sum^{n}_{i=1}||x_i-(x_i^Tw)w||^2
+    \end{equation}
+
+    We can see $\sum^{n}_{i=1}||x_i-(x_i^Tw)w||^2$ as a \textbf{{reconstruction error}}, when the data are projected on $\text{Vect}(w)$. 
+
+    Maximizing the variance of the projections is equivalent to minimizing the reconstruction errors obtained by projection.
+\end{frame}
+
+\begin{frame}{Several principal components}
+
+    Most of the time, we project the data on several principal components.
+
+    \begin{itemize}
+	\item 1] compute the first principal component $w_1$
+	\item 2] project the data on $\text{Vect}(w_1)^{\perp}$
+	\item 3] start again on the projected data
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reconstruction error}
+
+    The interpretation stays the same. If $p_F(x)$ is the projection of $x$ on the subspace spanned by the principal components:
+
+    \begin{equation}
+	||x||^2 = ||p_F(x)||^2+||x-p_F(x)||^2
+    \end{equation}
+
+    The principal components are the largest eigenvectors of $X^TX\in \mathbb{R}^d, d$ with norm $1$. They are \textbf{{orthogonal}} to each other.
+    
+\end{frame}
+
+\begin{frame}{Inertia}
+
+    We can define an inertia:
+
+    \begin{equation}
+	I_F = \sum^{n}_{i=1} ||x-p_F(x)||^2
+    \end{equation}
+    
+    We lool for the subspace that minimizes the inertia $I_F$.
+\end{frame}
+
+\begin{frame}{Inertia}
+    \exercice{\textbf{No inertia}}
+
+    In what situations could we have $ I_{F}=0$ ?
+\end{frame}
+
+\begin{frame}{Inertia}
+    \begin{figure}[htpb]
+        \centering
+	\includegraphics[width=0.8\linewidth]{A}
+        \label{fig:projection axis=(0.95, 0.32)}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Inertia}
+    \begin{figure}[htpb]
+        \centering
+	\includegraphics[width=0.8\linewidth]{C}
+        \label{fig:projection axis=(0.45, -0.89)}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Inertia}
+    \begin{figure}[htpb]
+        \centering
+	\includegraphics[width=0.8\linewidth]{B}
+        \label{fig:projection axis=(0.05, -1.00)}
+    \end{figure}
+\end{frame}
+
+\subsubsection{Applications of PCA}%
+\label{ssub:applications_of_pca}
+
+\begin{frame}{Iris dataset}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.6\linewidth]{pca_iris}
+        \caption{PCA performed on the iris dataset, keeping $2$ dimensions. We see that the principal components are able to separate the data.}
+        \label{fig:pca_iris}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    In this paper, astrophysicists use PCA in order to test a new star temperature prediction method \cite{Bermejo2013} 
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.65\linewidth]{temperature}
+        \caption{PCA used in order to predict temperature.}
+        \label{fig:temperature}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{PCA on digits}
+    \begin{itemize}
+        \item We can perform the PCA on a dataset consisting in $8\times 8$ pixels images of digits, in order to see if the PCA allows a visualization of some structure in the data.
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.7\linewidth]{digit}
+        \label{fig:digits}
+    \end{figure}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{PCA on digits}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{projected_digits}
+        \label{fig:digits}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{PCA on digits: reconstruction}
+
+    With $8$ principal components, we can monitor the reconstruction of the images (originally in 64 dimensions)
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{reconstruction_0}
+        \caption{Reconstruction of $0$}
+        \label{fig:reconstruction}
+    \end{figure}
+
+    \url{https://jakevdp.github.io/PythonDataScienceHandbook/05.09-principal-component-analysis.html} 
+\end{frame}
+
+\begin{frame}{PCA on digits: reconstruction}
+
+    With $8$ principal components, we can monitor the reconstruction of the images (originally in 64 dimensions)
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{reconstruction_4}
+        \caption{Reconstruction of $4$}
+        \label{fig:reconstruction}
+    \end{figure}
+
+    \url{https://jakevdp.github.io/PythonDataScienceHandbook/05.09-principal-component-analysis.html} 
+    
+\end{frame}
+
+\begin{frame}{Explained variance}
+    A natural question is: what is a relevant number of principal components ?
+
+    A common quantity that is used is \textbf{{explained variance}}.  Each component $w_k$ carries a percentage of the total variance of the data.
+
+    \begin{equation}
+	\frac{ \hat{Var}(w_k^Tx)}{ \sum^{d}_{j=1} \hat{Var}(x^j)}
+    \end{equation}
+    where $\hat{Var}(x^j)$ is the variance of the (centered) feature $j$.
+
+\begin{equation}
+    \hat{Var}(x^j) = \frac{1}{n-1}\sum^{n}_{i=1} (x_i^j)^2
+\end{equation}
+\end{frame}
+
+\begin{frame}{Number of components}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.7\linewidth]{explained_variance}
+        \label{fig:explained_variance}
+	\caption{Variance of the projected data as a function of the number of components (digits dataset)}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Number of components}
+    \exercice{\textbf{}} What happens with this dataset ?
+   \begin{figure}[htpb]
+       \centering
+       \includegraphics[width=0.8\linewidth]{explained_variance_redundancy}
+       \label{fig:explained_variance_redundancy}
+   \end{figure} 
+\end{frame}
+
+\begin{frame}{Number of components}
+    \textbf{{Conclusion: }} PCA can help detemine whether some components carry no information in the data.
+    
+\end{frame}
+
+\begin{frame}{Shortcomings of PCA}
+   PCA is sensitive to :  
+    \begin{itemize}
+        \item outliers
+	\item initial data scaling
+    \end{itemize}
+\end{frame}
+
+\section{Clustering}
+
+\begin{frame}{Unsupervised learning}
+ From a number of samples ${x_i}$, you want to retrieve information on their structure: \textbf{{modelisation}}. The three main unsupervised learning problems are:
+    \begin{itemize}
+        \item clustering
+	\item density estimation
+	\item dimensionality reduction
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Clustering}
+   \textbf{{Clustering}}  consists in partitioning the data. $\forall i, x_i\in \mathcal{X}^n$.
+    \begin{equation}
+	D_n = \{(x_i)_{i\in [1, \dots, n]}\}
+    \end{equation}
+
+    A \textbf{{partition}} is a set of $K$ subsets $A_k\subset D_n$, such that
+    \begin{itemize}
+        \item
+	    \begin{equation}
+		\cup_{k\in [1, \dots, K]}A_k = D_n
+	    \end{equation}
+	\item 
+	    \begin{equation}
+		\forall k\neq k', A_k\cap A_{k'} = \emptyset
+	    \end{equation}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Partitions}
+
+    \begin{itemize}
+	\item \textbf{{Example 1:}} $A$ is the set of even integers, $B$ the set ot odd integers. Is $(A, B)$ a partition of $ \mathbb{N} $ ?
+	\item \textbf{{Example 2:}} $C$ is the set of multiples of $2$, $D$ the set of multiples of $3$. Is $(C, D)$ a partition of $ \mathbb{N} $ ?
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Example: partition of data}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\linewidth]{it_0_move_centroids}
+        \label{fig:it_0_move_centroids}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Applications of clustering}
+    Example applications:
+    \begin{itemize}
+	\item spam filtering \cite[]{Sharma2014} 
+        \item fake news identification \cite[]{Hosseinimotlagh2018} 
+	\item marketing and sales
+	\item document analysis \cite[]{Zhao2002} 
+	\item traffic classificaiton \cite[]{Woo2007} 
+    \end{itemize}
+    Some of these applications can be considered to be semi-supervised learning.
+\end{frame}
+
+\begin{frame}{Vector quantization}
+
+    \textbf{{Vector quantization}} consists in computing \textbf{{prototypes}} $\Omega=(\omega_k)_{k\in [1, \dots, K]}\in \mathcal{X}^K$ that represent the data well.
+
+    This implies that a \textbf{{metric}} is defined on $ \mathcal{X} $.
+
+    Most often, this is interesting / useful if $ K<< n$.
+\end{frame}
+
+\begin{frame}{Voronoï subsets}
+
+    We assume a loss (we can think of it as a distance here) $L$ is defined on $ \mathcal{X} $. The \textbf{Voronoï subset} of $\omega$ is defined as
+    
+    \begin{equation}
+	V(\omega) = \{x\in D_n, \argmin_{\omega'\in \Omega}L(\omega', x)=\omega \}
+    \end{equation}
+    \begin{itemize}
+        \item We assume that $ \argmin$ returns one single element.
+	\item The Voronoï subsets form a partition of $D_n$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Distortion}
+    To measure the quality of a Voronoï partition, we introduce the \textbf{{distortion}} $R(\Omega)$.
+
+    For each $x$, we note $h_{\Omega}(x)= \argmin_{\omega'\in \Omega}L(\omega', x)$.
+
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+	    R(\Omega)&= \frac{1}{n} \sum^{n}_{i=1}  L(x_i, h_{\Omega}(x_i))
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Distortion}
+    For each $x$, we note $h_{\Omega}(x)= \argmin_{\omega'\in \Omega}L(\omega', x)$.
+
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+	    R(\Omega)&= \frac{1}{n} \sum^{n}_{i=1}  L(x_i, h_{\Omega}(x_i))\\
+	    &= \frac{1}{n} \sum_{\omega\in \Omega} \sum_{x\in V(\omega)}  L(x_i, h_{\Omega}(x_i))\\
+	    &= \frac{1}{n} \sum_{\omega\in \Omega} V_{\Omega}(\omega)
+        \end{aligned}
+    \end{equation}
+
+    with
+
+    \begin{equation}
+        V_{\Omega}(\omega)= \sum_{x\in V(\omega)}  L(x_i, h_{\Omega}(x_i))
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Minimum of distortion}
+
+    We want to find the prototypes for which the distortion is \textbf{{minimal}}. 
+
+    \begin{itemize}
+        \item The set of prototypes minimizing distorsion might not be unique.
+	\item We need to tune $K$ (number of prototypes).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Vector quantization techniques}
+\begin{itemize}
+    \item K-means
+    \item Growing neural gas (GNG)
+    \item Self-organizing maps
+\end{itemize}
+\end{frame}
+
+\begin{frame}{K-means clustering}
+    \begin{itemize}
+        \item $\mathcal{X}  = \mathbb{R}^d$.
+	\item $ L(x, y) = ||x-y||^2$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Objective function}
+
+With
+\begin{itemize}
+    \item $\Omega = \{\omega_1, \dots, \omega_K\}\in \mathbb{R}^{K, d}$.
+    \item $z_i^k=1 $ if $x_i$ is assigned to $ \omega_k$, $z_i^k=0$ otherwise. $z= (z_i^k)\in \mathbb{R}^{n, K}$.
+\end{itemize}
+we define the objective function
+
+\begin{equation}
+    J(\Omega, z) = \sum^{n}_{i=1} \sum^{K}_{k=1} z_i^k||x_i-\omega_k||^2
+\end{equation}
+
+It is also called the \textbf{{inertia.}} 
+    
+\end{frame}
+
+\begin{frame}{K-means algorithm}
+
+\begin{algorithm}[H]
+	\KwResult{$\Omega \in \mathbb{R}^{K, d}$}
+	$\Omega\leftarrow $ \text{Random initialization}\;
+	$z = M\text{ where } M \text{ is the } n\times K \text{ matrix with 0's}$\;
+	\While{$\text{Convergence criteria is not satisfied}$}
+ 	{
+	    $\text{a] Greedily minimize }J \text{ with respect to }z$\;
+	    $\text{b] Minimize }J \text{ with respect to }\Omega$\;
+  	}
+  	return $\Omega$
+	\caption{K-means (Loyd algorithm)}
+\end{algorithm}
+\end{frame}
+
+\begin{frame}{Stopping criterion}
+    
+    To stop the algorithm, the norm of the difference between $\Omega_t$ and $\Omega_{t+1}$ must be smaller than a given tolerance. (e.g. $1e^{-4}$). Here it is a norm between matrix (Frobenius norm):
+
+    \begin{equation}
+	||A||_F = \sqrt{ \sum^{n}_{i=1} A_{ij}^2} 
+    \end{equation}
+    
+\end{frame}
+
+\begin{frame}{Minimization}
+
+    We focus on step b]. How can we minimize $J$ with respect to $\Omega$ ?
+    
+\end{frame}
+
+\begin{frame}{Minimization}
+
+    \exercice{\textbf{Convexity:}}
+
+    Show that $J(\Omega, z)$ is convex with respect to $ \Omega$.
+\begin{equation}
+    J(\Omega, z) = \sum^{n}_{i=1} \sum^{K}_{k=1} z_i^k||x_i-\omega_k||^2
+\end{equation}
+Hence, to minimize $J$ with respect to $\Omega$, we just need to cancel the gradient.
+    
+\end{frame}
+
+\begin{frame}{Minimization}
+
+    \exercice{\textbf{Gradient:}}
+    \addtocounter{numexos}{-1}
+
+    Compute the gradient of $J(\Omega, z)$ with respect to $\Omega$ and deduce the minimizer $\Omega^*$.
+    \begin{itemize}
+        \item $z$ is fixed
+	\item we can see $\Omega$ has a vector of $ \mathbb{R}^{Kd}$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Convexity}
+
+    Is $J(\Omega, z)$ convex in $z$ ?
+    
+\end{frame}
+
+\begin{frame}{Convexity}
+
+    Is $J(\Omega, z)$ convex in $z$ ?
+
+    \textbf{{No}}, as $z$ is not even defined on a convex set, so convexity can not be defined anyways !
+
+    Hence, the function might have \textbf{{local minima}}.
+    
+\end{frame}
+
+\begin{frame}{Suboptimal clustering}
+
+    \exercice{\textbf{Local minima}}: propose a setting (dataset, initialization) for which the algorithm outputs a bad set of centroids.
+    
+\end{frame}
+
+\begin{frame}{Suboptimal clustering}
+    
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=\linewidth]{bad}
+        \caption{Initialization of centroids in red.}
+        \label{fig:bad}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Random initialization}
+
+    Hence, the result of K-means strongly depends on the initial position of the centroids.
+
+    A common approach is to restart the algorithm several times and select the result with lowest inertia.
+    
+\end{frame}
+
+\begin{frame}{Drawbacks of inertia minimization}
+
+    K-means is based on the minimization of the inertia and hence on the euclidean distance. \textbf{{However}},  in some contexts, the euclidean distance is not the adapted metric.
+
+    \url{https://scikit-learn.org/stable/modules/clustering.html} 
+    
+\end{frame}
+
+
+
+
+\begin{frame}[allowframebreaks]
+\frametitle{References}
+\bibliographystyle{apalike}
+\bibliography{../../epita.bib} 
+\end{frame}
+
+\end{document} 

@@ -1,0 +1,382 @@
+\documentclass[usenames,dvipsnames]{beamer}
+
+\mode<presentation> {
+\usetheme{Montpellier}
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setcounter{tocdepth}{2}
+\graphicspath{{../Figures/}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newtheorem*{proposition}{Proposition}
+
+% exercices comptés
+\newcounter{numexos}%Création d'un compteur qui s'appelle numexos
+\setcounter{numexos}{0}%initialisation du compteur
+\newcommand{\exercice}[1]{%Création d'une macro ayant un paramètre
+\addtocounter{numexos}{1}%chaque fois que cette macro est appelée, elle ajoute 1 au compteur numexos
+\textcolor{DarkOrchid}{Exercice\,\thenumexos\,:}\,#1%Met en rouge Exercice et la valeur du compteur appelée par \thenumeexos
+}
+
+\setbeamertemplate{title page}{
+    \centering
+
+    \huge\bfseries
+    Fondamentaux théoriques du machine learning
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{empirical_risk_and_generalization_error_f3}
+\end{figure}
+
+    }
+
+\title[FTML]{title}
+
+
+\date{} % Date, can be changed to a custom date
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}{}
+    \exercice{} (Analogous to the penalty shootout example) Consider the following random variable $(X,Y)$.
+    \addtocounter{numexos}{-1}
+    \begin{itemize}
+        \item 
+            $ X\sim B( \frac{1}{2} )$, 
+         $$
+            Y = \left\{
+                \begin{array}{ll}
+                    B(p) \text{ if } X=1   \\
+                    B(q) \text{ if } X=0   \\
+                \end{array}
+                \right.
+                $$
+    With $B(p)$ a Bernoulli law with parameter $p$.
+\item Hence $ \mathcal{X} = \{0, 1\}$, $ \mathcal{Y}  = \{0, 1\}$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{}
+    \exercice{}
+    \addtocounter{numexos}{-1}
+ We consider $3$ predictors: 
+    \begin{itemize}
+        \item 
+    $f_1: \{0, 1\} \rightarrow \{0, 1\} $:
+         $$
+            f_1 = \left\{
+                \begin{array}{ll}
+                    1 \text{ if } x=1   \\
+                    0 \text{ if } x=0   \\
+                \end{array}
+                \right.
+                $$
+
+	    \item $\forall x, f_2(x)=1-f_1(x)$
+		\item $\forall x, f_3(x)=1$
+    We use the "$0-1$" loss.
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{}
+    \exercice{}
+
+    We observe the following dataset:
+    \begin{equation}
+        D_4 = \{(0, 1), (0, 0), (0, 0), (1, 0)\}
+    \end{equation}
+
+    Compute the empirical risks $R_4(f_1)$, $R_4(f_2)$, $R_4(f_3)$.
+
+    \begin{equation*}
+	R_n(f) = \frac{1}{n} \sum^{n}_{i=1} l(y_i, f(x_i))
+    \end{equation*}
+    
+\end{frame}
+
+\begin{frame}{}
+    \begin{equation}
+        D_4 = \{(0, 1), (0, 0), (0, 0), (1, 0)\}
+    \end{equation}
+
+    \begin{equation}
+       \begin{aligned}
+           \label{eq:}
+           R_4(f_1) &= \frac{1}{4} \sum^{4}_{i=1} l(f_1(x_i), y_i)\\
+           &= \frac{1}{4} \Big(l(f_1(0), 1) + l(f_1(0), 0))+ l(f_1(0), 0))+l(f_1(1), 0))  \Big)\\
+           &= \frac{1}{4} \times 2\\
+           &= \frac{1}{2} 
+       \end{aligned} 
+    \end{equation}
+\end{frame}
+
+\begin{frame}{}
+    \begin{equation}
+        D_4 = \{(0, 1), (0, 0), (0, 0), (1, 0)\}
+    \end{equation}
+
+    \begin{equation}
+       \begin{aligned}
+           \label{eq:}
+           R_4(f_2) &= \frac{1}{4} \sum^{4}_{i=1} l(f_2(x_i), y_i)\\
+           &= \frac{1}{4} \Big(l(f_2(0), 1) + l(f_2(0), 0))+ l(f_2(0), 0))+l(f_2(1), 0))  \Big)\\
+           &= \frac{1}{4} \times 2\\
+           &= \frac{1}{2} 
+       \end{aligned} 
+    \end{equation}
+\end{frame}
+
+\begin{frame}{}
+    \begin{equation}
+        D_4 = \{(0, 1), (0, 0), (0, 0), (1, 0)\}
+    \end{equation}
+
+    \begin{equation}
+       \begin{aligned}
+           \label{eq:}
+           R_4(f_3) &= \frac{1}{4} \sum^{4}_{i=1} l(f_3(x_i), y_i)\\
+           &= \frac{1}{4} \Big(l(f_3(0), 1) + l(f_3(0), 0))+ l(f_3(0), 0))+l(f_3(1), 0))  \Big)\\
+           &= \frac{1}{4} \times 3\\
+           &= \frac{3}{4} 
+       \end{aligned} 
+    \end{equation}
+\end{frame}
+
+\begin{frame}{}
+    \exercice{} Consider the following random variable $(X,Y)$.
+    \addtocounter{numexos}{-1}
+    \begin{itemize}
+        \item 
+            $ X\sim B( \frac{1}{2} )$, 
+         $$
+            Y = \left\{
+                \begin{array}{ll}
+                    B(p) \text{ if } X=1   \\
+                    B(q) \text{ if } X=0   \\
+                \end{array}
+                \right.
+                $$
+    With $B(p)$ a Bernoulli law with parameter $p$.
+\item A predictor $f_1: \{0, 1\} \rightarrow \{0, 1\} $:
+         $$
+            f_1 = \left\{
+                \begin{array}{ll}
+                    1 \text{ if } x=1   \\
+                    0 \text{ if } x=0   \\
+                \end{array}
+                \right.
+                $$
+    \end{itemize}
+    With the "$0-1$" loss, what is the risk (generalization error) of $f_1$,
+    $R(f_1)$ ?
+\end{frame}
+
+\begin{frame}{}
+    \exercice{} Consider the following random variable $(X,Y)$.
+    \begin{itemize}
+        \item 
+            $ X\sim B( \frac{1}{2} )$, 
+         $$
+            Y = \left\{
+                \begin{array}{ll}
+                    B(p) \text{ if } X=1   \\
+                    B(q) \text{ if } X=0   \\
+                \end{array}
+                \right.
+                $$
+\item $f_1: \{0, 1\} \rightarrow \{0, 1\} $:
+         $$
+            f = \left\{
+                \begin{array}{ll}
+                    1 \text{ if } x=1   \\
+                    0 \text{ if } x=0   \\
+                \end{array}
+                \right.
+                $$
+    \end{itemize}
+
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+            R(f_1)&= E[l(Y, f(X))] \\
+            &= 1\times P(Y\neq f(X))+ 0\times P(Y=f(X))\\
+            &= P(Y\neq f(X))
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{}
+    \begin{itemize}
+        \item 
+            $ X\sim B( \frac{1}{2} )$, 
+         $$
+            Y = \left\{
+                \begin{array}{ll}
+                    B(p) \text{ if } X=1   \\
+                    B(q) \text{ if } X=0   \\
+                \end{array}
+                \right.
+                $$
+\item $f_1: \{0, 1\} \rightarrow \{0, 1\} $:
+         $$
+            f = \left\{
+                \begin{array}{ll}
+                    1 \text{ if } x=1   \\
+                    0 \text{ if } x=0   \\
+                \end{array}
+                \right.
+                $$
+    \end{itemize}
+
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+            R(f_1)&= E[l(Y, f(X))] \\
+            &= 1\times P(Y\neq f(X))+ 0\times P(Y=f(X))\\
+            &= P(Y\neq f(X))\\
+            &= P((Y\neq f(X))\cap (X=1))+P((Y\neq f(X))\cap (X=0))\\
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{}
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+            R(f_1)&= E[l(Y, f(X))] \\
+            &= 1\times P(Y\neq f(X))+ 0\times P(Y=f(X))\\
+            &= P(Y\neq f(X))\\
+            &= P((Y\neq f(X))\cap (X=1))+P((Y\neq f(X))\cap (X=0))\\
+            &= P((Y\neq f(X))| X=1)P(X=1)\\
+            &+P((Y\neq f(X))| X=0)P(X=0)
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{}
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+            R(f_1)&= E[l(Y, f(X))] \\
+            &= 1\times P(Y\neq f(X))+ 0\times P(Y=f(X))\\
+            &= P(Y\neq f(X))\\
+            &= P((Y\neq f(X))\cap (X=1))+P((Y\neq f(X))\cap (X=0))\\
+            &= P((Y\neq f(X))| X=1)P(X=1)\\
+            &+P((Y\neq f(X))| X=0)P(X=0)\\
+            &= \frac{1}{2}P((Y\neq 1)| X=1) + \frac{1}{2} P((Y\neq 0)| X=0)
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{}
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+            R(f_1)&= E[l(Y, f(X))] \\
+            &= 1\times P(Y\neq f(X))+ 0\times P(Y=f(X))\\
+            &= P(Y\neq f(X))\\
+            &= P((Y\neq f(X))\cap (X=1))+P((Y\neq f(X))\cap (X=0))\\
+            &= P((Y\neq f(X))| X=1)P(X=1)\\
+            &+P((Y\neq f(X))| X=0)P(X=0)\\
+            &= \frac{1}{2}P((Y= 0)| X=1) + \frac{1}{2} P((Y= 1)| X=0)\\
+            &= \frac{1}{2}(1-p) + \frac{1}{2} q\\
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+
+\begin{frame}{}
+    \exercice{} Now consider
+    \addtocounter{numexos}{-1}
+         $$
+            f_2 = \left\{
+                \begin{array}{ll}
+                    0 \text{ if } x=1   \\
+                    1 \text{ if } x=0   \\
+                \end{array}
+                \right.
+                $$
+
+                What is $R(f_2)$ ?
+\end{frame}
+
+\begin{frame}{}
+    \exercice{} 
+    \addtocounter{numexos}{-1}
+
+    \begin{equation}
+        \forall x, f_2(x) = 1-f_1(x)
+    \end{equation}
+\end{frame}
+
+\begin{frame}{}
+    \exercice{} 
+
+    \begin{equation}
+        \forall x, f_2(x) = 1-f_1(x)
+    \end{equation}
+
+    Hence
+
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+            R(f_2) &= P(Y\neq f_2(X))\\
+            &= P(Y\neq (1-f_1(X)))\\
+            &= P(Y=f_1(X))\\
+            &= 1-R(f_1)
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+
+\begin{frame}{}
+    \exercice{}
+    \addtocounter{numexos}{-1}
+
+    What is $R(f_3)$ ?
+
+\end{frame}
+
+\begin{frame}{}
+    \exercice{}
+    \addtocounter{numexos}{-1}
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+            R(f_3)&= P(Y\neq f_3(X))\\
+            &= P(Y=0)
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{}
+    \exercice{}
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+            R(f_3)&= P(Y\neq f_3(X))\\
+            &= P(Y=0)\\
+            &= P(Y=0\cap X=0)+P(Y=0\cap X=1)\\
+            &= P(Y=0| X=0)P(X=0)+P(Y=0| X=1)P(X=1)\\
+            &= \frac{1}{2} (1-p) + \frac{1}{2} (1-q)
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+
+\end{document} 

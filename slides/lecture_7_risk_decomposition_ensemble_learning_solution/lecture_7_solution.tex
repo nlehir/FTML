@@ -1,0 +1,116 @@
+\documentclass[usenames,dvipsnames]{beamer}
+
+\mode<presentation> {
+\usetheme{Montpellier}
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm2e}
+\setcounter{tocdepth}{2}
+\graphicspath{{../Figures/}}
+
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newtheorem*{proposition}{Proposition}
+\newcommand\Fontvi{\fontsize{8}{8}\selectfont}
+
+% exercices comptés
+\newcounter{numexos}%Création d'un compteur qui s'appelle numexos
+\setcounter{numexos}{0}%initialisation du compteur
+\newcommand{\exercice}[1]{%Création d'une macro ayant un paramètre
+\addtocounter{numexos}{1}%chaque fois que cette macro est appelée, elle ajoute 1 au compteur numexos
+\textcolor{DarkOrchid}{Exercice\,\thenumexos\,:}\,#1%Met en rouge Exercice et la valeur du compteur appelée par \thenumeexos
+}
+
+\setbeamertemplate{title page}{
+    \centering
+
+    \huge\bfseries
+    Fondamentaux théoriques du machine learning
+
+
+    }
+
+\title[FTML]{title}
+
+
+\date{} % Date, can be changed to a custom date
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\section{Risks and risk decompositions}
+\frame{\tableofcontents[currentsection]}
+
+\begin{frame}{Deterministic bound on the estimation error}
+We consider the best estimator in the hypothesis space $F$.
+    \begin{equation*}
+	f_a = \argmin_{h\in F}R(h)
+    \end{equation*}
+
+    \exercice{}
+    Let us show that
+    \begin{equation}
+	R( f_n)-R(f_a) \leq 2 \sup_{h\in F}|R(h)-R_n(h)|
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Deterministic bound on the estimation error}
+    \begin{equation*}
+	f_a = \argmin_{h\in F}R(h)
+    \end{equation*}
+
+    \begin{equation}
+        \begin{aligned}
+	    R(f_n)-R(f_a) &= \big(R(f_n)-R_n( f_n)\big)\\
+	    &+\big(R_n(f_n)- R_n(f_a)\big)\\
+	    &+\big(R_n(f_a)-R(f_a)\big)\\
+	    &\leq | R(f_n)- R_n(f_n) |\\
+	    &+\big(R_n(f_n)-R_n(f_a)\big)\\
+	    &+ | R_n(f_a)-R(f_a) | \\
+	    &\leq 2 \sup_{h\in F}|R(h)-R_n(h)|\\
+	    &+\big(R_n(f_n)-R_n(f_a)\big)
+        \end{aligned}
+    \end{equation}
+
+    But by definition $ f_n$ minimizes $R_n$, so $ \big( R_n ( f_n)-R_n(f_a)\big)\leq 0$.
+\end{frame}
+
+\section{Classification and regression trees}
+\frame{\tableofcontents[currentsection]}
+
+\begin{frame}
+    \begin{itemize}
+	\item $Y_{pred}$ is the random variable representing this prediction (proportional)
+	\item $Y$ is the random variable representing the class, in this node (empirical distribution)
+    \end{itemize}
+    \begin{equation}
+        \begin{aligned}
+            \label{eq:}
+	    P(Y_{pred}\neq Y) &= \sum^{L}_{l=1} P\big(Y_{pred}\neq Y |Y=l\big)P(Y=l)\\
+	    &= \sum^{L}_{l=1} \Big(1-P\big(Y_{pred}= Y |Y=l\big)\Big)P(Y=l)\\
+	    &= \sum^{L}_{l=1} (1-p_n^l)p_n^l
+        \end{aligned}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Homogeneity criterion for classification: Gini impurity}
+    \begin{equation}
+	H(n) = \sum^{L}_{l=1} p_n^l(1-p_n^l)
+    \end{equation}
+    If we predict the classes in node $n$ according to the proportions of the labels in $n$, then the Gini impurity is the probability of making a mistake, given that we are in node $n$. 
+\end{frame}
+
+\end{document} 

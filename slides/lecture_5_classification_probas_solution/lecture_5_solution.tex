@@ -1,0 +1,96 @@
+\documentclass[usenames,dvipsnames]{beamer}
+
+\mode<presentation> {
+\usetheme{Montpellier}
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{algorithm2e}
+\usepackage[utf8]{inputenc}
+\setcounter{tocdepth}{2}
+\graphicspath{{../Figures/}}
+
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newtheorem*{proposition}{Proposition}
+
+% exercices comptés
+\newcounter{numexos}%Création d'un compteur qui s'appelle numexos
+\setcounter{numexos}{0}%initialisation du compteur
+\newcommand{\exercice}[1]{%Création d'une macro ayant un paramètre
+\addtocounter{numexos}{1}%chaque fois que cette macro est appelée, elle ajoute 1 au compteur numexos
+\textcolor{DarkOrchid}{Exercice\,\thenumexos\,:}\,#1%Met en rouge Exercice et la valeur du compteur appelée par \thenumeexos
+}
+
+\setbeamertemplate{title page}{
+    \centering
+
+    \huge\bfseries
+    Fondamentaux théoriques du machine learning
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{logistic}
+\end{figure}
+
+    }
+
+\title[FTML]{title}
+
+
+\date{} % Date, can be changed to a custom date
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\section{PCA}
+
+\begin{frame}{First principal component}
+    We look for $w$, $||w||=1$ such that
+    \begin{equation}
+	\sum^{n}_{i=1} \big(w^Tx_i \big)^2
+    \end{equation}
+     is maximal.
+    \begin{proposition}
+	$w$ is the eigenvector of $X^TX$ with largest eigenvalue $\lambda_{max}$.
+    \end{proposition}
+\end{frame}
+
+\begin{frame}{First principal component}
+    We look for $w$, $||w||=1$ such that
+    \begin{equation}
+	\sum^{n}_{i=1} \big(w^Tx_i \big)^2
+    \end{equation}
+     is maximal.
+    \begin{proposition}
+	\label{prop:pca}
+	$w$ is the eigenvector of $X^TX$ with largest eigenvalue $\lambda_{max}$.
+    \end{proposition}
+
+    \exercice{\textbf{}} Show the proposition.
+\end{frame}
+
+\begin{frame}{First principal component}
+        \begin{equation*}
+        \begin{aligned}
+	    \sum^{n}_{i=1} (w^Tx_i)^2 &= ||Xw||^2\\
+	    &= \langle Xw, Xw \rangle\\
+	    &= \langle (X^TX)w, w \rangle
+        \end{aligned}
+    \end{equation*}
+
+    This quantity is always smaller that $\lambda_{max}$, and it attained for an eigenvector in the eigenspace with norm $1$, since we impose that $||w||=1$.
+
+\end{frame}
+
+\end{document} 

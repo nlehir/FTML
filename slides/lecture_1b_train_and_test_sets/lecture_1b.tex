@@ -1,0 +1,304 @@
+\documentclass[usenames,dvipsnames,french]{beamer}
+
+\mode<presentation> {
+
+\usetheme{Montpellier}
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+% \usepackage[demo]{graphicx}
+% \usepackage{caption}
+
+\usepackage{subcaption}
+% \usepackage{subfig}
+% \usepackage{algorithm,algorithmic}
+\usepackage{algorithm2e}
+\usepackage{listings}
+% \usepackage{ntheorem}
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\setcounter{tocdepth}{2}
+\graphicspath{{../Figures/}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newtheorem*{proposition}{Proposition}
+
+% exercices comptés
+\newcounter{numexos}%Création d'un compteur qui s'appelle numexos
+\setcounter{numexos}{0}%initialisation du compteur
+\newcommand{\exercice}[1]{%Création d'une macro ayant un paramètre
+\addtocounter{numexos}{1}%chaque fois que cette macro est appelée, elle ajoute 1 au compteur numexos
+\textcolor{DarkOrchid}{Exercice\,\thenumexos\,:}\,#1%Met en rouge Exercice et la valeur du compteur appelée par \thenumeexos
+}
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\setbeamertemplate{title page}{
+    \centering
+
+    \Large\bfseries
+    FTML: train and test set, regression.
+    
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{optimal_linear_regression_standard_deviation_20_0}
+\end{figure}
+
+    }
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Content}
+
+    \tableofcontents
+
+\end{frame}
+
+\section*{Introduction}
+
+\begin{frame}{Linear regression}
+
+    Linear regression is one of the most elementary methods used in ML
+    regression problems. It is useful for many applications, and is often a
+    component of more complex methods.
+
+    We will use is to illustrate several important aspects of ML that are also
+    encountered when using other methods (kernels, trees, neural networks, etc.), namely:
+    \begin{itemize}
+    	\item the train and test sets.
+	\item overfitting (when the dimension $d$ is not really small).
+    \end{itemize}
+
+\end{frame}
+
+\section{Train sets and test sets, loss functions}%
+\label{sec:Train sets and test sets}
+
+\begin{frame}{Example problem}
+
+    We want to predict the power that needs to be produced by a power plant in
+    a city, as a function of the temperature only.
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.6\textwidth]{dataset_standard_deviation_20_0}
+        \caption{Dataset}
+        \label{fig:dataset}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+
+    The only information we have is a collection of $n$ \textbf{samples}, called the \textbf{dataset}. Each sample consists in two values:
+
+    \begin{itemize}
+	\item the temperature in °C (the \textbf{feature}).
+	\item the power consumption in W (the \textbf{label}).
+    \end{itemize}
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.4\textwidth]{dataset_standard_deviation_20_0}
+        \caption{Dataset}
+        \label{fig:dataset}
+    \end{figure}
+    \exercice{} What is $d$ in this example ?
+\end{frame}
+
+\begin{frame}{Supervised learning}
+
+    Based on this \textbf{finite} dataset, our objective is to produce a function, noted $\tilde{f}$, called the \textbf{model}, the \textbf{predictor}, or the \textbf{estimator}, that will map a temperature to a power consumption.
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.3\textwidth]{dataset_standard_deviation_20_0}
+        \caption{Dataset}
+        \label{fig:dataset}
+    \end{figure}
+
+    The problem of supervised learning is that we want this function to perform well on \textbf{new, previously unseen samples}. It is not useful in itsself to perform well on the dataset !
+
+\end{frame}
+
+\begin{frame}{Supervised learning}
+
+    Based on this \textbf{finite} dataset, our objective is to produce a function, noted $\tilde{f}$, that will map a temperature to a power consumption.
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.3\textwidth]{dataset_standard_deviation_20_0}
+        \caption{Dataset}
+        \label{fig:dataset}
+    \end{figure}
+
+    \exercice{} How could we \textbf{estimate} the performance of $\tilde{f}$ on unseen data, using the dataset ?
+    
+\end{frame}
+
+\begin{frame}{Train set and set set}
+    We split the dataset in two parts:
+    \begin{itemize}
+	\item the \textbf{train set} will be used to learn (train $\tilde{f}$)
+	\item the \textbf{test set} will be used to estimate the performance of $\tilde{f}$ on unseen data.
+    \end{itemize}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.5\textwidth]{dataset_standard_deviation_20_0_splitted}
+        \caption{Splitted Dataset}
+        \label{fig:dataset}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Loss functions}
+
+    To evaluate the performance of $\tilde{f}$, we use a \textbf{loss function}. The loss function is be a measure of the \textbf{discrepancy} between a prediction $\tilde{f}(x)$ and a \text{label} $y$ (that are both real numbers). In regression, the most common loss function is the \textbf{squared loss}:
+	    \begin{equation}
+		(\tilde{f}(x)-y)^2
+	    \end{equation}
+
+	 Averaging over the whole dataset, this leads to:
+	 \begin{itemize}
+	     \item The train error
+	    \begin{equation}
+		\frac{1}{n_{\text{train}}}\sum_{(x_i, y_i)\in (X_{train}\times y_{train})} (\tilde{f}(x_i)-y_i)^2
+	    \end{equation}
+	     \item The test error
+	    \begin{equation}
+		\frac{1}{n_{\text{test}}}\sum_{(x_i, y_i)\in (X_{test}\times y_{test})} (\tilde{f}(x_i)-y_i)^2
+	    \end{equation}
+	 \end{itemize}
+\end{frame}
+
+\begin{frame}{Empirical risk minimization}
+
+    The most common supervised learning process is then naturally to:
+    \begin{itemize}
+    	\item Find $\tilde{f}$ the as a small training error.
+	\item Compute the test error of $\tilde{f}$ in order to estimate its performance on unseen data.
+    \end{itemize}
+
+    \textbf{Remark}: many of these two aspects will be discussed more deeply later in the couse (e.g. notions of validation set, or optimization error)
+\end{frame}
+
+\section{Linear regression in one dimension}
+\frame{\tableofcontents[currentsection]}
+
+\begin{frame}{Linear regression}
+
+    The remaining step is then to find $\tilde{f}$. The first step, called \textbf{model selection}, is to decide the type of function / model use. Many types of models exist, each one having potential drawbacks, for instance:
+    \begin{itemize}
+	\item linear functions (which we will use in this first example).
+	\item polynomial functions
+	\item kernels
+	\item neural networks
+	\item support vector machines
+    \end{itemize}
+
+    \url{https://scikit-learn.org/stable/machine_learning_map.html} 
+
+\end{frame}
+
+
+\begin{frame}{}
+
+    \exercice{} Why are the samples not on a line (and not on a curved line either) ?
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.6\textwidth]{dataset_standard_deviation_20_0}
+        \caption{Dataset}
+        \label{fig:dataset}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}{}
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.3\textwidth]{dataset_standard_deviation_20_0}
+        \caption{Dataset}
+        \label{fig:dataset}
+    \end{figure}
+
+    The power consumption does not depend \textbf{only} on the temperature,
+    but also on many other variables, that we do not have access to here:
+    \begin{itemize}
+        \item time in the day
+        \item humidity, wind
+        \item period of the year (holidays or not)
+        \item other variables
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Linear regression}
+
+    Formalization:
+    \begin{itemize}
+        \item input space (temperature in °C): $\mathcal{X} = \mathbb{R}$
+        \item output space (power consumption in W): $ \mathcal{Y} = \mathbb{R}$
+	\item dataset: $D=\{(x_1, y_1), \dots, (x_n, y_n), i\in[1, n]\}$.
+    \end{itemize}
+
+    \textbf{linear regression} in dimension $1$ (as $x\in \mathbb{R}$), means that our estimator is of the form:
+
+    \begin{equation}
+        \tilde{f}(x) = \theta x + b
+    \end{equation}
+
+    with $\theta\in \mathbb{R}$, $b\in \mathbb{R}$.
+
+\end{frame}
+
+\begin{frame}{Empirical risk minimization}
+
+    With the squared loss, and this function $ \tilde{f}$ the \textbf{train error} is:
+
+    \begin{equation}
+	R_{n_{train}}(\theta, b) = \frac{1}{n_{train}} \sum_{(x_i, y_i)\in (X_{train}\times y_{train})} (\theta x_i+b-y_i)^2
+    \end{equation}
+
+    The \textbf{optimization problem} is to find $\theta$ and $b$ such that the empirical risk $R_{n_{train}}(\theta, b)$ has the 
+    \textbf{smallest possible value}. 
+\end{frame}
+
+\begin{frame}{Analytic solutions}
+
+    For some problems, like this one, it is possible to explicitely compute the
+    optimal solution.
+    \\
+
+    Thanks to the convexity and differentiability of
+    $R_n(\theta)$ with respect to $\theta$, the points optimizing the empirical risk are obtained by
+    finding $ (\theta^*, b^*)$ such that the gradient cancels (more on that
+    later in the course).
+
+    \begin{equation}
+        \nabla_{(\theta, b)} R_n(\theta^*, b^*) = 0
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Computing the optimal values}
+
+    \exercice{}
+    Compute the gradient and find the values $\theta^*$ and $b^*$ that cancel it.
+\end{frame}
+
+\begin{frame}{Overfitting}
+
+    In the first practical session, we will observe the interplay between $n$, $d$, and the amount of overfitting.
+
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.7\textwidth]{polyomial_regression_std_20_0_degree_15}
+    	\label{fig:}
+    \end{figure}
+
+\end{frame}
+
+\end{document} 

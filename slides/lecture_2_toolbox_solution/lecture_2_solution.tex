@@ -1,0 +1,147 @@
+\documentclass[usenames,dvipsnames]{beamer}
+
+\mode<presentation> {
+\usetheme{Montpellier}
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setcounter{tocdepth}{2}
+\graphicspath{{../Figures/}}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newtheorem*{proposition}{Proposition}
+
+% exercices comptés
+\newcounter{numexos}%Création d'un compteur qui s'appelle numexos
+\setcounter{numexos}{0}%initialisation du compteur
+\newcommand{\exercice}[1]{%Création d'une macro ayant un paramètre
+\addtocounter{numexos}{1}%chaque fois que cette macro est appelée, elle ajoute 1 au compteur numexos
+\textcolor{DarkOrchid}{Exercice\,\thenumexos\,:}\,#1%Met en rouge Exercice et la valeur du compteur appelée par \thenumeexos
+}
+
+\setbeamertemplate{title page}{
+    \centering
+
+    \huge\bfseries
+    \large{Solution to the linear regression in dimension 1}
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{optimal_regression}
+\end{figure}
+
+    }
+
+\title[FTML]{title}
+
+
+\date{} % Date, can be changed to a custom date
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}{Linear regression}
+
+    Formalization:
+    \begin{itemize}
+        \item input space (temperature): $\mathcal{X} = \mathbb{R}$
+        \item output space (power consumption): $ \mathcal{Y} = \mathbb{R}$
+	\item dataset: $D_n=\{(x_1, y_1), \dots, (x_n, y_n), i\in[1, n]\}$.
+    \end{itemize}
+
+    When doing linear regression, our estimator is of the form:
+
+    \begin{equation}
+        h(x) = \theta x + b
+    \end{equation}
+
+    with $\theta\in \mathbb{R}$, $b\in\mathbb{R}$.
+
+\end{frame}
+
+\begin{frame}{Empirical risk minimization}
+
+    \begin{equation}
+        R_n(\theta, b) = \frac{1}{n}\sum_{i=1}^{n} (\theta x_i+b-y_i)^2
+    \end{equation}
+
+    We want to find $\theta$ and $b$ such that $R_n(\theta, b)$ has the
+    \textbf{smallest possible value}.
+
+    Since $(\theta, b) \mapsto R_n(\theta, b)$ is convex, finding its global minimum is equivalent to finding the points where the gradient cancels, which means that the partial derivatives with respect to both $\theta$ and $b$ are equal to $0$.
+
+\end{frame}
+
+\begin{frame}{Derivatives}
+
+    We note that if we look for the $(\theta, b)$ values that cancel the gradient, we can remove the $\frac{1}{n}$ factor without changing the result.
+    \begin{equation}
+    \begin{aligned}
+        \label{eq:}
+        \frac{\partial R_n}{\partial \theta}(\theta, b) &= \sum_{i=1}^{n} 2(\theta x_i+b-y_i)x_i\\
+        &= 2\Large[\theta \sum_{i=1}^{n} x_i^2 + b\sum_{i=1}^{n} x_i - \sum_{i=1}^{n} x_i y_i \Large]\\
+    \end{aligned}
+    \end{equation}
+
+
+    \begin{equation}
+    \begin{aligned}
+        \label{eq:}
+        \frac{\partial R_n}{\partial b}(\theta, b) &= \sum_{i=1}^{n} 2(\theta x_i+b-y_i)\\
+        &= 2\Large[\theta \sum_{i=1}^{n} x_i + nb- \sum_{i=1}^{n} y_i \Large]\\
+    \end{aligned}
+    \end{equation}
+\end{frame}
+
+\begin{frame}{}
+    Hence we have a system of $2$ equations with $2$ unknowns (dropping the $\theta^*$ notation)
+
+    \begin{equation}
+        \theta \sum_{i=1}^{n} x_i^2 + b\sum_{i=1}^{n} x_i - \sum_{i=1}^{n} x_i y_i = 0
+    \end{equation}
+
+    \begin{equation}
+        \theta \sum_{i=1}^{n} x_i + nb- \sum_{i=1}^{n} y_i = 0
+    \end{equation}
+\end{frame}
+
+\begin{frame}{}
+    Which means
+
+    \begin{equation}
+        b =  \frac{1}{n}(\sum_{i=1}^{n} y_i -\theta \sum_{i=1}^{n} x_i)
+    \end{equation}
+
+    \begin{equation}
+        \theta \sum_{i=1}^{n} x_i^2 + \frac{1}{n}\large(\sum_{i=1}^{n} y_i -\theta \sum_{i=1}^{n} x_i \large)\sum_{i=1}^{n} x_i - \sum_{i=1}^{n} x_i y_i = 0
+    \end{equation}
+
+\end{frame}
+
+\begin{frame}
+    Finally:
+
+    \begin{equation}
+        \theta (\sum_{i=1}^{n} x_i^2 - \frac{1}{n}(\sum_{i=1}^{n} x_i)^2) +\frac{1}{n}\sum_{i=1}^{n} x_i\sum_{i=1}^{n} y_i - \sum_{i=1}^{n} x_i y_i = 0
+    \end{equation}
+
+    or
+
+    \begin{equation}
+        \theta^* = \frac{\sum_{i=1}^{n} x_i y_i - \frac{1}{n}\sum_{i=1}^{n} x_i\sum_{i=1}^{n} y_i}{\sum_{i=1}^{n} x_i^2 - \frac{1}{n}[\sum_{i=1}^{n} x_i]^2}
+    \end{equation}
+\end{frame}
+
+
+\end{document} 
