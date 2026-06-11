@@ -1,0 +1,193 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML practical session 11}} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{1} 
+
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=1\linewidth]{Gradient_descent_n_200_d_100_gaussian}
+    \label{fig:risks}
+\end{figure}
+
+\tableofcontents
+
+\newpage
+
+\section{\large\color{Blue}Convergence speed of gradient descent}
+
+\subsection{Setting}
+
+    We want to study the speed of convergence of the minimization of a convex function $f$ defined over $ \mathbb{R}^d$, with gradient descent.
+
+\begin{equation}
+    \label{eq:gd}
+    \forall t, \:\theta_{t+1}\leftarrow \theta_t-\gamma \nabla_{\theta}f(\theta_t)
+\end{equation}
+
+where $t$ is the iteration index.
+
+We will study the specific case of linear regression (OLS), but the results
+parially generalize to general convex functions. We use the usual objects:
+
+    \begin{itemize}
+	\item design matrix $X \in \mathbb{R}^{n, d}$
+	\item label vector $y\in \mathbb{R}^n$.
+        \item loss function
+    \begin{equation}
+	f(\theta) = \frac{1}{2n} ||X\theta - y||^2
+    \end{equation}
+    \item $||.||$ is the usual euclidean norm.
+    \end{itemize}
+
+
+
+    The gradient and the Hessian write:
+
+    \begin{equation}
+	\nabla_{\theta}f(\theta) =  \frac{1}{n} X^T(X\theta-y)
+    \end{equation}
+
+    \begin{equation}
+        H = \frac{1}{n} X^TX
+    \end{equation}
+
+
+    We note $\theta^*$ the minimizers of $f$. All minimizers verify that
+
+    \begin{equation}
+	\nabla_{\theta}f(\theta^*) = 0
+    \end{equation}
+
+    or
+
+    \begin{equation}
+        \label{eq:hessian_star}
+        H\theta^* = \frac{1}{n} X^Ty
+    \end{equation}
+
+If $H$ is not invertible, they might be not unique, but all have the same function value $f(\theta^*)$.
+
+    \begin{itemize}
+    	\item $H$ is symmetric, positive semi-definite.
+	\item $H$ is invertible if and only if its smallest eigenvalue $\mu$ is
+        $>0$, in which case $f$ is strongly convex (see section 2.3 in \url{https://github.com/nlehir/FTML/blob/master/lecture_notes/lecture%20notes.pdf} )
+    \end{itemize}
+
+    \subsection{Convergence speed of gradient descent}
+
+    We assume that $\mu > 0$, meaning that $H$ is invertible. Let us study the convergence speed of GD towards $\theta^*$ (that exsits and is unique).
+
+
+    \subsubsection{Step 1}%
+    \label{ssub:Step 1}
+    
+    Show that
+
+    \begin{equation}
+        \label{eq:taylor}
+	\forall \theta \in \mathbb{R}^d, f(\theta)-f(\theta^*) = \frac{1}{2} (\theta-\theta^*)^TH(\theta-\theta^*)
+    \end{equation}
+
+    \subsubsection{Step 2}%
+    \label{ssub:Step 2}
+
+    Show that
+
+    \begin{equation}
+\forall t\in \mathbb{N},	\theta_t  = \theta_{t-1}-\gamma H(\theta_{t-1}-\theta^*)
+    \end{equation}
+
+    \subsubsection{Step 3}%
+    \label{ssub:Step 3}
+    
+
+
+    Deduce that:
+
+    \begin{equation}
+	\theta_t-\theta^* = (I-\gamma H)(\theta_{t-1}-\theta^*)
+    \end{equation}
+
+    and that
+
+    \begin{equation}
+	\theta_t-\theta^* = (I-\gamma H)^t(\theta_{0}-\theta^*)
+    \end{equation}
+
+    where $\theta_0$ is the initial value of $\theta$.
+
+
+    \subsubsection{Step 4}%
+    \label{ssub:Step 4}
+    
+    
+    We can use two measures of performance of the gradient algorithm. Using the
+    previous results, they write:
+
+    \begin{itemize}
+        \item Distance to minimizer:
+
+	    \begin{equation}
+		||\theta_t-\theta^*||^2 = (\theta_0-\theta^*)^T(I-\gamma H)^{2t}(\theta_{0}-\theta^*)
+	    \end{equation}
+	\item Convergence in function values:
+	    \begin{equation}
+		f(\theta_t)-f(\theta^*) = \frac{1}{2} (\theta_0-\theta^*)^T(I-\gamma H)^{2t}H(\theta_{0}-\theta^*)
+	    \end{equation}
+
+    \end{itemize}
+    
+
+    We introduce the \textbf{{condition number}} $\kappa = \frac{L}{\mu} $ where $L$ is the largest eigenvalue of $H$. By convention, if $\mu=0$, $L=+\infty$. Show that with a good choice of $\gamma$, we obtain an \textbf{exponential convergence}
+
+    \begin{equation}
+	||\theta_t-\theta^*||^2\leq \big( 1- \frac{1}{\kappa} \big)^{2t}||\theta_0-\theta^*||^2
+    \end{equation}
+
+    We note that
+
+    \begin{equation}
+	\big( 1- \frac{1}{\kappa} \big)^{2t}\leq \exp(- \frac{1}{\kappa} )^{2t} = \exp(- \frac{2t}{\kappa} )
+    \end{equation}
+    
+    \subsubsection{Simulation}%
+    \label{ssub:Simulation}
+
+    Run a simulation that plots both the upper bound and the convergence speed
+    of GD on a least squares problem, like seen on Figure~\ref{fig:gdup}. You can adapt the code from \textbf{tp\_06\_line\_search}.
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=1\textwidth]{Gradient_descent_n_200_d_100_gaussian}
+        \caption{Comparison of the upper bound and of the actual convergence
+        speed.}
+        \label{fig:gdup}
+    \end{figure}
+    
+
+    \subsubsection{Non strongly convex functions}%
+    \label{ssub:Non strictly convex functions}
+    
+
+    If $\mu=0$, we do not have an exponential convergence guarantee, but rather
+    a convergence rate in $\mathcal{O}( \frac{1}{t})$ (the proof is different).
+
+\end{document}
