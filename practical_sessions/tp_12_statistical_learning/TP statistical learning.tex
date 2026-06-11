@@ -1,0 +1,151 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML practical session 13}\\
+} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{1} 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=1\textwidth]{Hoeffding_epsilon_0_100}
+    \caption{Simulation of Hoeffding's inequality}
+    \label{fig:hoeffding}
+\end{figure}
+
+\tableofcontents
+
+\pagebreak
+
+\section{\large\color{Blue}Hoeffding's inequality}
+\label{sec:Hoeffding}
+
+The following result will be useful in order to proove the bound on the estimation error in section \ref{sec:estimation_error}
+
+
+\begin{theorem}{Hoeffding's inequality}
+
+    Let $(X_i)_{1\leq i\leq n}$ be $n$ i.i.d real random variables such that $\forall i\in [1, n]$, $X_i\in [a,b]$ and $ E(X_i)= \mu \in \mathbb{R} $.  Let $	\bar{\mu} = \frac{1}{n} \sum^{n}_{i=1} X_i$.
+
+    Then $\forall \epsilon >0$,
+
+    \begin{equation}
+	P\Big(| \bar{\mu}-\mu|\geq \epsilon \Big) \leq 2 \exp\Big( -\frac{2n\epsilon^2}{(b-a)^2} \Big)
+    \end{equation}
+\end{theorem}
+
+{\color{Purple}{ Run a simulation that allows to visualize Hoeffding's inequality, with a random
+variable of your choice, like in figures \ref{fig:hoeffding_01} and
+\ref{fig:hoeffding_001}, where a Bernoulli variable of parameter $p=1/2$ is
+used. }}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Hoeffding_epsilon_0_100}
+    \caption{Hoeffding's inequality with a Bernoulli variable of parameter $p=1/2$ and $\epsilon=0.1$}
+    \label{fig:hoeffding_01}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Hoeffding_epsilon_0_010}
+    \caption{Hoeffding's inequality with a Bernoulli variable of parameter $p=1/2$ and $\epsilon=0.01$}
+    \label{fig:hoeffding_001}
+\end{figure}
+
+\pagebreak
+
+\section{\large\color{Blue}Bound on the estimation error}
+\label{sec:estimation_error}
+
+We consider a usual supervised learning setting, and the  a space of functions $F$ in which we choose our estimators. The dataset contains $n$ samples, the empircial risk is noted $R_n$ and the real risk $R$. If $f_n$ is the empircial risk minimizer, and $f_a$ the optimal estimator in $F$, we have seen this result during the lectures:
+
+\begin{equation}
+    \label{eq:est_sup}
+	0\leq R(f_n) - R(f_a)\leq2\sup_{h\in F}|R(h)-R_n(h)|
+\end{equation}
+
+Our objective is to bound equation \ref{eq:est_sup}. We make the following additional hypotheses:
+\begin{itemize}
+	\item $F$ is finite, with $|F|$ elements.
+	\item The loss $l$ is uniformly bounded: $l( \hat{y}, y)\in [a, b]$ with $a$ and $b$ real numbers.
+\end{itemize}
+
+We will also use the following result:
+
+
+\begin{proposition}{Boole's inequality}
+
+    Let $A_1, A_2, \dots, $ be  acountable set of events of a probability space $\{\Omega, \mathcal{F}, P)$.
+
+    Then, 
+
+    \begin{equation}
+	P\Big( \cup_{i\geq 1}A_i \Big) \leq \sum_{i\geq 1} P(A_i)
+    \end{equation}
+    
+\end{proposition}
+
+\textbf{Step 1]} Using \ref{eq:est_sup}, we have that:
+
+    \begin{equation}
+	P\Big(  R( f_n)-R(f_a)\geq t\Big) \leq P\Big(2 \sup_{h\in F}|R(h)-R_n(h)|\geq t\Big)
+    \end{equation}
+
+
+\textbf{Step 2]}
+
+Show that
+
+    
+    \begin{equation}
+	P\Big(2 \sup_{h\in F}|R(h)-R_n(h)|\geq t\Big) \leq \sum_{h\in F} P\big( 2 |R(h)-R_n(h)|\geq t\big)
+    \end{equation}
+
+\textbf{Step 3]}
+
+Show that
+
+\begin{equation}
+	P\Big(  R( f_n)-R(f_a)\geq t\Big) \leq 2|F|\exp\Big( -\frac{nt^2}{2(b-a)^2} \Big)\\
+\end{equation}
+
+\textbf{Step 4]}
+
+We write
+
+\begin{equation}
+    \delta = 2|F|\exp\Big( -\frac{nt^2}{2(b-a)^2} \Big)
+\end{equation}
+
+Show that with probability larger than $ 1-\delta$,
+
+\begin{equation}
+    R(f_n)\leq R(f_a)+\sqrt{\frac{2(b-a)^2\Big(\log(\frac{2}{\delta})+\log(|F|)\Big)}{n}}
+\end{equation}
+
+In which situations do we have for instance that $a=0$ and $b=1$ ?
+\\
+
+{\color{Purple}{In \textbf{tp\_02\_ols}}, we observed a rate in $ \frac{\sigma^2d}{n}$, hence faster than $\mathcal{O}(\frac{1}{\sqrt{n}})$. How can we interpret this ?}
+
+For a more advanced discussion on optimization and statistical bounds, you can have a look at:
+
+\url{https://francisbach.com/scaling-laws-of-optimization/} 
+        
+\end{document}
