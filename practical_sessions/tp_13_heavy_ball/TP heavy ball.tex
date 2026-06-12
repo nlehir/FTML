@@ -102,11 +102,11 @@ and
 
 We keep the same notations as in the former practical sessions dedicated to the least squares problem. $\mu$ is the smallest eigenvalue of the Hessian $H$ and $L$ is the largest. Assuming $\mu>0$ (strongly convex function), we will show that the characteristic convergence time with the heavy-ball momentum term is $ \sqrt{\kappa} $ instead of $ \kappa$.
 
-Let $ \lambda$ be an eigenvalue of $ H$ and $ u_{\lambda}$ a eigenvector for thie eigenvalue. We are interested in the evolution of $ \langle \theta_{t}- \eta^*, u_{\lambda} \rangle$.
+Let $ \lambda$ be an eigenvalue of $ H$ and $ u_{\lambda}$ a eigenvector for thie eigenvalue. We are interested in the evolution of $ \langle \theta_{t}- \theta^*, u_{\lambda} \rangle$.
 
 We note
 \begin{equation}
-    a_t = \langle \theta_{t}- \eta^*, u_{\lambda} \rangle
+    a_t = \langle \theta_{t}- \theta^*, u_{\lambda} \rangle
 \end{equation}
 
 \exercice{} Show that 
@@ -130,7 +130,7 @@ If $u_i$ is a basis of orthonormal vectors with eigenvalues $\lambda_i$, we have
 \begin{equation}
     \begin{aligned}
         \label{eq:}
-	|| \theta_{t}-\eta^*||^2 &= \sum^{d}_{i=1}(\langle\theta_{t}-\eta^*, u_i \rangle)^2 \\
+	|| \theta_{t}-\theta^*||^2 &= \sum^{d}_{i=1}(\langle\theta_{t}-\theta^*, u_i \rangle)^2 \\
 	&\leq \sum^{d}_{i=1} (\sqrt{\beta})^{2t} C_{\lambda_i}\\
 	&= (\sqrt{\beta})^{2t} D\\
     \end{aligned}
