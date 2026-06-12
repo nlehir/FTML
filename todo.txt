@@ -1,0 +1,3 @@
+corriger elastic net
+renommer label proba tp 12
+remplacer eta par theta
