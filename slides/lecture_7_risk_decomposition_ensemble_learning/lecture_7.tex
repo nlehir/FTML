@@ -586,7 +586,7 @@ For technically involved reasons, the optimization with the lasso leads to spars
 
     Elastic-net estimator:
 \begin{equation}
-    \tilde{\theta}_{\lambda}\in \argmin_{\theta\in \mathbb{R}^d}\{||y-X\theta||^2+\lambda_1 ||\theta||_1+ \lambda_2 || \theta||_2\}
+    \tilde{\theta}_{\lambda}\in \argmin_{\theta\in \mathbb{R}^d}\{||y-X\theta||^2+\lambda_1 ||\theta||_1+ \lambda_2 || \theta||^2_2\}
 \end{equation}
     
 To choose $ \lambda_1$ and $\lambda_2$: cross validation.
