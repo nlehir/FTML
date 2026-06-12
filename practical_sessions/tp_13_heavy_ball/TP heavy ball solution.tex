@@ -1,0 +1,194 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML practical session 16 solution}} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\section{\large\color{Blue}Heavy-ball}
+
+\exercice{}
+
+We have that 
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	\theta_{t+1}- \theta^* &= \theta_{t}- \theta^*- \gamma \nabla_{ \theta}f(\theta_t)+ \beta( \theta_{t}- \theta_{t-1})  \\
+	&= \theta_{t}- \theta^*- \gamma ( H \theta_{t}- \frac{1}{n} X^T y)+ \beta( \theta_{t}- \theta_{t-1})  \\
+	&= \theta_{t}- \theta^*- \gamma ( H \theta_{t}- H \theta^*)+ \beta( \theta_{t}- \theta_{t-1})  \\
+	&= (I_d- \gamma H)(\theta_{t}- \theta^*)+ \beta\Big( (\theta_{t}- \theta^*)- (\theta_{t-1}-\theta^*)\Big)  \\
+    \end{aligned}
+\end{equation}
+
+Hence,
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	\langle \theta_{t+1}- \theta^*, u_{\lambda} \rangle &=     \langle (I_d- \gamma H)(\theta_{t}- \theta^*)+ \beta\Big( (\theta_{t}- \theta^*)- (\theta_{t-1}-\theta^*)\Big), u_{\lambda} \rangle\\
+	&= \langle (I_d- \gamma H)(\theta_{t}- \theta^*), u_{\lambda} \rangle+ \beta\langle \theta_{t}- \theta^*, u_{\lambda} \rangle- \beta\langle\theta_{t-1}-\theta^*, u_{\lambda} \rangle\\
+	&= \langle \theta_{t}- \theta^*, (I_d- \gamma H)u_{\lambda} \rangle+ \beta\langle \theta_{t}- \theta^*, u_{\lambda} \rangle- \beta\langle\theta_{t-1}-\theta^*, u_{\lambda} \rangle\\
+	&= \langle \theta_{t}- \theta^*, (1- \gamma \lambda)u_{\lambda} \rangle+ \beta\langle \theta_{t}- \theta^*, u_{\lambda} \rangle- \beta\langle\theta_{t-1}-\theta^*, u_{\lambda} \rangle\\
+	&= (1- \gamma \lambda+ \beta)\langle \theta_{t}- \theta^*, u_{\lambda} \rangle - \beta\langle\theta_{t-1}-\theta^*, u_{\lambda} \rangle\\
+    \end{aligned}
+\end{equation}
+
+which is the expected result. We have used that $ I_d- \gamma H$ is symmetric and that $ u_{\lambda}$ is an eigenvector of $H$.
+\\
+
+\exercice{}
+The characteristic polynomial is
+
+\begin{equation}
+    P(X) = X^2-(1- \gamma\lambda +\beta)X+ \beta
+\end{equation}
+
+In order to find the values of the sequence $(a_t)_{t\in \mathbb{R} n}$ we need to know the roots of the equation
+
+\begin{equation}
+    \label{eq:cara}
+    X^2-(1- \gamma\lambda +\beta)X+ \beta=0
+\end{equation}
+
+The discriminant writes
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	\Delta &= (1- \gamma\lambda +\beta)^2- 4\beta \\
+	&= 1+ (\gamma\lambda)^2 +\beta^2-2 \gamma\lambda + 2 \beta - 2 \gamma\lambda \beta- 4\beta \\
+	&= 1+ (\gamma\lambda)^2 +\beta^2-2 \gamma\lambda  - 2 \gamma\lambda \beta- 2\beta \\
+	&= 1+ (\frac{4}{( \sqrt{L} + \sqrt{\mu} )^2}\lambda)^2 +\Big( \frac{\sqrt{L} - \sqrt{\mu}}{\sqrt{L} + \sqrt{\mu}}  \Big)^4\\
+	&-2 \frac{4}{( \sqrt{L} + \sqrt{\mu} )^2}\lambda - 2 \frac{4}{( \sqrt{L} + \sqrt{\mu} )^2}\lambda \Big( \frac{\sqrt{L} - \sqrt{\mu}}{\sqrt{L} + \sqrt{\mu}}  \Big)^2- 2\Big( \frac{\sqrt{L} - \sqrt{\mu}}{\sqrt{L} + \sqrt{\mu}}  \Big)^2 \\
+    \end{aligned}
+\end{equation}
+
+If we use the common denominator $( \sqrt{L} + \sqrt{\mu} )^4$, the numerator $N$ writes
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	N&= ( \sqrt{L} + \sqrt{\mu} )^4+16 \lambda^2+( \sqrt{L} - \sqrt{\mu} )^4\\
+	&-8\lambda( \sqrt{L} + \sqrt{\mu} )^2-8\lambda ( \sqrt{L} - \sqrt{\mu} )^2-  2 ( \sqrt{L} + \sqrt{\mu} )^2( \sqrt{L} - \sqrt{\mu} )^2\\
+    \end{aligned}
+\end{equation}
+
+But
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	( \sqrt{L} + \sqrt{\mu} )^4+( \sqrt{L} - \sqrt{\mu} )^4-  2 ( \sqrt{L} + \sqrt{\mu} )^2( \sqrt{L} - \sqrt{\mu} )^2&= \Big(( \sqrt{L} + \sqrt{\mu} )^2- ( \sqrt{L} - \sqrt{\mu} )^2 \Big)^2\\
+	&= \Big( (L+\mu+2 \sqrt{L\mu})-(L+\mu-2 \sqrt{L\mu})  \Big)^2\\
+	&= \Big( 4 \sqrt{L\mu}   \Big)^2\\
+	&= 16L\mu
+    \end{aligned}
+\end{equation}
+
+And 
+
+\begin{equation}
+   \begin{aligned}
+       \label{eq:}
+       -8\lambda( \sqrt{L} + \sqrt{\mu} )^2-8\lambda ( \sqrt{L} - \sqrt{\mu} )^2&= -8\lambda\Big(( \sqrt{L} + \sqrt{\mu} )^2+( \sqrt{L} - \sqrt{\mu} )^2\Big)\\
+       &= -8\lambda\Big(2 (L+\mu)\Big)\\
+       &= -16\lambda(L+\mu)\\
+   \end{aligned} 
+\end{equation}
+
+Finally, 
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	N &= 16\lambda^2+16\lambda \mu -16\lambda(L+\mu)\\
+	&= 16(L-\lambda)(\mu-\lambda)\\
+	&\leq 0
+    \end{aligned}
+\end{equation}
+
+As $\Delta \leq 0$, the roots of equation \ref{eq:cara} are $a\pm ib$, with $a, b \in \mathbb{R} $.
+\begin{itemize}
+    \item their module $\rho$ verifies $\rho^2 = a^2+b^2$
+    \item their arguments are $ y$ and $-y\in \mathbb{R} $. 
+\end{itemize}
+
+The sequence $(a_t)_{t\in \mathbb{R} n}$ is of the form
+
+\begin{equation}
+    \label{eq:seq}
+    \rho^t(A \cos (ty)+B\sin (ty))
+\end{equation}
+
+with $A$ and $B$ real constants. The convergence rate of $a_t$ is thus fully determined by $\rho$. It is thus sufficient to show that $\rho<1$. We know that
+
+\begin{equation}
+b= \frac{1}{2} \sqrt{- \Delta}
+\end{equation}
+
+Hence
+
+\begin{equation}
+    b^2 = -\frac{1}{4} \Delta
+\end{equation}
+
+We also have that
+
+\begin{equation}
+    a= -\frac{1}{2} (1- \gamma\lambda + \beta)
+\end{equation}
+
+Hence
+
+\begin{equation}
+    a^2 = \frac{1}{4} (1- \gamma\lambda + \beta)^2
+\end{equation}
+
+We also have that
+
+\begin{equation}
+    \Delta = (1- \gamma\lambda + \beta)^2-4\beta
+\end{equation}
+
+Finally
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	\rho &=  \sqrt{a^2+b^2}\\
+	&= \sqrt{\frac{1}{4} \Big( (1- \gamma\lambda +\beta)^2-\Delta \Big)}\\
+	&=  \sqrt{\beta}
+    \end{aligned}
+\end{equation}
+
+\exercice{}
+
+We have that 
+\begin{equation}
+	\begin{aligned}
+		\label{eq:}
+		\sqrt{\beta}^{2t} &\leq (1- \frac{1}{\sqrt{\kappa}})^{2t}\\
+		&\leq \exp(- \frac{2t}{\sqrt{\kappa}})
+	\end{aligned}
+\end{equation}
+
+By a decomposition in a basis of eigenvectors of $H$ (which exists as $H$ is symmetric and real), we obtain that $\theta_t-\theta^*$ converges to $0$ at least at an exponential rate of characteristic time $\sqrt{\kappa}$.
+
+
+\end{document}
