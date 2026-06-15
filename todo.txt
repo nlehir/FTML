@@ -1,3 +1,1 @@
-corriger elastic net
-renommer label proba tp 12
-remplacer eta par theta
+renommer label proba tp 12 (pas une proba mais un taux)
