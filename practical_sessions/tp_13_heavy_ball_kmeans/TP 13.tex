@@ -9,7 +9,7 @@ BCOR5mm, % Binding correction
 \input{stru/structure.tex}
 \hyphenation{Fortran hy-phen-ation} 
 
-\title{\normalfont{FTML practical session 16}}
+\title{\normalfont{FTML practical session 13}}
 \author{\spacedlowsmallcaps{}
 } 
 \date{\today}
@@ -155,5 +155,55 @@ We can now remark that
 \end{equation}
 
 \exercice{} Conclude
+
+\section{\large\color{Blue}Number of clusters for K-means}
+
+In this exercice we study heuristics to find relevant number of clusters for a k-means algorithm.
+
+\begin{itemize}
+    \item folder: \textbf{exercice\textunderscore 2\textunderscore k\textunderscore means/}
+    \item template file: \textbf{k\textunderscore means\textunderscore heuristics.py}
+\end{itemize}
+
+A company has gathered data about its customers and would like to identify similar clients, in order to propose relevant products to new clients, based on their features. This can be represented as a clustering problem. The data are stored in \textbf{{data.npy}}. They are $4$ dimensional. We would like to study methods to automatically find a relevant number of
+clusters in this dataset for the K-means algorithm.
+
+\subsection{Visual method}
+
+{\color{Purple}{Is there a direct, visual way to have an idea of a relevant
+number of clusters for these $4$-dimensional data ?}}
+
+\subsection{Algorithmic heuristics}
+
+We would like to see if algorithmic heuristics are consistent with the previous
+results.
+
+{\color{Purple}{Experiment with the following heuristics, metrics and tools in order to
+obtain a suggested number of clusters:}}
+\begin{itemize}
+    \item possible metrics to monitor: 
+        \begin{itemize}
+            \item inertia:
+
+                \url{https://scikit-learn.org/stable/modules/clustering.html#k-means} 
+            \item silhouette score
+
+                \url{https://scikit-learn.org/stable/modules/clustering.html#silhouette-coefficient} 
+
+            \item Calinksi-Harabasz score:
+                
+                \url{https://scikit-learn.org/stable/modules/clustering.html#calinski-harabasz-index} 
+        \end{itemize}
+    \item Knee detection tools:
+        \begin{itemize}
+            \item \url{https://github.com/arvkevi/kneed} 
+                \item \url{https://www.scikit-yb.org/en/latest/api/cluster/elbow.html} 
+        \end{itemize}
+\end{itemize}
+
+\subsection{Changing the data}
+
+{\color{Purple}{You can generate the data again in order to study the behavior
+of the previous heuristics on a dataset with different statistical properties.}}
 
 \end{document}
