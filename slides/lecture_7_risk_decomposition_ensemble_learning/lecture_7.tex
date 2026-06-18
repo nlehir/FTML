@@ -1284,7 +1284,7 @@ Recall that if $(X_k)_{k\in \mathbb{N} }$ is a sequence of i.i.d. real variables
 	\text{Initialize the weights} $w = \{w_i=\frac{1}{n}, i=1..n  \}$\;
 	\For{$m=1..B$}
  	{
-	    Estimate $\delta_m$ on the weighted dataset.
+	    Optimize estimator $\delta_m$ on the weighted dataset.
 	    Compute the error rate
 	    \begin{equation}
 		\hat{\epsilon_m} = \frac{ \sum^{n}_{i=1} w_i 1( \delta_m(x_i)\neq y_i)}{ \sum^{n}_{i=1} w_i}
