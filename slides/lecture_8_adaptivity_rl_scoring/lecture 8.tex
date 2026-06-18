@@ -1,0 +1,1107 @@
+\documentclass[usenames,dvipsnames]{beamer}
+
+\mode<presentation> {
+\usetheme{Montpellier}
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\setcounter{tocdepth}{2}
+\graphicspath{{../Figures/}}
+
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newtheorem*{proposition}{Proposition}
+
+% exercices comptés
+\newcounter{numexos}%Création d'un compteur qui s'appelle numexos
+\setcounter{numexos}{0}%initialisation du compteur
+\newcommand{\exercice}[1]{%Création d'une macro ayant un paramètre
+\addtocounter{numexos}{1}%chaque fois que cette macro est appelée, elle ajoute 1 au compteur numexos
+\textcolor{DarkOrchid}{Exercice\,\thenumexos\,:}\,#1%Met en rouge Exercice et la valeur du compteur appelée par \thenumeexos
+}
+
+\setbeamertemplate{title page}{
+    \centering
+
+    \huge\bfseries
+    Fondamentaux théoriques du machine learning
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{mlmap}
+\end{figure}
+
+    }
+
+\title[FTML]{title}
+
+\date{} % Date, can be changed to a custom date
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\makeatother
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview of lecture 8} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{ML map}
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\textwidth]{mlmap}
+    \end{figure}
+        
+   \url{https://scikit-learn.org/stable/tutorial/machine_learning_map/} 
+
+\end{frame}
+
+
+\section{Adaptivity}%
+\frame{\tableofcontents[currentsection]}
+\label{sec:adaptivity}
+
+\subsection{No free lunch theorems}%
+\label{sub:no_free_lunch_theorems}
+
+\begin{frame}{No free lunch theorems}
+
+    $ \mathcal{A} $: learning rule. Takes the dataset $D_n$ as input and outputs an estimator $ f_n$ (for instance based on empirical risk minimization, local averaging, etc).
+
+    There are several no free lunch theorems.
+    
+\end{frame}
+
+
+\begin{frame}{No free lunch theorems}
+
+
+    \begin{theorem}{No free lunch - fixed n}
+
+	We consider a binary classification task with "0-1"-loss, and $ \mathcal{X} $ infinite.
+
+	We note $ \mathcal{P} $ the set of all probability distributions on $ \mathcal{X} \times \{0, 1\}$.
+
+	For any $n>0$ and any learning rule $ \mathcal{A} $
+
+	\begin{equation}
+	    \sup_{ dp\in \mathcal{P} } E\Big[ R_{dp}\big( \mathcal{A} (D_n(dp)) \big) \Big]- R_{dp}^*\geq \frac{1}{2} 
+	\end{equation}
+
+    \end{theorem}
+
+    We write $D_n(dp)$ in order to emphasize that the dataset is sampled randomly from the distribution $dp$, with $n$ samples.
+\end{frame}
+
+
+\begin{frame}{No free lunch}
+
+    \begin{itemize}
+	\item For any learning rule, there exists a distribution for which this learning rule performs badly.
+	\item No method is universal and can have a good convergence rate on all problems.
+    \end{itemize}
+
+    \textbf{{However,}} considering \textbf{{all}} problems is probably not relevant for machine learning.
+\end{frame}
+
+\subsection{Adaptivity}%
+\label{sub:adaptivity}
+
+\begin{frame}{Adaptivity}
+
+    If the learning rule improves (faster convergence rate) when we add a property on the problem (for instance, regularity of the target function), we say that we have \textbf{adaptivity} to this property.
+
+    For instance: gradient descent is adaptive to the strong convexity of the target function, since with a proper choice of the learning rate $ \gamma$, the convergence rate is exponential, at a rate that is larger when the strong convexity constant $\mu$ is larger.
+
+    There are several forms of adaptivity.
+    
+\end{frame}
+
+\begin{frame}{Most general case}
+
+    The target is just Lipshitz-continuous, no extra-hypothesis. In this case the optimal rate is of the form $ \mathcal{O} ( n^{- \frac{2}{d+2} })$ (curse of dimensionality) for all learning rules.
+
+    To reach an error of $\epsilon <1$, we need a number of samples that is $ \mathcal{O}((\frac{1}{\epsilon})^{\frac{d}{2}+1})$, thus exponential in $d$.
+    
+\end{frame}
+
+\begin{frame}{Adaptivity to the input space}
+
+    If the input data lie on a submanifold (e.g. a subspace) of $ \mathbb{R}^d$ of lower dimension than $d$, most methods adapt to this property.
+\end{frame}
+
+\begin{frame}{Adaptivity to a lower dimensional support}
+    We saw an example of this behavior during a practical seccion.
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{x_test_knn_k=2}
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Lower dimensional manifolds}
+    \begin{figure}[htpb]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{tsne.png}
+    	\caption{Typically, images lie on specific subspaces of $\mathbb{R}^d$. \url{https://lvdmaaten.github.io/tsne/} }
+    	\label{fig:}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Adaptivity to the regularity of the target function}
+
+    If the target is smoother (meaning that all derivatives up to order $m$ are bounded), kernel methods (here, positive-definite kernels) and neural network adapt, if well optimized and regularized.
+
+    The convergence rate can become $ \mathcal{O} (n^{- \frac{m}{d} })$.
+    
+\end{frame}
+
+\begin{frame}{Adaptivity to latent variables}
+
+    If the target function depends only on a $k$ dimensional linear projection of the data, neural networks adapt, if well optimized.
+
+    The rate can become $ O(n^{ - \frac{m}{k} })$.
+
+    \url{https://francisbach.com/quest-for-adaptivity/} 
+    
+\end{frame}
+
+\section{Reinforcement Learning}%
+\frame{\tableofcontents[currentsection]}
+\label{sec:section_name}
+
+\begin{frame}{Sutton textbook}
+    \url{http://incompleteideas.net/book/the-book-2nd.html} 
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+        \item RL has many applications and \textbf{{Deep Reinforcement Learning}} has received a lot of attention for more than 15 years now.
+
+	    \item Sutton textbook: \url{http://incompleteideas.net/book/the-book-2nd.html} 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+        \item Atari games
+	    \begin{figure}[htpb]
+	        \centering
+	        \includegraphics[width=0.8\linewidth]{atari}
+			\caption{\cite{Mnih2013}}
+	        \label{fig:}
+	    \end{figure}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+        \item AlphaGo
+	    \begin{figure}[htpb]
+	        \centering
+	        \includegraphics[width=0.8\linewidth]{go}
+	        \caption{Go game, beaten by AlphaGo in 2017 \cite{SilverHuangEtAl16nature}}
+	        \label{fig:go}
+	    \end{figure}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{itemize}
+        \item Reinforcement Learning is also being used in the community of \textbf{{Computationnal neuroscience.}} 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Supervised learning and Correction}
+    \begin{itemize}
+        \item In \textbf{{supervised learning}}, the supervisor indicates the \textbf{{expected answer}} the model should answer.
+	\item The feedback does not depend on the action performed by the model (for instance the prediction from the model)
+	\item We say that the model receives an \textbf{{instructive feedback}}.
+	\item The model must then \textbf{{update itself}}  based on this answer.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Cost sensitive learning}
+   \begin{itemize}
+       \item In \textbf{{Cost sensitive learning}}, the situation is different. 
+	\item The agent receives an \textbf{{evaluative feedback}}. The feedack depends on the action performed by the agent.
+	\item \textbf{{Examples : }}
+	    \begin{itemize}
+	    \item AI playing a game and receiving "victory" or "defeat" as a feedback.
+	    \item Child playing with toys.
+	\end{itemize} 
+   \end{itemize} 
+\end{frame}
+
+\begin{frame}{Reinforcement learning}
+   \begin{itemize}
+       \item \textbf{{Reinforcement learning}} is a particular case of cost-sensitive learning.
+	\item In reinforcement learning, the feedback is a \textbf{{real number}}.
+	\item \textbf{{Example : }} amount of coins won after a poker turn.
+   \end{itemize} 
+\end{frame}
+
+\begin{frame}{Reinforcement learning}
+   \begin{itemize}
+	\item First, the agent does not know if a reward is good or bad per se.
+	\item A reward of $-10$ could be good or bad depending on the other rewards that are possible to obtain.
+	\item Most of the time, the objective of the agent will be to optimize the \textbf{{agregation of rewards}}.
+   \end{itemize} 
+\end{frame}
+
+\begin{frame}{Reinforcement learning}
+   \begin{itemize}
+       \item The agent lives in a world $E$, and can be in several states $s$. The agent performs \textbf{{actions}} $a$ and receives rewards $r$.
+	   \item \textbf{{Examples : }} \begin{itemize}
+		   \item world = $ \mathbb{R}^2$ 
+	       \item state $=$ position
+		\item actions $=$ moving somewhere
+		\item reward $=$ amount of food found
+	   \end{itemize}
+   \end{itemize} 
+\end{frame}
+
+\begin{frame}{Formalization}
+   \begin{itemize}
+       \item There are many aspects of the problem that we need to formalize. Several formalizations are possible depending on the situation.
+	\item We will consider \textbf{{discrete spaces}} : 
+	    \begin{itemize}
+	        \item the time will be discrete
+		\item the number of possible states will be \textbf{{finite}} 
+		\item the number of possible actions will be \textbf{{finite}} 
+	    \end{itemize}
+    \item Continuous spaces are also available for RL. In those cases the
+        objects are slightly different, and the optimization procedures also
+           differ. For an introductory course, discrete spaces are more
+           suitable.
+   \end{itemize} 
+\end{frame}
+
+\begin{frame}{Question}
+    \begin{itemize}
+	\item We will consider \textbf{{discrete spaces}} : 
+	    \begin{itemize}
+	        \item the time will be discrete
+		\item the number of possible states will be \textbf{{finite}} 
+		\item the number of possible actions will be \textbf{{finite}} 
+	    \end{itemize}
+        \item Are these hypotheses valid in the case of AlphaGo ?
+	    \begin{figure}[htpb]
+	        \centering
+	        \includegraphics[width=0.4\linewidth]{go}
+	        \label{fig:go}
+	    \end{figure}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Question}
+    \begin{itemize}
+	\item We will consider \textbf{{discrete spaces}} : 
+	    \begin{itemize}
+	        \item the time will be discrete
+		\item the number of possible states will be \textbf{{finite}} 
+		\item the number of possible actions will be \textbf{{finite}} 
+	    \end{itemize}
+        \item Are these hypothesis valid in the case of AlphaGo ?
+	    \begin{figure}[htpb]
+	        \centering
+	        \includegraphics[width=0.3\linewidth]{go}
+	        \label{fig:go}
+	    \end{figure}
+	    \item Yes ! This shows that discrete spaces can still describe very
+            complex problems.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Formalization}
+   \begin{itemize}
+       \item we will write : 
+	   \begin{itemize}
+	       \item $S_t$ : state at time $t$
+	       \item $R_t$ : reward received at time $t$
+	       \item $A_t$ : action performed at time $t$
+	   \end{itemize}
+	\item the actions are chosen according to a \textbf{{policy}} $\pi$
+   \end{itemize} 
+\end{frame}
+
+\begin{frame}[t]
+    \frametitle{Action - reward loop}
+
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[width=0.8\textwidth]{rlbook}
+        \caption{Image taken from the Sutton book, page 68.}
+        \label{fig:}
+    \end{figure}
+
+    \url{http://incompleteideas.net/book/the-book-2nd.html}
+    
+\end{frame}
+
+\begin{frame}{Policies}
+        The policy is a map that determines the action chosen by the agent. $\pi$ is a function of the current state.
+   \begin{itemize}
+	\item It can be \textbf{{deterministic :}} the action chosen is chosen with
+        probability $1$.
+	\item Or \textbf{{stochastic :}} the action performed in a given state is
+        drawn from a \textbf{{distribution}}.
+   \end{itemize} 
+\end{frame}
+
+\begin{frame}{Two levels of randomness}
+   \begin{itemize}
+	   \item The policy can be deterministic or stochastic.
+	    \item But the result of an action could also be stochastic ! This is called a \textbf{{stochastic transition function}}.
+   \end{itemize} 
+\end{frame}
+
+\begin{frame}{Two levels of randomness}
+   \begin{itemize}
+	   \item The policy can be deterministic or stochastic.
+	    \item But the result of an action could also be stochastic ! This is called a \textbf{{stochastic transition function}}.
+		\begin{figure}[htpb]
+		    \centering
+		    \includegraphics[width=0.6\linewidth]{stopo}
+		    \caption{A stochastic policy with a stochastic transition function.}
+		    \label{fig:stopo}
+		\end{figure}
+   \end{itemize} 
+\end{frame}
+
+\begin{frame}
+    \exercice{}
+   \begin{itemize}
+       \item What is the probability of staying in state $S_0$ when performing an action from $S_0$ ? and from $S_1$ and $S_2$ ?
+	   \begin{figure}[htpb]
+	       \centering
+	       \includegraphics[width=0.5\linewidth]{stopo2}
+	       \caption{A stochastic policy with a stochastic transition function.}
+	       \label{fig:stopo}
+	   \end{figure}
+   \end{itemize} 
+\end{frame}
+
+\begin{frame}{Agregation of rewards}
+   \begin{itemize}
+       \item The agent wants to optimize the \textbf{{agregation of the rewards.}} 
+	\item There are several ways to agregate the rewards.
+   \end{itemize} 
+\end{frame}
+
+\begin{frame}{Returns}
+
+    We introduce the \textbf{return} $G_t$.
+
+    \begin{itemize}
+	\item Episodic case (finite number $N$ of steps):
+	    \begin{equation}
+		G_t = R_{t+1} + R_{t+2} + \dots + R_{t+N}
+	    \end{equation}
+	\item Continuing tasks:
+	    \begin{equation}
+		G_t = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \dots 
+	    \end{equation}
+	    $\gamma \in [0,1[$ is the \textbf{{discount factor}}
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Value function}
+
+    Given a fixed policy $\pi$, the value function $v_{\pi}(s)$ quantifies how good a state $s$ is.
+
+    \begin{equation}
+	v_{\pi}(s) = E[G_t|S_t=s]
+    \end{equation}
+
+    (the expectation is taken over the next actions, following the policy $\pi$).
+
+    \begin{itemize}
+        \item $G_t$: return obtained after the word is in state $s$ at time $t$.
+	\item $E$: expected value
+    \end{itemize}
+
+    \textbf{The value function is unknown first, this is what we want to learn !}
+
+\end{frame}
+
+\begin{frame}{The Bellman equation}
+
+    Given a fixed policy $\pi$, and a state $s$, we can write a recursive relationship between 
+    $v_{\pi}(s)$ and the values $v_{\pi}$ of the next possible successor states (see the Sutton book for the general form 
+    of the equation 3.12 page 85).
+
+\end{frame}
+
+\begin{frame}{Markov hypothesis}
+    A assumption necessary to enable computations, but not always exactly true.
+
+    \url{https://en.wikipedia.org/wiki/Markov_property} 
+\end{frame}
+
+
+\begin{frame}{$\epsilon$-greedy policy}
+
+    A way to tackle the \textbf{exploitation-exploration compromise}.
+
+    \begin{itemize}
+        \item with probability $1-\epsilon$: go to the best known reward (exploitation).
+        \item with probability $\epsilon$: perform a random action (exploration).
+    \end{itemize}
+
+    "RL is a science, but dealing with the exploration-exploitation compromise is an art" (Sutton)
+\end{frame}
+
+
+% \section{Bandits}%
+% \label{sec:bandits}
+% 
+% \begin{frame}{Bandits}
+%     \begin{itemize}
+%         \item Now that we defined general RL, we will illustrate one of its aspects with a related problem : the \textbf{{Bandits problem.}} 
+%     \end{itemize}
+%     
+% \end{frame}
+
+\subsection{Dynamic programming}%
+\label{sec:dynamic_programming}
+
+\begin{frame}{World}
+We will illustrate reinforcement learning with a specific case (deterministic transition function in a "small" world)
+   \begin{figure}[htpb]
+       \centering
+       \includegraphics[width=0.6\linewidth]{world}
+       \caption{2 dimensional world.}
+       \label{fig:world}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Reward}
+   \begin{figure}[htpb]
+       \centering
+       \includegraphics[width=0.6\linewidth]{reward}
+       \caption{Reward function.}
+       \label{fig:reward}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{2D world}
+\begin{itemize}
+    \item Our agent can move to the $8$ neighbor positions (if the positions are available)
+\end{itemize}	
+\end{frame}
+
+\begin{frame}{Optimal value functions}
+
+    We look for the value of the \textbf{optimal policy} $\pi^*$, defined by the fact that
+    it has the best value function among all policies.
+
+\end{frame}
+
+\begin{frame}{Bellmann optimality equation}
+
+           \begin{equation}
+	       \begin{aligned}
+	       	\label{eq:bellman_opt}
+		   v_*(s) &= \max_{a\in\text{available actions}} E[G_t|S_t=s, A_t=a]\\
+			    &= \max_{a\in\text{available actions}} E[\sum_{k\geq 0}\gamma^kR_{t+k+1}|S_t=s, A_t=a]\\
+			    &= \max_{a\in\text{available actions}} E[R_{t+1}+\gamma\sum_{k\geq 1}\gamma^{k-1}R_{t+k+1}|S_t=s, A_t=a]\\
+			    &= \max_{a\in\text{available actions}} E[R_{t+1}+\gamma\sum_{k\geq 0}\gamma^{k}R_{t+k+2}|S_t=s, A_t=a]\\
+			    &= \max_{a\in\text{available actions}} E[R_{t+1}+\gamma v_{*}(S_{t+1})|S_t=s, A_t=a]\\
+	       \end{aligned}
+           \end{equation}
+
+\end{frame}
+
+\begin{frame}{Bellman optimality equation}
+
+    In the case of our simple 2D deterministic world, the Bellman optimality equation \ref{eq:bellman_opt} takes a simpler form !
+
+           \begin{equation}
+	       \begin{aligned}
+	       	\label{eq:bellman_opt_simple}
+		   v_*(s) &= \max_{a\in\text{available actions}} R_{t+1}+\gamma v_{*}(S_{t+1})
+	       \end{aligned}
+           \end{equation}
+
+	   The expected value is replaced by a deterministic value, because in this specific case:
+	   \begin{itemize}
+	       \item $S_{t+1}$ is deterministic, given $S_t$ and $A_t$.
+		\item The reward is deterministic.
+	   \end{itemize}
+
+\end{frame}
+
+\subsection{Value Iteration}%
+\label{sub:value_iteration}
+
+\begin{frame}{Value Iteration}
+    \begin{itemize}
+	\item Value iteration belongs to dynamic programming methods. They are a specific case of RL where a perfect model of the environment is assumed.
+	\item In value iteration, equation \ref{eq:bellman_opt} is used as an \textbf{update rule} at each time step.
+        \item First, the initial Value function for all the states is $0$.
+	\item Then we propagate the information about the rewards between the states, in order to \textbf{{update the value function}} (sweep)
+		\begin{equation}
+		    \forall s\in V(s) \leftarrow \max_{a}\big( R_{t+1}+\gamma V(s_{t+1}) | S_t=s, A_t=a\big)
+		\end{equation}
+
+	\item In parallel, we explore the world to learn about the distribution of rewards.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Value iteration}
+    Initially, no reward is known, no value is attributed to any state.
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=1.05\textwidth]{value_iteration_step_0}
+	\caption{Iteration 0}
+	\label{fig:}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Value iteration}
+    At step $3$ a reward is found, information propagates.
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=1.05\textwidth]{value_iteration_step_3}
+	\caption{Iteration 3}
+	\label{fig:}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Value iteration}
+    Information propagation.
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=1.05\textwidth]{value_iteration_step_4}
+	\caption{Iteration 4}
+	\label{fig:}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Value iteration}
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=1.05\textwidth]{value_iteration_step_5}
+	\caption{Iteration 5}
+	\label{fig:}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Value iteration}
+    Another reward is found at step 7.
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=1.05\textwidth]{value_iteration_step_7}
+	\caption{Iteration 7}
+	\label{fig:}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Value iteration}
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=1.05\textwidth]{value_iteration_step_17}
+	\caption{Iteration 17}
+	\label{fig:}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Value iteration}
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=1.05\textwidth]{value_iteration_step_18}
+	\caption{Iteration 18}
+	\label{fig:}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Value iteration}
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=1.05\textwidth]{value_iteration_step_19}
+	\caption{Iteration 19}
+	\label{fig:}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Value iteration}
+         After a number of iterations, we observe the convergence of the value function.
+\begin{figure}[htpb]
+	\centering
+	\includegraphics[width=1.05\textwidth]{value_iteration_step_131}
+	\caption{Iteration 131}
+	\label{fig:}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Optimal policy}
+   \begin{figure}[htpb]
+       \centering
+       \includegraphics[width=0.7\linewidth]{agent_position_travel_3_step_0}
+       \caption{After learning the optimal policy, the agent can go to the reward.}
+       \label{fig:}
+   \end{figure} 
+\end{frame}
+% \begin{frame}{Optimal policy}
+%    \begin{figure}[htpb]
+%        \centering
+%        \includegraphics[width=0.7\linewidth]{agent_position_travel_3_step_1}
+%        \caption{After learning, the agent can go to the reward.}
+%        \label{fig:}
+%    \end{figure} 
+% \end{frame}
+% \begin{frame}{Optimal policy}
+%    \begin{figure}[htpb]
+%        \centering
+%        \includegraphics[width=0.7\linewidth]{agent_position_travel_3_step_2}
+%        \caption{After learning, the agent can go to the reward.}
+%        \label{fig:}
+%    \end{figure} 
+% \end{frame}
+% \begin{frame}{Optimal policy}
+%    \begin{figure}[htpb]
+%        \centering
+%        \includegraphics[width=0.7\linewidth]{agent_position_travel_3_step_3}
+%        \caption{After learning, the agent can go to the reward.}
+%        \label{fig:}
+%    \end{figure} 
+% \end{frame}
+% \begin{frame}{Optimal policy}
+%    \begin{figure}[htpb]
+%        \centering
+%        \includegraphics[width=0.7\linewidth]{agent_position_travel_3_step_4}
+%        \caption{After learning, the agent can go to the reward.}
+%        \label{fig:}
+%    \end{figure} 
+% \end{frame}
+% \begin{frame}{Optimal policy}
+%    \begin{figure}[htpb]
+%        \centering
+%        \includegraphics[width=0.7\linewidth]{agent_position_travel_3_step_5}
+%        \caption{After learning, the agent can go to the reward.}
+%        \label{fig:}
+%    \end{figure} 
+% \end{frame}
+
+
+%\begin{frame}{Policy Iteration}
+%    \begin{itemize}
+%    \item \textbf{{Policy iteration}} is another method that is slightly
+%        different. 
+%    \item It consists in two steps : 
+%        \begin{itemize}
+%            \item \textbf{{Policy evaluation}} 
+%        \end{itemize}
+%    \end{itemize}
+%\end{frame}
+%
+%\begin{frame}{Policy Iteration}
+%    \begin{itemize}
+%    \item \textbf{{Policy iteration}} is another method that is slightly
+%        different. 
+%    \item It consists in two steps : 
+%        \begin{itemize}
+%            \item \textbf{{Policy evaluation}} 
+%            \item \textbf{{Policy improvement}} 
+%        \end{itemize}
+%    \end{itemize}
+%\end{frame}
+%
+%
+%\begin{frame}
+%    \exercice{}
+%    \begin{itemize}
+%        \item Pease use the file \textbf{{policy\textunderscore iteration.py}}  in order to perform the algorithm.
+%	    \item Add randomness to the actions of the agent to \textbf{{guarantee exploration}}.
+%    \end{itemize}
+%\end{frame}
+
+\begin{frame}{Multiple paradigms}
+   \begin{itemize}
+       \item Reinforcement learning has many variants.
+        \item In the ones we studied, a model of the consequence of our actions was
+            known.
+        \item This is not always the case.
+   \end{itemize} 
+\end{frame}
+
+\begin{frame}{Temporal difference learning}
+\begin{itemize}
+    \item In temporal difference learning, the agent does not know a
+        \textbf{{model}} of its world.
+    \item But it can still learn the value function with the \textbf{{TD (temporal difference)
+        updates}} 
+    \begin{equation} V(S_t)\leftarrow
+V(S_t)+\alpha[R_{t+1}+\gamma V(S_{t+1})-V(S_t)] \label{eq:td0}
+    \end{equation}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Monte Carlo methods}
+    Monte Carlo methods can be used in Reinforcement Learning to estimate
+        some expected values (such as the expected
+        reward in a given state).
+\end{frame}
+
+% \begin{frame}{Q learnin}
+%     
+% \end{frame}
+
+%\begin{frame}{Local vs global updates}
+%    
+%\end{frame}
+
+\begin{frame}{Actor critic methods}
+\begin{itemize}
+    \item Sometimes you can use \textbf{{two}} policies
+        \begin{itemize}
+            \item the \textbf{{behavior policy}} provides actions and guarantees
+                exploration
+            \item the \textbf{{target policy}} is the optimal policy learned in
+                parallel by the agent, that would be used in exploitation mode.
+        \end{itemize}
+\end{itemize}    
+\end{frame}
+
+\begin{frame}{Tabular case and continous case}
+   \begin{itemize}
+       \item We studied \textbf{{finite}} (and thus discrete situations).
+        \item However, RL can also be applied to continuous state / discrete
+            action spaces (DQN) 
+        \item And even to continous state / continous action spaces (DDPG)
+            \cite{Bengio2009} .
+   \end{itemize} 
+\end{frame}
+
+
+
+%\begin{frame}{Application}
+%
+%    We would like to classify these data with a SVC.
+%    \begin{figure}[htpb]
+%        \centering
+%        \includegraphics[width=0.8\linewidth]{classification_data}
+%        \label{fig:}
+%    \end{figure}
+%    
+%\end{frame}
+%
+%\begin{frame}{}
+%    \begin{figure}[htpb]
+%        \centering
+%        \includegraphics[width=1\linewidth]{decision_function_rbf_kernel}
+%        \label{fig:decision_function_rbf_kernel}
+%    \end{figure}
+%\end{frame}
+%
+%\begin{frame}{}
+%    \begin{figure}[htpb]
+%        \centering
+%        \includegraphics[width=1\linewidth]{decision_function_poly_kernel}
+%        \label{fig:decision_function_rbf_kernel}
+%    \end{figure}
+%\end{frame}
+%
+%\begin{frame}{}
+%    \begin{figure}[htpb]
+%        \centering
+%        \includegraphics[width=1\linewidth]{decision_function_linear_kernel}
+%        \label{fig:decision_function_rbf_kernel}
+%    \end{figure}
+%\end{frame}
+%
+%\begin{frame}{}
+%    \begin{figure}[htpb]
+%        \centering
+%        \includegraphics[width=1\linewidth]{decision_function_sigmoid_kernel}
+%        \label{fig:decision_function_rbf_kernel}
+%    \end{figure}
+%\end{frame}
+%
+%\begin{frame}{See also}
+%    
+%    \begin{itemize}
+%        \item SVMs for regression
+%        \item SVMs for unsupervised learning
+%        \item Sequential minimal optimization (SMO)
+%    \end{itemize}
+%\end{frame}
+%
+%\begin{frame}[allowframebreaks]
+%\frametitle{References}
+%\bibliographystyle{apalike}
+%\bibliography{../../epita.bib} 
+%\end{frame}
+
+\section{Scoring, multiclass problems, cross validation}
+\frame{\tableofcontents[currentsection]}
+
+
+\subsection{R2 for Regression}%
+\label{sub:regression}
+
+
+\begin{frame}{Regression}
+
+    \begin{itemize}
+        \item $ \mathcal{X} = \mathbb{R}^d$
+        \item $ \mathcal{Y}  = \mathbb{R} $.
+    \end{itemize}
+
+    Until now we used the squared error or the mean squared error (MSE):
+    \begin{equation}
+        MSE = \frac{1}{n} \sum^{n}_{i=1} (y_{pred, i}-y_{label, i})^2
+    \end{equation}
+    Without normalisation, it is also called \textbf{{residual sum of squares}} (RSS)
+    \begin{equation}
+        RSS = \sum^{n}_{i=1} (y_{pred, i}-y_{label, i})^2
+    \end{equation}
+    
+\end{frame}
+
+\begin{frame}{Coefficient of determination}
+
+        Also called $R2$.  $R2\leq 1$. We introduce the Total sum of squares (TSS)
+
+    \begin{equation}
+        TSS = \sum^{n}_{i=1} (y_{label, i}- \bar{y})^2
+    \end{equation}
+
+    where $ \bar{y}$ is the mean of the labels:
+    \begin{equation}
+        \bar{y} = \frac{1}{n} \sum^{n}_{i=1} y_{label, i}
+    \end{equation}
+    
+    Then
+
+    \begin{equation}
+        R2 = 1- \frac{RSS}{TSS} 
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Coefficient of determination}
+
+    \begin{equation}
+        TSS = \sum^{n}_{i=1} (y_{label, i}- \bar{y})^2
+    \end{equation}
+
+    \begin{equation}
+        RSS = \sum^{n}_{i=1} (y_{pred, i}-y_{label, i})^2
+    \end{equation}
+
+    Finally we define the Explained sum of squares ESS: 
+
+    \begin{equation}
+        ESS = \sum^{n}_{i=1} (y_{pred, i}- \bar{y})^2
+    \end{equation}
+
+    Then if the predicitons are linear, then
+
+    \begin{equation}
+        TSS = ESS + RSS
+    \end{equation}
+    
+\end{frame}
+
+\begin{frame}{Scikit metrics}
+
+    \url{https://scikit-learn.org/stable/modules/model_evaluation.html} 
+    
+\end{frame}
+
+
+\subsection{Binary classification}%
+\label{sub:classification}
+
+\begin{frame}{Binary classification}
+
+    We now review some metrics for binary classification problems.
+\end{frame}
+
+
+\begin{frame}{Accuracy}
+   Most common scoring: accuracy. 
+
+   \begin{equation}
+       \frac{\text{number of correct predictions}}{\text{number of samples}} 
+   \end{equation}
+
+
+\end{frame}
+
+\begin{frame}{Precision and recall}
+
+    Precision : "Quand tu dis que c'est positif, c'est positif".
+    \begin{equation}
+        \frac{\text{TP}}{\text{TP + FP}}       
+    \end{equation}
+
+    Recall / sensitivity (rappel) : "Quand c'est positif, tu dis que c'est positif".
+    \begin{equation}
+        \frac{\text{TP}}{\text{TP + FN}}
+    \end{equation}
+
+    See also: specificity and 1-specificity.
+
+    \url{https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html}
+    
+\end{frame}
+
+\begin{frame}{F score}
+
+    Also called $F1$. It quantifies the tradeoff between precision and recall.
+
+\begin{equation}
+    F1 = 2 \times \frac{\text{sensitivity}\times \text{precision}}{\text{sensitivity}+ \text{precision}} 
+\end{equation}
+
+\begin{equation}
+    F\in[0, 1]
+\end{equation}
+
+    \url{https://en.wikipedia.org/wiki/F-score} 
+    
+\end{frame}
+
+\subsection{Multi-class classification}%
+\label{sub:multi_class_classification}
+
+\begin{frame}{Binary classification}
+
+    Standard classifiers such as logistic regression and support vector
+    machines are \textbf{{binary}}. 
+
+    However, sometimes $|\mathcal{Y} |=p>2$. In these situations, several binary classifiers are aggregated in order to perform the classification.
+    \begin{itemize}
+	\item one-vs-rest scheme: learns a binary classifier per class. At prediction time, select the class with highest score (there is often some form of confidence score associated with a binary classifier)
+    	\item one-vs-one scheme: leanrs as many binary classifiers as there are pairs of classes.
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Number of classifiers}
+
+    We assume $ | \mathcal{Y} | = p$.
+
+    \exercice{\textbf{}}How many classifiers  need to be built:
+    \begin{itemize}
+        \item with the one-vs-rest scheme ?
+        \item with the one-vs-one scheme ?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Number of classifiers}
+
+    \begin{itemize}
+        \item one-vs-rest is the standard approach.
+        \item one-vs-one need to build a number of classifiers that is
+            quadratic in $p$, ($\mathcal{O} (p^2)$).
+        \item However one-vs-one might still be useful since less samples are
+            used by each binary classifiers, since we only need the samples
+            from the two selected classes. If the complexity of the classifier
+            scales badly with the umber of samples $n$ (like for kernel
+            methods), one-vs-one might be faster.
+    \end{itemize}
+    
+
+\end{frame}
+
+\begin{frame}{Scikit}
+
+    Scikit has a builtin implementation of both schemes.
+
+    \url{https://scikit-learn.org/stable/modules/generated/sklearn.multiclass.OneVsRestClassifier.html} 
+    
+\end{frame}
+
+\begin{frame}{Softmax}
+
+    It is also possible to directly learn $p$ real outputs and predict the maximum. But during training, we need something that we can differentiate.
+
+    The softmax approach applies the softmax function to the $p$ outputs, and we train the model to have a softmaxed output close to a discrete disctribution.
+
+    \url{https://fr.wikipedia.org/wiki/Fonction_softmax} 
+\end{frame}
+
+\begin{frame}{Confusion matrix}
+
+    \url{https://en.wikipedia.org/wiki/Confusion_matrix} 
+
+    \url{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html} 
+    
+\end{frame}
+
+\begin{frame}{Classification report}
+
+    It is also possible to define precision, recall (and thus F1) for each
+    class. In scikit, classification report prints these quantities for each
+    class
+
+    \url{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html} 
+    
+\end{frame}
+
+\begin{frame}{Multi-class vs multi-label}
+
+    Don't mix multi-class problems and multi-label problems.
+    \begin{itemize}
+        \item multi-class: several output classes are possible
+        \item mutli-label: we have to make several predictions for each input
+    \end{itemize}
+
+    A problem can be both multi-class and multi-label.
+    
+\end{frame}
+
+\begin{frame}{Learning curves}
+
+    \url{https://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html} 
+    \\
+
+    Many model selection methods exist:
+
+    \url{https://scikit-learn.org/stable/model_selection.html} 
+    
+\end{frame}
+
+\subsection{Classification threshold}%
+\label{sub:classification_threshold}
+
+\begin{frame}
+    \frametitle{Classification threshold}
+
+    \url{https://scikit-learn.org/stable/modules/classification_threshold.html}
+
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]
+\frametitle{References}
+\bibliographystyle{apalike}
+\bibliography{../../epita.bib} 
+\end{frame}
+
+\end{document} 
