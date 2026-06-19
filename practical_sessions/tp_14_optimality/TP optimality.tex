@@ -96,7 +96,7 @@ It is possible to show that AGD is optimal among first order methods. But first,
 For $k\in \mathbb{N}$, we look for an algorithm $a\in \mathcal{A}$ defined by
 
 \begin{equation}
-    a = \argmin_{a\in \mathcal{A} } \max_{f\in \mathcal{F} } \Big[||x^k_a-x^*||\Big]
+    a = \argmin_{a\in \mathcal{A} } \max_{f\in \mathcal{F} } \Big[||x^k_a-x_f^*||\Big]
 \end{equation}
 
 where $x^k_a$ is the iterate returned by algorithm $a$ at iteration $k$.
@@ -109,7 +109,7 @@ If we manage to show that for any algorithm $a\in \mathcal{A}$, there exists a f
     f(x^k)-f(x^*)\geq \frac{C}{k^2} ||x^0-x_f^*||^2
 \end{equation}
 
-where $C$ is independent on the function, then this will prove that Nesterov acceleration is optimal in $ \mathcal{A} $, as this means that for any algorithm in $ \mathcal{A} $, there exists a function, for which the iterates produced by $a$ converge slower than $ \frac{C}{k^2} $ to its minimizer.
+where $C$ is independent on the function, then this will prove that Nesterov acceleration is optimal in $ \mathcal{A} $, as this means that for any algorithm in $ \mathcal{A} $, there exists a function, for which the iterates computed by the algorithm $a$ converge slower than $ \frac{C}{k^2} $ to its minimizer.
 
 \subsection{\large\color{MidnightBlue}Hard function}
 
@@ -157,7 +157,7 @@ We also admit that the minimum value of $g$, noted $g^*$, is
 \\
 
 
-\exercice{\textbf{}} Show that for all $l\leq d$, the components $j$ with $j\geq l+1$ are null for the iterate $x_l$, for any first-order method that produces iterates with gradients of $f$ (as defined in \ref{eq:first}). In particular, this is true for $l=k$ and for the iterate $k$, we have
+\exercice{\textbf{}} Show that for all $l\leq d$, the components $j$ with $j\geq l+1$ are null for the iterate $x^l$, for any first-order method that produces iterates with gradients of $f$ (as defined in \ref{eq:first}). In particular, this is true for $l=k$ and for the iterate $k$, we have
 
 \begin{equation}
     x^k_{k+1} = x^k_{k+2} = \dots = x^k_d = 0   
@@ -169,7 +169,7 @@ We also admit that the minimum value of $g$, noted $g^*$, is
 Hence, $f(x^k)\geq g^*$ and 
 
 \begin{equation}
-    \frac{f(x^k)-f^*}{||x^0-x^*||^2} \geq \frac{g^*-f^*}{||x^0-f^*||^2}
+    \frac{f(x^k)-f^*}{||x^0-x^*||^2} \geq \frac{g^*-f^*}{||x^0-x^*||^2} = \frac{g^*-f^*}{||x^*||^2}
 \end{equation}
 
 \exercice{\textbf{}}Show that
