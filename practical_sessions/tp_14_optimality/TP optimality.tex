@@ -88,7 +88,7 @@ It is possible to show that AGD is optimal among first order methods. But first,
 For $t\in \mathbb{N}$, we look for an algorithm $a\in \mathcal{A}$ defined by
 
 \begin{equation}
-    a = \argmin_{a\in \mathcal{A} } \max_{f\in \mathcal{F} } \Big[||x^t_a-x_f^*||\Big]
+    a = \argmin_{a\in \mathcal{A} } \max_{f\in \mathcal{F} } \Big[||f(x^t_a)-f(x_f^*)||\Big]
 \end{equation}
 
 where $x^t_a$ is the iterate returned by algorithm $a$ at iteration $t$.
@@ -98,16 +98,17 @@ where $x^t_a$ is the iterate returned by algorithm $a$ at iteration $t$.
 If we manage to show that for any algorithm $a\in \mathcal{A}$, there exists a function $f\in \mathcal{F} $, such that 
 
 \begin{equation}
-    f(x^t)-f(x^*)\geq \frac{C}{t^2} ||x^0-x_f^*||^2
+    f(x_a^t)-f(x_f^*)\geq \frac{C}{t^2} ||x^0-x_f^*||^2
 \end{equation}
 
 where $C$ is independent on the function, then this will prove that Nesterov acceleration is optimal in $ \mathcal{A} $, as this means that for any algorithm in $ \mathcal{A} $, there exists a function, for which the iterates computed by the algorithm $a$ converge slower than $ \frac{C}{t^2} $ to its minimizer.
 
 \subsection{\large\color{MidnightBlue}Hard function}
 
-Without loss of generality, we assume that for all algorithms in $ \mathcal{A}$, the initialization is $x^0=0\in \mathbb{R}^d$. 
+\exercice{\textbf{}} Without loss of generality, we can assume that for all algorithms in $ \mathcal{A}$, the initialization is $x^0=0\in \mathbb{R}^d$: why ?
+\\
 
-We consider $t\leq\frac{d-1}{2} $ and $f$ defined by
+We now consider that the initialization is $x^0=0$, $t\leq\frac{d-1}{2} $ and $f$ defined by
 
 \begin{equation}
     f(x) = \frac{L}{4} \Big( \frac{1}{2} x_1^2 + \frac{1}{2} \sum^{2t}_{i=1} (x_i-x_{i+1})^2+ \frac{1}{2} x_{2t+1}^2-x_1 \Big)
