@@ -20,15 +20,7 @@ BCOR5mm, % Binding correction
 \maketitle 
 \setcounter{tocdepth}{3} 
 
-\begin{figure}[htpb]
-    \centering
-    \includegraphics[width=0.8\linewidth]{leibniz}
-    \label{fig:risks}
-\end{figure}
-
 \tableofcontents
-
-\newpage
 
 \section{\large\color{Blue}Lower bound on the performance of gradient-based algorithms}
 
@@ -77,7 +69,7 @@ We consider optimization algorithms that are based on linear combinations of loc
 
 \begin{equation}
     \label{eq:first}
-    x^t\in x^0+ \text{span}\{\nabla f(x^0), \dots, \nabla f(x^{t-1}\}
+    x^t\in x^0+ \text{span}\{\nabla f(x^0), \dots, \nabla f(x^{t-1})\}
 \end{equation}
 
 "span" means "espace engendré par".
@@ -93,32 +85,32 @@ Nesterov acceleration (also called accelerated gradient descent (AGD)), is anoth
 
 It is possible to show that AGD is optimal among first order methods. But first, we have to define what this means. This optimality is defined as a minmax problem. Indeed, we are interested in finding the algorithm that has the best worst-case performance. It is necessary to restrict algorithms to a relevant class of algorithms $ \mathcal{A} $ (here, first order methods), and the functions to a relevant class of functions $ \mathcal{F} $ (for instance the set of convex, $L$-smooth functions on $\mathbb{R}^d$). 
 
-For $k\in \mathbb{N}$, we look for an algorithm $a\in \mathcal{A}$ defined by
+For $t\in \mathbb{N}$, we look for an algorithm $a\in \mathcal{A}$ defined by
 
 \begin{equation}
-    a = \argmin_{a\in \mathcal{A} } \max_{f\in \mathcal{F} } \Big[||x^k_a-x_f^*||\Big]
+    a = \argmin_{a\in \mathcal{A} } \max_{f\in \mathcal{F} } \Big[||x^t_a-x_f^*||\Big]
 \end{equation}
 
-where $x^k_a$ is the iterate returned by algorithm $a$ at iteration $k$.
+where $x^t_a$ is the iterate returned by algorithm $a$ at iteration $t$.
 
 \subsection{\large\color{MidnightBlue}Optimality of Nesterov acceleration}
 
 If we manage to show that for any algorithm $a\in \mathcal{A}$, there exists a function $f\in \mathcal{F} $, such that 
 
 \begin{equation}
-    f(x^k)-f(x^*)\geq \frac{C}{k^2} ||x^0-x_f^*||^2
+    f(x^t)-f(x^*)\geq \frac{C}{t^2} ||x^0-x_f^*||^2
 \end{equation}
 
-where $C$ is independent on the function, then this will prove that Nesterov acceleration is optimal in $ \mathcal{A} $, as this means that for any algorithm in $ \mathcal{A} $, there exists a function, for which the iterates computed by the algorithm $a$ converge slower than $ \frac{C}{k^2} $ to its minimizer.
+where $C$ is independent on the function, then this will prove that Nesterov acceleration is optimal in $ \mathcal{A} $, as this means that for any algorithm in $ \mathcal{A} $, there exists a function, for which the iterates computed by the algorithm $a$ converge slower than $ \frac{C}{t^2} $ to its minimizer.
 
 \subsection{\large\color{MidnightBlue}Hard function}
 
 Without loss of generality, we assume that for all algorithms in $ \mathcal{A}$, the initialization is $x^0=0\in \mathbb{R}^d$. 
 
-We consider $k\leq\frac{d-1}{2} $ and $f$ defined by
+We consider $t\leq\frac{d-1}{2} $ and $f$ defined by
 
 \begin{equation}
-    f(x) = \frac{L}{4} \Big( \frac{1}{2} x_1^2 + \frac{1}{2} \sum^{2k}_{i=1} (x_i-x_{i+1})^2+ \frac{1}{2} x_{2k+1}^2-x_1 \Big)
+    f(x) = \frac{L}{4} \Big( \frac{1}{2} x_1^2 + \frac{1}{2} \sum^{2t}_{i=1} (x_i-x_{i+1})^2+ \frac{1}{2} x_{2t+1}^2-x_1 \Big)
 \end{equation}
 
 \exercice{\textbf{}}Show that $f$ is convex.
@@ -129,8 +121,8 @@ We admit that $f$ is $L$-smooth, and that the minimizer of $f$, $x^*$, is
 $$
 x_i^*  : \left\{
     \begin{array}{ll}
-	1  - \frac{i}{2k+2} \text{ for } 1\leq i \leq 2k+1 & \\
-	0 \text{ for } i\geq 2k+2
+	1  - \frac{i}{2t+2} \text{ for } 1\leq i \leq 2t+1 & \\
+	0 \text{ for } i\geq 2t+2
     \end{array}
 \right.
 $$
@@ -138,45 +130,46 @@ $$
 and that the minimum value is
 
 \begin{equation}
-    f^* = \frac{L}{8} \big( \frac{1}{2k+2} -1\big)
+    f^* = \frac{L}{8} \big( \frac{1}{2t+2} -1\big)
 \end{equation}
 
 We consider another utility function $g$ defined as
 
 \begin{equation}
-    g(x) = \frac{L}{4} \Big( \frac{1}{2} x_1^2 + \frac{1}{2} \sum^{k-1}_{i=1} (x_i-x_{i+1})^2+ \frac{1}{2} x_{k}^2-x_1 \Big)
+    g(x) = \frac{L}{4} \Big( \frac{1}{2} x_1^2 + \frac{1}{2} \sum^{t-1}_{i=1} (x_i-x_{i+1})^2+ \frac{1}{2} x_{t}^2-x_1 \Big)
 \end{equation}
 
 We also admit that the minimum value of $g$, noted $g^*$, is
 
 \begin{equation}
-    g^* = \frac{L}{8} \big( \frac{1}{k+1} -1\big) 
+    g^* = \frac{L}{8} \big( \frac{1}{t+1} -1\big) 
 \end{equation}
 
 \exercice{\textbf{}} Compute the gradient of $f$ for any point $x\in \mathbb{R}^d$.
 \\
 
 
-\exercice{\textbf{}} Show that for all $l\leq d$, the components $j$ with $j\geq l+1$ are null for the iterate $x^l$, for any first-order method that produces iterates with gradients of $f$ (as defined in \ref{eq:first}). In particular, this is true for $l=k$ and for the iterate $k$, we have
+\exercice{\textbf{}} Show that for all $l\leq d$, the components $j$ with $j\geq l+1$ are null for the iterate $x^l$, for any first-order method that produces iterates with gradients of $f$ (as defined in \ref{eq:first}). In particular, this is true for $l=t$ and for the iterate $t$, we have
 
 \begin{equation}
-    x^k_{k+1} = x^k_{k+2} = \dots = x^k_d = 0   
+    x^t_{t+1} = x^t_{t+2} = \dots = x^t_d = 0   
 \end{equation}
 
-\exercice{\textbf{}}Show that $f(x^k)=g(x^k)$.
+\exercice{\textbf{}}Show that $f(x^t)=g(x^t)$.
 \\
 
-Hence, $f(x^k)\geq g^*$ and 
+Hence, $f(x^t)\geq g^*$ and 
 
 \begin{equation}
-    \frac{f(x^k)-f^*}{||x^0-x^*||^2} \geq \frac{g^*-f^*}{||x^0-x^*||^2} = \frac{g^*-f^*}{||x^*||^2}
+    \frac{f(x^t)-f^*}{||x^0-x^*||^2} \geq \frac{g^*-f^*}{||x^0-x^*||^2} = \frac{g^*-f^*}{||x^*||^2}
 \end{equation}
 
 \exercice{\textbf{}}Show that
 
 \begin{equation}
-    ||x^*||^2\leq \frac{2k+2}{3} 
+    ||x^*||^2\leq \frac{2t+2}{3} 
 \end{equation}
+
 
 \exercice{\textbf{}}Conclude.
 
