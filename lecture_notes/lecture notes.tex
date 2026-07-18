@@ -1526,16 +1526,17 @@ For some \textbf{{fixed}} $h\in H$, $R_n(h)$ is a random variable, as it depends
     For instance, let us consider the following situation. $X$ follows a uniform law on $]0, 1]$, and $Y=3X+\sigma\epsilon$, with $\epsilon$ being a standard Gaussian random variable independent from $X$, hence $ \mathcal{X} = ]0, 1]$ and $ \mathcal{Y} = \mathbb{R} $. We assume that $n=1$, and $D_1 = \{(x_1, y_1)\}=\{(\alpha, \beta)\}$. We assume that $F$, the space of available functions for $ \tilde{f}_n$, is the space of linear functions, of the form $ x\mapsto ax$, with $a\in \mathbb{R}$. If our learning rule is empirical risk minimization, with quadratic loss, then the estimator $ \tilde{f}_n$ writes $ \tilde{f}_n(x)= \frac{\beta}{\alpha}x$, and $l( \tilde{f}_n(\alpha), \beta)=0$. Hence,
 
     \begin{equation}
-	E_{D_1\sim \rho}(l( \tilde{f}_n(X_1), Y_1))=0
+        E_{D_1\sim \rho}[l( \tilde{f}_n(X_1), Y_1)]=0
     \end{equation}
 
-    However, we can show that $E_{(X,Y)\sim \rho}(l( \tilde{f}_n(X), Y))\neq 0$. Indeed,
+    However, we can show that $E_{(X,Y)\sim \rho}[l( \tilde{f}_n(X), Y)]\neq 0$. Indeed,
 
     \begin{equation*}
         \begin{aligned}
             \label{eq:}
-	    E_{(X,Y)}(l( \tilde{f}_n(X), Y))&=E_{(X,\epsilon)}(l( \tilde{f}_n(X), 3X+\sigma\epsilon))\\
-            &=E_{(X,\epsilon)}\big(( (\frac{\beta}{\alpha} - 3)X-\sigma\epsilon)^2\big)\\
+            E_{(X,Y)}[l( \tilde{f}_n(X), Y))
+            &=E_{(X,\epsilon)}[l( \tilde{f}_n(X), 3X+\sigma\epsilon)]\\
+            &=E_{(X,\epsilon)}\big[( (\frac{\beta}{\alpha} - 3)X-\sigma\epsilon)^2\big]\\
             &\neq 0
         \end{aligned}
     \end{equation*}
@@ -2104,6 +2105,8 @@ As for OLS, the proof is obtained by direct calculation and matricial tricks.
 \textbf{{Comments:}} 
 \begin{itemize}
     \item We observe again a bias / variance decomposition.
+    
+    \item The $-2$ matrix exponent simply means the square of the inverse.
     \item We consider the bias term $B$:
 
         \begin{equation}
@@ -3148,6 +3151,6 @@ Hence
 where $l$ is the cross-entropy loss defined in \ref{loss:cross}. We find that the problems of empirical risk minimization for the log-likelihood in this model and the logistic regression with this formulation are the same.
 
 \bibliographystyle{apalike}
-\bibliography{../../../epita.bib} 
+\bibliography{epita.bib} 
 
 \end{document}
