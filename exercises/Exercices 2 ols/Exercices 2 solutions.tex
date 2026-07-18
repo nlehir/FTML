@@ -1,0 +1,137 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML Exercices 2 solutions}\\
+} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\tableofcontents
+
+\section{\large\color{Blue}Ordinary least squares}
+
+\subsubsection{Solution}%
+\label{ssub:Solution}
+
+\textbf{1)} On connaît déjà le gradient de l'application $f: x\mapsto ||x||^2$, qui vaut
+$2x$.
+
+Si on considère l'application $r$:
+
+$$
+r = \left\{
+    \begin{array}{ll}
+        \mathbb{R}^d \rightarrow \mathbb{R}^n  \\
+	\theta\mapsto X\theta-y
+    \end{array}
+\right.
+$$
+
+alors $g = f \circ r$. Comme tout est différentiable, on en déduit qu'en notant
+$L$ les jacobiennes:
+
+\begin{equation}
+    L_{\theta}g = L_{X\theta-y}fL_{\theta}r
+\end{equation}
+
+ou bien on considérant le gradient (qui est la transposée de la jacobienne
+quand l'application est à valeurs dans $ \mathbb{R} $):
+
+\begin{equation}
+    \nabla_{\theta}g(\theta) = (L_{\theta}r)^T\nabla_{x}f(X\theta-y)
+\end{equation}
+
+Or $L_{\theta}r = X$. Donc
+
+\begin{equation}
+    \nabla_{\theta}g(\theta) = 2X^T(X\theta-y)
+\end{equation}
+
+
+
+\textbf{2a)} Soit $\alpha\in [0, 1]$, et $x, y\in \mathbb{R}^d$.
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	(f\circ s)(\alpha x+(1-\alpha)y)&= f(s(\alpha x+(1-\alpha)y))\\
+	&= f(\alpha s(x)+(1-\alpha)s(y))\\
+	&\leq \alpha f(s(x))+(1-\alpha)f(s(y))
+    \end{aligned}
+\end{equation}
+
+\textbf{2b)} Soit $\alpha\in [0, 1]$, et $x, y\in \mathbb{R}^n$.
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	||\alpha x+(1-\alpha)y||&\leq ||\alpha x||+||(1-\alpha)y||\\
+	&=\alpha ||x||+(1-\alpha )||y||
+    \end{aligned}
+\end{equation}
+
+\textbf{2c)} Soit $\alpha\in [0, 1]$, et $x, y\in \mathbb{R}$.
+
+Since $a$ is convex,
+
+\begin{equation}
+	 a(\alpha x+(1-\alpha)y)\leq \alpha a(x)+(1-\alpha)a(y)
+\end{equation}
+
+Since $w$ is increasing,
+
+\begin{equation}
+    w(a(\alpha x+(1-\alpha)y))\leq w(\alpha a(x)+(1-\alpha)a(y))
+\end{equation}
+
+Since $w$ is convex,
+
+\begin{equation}
+    w(\alpha a(x)+(1-\alpha)a(y))\leq \alpha(w(a(x))+(1-\alpha)w(a(y))
+\end{equation}
+
+Finally,
+
+\begin{equation}
+    (w\circ a)(\alpha x+(1-\alpha)y))\leq \alpha(w\circ a)(x))+(1-\alpha)(w\circ a)(y)
+\end{equation}
+
+\textbf{2d)} Soit $\alpha\in [0, 1]$, et $x, y\in \mathbb{R}^n$.
+\begin{equation}
+	\begin{aligned}
+		\label{eq:}
+		f(\alpha x + (1-\alpha) y) &= u(\alpha x + (1-\alpha) y + \beta)\\
+		&= u(\alpha x + (1-\alpha) y + (\alpha + 1-\alpha)\beta)\\
+		&= u(\alpha x + (1-\alpha) y + \alpha\beta + (1-\alpha)\beta)\\
+		&= u(\alpha (x+\beta) + (1-\alpha) (y+\beta))\\
+		&\leq \alpha u(x+\beta) + (1-\alpha)u(y+\beta))\\
+		&= \alpha f(x) + (1-\alpha)f(y)\\
+	\end{aligned}
+\end{equation}
+
+\textbf{2e)} On utilise:
+\begin{itemize}
+    \item le point \textbf{c)} avec $w: t\mapsto t^2$ et $a$ l'application
+        norme sur $\mathbb{R}^n$ pour montrer que $u:x\mapsto ||x||^2$ est convexe.
+    \item le point \textbf{d)} avec $\beta=-y$ pour montrer que $f:x\mapsto ||x-y||^2$ est convexe de $\mathbb{R}^n$ dans $\mathbb{R}$.
+    \item le point \textbf{a)} appliqué à $g=f\circ s$ avec $s:\theta \mapsto X\theta$ linéaire de $ \mathbb{R}^d$ dans $\mathbb{R}$.
+\end{itemize}
+
+\textbf{3)} Puisque la fonction objectif est convexe, et différentiable, résoudre l'annulation du gradient est équivalent à trouver les minima locaux. Si la matrice $X^TX$ est inversible, alors l'annulation du gradient a bien une unique solution donnée par la formule OLS.
+
+\end{document}

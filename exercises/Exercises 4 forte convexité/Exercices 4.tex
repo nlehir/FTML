@@ -1,0 +1,73 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML Exercices 4}\\
+} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\tableofcontents
+
+\section{\large\color{Blue}Forte convexité de la loss Ridge regression}
+
+La forte convexité est une version plus forte de la convexité: la fonction considérée doit non seulement etre convexe, mais également avoir une certaine courbure minimale. Cette propriété est utile par exemple pour avoir des résultats de vitesse de convergence des descentes de gradient sur des fonctions fortement convexes.
+
+On rappelle la définition de la convexité et de la forte convexité:
+
+\begin{definition}{Convex function}
+    \label{def:convexity}
+
+    The function $f:\Omega \rightarrow \mathbb{R} $ with $\Omega$ a convex subset of $V$ is:
+    \begin{itemize}
+	\item \textbf{{convex}} if $\forall x, y\in \Omega, \alpha\in [0,1]$,
+	    \begin{equation*}
+		f(\alpha x+(1-\alpha)y)\leq \alpha f(x)+(1-\alpha)f(y)
+	    \end{equation*}
+	\item \textbf{{strictly convex}} if $\forall x, y\in \Omega, \alpha\in [0,1]$,
+	    \begin{equation*}
+		f(\alpha x+(1-\alpha)y)< \alpha f(x)+(1-\alpha)f(y)
+	    \end{equation*}
+	\item $\mu$-\textbf{{strongly convex}} if $\forall x, y\in \Omega, \alpha\in [0,1]$,
+	    \begin{equation*}
+		f(\alpha x+(1-\alpha)y)\leq \alpha f(x)+(1-\alpha)f(y)- \frac{\mu}{2} \alpha(1-\alpha)||x-y||^2
+	    \end{equation*}
+    \end{itemize}
+\end{definition}
+
+On souhaite montrer que la loss Ridge regression est fortement convexe en son argument $\theta$.
+
+\begin{definition}{Ridge regression estimator}
+
+\begin{equation}
+    \label{risk:ridge}
+    \hat{ \theta}_{\lambda} = \argmin_{\theta \in \mathbb{R}^d} \Big( \frac{1}{n} ||y-X\theta||_2^2 + \lambda || \theta||_2^2 \Big)
+\end{equation}
+\end{definition}
+
+
+        \begin{itemize}
+            \item 1) Pour s'entrainer à manipuler la forte convexité, vérifier que pour $x\in \mathbb{R}$, l'application $x\mapsto x^2$ est $2$-fortement convexe.
+            \item 2) Montrer que pour $x\in \mathbb{R}^d$, l'application $x\mapsto ||\theta||^2$ est $2$-fortement convexe.
+            \item 3) En déduire le résultat sur la forte convexité de la loss Ridge.
+            \item 4) (Un peu plus difficile, mais pas nécessaire pour avoir le résultat sur Ridge) Prouver le résultat plus général suivant:
+
+     if $Q$ is a symmetric definite positive matrix (matrice définie positive) with smallest eigenvalue $\lambda_{min}>0$, then the positive definite quadratic form $x\mapsto x^TQx$ is $ 2\lambda_{min}$- strongly convex.
+        \end{itemize}
+
+
+\end{document}

@@ -1,0 +1,63 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML Exercices 3}\\
+} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\tableofcontents
+
+\section{\large\color{Blue}Estimateurs et espérances}
+
+\textbf{Remarque:} attention, le terme estimateur est utilisé avec deux sens différents ici:
+    \begin{itemize}
+        \item Estimateur statistique
+
+            \url{https://fr.wikipedia.org/wiki/Estimateur_(statistique)} 
+        
+        \item Estimateur au sens "modèle": fonction utilisée pour prédire en fonction d'une entrée $x$.
+    \end{itemize}
+
+\subsection{Moyenne empirique et espérance}
+
+1) On se donne une variable aléatoire réelle X ayant un moment d’ordre 1. On note E[X] son espérance. On suppose que l’on dispose de n samples indépendants tirés de cette variable, $(x_1,\dots,x_n)$, qui suivent donc la loi de $X$.
+On considère leur moyenne empirique $S_n =  \frac{1}{n}\sum_{i=1}^{n} x_i$. Montrer que l’espérance de $S_n$ est l'espérance de $X$, $E[X]$ (autrement dit, que $S_n$ est un estimateur non biaisé de $E[X]$).
+\\
+
+2) Simuler une variable de votre choix pour observer la convergence de $S_n$ vers $E[X]$.
+
+\subsection{Espérance du risque empirique d'un estimateur indépendant du dataset}
+
+1) On se donne un problème d’apprentissage supervisé usuel et un estimateur $f$, fixé et indépendant du dataset. Montrer que l’espérance du risque empirique de $f$ est le risque réel de $f$. Autrement dit: le risque empirique de f est un estimateur non biaisé de son risque réel.
+
+La notion d’espérance a bien un sens ici car il faut voir le dataset comme une variable aléatoire, ainsi le risque empirique de $f$ est bien une variable aléatoire.
+\\
+
+
+2) Simuler un problème de votre choix pour observer le résultat (c’est ce qui est fait dans simulations/lecture\textunderscore 3/empirical\textunderscore risk\textunderscore convergence)
+
+\subsection{Espérance du risque empirique du minimiseur du risque empirique}
+
+Montrer que le résultat précédent n'est plus vrai quand $f$ est le minimiseur du risque empirique, c'est-à-dire la fonction $f_n$ pour laquelle le risque empirique prend la valeur la plus faible. On note que maintenant, $f_n$ est une variable aléatoire, calculée à partir du dataset.
+
+\textbf{Remarque:} vous pouvez montrer le résultat par le calcul mais également le vérifier en faisant des simulations.
+
+\textbf{Remarque:} Ce fait est une autre façon de dire qu'il est possible d'overfitter.
+
+\end{document}

@@ -1,0 +1,135 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML Exercices 4 solutions}\\
+} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\tableofcontents
+
+\section{\large\color{Blue}Forte convexité de la loss Ridge regression}
+
+\textbf{1)} On veut montrer que pour $\alpha\in [0,1]$, et $x, y\in \mathbb{R}$:
+
+\begin{equation}
+    (\alpha x + (1-\alpha)y)^2\leq \alpha x^2 + (1-\alpha)y^2 - \alpha(1-\alpha)(x-y)^2
+    \label{eq:}
+\end{equation}
+
+C'est-à-dire:
+\begin{equation}
+    \alpha^2 x^2 + (1-\alpha)^2y^2+2\alpha(1-\alpha)xy\leq \alpha x^2 + (1-\alpha)y^2 - \alpha(1-\alpha)(x-y)^2
+    \label{eq:}
+\end{equation}
+
+En mettant tous les termes du même côté, cela revient à:
+
+\begin{equation}
+    \alpha x^2-\alpha^2 x^2 + (1-\alpha)y^2 -(1-\alpha)^2y^2- \alpha(1-\alpha)(x-y)^2-2\alpha(1-\alpha)xy \geq 0
+    \label{eq:}
+\end{equation}
+
+On remarque que
+$\alpha-\alpha^2=\alpha(1-\alpha)$
+et que 
+$(1-\alpha)-(1-\alpha)^2=\alpha(1-\alpha)$
+
+Cela permet de tout factoriser par $\alpha(1-\alpha)$. Il nous reste donc à vérifier que:
+
+\begin{equation}
+     x^2 + y^2- (x-y)^2-2xy \geq 0
+    \label{eq:}
+\end{equation}
+
+Or ceci est effectivement vrai car:
+
+     \begin{align}
+         x^2 + y^2- (x-y)^2-2xy
+         &= x^2 + y^2- (x-y)^2-2xy \\
+         &= x^2 + y^2- x^2-y^2+2xy-2xy \\
+         &= 0\\
+     \end{align}
+
+On est donc dans un exemple où l'inégalité est saturée.
+\\
+
+\textbf{2)} On remarque que pour $x\mapsto||x||^2$,  avec $x\in \mathbb{R}^d$, les premières étapes du calcul sont identiques. En effet, on peut utiliser le fait que pour tout vecteur $z$, $||z||^2=\langle z, z \rangle$ et remplacer:
+\begin{itemize}
+    \item les $x^2$ par des $||x||^2$
+    \item les $y^2$ par des $||y||^2$
+    \item les $xy$ par des $\langle x, y \rangle$ (produit scalaire)
+\end{itemize}
+
+Il nous reste donc à vérifier que:
+
+\begin{equation}
+    ||x||^2 + ||y||^2- ||x-y||^2-2\langle x, y\rangle \geq 0
+    \label{eq:}
+\end{equation}
+
+Or c'est aussi égal à $0$ en développant comme précédemment.
+\\
+
+\textbf{3)} Avec la question 2), on sait que l'application $\theta \mapsto \lambda ||\theta||^2$ est $2\lambda$ fortement convexe, dès que $\lambda>0$. Avec les notation suivantes:
+\begin{itemize}
+    \item $u:\theta \mapsto \frac{1}{n}||X\theta -y||^2$, qui est convexe.
+    \item $v:\theta \mapsto \lambda||\theta||^2$, qui est donc $2\lambda$ fortement convexe.
+\end{itemize}
+
+on note que la loss Ridge est égale à $u(\theta)+v(\theta)$. Elle est donc également $2\lambda$ fortement convexe. 
+
+En effet:
+
+\begin{align}
+    (u+v)(\alpha\theta_1+(1-\alpha)\theta_2)&=
+    u(\alpha\theta_1+(1-\alpha)\theta_2)+v(\alpha\theta_1+(1-\alpha)\theta_2)\\
+    &\leq \alpha u(\theta_1)+(1-\alpha)u(\theta_2)+\alpha v(\theta_1)+(1-\alpha)v(\theta_2)-\alpha(1-\alpha)||\theta_1-\theta_2||^2\\
+    &\leq \alpha (u+v)(\theta_1)+(1-\alpha)(u+v)(\theta_2) -\alpha(1-\alpha)||\theta_1-\theta_2||^2\\
+ \end{align} 
+
+\textbf{4)} Soit $\mu = 2\lambda_{min}$. Montrons que:
+
+\begin{equation}
+    (\alpha x+(1-\alpha)y)^TQ(\alpha x+(1-\alpha)y)\leq \alpha x^TQx+(1-\alpha)y^TQy- \frac{\mu}{2} \alpha(1-\alpha)||x-y||^2
+\end{equation}
+
+c'est-à-dire:
+
+\begin{equation}
+    (\alpha x+(1-\alpha)y)^TQ(\alpha x+(1-\alpha)y) -\alpha x^TQx-(1-\alpha)y^TQy\leq - \frac{\mu}{2} \alpha(1-\alpha)||x-y||^2
+\end{equation}
+
+We compute the left-hand side:
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	&(\alpha x+(1-\alpha)y)^TQ(\alpha x+(1-\alpha)y) -\alpha x^TQx+(1-\alpha)y^TQy \\
+	&= \alpha^2 x^TQx + (1-\alpha)^2 y^TQy + \alpha(1-\alpha)(x^TQy+y^TQx)-\alpha x^TQx-(1-\alpha)y^TQy\\
+	&= \alpha(\alpha-1) x^TQx + (1-\alpha)((1-\alpha)-1) y^TQy + \alpha(1-\alpha)(x^TQy+y^TQx)\\
+	&= \alpha(\alpha-1) x^TQx + \alpha(\alpha-1) y^TQy + \alpha(1-\alpha)(x^TQy+y^TQx)\\
+	&= \alpha(1-\alpha) \Big(-x^TQx -  y^TQy + x^TQy+y^TQx\Big)\\
+	&= -\alpha(1-\alpha) \Big((x-y)^TQ(x-y)\Big)\\
+	&\leq -\lambda_{min}\alpha(1-\alpha)||x-y||^2
+    \end{aligned}
+\end{equation}
+
+Pour arriver à la dernière ligne, on a utilisé le résultat suivant: pour tout vecteur $x\in \mathbb{R}^d$, $x^TQx=\langle Qx, x\rangle\geq \lambda_{min} ||x||^2$. On peut prouver ce résultat en décomposant $x$ dans une base orthonormée de vecteurs propres de $Q$.
+
+\end{document}

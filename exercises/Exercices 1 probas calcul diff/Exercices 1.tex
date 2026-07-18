@@ -1,0 +1,157 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML Exercices 1}\\
+\large{Pour le 23 avril 2026}
+} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\tableofcontents
+
+
+\section{\large\color{Blue}Probabilités et statistiques}
+
+\subsection{\color{MidnightBlue}P1}
+
+\subsubsection{Enoncé}
+\label{par:enoncé}
+
+Calculer l'espérance et la variance des variables aléatoires réelles suivantes.
+\begin{itemize}
+    \item $X_1$ de loi uniforme sur $[0, 1]$.
+    \item $X_2$ de loi uniforme sur $[-1, 1]$.
+\end{itemize}
+
+
+\subsection{\color{MidnightBlue}P2}
+
+\subsubsection{Enoncé}
+\label{par:enoncé}
+
+Calculer l'espérance et la matrice de variance-covariance du vecteur aléatoire suivant
+
+\begin{equation}
+    Y = (Y_1, Y_2)
+\end{equation}
+
+où
+\begin{itemize}
+    \item $Y_1$ suit une loi de Bernoulli de paramètre $p$
+    \item $Y_2$ suit une loi normale $ \mathcal{N}(\mu, \sigma)$.
+    \item On suppose $Y_1$ et $Y_2$ indépendantes.
+\end{itemize}
+
+Le théorème de transfert est souvent utilisé pour réaliser ce type de calcul.
+
+\url{https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician} 
+
+Cependant, il ne faut pas oublier qu'il s'agit d'un théorème et non d'une définition.
+
+\subsection{\color{MidnightBlue}P3}
+
+\subsubsection{Enoncé}
+\label{par:enoncé}
+
+Calculer l'espérance et la matrice de variance-covariance du vecteur aléatoire suivant
+
+\begin{equation}
+    Z = (Z_1, Z_2)
+\end{equation}
+
+où
+\begin{itemize}
+    \item $Z_1$ suit une loi uniforme sur $[1, 2]$
+    \item $Z_2=Z_1^2$.
+\end{itemize}
+
+
+\subsection{\color{MidnightBlue}P4}
+
+\subsubsection{Enoncé}
+\label{par:enoncé}
+
+Le système musical occidental contient 12 notes. Un mode heptatonique contient 7 notes. Si je joue nombre $n$ de notes au hasard, et de façon indépendante et équiprobable, au bout de combien de notes ai-je joué au moins une note hors du mode avec une probabilité supérieure à 0.9 ?
+
+\section{\large\color{Blue}Expected value as a minimization}
+
+\subsubsection{Enoncé}%
+\label{ssub:Enoncé}
+
+Soit $X$ une variable aléatoire réelle ayant un moment d'ordre $2$. Montrer que
+son espérance $E(X)$ est la quantité minimisant la fonction de variable réelle $t\mapsto E\big( (X-t)^2 \big)$
+
+\section{\large\color{Blue}Calcul différentiel}
+
+Connaître et être à l'aise avec les définitions des gradients et jacobiennes d'applications. Bien noter qu'un gradient est simplement la transposée d'une jacobienne, et qu'il n'est défini que lorsque la fonction est à valeurs scalaires.
+
+Nous ferons des rappels en cours sur les différentielles et les gradients d'applications, mais voici quelques exercices pour s'habituer à les manipuler. Vous pouvez trouver la définition du gradient à la section 1.3 de lecture\textunderscore notes.pdf ou utiliser d'autres sources qui vous conviennent.
+\\
+
+\url{https://fr.wikipedia.org/wiki/Gradient} 
+
+\url{https://fr.wikipedia.org/wiki/Diff%C3%A9rentielle} 
+\\
+
+\subsection{\color{MidnightBlue}C1}
+
+\subsubsection{Enoncé}
+\label{par:enoncé}
+
+
+Calculer le gradient en tout point des applications suivantes.
+
+$$
+f_1 = \left\{
+    \begin{array}{ll}
+        \mathbb{R}^2 \rightarrow \mathbb{R}  \\
+	(x,y)\mapsto 3
+    \end{array}
+\right.
+$$
+
+$$
+f_2 = \left\{
+    \begin{array}{ll}
+        \mathbb{R}^2 \rightarrow \mathbb{R}  \\
+	(x,y)\mapsto x^3+\sin y
+    \end{array}
+\right.
+$$
+
+$$
+f_3 = \left\{
+    \begin{array}{ll}
+        \mathbb{R}^2 \rightarrow \mathbb{R}  \\
+	(x,y)\mapsto x^3\sin y
+    \end{array}
+\right.
+$$
+
+$$
+f_4 = \left\{
+    \begin{array}{ll}
+        \mathbb{R}^d \rightarrow \mathbb{R}  \\
+	x\mapsto ||x||_2^2
+    \end{array}
+\right.
+$$
+
+où $||.||_2$ est la norme euclidienne dans $\mathbb{R}^d$.
+
+\end{document}

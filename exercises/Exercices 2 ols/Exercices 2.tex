@@ -1,0 +1,76 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML Exercices 2}\\
+} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\tableofcontents
+
+\section{\large\color{Blue}Ordinary least squares}
+
+\subsubsection{Enoncé}
+\label{par:enoncé}
+
+On veut étudier la fonction objectif du problème OLS présenté lors du tp 2 afin de prouver par la suite la valeur de l'estimateur OLS. Les questions 1 et 2 peuvent être traitées indépendamment. Les définitions de la convexité et du gradient sont disponibles dans lecture\textunderscore notes.pdf (ou d'autres références de votre choix).
+\\
+
+Soit $n$ et $d\in \mathbb{N}^*$.
+\\
+
+1) Soit $X\in \mathbb{R}^{n, d}$, et $y\in \mathbb{R}^n$. Calculer le gradient de 
+
+$$
+g = \left\{
+    \begin{array}{ll}
+        \mathbb{R}^d \rightarrow \mathbb{R}  \\
+	\theta\mapsto ||X\theta-y||^2
+    \end{array}
+\right.
+$$
+
+L'estimateur OLS est la valeur $\hat{\theta}$ qui minimise $g$ sur $\mathbb{R}^d$.
+\\
+
+2) On veut montrer que la fonction $g$ est convexe. Il
+y a de nombreuses méthodes pour cela mais utiliser ici les étapes suivantes:
+
+\begin{itemize}
+    \item[a)] montrer que si $s : \mathbb{R}^d \rightarrow \mathbb{R}^n$ est linéaire
+        et $f: \mathbb{R}^n \rightarrow \mathbb{R}$ est convexe, alors $ f\circ
+        s: \mathbb{R}^d \rightarrow \mathbb{R}$ est convexe.
+    \item[b)] montrer que toute norme sur $\mathbb{R}^n$ est convexe.
+    \item[c)] montrer que si $w: \mathbb{R}\rightarrow \mathbb{R}$ est convexe
+        croissante et $a: \mathbb{R}^n \rightarrow \mathbb{R}$ est convexe, alors
+        $u = w\circ a: \mathbb{R}^n \rightarrow \mathbb{R}$ est convexe.
+    \item[d)] montrer que si $u: \mathbb{R}^n \rightarrow \mathbb{R}$ est convexe, alors si $\beta\in \mathbb{R}^n$, l'application $f:x\mapsto u(x+\beta)$ est convexe.
+    \item[e)] Appliquer les résultats précédents pour montrer la convexité de $g$.
+\end{itemize}
+
+
+3) En déduire que si $X^TX$ est inversible, l'estimateur OLS est égal à 
+
+\begin{equation}
+	\hat{ \theta}= (X^TX)^{-1}X^Ty
+    \label{eq:ols}
+\end{equation}
+
+4) Facultatif: montrer que si $d<n$ et $X$ est injective, alors $X^TX$ est inversible.
+
+\end{document}

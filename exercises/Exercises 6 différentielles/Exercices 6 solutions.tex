@@ -1,0 +1,90 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML Exercices 6 solutions}\\
+} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\tableofcontents
+
+\section{\large\color{Blue}Jacobiennes}
+
+\paragraph{f1}%
+\label{par:f1}
+
+Pour cet exemple le plus simple est d'utiliser les dérivées partielles. Si on note $J_{x, y, z}$ la jacobienne en $(x, y, z)$, on a:
+
+\begin{equation}
+J_{x, y, z} = 
+\begin{pmatrix}
+    -y\sin(xy) &  -x\sin (xy) & 0\\
+    -z\sin(xz) &  0 & -x\sin(xz)\\
+\end{pmatrix}
+\end{equation}
+
+\paragraph{f2}%
+\label{par:f1}
+
+Si on note $J_{a, b, c, d}$ la jacobienne en $(a, b, c, d)$, on a:
+
+\begin{equation}
+J_{a, b, c, d} = 
+\begin{pmatrix}
+    1 &  -1 & 0 & 0 \\
+    1 &  -1 & -1 & -1 \\
+    0 &  0 & 1 & 1 \\
+    0 &  1 & 0 & -1 \\
+\end{pmatrix}
+\end{equation}
+
+
+\paragraph{3}%
+\label{par:f2}
+
+Supposons par l'absurde que la norme $x\mapsto ||x||$ soit différentiable en $0$. Il existe donc $L$ linéaire continue telle que
+
+\begin{equation}
+    \label{eq:diff}
+    ||h|| = L(h) + o(h)
+\end{equation}
+
+On peut réécrire $o(h)$ comme le produit $||h||a(h)$, avec $a$ une application tendant vers $0$ quand $h$ tend vers $0$. Soit $t$ un nombre réel. Avec l'homogénéité de la norme, on sait que $||th||=|t|||h||$. En appliquant \ref{eq:diff}, on obtient que
+\begin{equation}
+    \label{eq:homo}
+    L(th) + ||th||a(th) = |t| (L(h) + ||h||a(h))
+\end{equation}
+
+Prenons $t>0$. Avec la linéarité de $L$, \ref{eq:homo} devient
+
+\begin{equation}
+    tL(h) + t||h||a(th) = t L(h) + t||h||a(h)
+\end{equation}
+
+Puis en simplifiant
+
+\begin{equation}
+    a(th) = a(h)
+\end{equation}
+
+En faisant tendre $t$ vers 0, on obtient que nécessairement $a(h)=0$ pour tout $h$. Ainsi, $||h||=L(h)$.
+
+Par ailleurs on sait que si $h\neq 0$, alors $||h||>0$, et $||-h||>0$. Or, $||-h|| = L(h) = -L(h) = -||h||<0$, ce qui est absurde.
+
+
+\end{document}

@@ -1,0 +1,49 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML Exercices 3 solutions}\\
+} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\tableofcontents
+
+\section{\large\color{Blue}Estimateurs et espérances}
+
+\subsection{Moyenne empirique et espérance}
+
+On utilise les notations de \textbf{lecture\textunderscore notes.pdf} section 3.1.8. Avec la linéarité de l'espérance, on a:
+
+\begin{equation}
+	\begin{aligned}
+		\label{eq:}
+		E_{D_n\sim \rho^n}[S_n] &= E_{D_n\sim \rho^n}[\frac{1}{n}\sum_{i=1}^n x_i]\\
+		    &= \frac{1}{n}\sum_{i=1}^n E_{D_n\sim \rho^n}[x_i]\\
+		    &= \frac{1}{n}\sum_{i=1}^n E[X]\\
+		    &= E[X]\\
+	\end{aligned}
+\end{equation}
+
+Un exemple de simulation est donné dans la solution de l'exercice 1 du tp 1.
+
+
+\subsection{Espérance du risque empirique d'un estimateur indépendant du dataset}
+
+C'est le même principe qu'à la question précédente. Pour le calcul détaillé, voir \textbf{lecture\textunderscore notes.pdf} section 3.1.8.
+
+\end{document}

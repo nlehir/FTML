@@ -1,0 +1,1 @@
+tu as raison de poser la question car r n'est pas linéaire mais affine donc il y a une petite subtilité. Mais la convexité est préservée quand on compose à droite par une fonction affine donc tout se passe bien. J'ai ajouté une étape dans l'énoncé ainsi que la correction et j'ai push.

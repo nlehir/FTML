@@ -1,0 +1,151 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML Exercices 5 solutions}\\
+} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\tableofcontents
+
+\section{\large\color{Blue}Logistic regression}
+
+1]
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	\forall z\in \mathbb{R}, \sigma'(z) &= \big(- \frac{1}{(1+e^{-z})^2}\big)\big( -e^{-z}\big)\\
+	&= \frac{1}{1+e^{-z}} \frac{e^{-z}}{1+e^{-z}} \\
+	&= \frac{1}{1+e^{-z}} \frac{e^{-z}e^z}{(1+e^{-z})e^z} \\
+	&= \frac{1}{1+e^{-z}} \frac{1}{1+e^{z}} \\
+	&= \sigma(z)\sigma(-z)
+    \end{aligned}
+\end{equation}
+
+
+2] We compute the second order derivative.
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	\frac{\partial l}{\partial \hat{y}}( \hat{y}, y) &= \frac{-ye^{- \hat{y}y}}{1+e^{- \hat{y}y}}\\
+	&= \frac{-ye^{- \hat{y}y}}{1+e^{- \hat{y}y}}\frac{e^{\hat{y}y}}{e^{\hat{y}y}}\\
+	&= \frac{-y}{e^{\hat{y}y}+1}\\
+	&= -y\sigma(-\hat{y}y)
+    \end{aligned}
+\end{equation}
+
+Hence,
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	\frac{\partial^2 l}{\partial \hat{y}^2}( \hat{y}, y) &= -y\sigma(-\hat{y}y)\sigma(\hat{y}y)\times -y\\
+	&= y^2\sigma(-\hat{y}y)\sigma(\hat{y}y)>0\\
+    \end{aligned}
+\end{equation}
+
+
+Hence, the second-order derivative is strictly positive, and $l( \hat{y}, y)$ is stricly convex in its first argument.
+\\
+
+3] We introduce the following functions:
+
+$$
+g_i = \left\{
+    \begin{array}{ll}
+	\mathbb{R}^d\rightarrow \mathbb{R}    \\
+	\theta \mapsto   l(x_i^T\theta, y_i) \\
+    \end{array}
+    \right.
+    $$
+
+$$
+u_i = \left\{
+    \begin{array}{ll}
+	\mathbb{R}\rightarrow \mathbb{R}    \\
+	\hat{y} \mapsto   l(\hat{y}, y_i) \\
+    \end{array}
+    \right.
+    $$
+
+$$
+v_i = \left\{
+    \begin{array}{ll}
+	\mathbb{R}^d\rightarrow \mathbb{R}    \\
+	\theta \mapsto   x_i^T\theta \\
+    \end{array}
+    \right.
+    $$
+
+    Then, $\forall i$
+
+    \begin{equation}
+	\label{eq:comp}
+	l(x_i^T\theta, y_i) = g_i(\theta)= (u_i\circ v_i)(\theta)
+    \end{equation}
+
+\textbf{a]} (convexity) It is sufficient to show that each $g_i:\theta \rightarrow l(x_i^T\theta, y_i) $ is convex, because the sum of convex functions is convex. By definition, (equation~\ref{eq:comp}), $g_i$ is a convex function $u_i$ applied to a linear mapping $v_i$, which prooves that $g_i$ is convex.
+\\
+
+\textbf{b]} (gradient) By composition of the jacobian matrices,
+    \begin{equation}
+    L_{\theta}^{g_i}= L_{v_i(\theta)}^{u_i}L_{\theta}^{v_i}= u_i'(v_i(\theta))L_{\theta}^{v_i}
+    \end{equation}
+
+    Or equivalently:
+    \begin{equation}
+	\nabla_{\theta}g_i(\theta) = u_i'(v_i(\theta))\nabla_{\theta}v_i(\theta)
+    \end{equation}
+
+    We already know that $\nabla_{\theta}v_i(\theta) = x_i$.
+    \\
+
+	 In question 2, we have seen that $\forall y, \hat{y}$,
+	    \begin{equation}
+		\frac{\partial l}{\partial \hat{y}}( \hat{y}, y) = -y\sigma(-\hat{y}y)
+	    \end{equation}
+
+	    Hence,
+	    \begin{equation}
+		\begin{aligned}
+		    u_i'(v_i(\theta))&= -y_i\sigma( -v_i(\theta)y_i)\\
+		    &= -y_i\sigma( -x_i^T\theta y_i)\\
+		\end{aligned}
+	    \end{equation}
+
+	Finally,
+
+    \begin{equation}
+	\nabla_{\theta}g_i(\theta) = -y_i\sigma( -x_i^T\theta y_i)x_i
+    \end{equation}
+    
+
+    and 
+
+    \begin{equation}
+	\begin{aligned}
+	    \label{eq:}
+	    \nabla_{\theta}R_n(\theta) &= \frac{1}{n} \sum^{n}_{i=1}\nabla_{\theta}g_i(\theta) \\
+        &= \frac{1}{n}  \sum^{n}_{i=1} -y_i\sigma(-x_i^T\theta y_i)x_i
+	\end{aligned}
+    \end{equation}
+
+
+\end{document}

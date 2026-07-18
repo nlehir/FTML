@@ -1,0 +1,76 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML Exercices 5}\\
+} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\tableofcontents
+
+\section{\large\color{Blue}Regression logistique}
+
+We consider the logistic regression problem, in the following setting:
+\begin{itemize}
+    \item $ \mathcal{X}  = \mathbb{R}^d$
+    \item $\mathcal{Y}  = \{-1, 1\}$
+    \item Logistic loss:
+        \begin{equation}
+            l( \hat{y}, y) = \log(1+e^{- \hat{y}y})
+        \end{equation}
+\end{itemize}
+
+
+We also define the following function:
+\begin{definition}{Sigmoid function}
+
+    $\sigma: \mathbb{R} \rightarrow \mathbb{R} $.
+
+\begin{equation}
+    \sigma(x) = \frac{1}{1+e^{-x}}
+\end{equation}
+\end{definition}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{sigmoid}
+    \label{fig:sigmoid}
+\end{figure}
+
+1] Show that $\sigma$ is differentiable and that 
+
+\begin{equation}
+    \forall z, \sigma'(z) = \sigma(z)\sigma(-z)
+\end{equation}
+
+2] Show that $l( \hat{y}, y)$ is strictly convex in its first argument, which means for fixed $y$, $ \hat{y}\mapsto l( \hat{y},y)$ is strictly convex. Using properties that relate convexity and the derivative of a function, and using the sigmoid function will be helpful.
+\\
+
+3] Without regularization, the empirical risk writes:
+
+\begin{equation}
+    R_n(\theta)=\frac{1}{n} \sum^{n}_{i=1} l(x_i^T\theta, y_i)
+\end{equation}
+
+\begin{itemize}
+    \item[\textbf{a}] Show that $\theta \rightarrow R_n(\theta)$ is convex
+    \item[\textbf{b}] Compute the gradient $\nabla_{\theta}R_n(\theta)$ of the empirical risk $R_n(\theta)$ in this setting.
+\end{itemize}
+
+
+\end{document}

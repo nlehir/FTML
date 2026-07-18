@@ -1,0 +1,61 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML Exercices 6}\\
+} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{\today}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\tableofcontents
+
+\section{\large\color{Blue}Jacobiennes et différentielles}
+
+Calculer les jacobiennes des applications suivantes:
+
+\begin{itemize}
+    \item[1]
+
+$$
+f_1 = \left\{
+    \begin{array}{ll}
+        \mathbb{R}^3 \rightarrow \mathbb{R}^2  \\
+	(x, y, z)\mapsto (\cos(xy), \cos(xz))
+   \end{array}
+\right.
+$$
+
+    \item[2]
+
+$$
+f_2 = \left\{
+    \begin{array}{ll}
+        \mathbb{R}^4 \rightarrow \mathbb{R}^4  \\
+	(a, b, c, d)\mapsto (a-b, a-b-d-c, c+d, b-d)
+   \end{array}
+\right.
+$$
+
+    \item[3]
+	
+	Montrer qu'aucune norme n'est différentiable en 0.
+
+\end{itemize}
+
+
+
+\end{document}

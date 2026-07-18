@@ -1,0 +1,352 @@
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+\input{stru/structure.tex}
+\hyphenation{Fortran hy-phen-ation} 
+
+\title{\normalfont{FTML Exercices 1 solutions}\\
+\large{Pour le 23 avril 2026}
+} 
+\author{\spacedlowsmallcaps{}
+} 
+\date{}
+\begin{document}
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} 
+\pagestyle{scrheadings}
+\maketitle 
+\setcounter{tocdepth}{3} 
+
+\tableofcontents
+
+\section{\large\color{Blue}Probabilités et statistiques}
+
+\subsection{\color{MidnightBlue}P1}
+
+\subsubsection{Enoncé}
+\label{par:enoncé}
+
+Calculer l'espérance et la variance des variables aléatoires réelles suivantes.
+\begin{itemize}
+    \item $X_1$ de loi uniforme sur $[0, 1]$.
+    \item $X_2$ de loi uniforme sur $[-1, 1]$.
+\end{itemize}
+
+\subsubsection{Solution}
+
+
+$X_1$ et $X_2$ sont des variables à densité. Pour tout $x$ dans leur support,
+$p_{X_1}(x) = 1$, et $p_{X_2}(x) = \frac{1}{2} $.
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+        E[X_1] &= \int^{1}_{0} x p_{X_1}(x) dx \\
+        &= \int^{1}_{0} x  dx \\
+        &= [ \frac{x^2}{2} ]^1_0\\
+        &= \frac{1}{2} 
+    \end{aligned}
+\end{equation}
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+        E[X_2] &= \int^{1}_{-1} x p_{X_2}(x) dx \\
+        &= \int^{1}_{-1} x \frac{1}{2}  dx \\
+        &= \frac{1}{2}[ \frac{x^2}{2} ]^1_{-1}\\
+        &= 0
+    \end{aligned}
+\end{equation}
+
+On dit que $X_2$ est \textbf{{centrée.}} 
+
+\subsection{\color{MidnightBlue}P2}
+
+\subsubsection{Enoncé}
+\label{par:enoncé}
+
+Calculer l'espérance et la matrice de variance-covariance du vecteur aléatoire suivant
+
+\begin{equation}
+    Y = (Y_1, Y_2)
+\end{equation}
+
+où
+\begin{itemize}
+    \item $Y_1$ suit une loi de Bernoulli de paramètre $p$
+    \item $Y_2$ suit une loi normale $ \mathcal{N}(\mu, \sigma)$.
+    \item On suppose $Y_1$ et $Y_2$ indépendantes.
+\end{itemize}
+
+\subsubsection{Solution}
+
+Puisque $Y_1$ et $Y_2$ sont indépendantes, on sait que les termes non-diagonaux
+sont nuls. Il suffit donc de calculer les variances de $Y_1$ et $Y_2$.
+\\
+
+On sait que la variance de $Y_2$ est $\sigma^2$ car c'est une loi normale (
+\url{https://fr.wikipedia.org/wiki/Loi_normale}).
+\\
+
+Calculons la variance de $Y_1$ (\url{https://fr.wikipedia.org/wiki/Loi_de_Bernoulli} ). Son espérance vaut $E[Y_1] = 1\times p+0\times (1-p) = p$.  Pour calculer la variance on utilise le théorème de transfert.
+
+\url{https://en.wikipedia.org/wiki/Law_of_the_unconscious_statistician} 
+
+Cependant, il ne faut pas oublier qu'il s'agit d'un théorème et non d'une définition.
+
+Si $X$ est une variable réelle à densité $p_X$, alors sous certaines hypothèses (qui sont vérifiées ici)
+\begin{equation}
+    E[f(X)] = \int_{x\in \mathbb{R} } f(x) p_X(x) dx 
+\end{equation}
+
+Appliqué à $Y_1$, cela donne:
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+        Var[Y_1] &= E[(Y_1-E[Y_1])^2]\\
+        &= (1-p)^2\times p + (0-p)^2\times (1-p)\\
+        &= p(1-p)(p+1-p)\\
+        &= p(1-p)
+    \end{aligned}
+\end{equation}
+
+Finalement
+
+\begin{equation*}
+    Var(Y) = 
+\begin{pmatrix}
+    p(1-p)  & 0 \\
+    0  & \sigma^2 \\
+\end{pmatrix}
+\end{equation*}
+
+
+\subsection{\color{MidnightBlue}P3}
+
+\subsubsection{Enoncé}
+\label{par:enoncé}
+
+Calculer l'espérance et la matrice de variance-covariance du vecteur aléatoire suivant
+
+\begin{equation}
+    Z = (Z_1, Z_2)
+\end{equation}
+
+où
+\begin{itemize}
+    \item $Z_1$ suit une loi uniforme sur $[1, 2]$
+    \item $Z_2=Z_1^2$.
+\end{itemize}
+
+\subsubsection{Solution}
+
+
+On a $E[Z_1] = \frac{3}{2} $. On utilise le théorème de transfert pour $E[Z_2]$.
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	E[Z_2] &= \int^{2}_{1} x^2 p_{Z_1}(x)dx \\
+	&= [\frac{x^3}{3} ]^2_1\\
+	&= \frac{7}{3} 
+    \end{aligned}
+\end{equation}
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	Cov(Z_1, Z_2) &= \int^{2}_{1} (x- \frac{3}{2} )(x^2- \frac{7}{3} )  dx \\
+	&= \int^{2}_{1} x^3- \frac{7}{3} x - \frac{3}{2} x^2  + \frac{7}{2}  dx\\
+	&= [ \frac{x^4}{4} ]^2_1 - \frac{7}{3} [ \frac{x^2}{2} ]^2_1 - \frac{3}{2} [ \frac{x^3}{3} ]^2_1 + \frac{7}{2} \\
+	&= \frac{15}{4} - \frac{7}{3}\times \frac{3}{2} - \frac{3}{2} \times\frac{7}{3} + \frac{7}{2} \\
+	&= \frac{15}{4} - 7 + \frac{7}{2} \\
+	&= \frac{15}{4} - \frac{14}{4} \\
+	&= \frac{1}{4} 
+    \end{aligned}
+\end{equation}
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	Var(Z_1) &= \int^{2}_{1} (x- \frac{3}{2} )^2  dx \\
+	&= \int^{ \frac{1}{2} }_{ -\frac{1}{2} } u^2du\\
+	&= [ \frac{u^3}{3} ]^{ \frac{1}{2} }_{- \frac{1}{2}} \\
+	&= \frac{1}{12} 
+    \end{aligned}
+\end{equation}
+
+\begin{equation}
+    \begin{aligned}
+        \label{eq:}
+	Var(Z_2) &= \int^{2}_{1} ( x^2 - \frac{7}{3} )^2  dx \\
+	&= \int^{2}_{1} x^4- \frac{14}{3} x^2+ \frac{49}{9}  dx \\
+	&= [ \frac{x^5}{5} ]^2_1 - \frac{14}{3} [ \frac{x^3}{3} ]^2_1 + \frac{49}{9} \\
+	&= \frac{31}{5} - \frac{14}{3} \frac{7}{3} + \frac{49}{9} \\
+	&= \frac{31}{5} - \frac{98}{9} + \frac{49}{9} \\
+	&= \frac{31}{5} - \frac{49}{9} \\
+	&= \frac{31\times 9 - 49\times 5}{45} \\
+	&= \frac{34}{45} 
+    \end{aligned}
+\end{equation}
+
+As the variance matrix is symmetric, we have:
+\begin{equation*}
+    Var(Z) = 
+\begin{pmatrix}
+    \frac{1}{12}   & \frac{1}{4}  \\
+    \frac{1}{4}   & \frac{34}{45}  \\
+\end{pmatrix}
+\end{equation*}
+
+\section{\large\color{Blue}Expected value as a minimization}
+
+\subsubsection{Enoncé}%
+\label{ssub:Enoncé}
+
+Soit $X$ une variable aléatoire réelle ayant un moment d'ordre $2$. Montrer que
+son espérance $E(X)$ est la quantité minimisant la fonction de variable réelle $t\mapsto E\big( (X-t)^2 \big)$
+
+\subsubsection{Solution}%
+\label{ssub:Solution}
+
+All expected values are over $X$. We remark that
+
+\begin{equation*}
+    \begin{aligned}
+	E\Big[(X-t)^2 \Big]&= E\Big[\big(X-E(X)+E(X)-t\big)^2 \Big]\\
+	&=E\Big[\big(X-E(X)\big)^2+2\big(X-E(X)\big)\big(E(X)-t\big)+\big(E(X)-t\big)^2 \Big]\\
+    \end{aligned}
+\end{equation*}
+
+By linearity, the expected value is separated in $3$ terms.
+
+\begin{itemize}
+    \item $E\Big[\big(X-E(X)\big)^2\Big]$
+    \item $E\Big[2\big(X-E(X)\big)\big(E(X)-t\big)\Big]$
+    \item $E\Big[\big(E(X)-t\big)^2\Big]$
+\end{itemize}
+
+We note that the first term $E\Big[(X-E(X))^2\Big]$ does not depend on $t$.
+
+Also,  $(E(X)-t)^2$, is a fixed scalar, and not a random variable, hence:
+
+\begin{equation*}
+    E\Big[\big(E(X)-t\big)^2\Big]=\big(E(X)-t\big)^2
+\end{equation*}
+
+We also have that
+\begin{equation*}
+    E\Big[2\big(X-E(X)\big)\big(E(X)-t\big)\Big]=2\big(E(X)-t\big)E\Big[\big(X-E(X)\big)\Big]=0
+\end{equation*}
+
+As a consequence, the value that minimizes $E\big[(X-t)^2 \big]$ is $t=E(X)$.
+\\
+
+On peut aussi prouver le résultat en développant $(X-t)^2=X^2-2tX+t^2$.
+
+\begin{equation}
+\begin{aligned}
+    \label{eq:}
+    E[(X-t)^2]  &= E[(X^2-2tX+t^2)]\\
+		&= E[X^2]-2tE[X] + E[t^2]\\
+		&= E[X^2]-2tE[X] + t^2\\
+\end{aligned}
+\end{equation}
+
+La dérivée par rapport à $t$ vaut $2t - 2E[X]$, qui est négative pour $t\leq E[X]$ et positive pour $t\geq E[X]$, ce qui prouve le résultat.
+
+
+
+\section{\large\color{Blue}Calcul différentiel}
+
+\subsection{\color{MidnightBlue}C1}
+
+\subsubsection{Enoncé}
+\label{par:enoncé}
+
+Calculer le gradient en tout point des applications suivantes.
+
+$$
+f_1 = \left\{
+    \begin{array}{ll}
+        \mathbb{R}^2 \rightarrow \mathbb{R}  \\
+	(x,y)\mapsto 3
+    \end{array}
+\right.
+$$
+
+$$
+f_2 = \left\{
+    \begin{array}{ll}
+        \mathbb{R}^2 \rightarrow \mathbb{R}  \\
+	(x,y)\mapsto x^3+\sin y
+    \end{array}
+\right.
+$$
+
+$$
+f_3 = \left\{
+    \begin{array}{ll}
+        \mathbb{R}^2 \rightarrow \mathbb{R}  \\
+	(x,y)\mapsto x^3\sin y
+    \end{array}
+\right.
+$$
+
+$$
+f_4 = \left\{
+    \begin{array}{ll}
+        \mathbb{R}^d \rightarrow \mathbb{R}  \\
+	x\mapsto ||x||_2^2
+    \end{array}
+\right.
+$$
+
+où $||.||_2$ est la norme euclidienne dans $\mathbb{R}^d$.
+
+\subsubsection{Solution}
+
+$\forall (x,y)\in \mathbb{R}^2$, 
+\begin{equation*}
+    \nabla_{(x,y)}f_1(x,y)=
+\begin{pmatrix}
+    0\\
+    0
+\end{pmatrix}
+\end{equation*}
+
+$\forall (x,y)\in \mathbb{R}^2$, 
+\begin{equation*}
+    \nabla_{(x,y)}f_2(x,y)=
+\begin{pmatrix}
+    3x^2\\
+    \cos y
+\end{pmatrix}
+\end{equation*}
+
+f4) Soit $x\in \mathbb{R}^d$ et $h\in \mathbb{R}^d$.
+
+Ici on utilise la définition du gradient par la différentielle et le développement limité, mais on arriverait au même résultat avec les dérivées partielles (s'entraîner à le faire).
+
+\begin{equation}
+\begin{aligned}
+    \label{eq:}
+    ||x+h||^2 &= \langle x+h, x+h \rangle\\
+    &= \langle x, x \rangle + 2 \langle x, h \rangle + \langle h, h \rangle\\
+    &= ||x||^2 + \langle 2x, h \rangle + ||h||^2\\
+    &= ||x||^2 + \langle 2x, h \rangle + o(h)
+\end{aligned}    
+\end{equation}
+
+Ainsi 
+
+\begin{equation}
+    \nabla_xf(x) = 2x
+\end{equation}
+
+\end{document}
