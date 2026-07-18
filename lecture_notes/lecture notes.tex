@@ -125,6 +125,7 @@ Indeed,
 
 \begin{proposition}
 
+
     Let $k_1<k_2$ be integers. Let $X$ be a real random variable. Then if $X$ has a moment of order $k_2$, $X$ also has a moment of order $k_1$.
     
 \end{proposition}
@@ -1061,6 +1062,7 @@ Any $x_t\in \mathbb{R}^d$ is called an \textbf{{iterate}} of the algorithm. GD i
 gradient}} descent, as opposed to Stochastic Gradient Descent (SGD, see \ref{sec:sgd}).
 
 \subsubsection{\large\color{Periwinkle}Minimisation of a strongly convex function}
+\label{ssub:gd_strongly_convex}
 
 The following lemma shows that if the step size is small enough, then GD is a \textbf{{descent algorithm.}} 
 
@@ -1699,42 +1701,42 @@ considered space of functions.
 	then,
 
 	\begin{equation*}
-	    P(R( \tilde{f}_n)\leq 3\epsilon)\geq 1-2e^{ - C^{ \frac{1}{\beta} }\epsilon^{- \frac{1}{\beta} }}
+	    P\big(R( \tilde{f}_n)\leq 3\epsilon\big)\geq 1-2e^{ - C^{ \frac{1}{\beta} }\epsilon^{- \frac{1}{\beta} }}
 	\end{equation*}
         
     \end{proposition}
 
-    \subsubsection{\large\color{Periwinkle}Approximation error bound}
-
-    \textbf{{Noiseless model:}} We introduce an \textit{{a priori}} knowledge in the problem, stating that there exists a (unknown) function $f$ linking the inputs $x$ to the outputs, without ambiguity. Thus, we can write $y=f(x)$.
-
-    \textbf{{Classes of functions:}} We also assume $f$ belongs to a given class of functions $F$. Usually, $F$ determines the \textbf{{regularity }} of $f$ (differentiability order, Lipshitz, etc.).
-
-    \begin{equation*}
-	R(f_a)\leq \max_{f\in F}\min_{h\in H}||f-h||_{\infty}
-    \end{equation*}
-
-    Thus, if we have bounds such as
-    \begin{equation}
-	\label{eq:unif_bound}
-\max_{f\in F}\min_{h\in H}||f-h||_{\infty}\leq C\big( \log(|F|) \big)^{-\beta}  
-    \end{equation}
-
-    we have \ref{eq:decay} and we can apply \ref{prop:decay_approx}.
-
-    \subsubsection{\large\color{Periwinkle}Curse of dimensionality}
-
-    We look for a bound of the type of \ref{eq:unif_bound}, where $F$ is the class of uniformly Lipshitz continuous ($\alpha=1$), and when  $h$ is a nearest neighbor algorithm.
-
-    We show that in order to have $ \sup_{f\in F}||f- \tilde{f}||_{\infty}\leq \epsilon$, we must have
-
-    \begin{equation*}
-	n\geq \frac{\epsilon^{-d}d^{ \frac{d}{2} }}{(2\pi e)^{ \frac{d}{2} } }
-    \end{equation*}
-
-    \begin{remark}
-        With $\alpha$ larger, the result is similar.
-    \end{remark}
+%     \subsubsection{\large\color{Periwinkle}Approximation error bound}
+%
+%     \textbf{{Noiseless model:}} We introduce an \textit{{a priori}} knowledge in the problem, stating that there exists a (unknown) function $f$ linking the inputs $x$ to the outputs, without ambiguity. Thus, we can write $y=f(x)$.
+%
+%     \textbf{{Classes of functions:}} We also assume $f$ belongs to a given class of functions $F$. Usually, $F$ determines the \textbf{{regularity }} of $f$ (differentiability order, Lipshitz, etc.).
+%
+%     \begin{equation*}
+% 	R(f_a)\leq \max_{f\in F}\min_{h\in H}||f-h||_{\infty}
+%     \end{equation*}
+%
+%     Thus, if we have bounds such as
+%     \begin{equation}
+% 	\label{eq:unif_bound}
+% \max_{f\in F}\min_{h\in H}||f-h||_{\infty}\leq C\big( \log(|F|) \big)^{-\beta}  
+%     \end{equation}
+%
+%     we have \ref{eq:decay} and we can apply \ref{prop:decay_approx}.
+%
+%     \subsubsection{\large\color{Periwinkle}Curse of dimensionality}
+%
+%     We look for a bound of the type of \ref{eq:unif_bound}, where $F$ is the class of uniformly Lipshitz continuous ($\alpha=1$), and when  $h$ is a nearest neighbor algorithm.
+%
+%     We show that in order to have $ \sup_{f\in F}||f- \tilde{f}||_{\infty}\leq \epsilon$, we must have
+%
+%     \begin{equation*}
+% 	n\geq \frac{\epsilon^{-d}d^{ \frac{d}{2} }}{(2\pi e)^{ \frac{d}{2} } }
+%     \end{equation*}
+%
+%     \begin{remark}
+%         With $\alpha$ larger, the result is similar.
+%     \end{remark}
 
 
 \subsection{\large\color{MidnightBlue}Ordinary Least Squares (OLS)}
@@ -1846,7 +1848,7 @@ We assume that $X$ is \textbf{{injective.}}  Necessary, $d\leq n$.
     where we have used \ref{ssec:linalg}. We deduce that the gradient of $R_n$ in $\theta$ writes
     \begin{equation}
 	\label{eq:olseq}
-        \nabla_{\theta} R_n = \frac{2}{n} (X^TX\theta-X^Ty)
+        \nabla_{\theta} R_n(\theta) = \frac{2}{n} (X^TX\theta-X^Ty)
     \end{equation}
 
     Let us show that $X^TX$ is \textbf{{inversible.}} As it is a square matrix $\in \mathbb{R}^{d\times d}$, we only need to show that it is injective. Let $u\in \mathbb{R}^d$, such that $X^TXu = 0$. Then $ \langle X^TXu, u \rangle=0$, but this inner product equals $\langle Xu, Xu \rangle = ||Xu||^2$. Hence $Xu=0$, but as $X$ is injective, $u=0$, which shows that $X^TX$ is injective.
@@ -1967,6 +1969,10 @@ However, it is also possible to have similar results in the random design settin
 	\item $E\Big[||\theta-E[\theta]||_{\hat{\Sigma}}^2\Big]$: Variance term
     \end{itemize}
 \end{proposition}
+
+\begin{remark}
+    There are many situations in which $\theta$ is a random variable. This happens for instance if $\theta$ is the OLS estimator, which depends on the train set.
+\end{remark}
 
 \begin{proposition}{Statistical property of OLS estimator}
 
@@ -2130,7 +2136,7 @@ As for OLS, the proof is obtained by direct calculation and matricial tricks.
             \item When $n\rightarrow +\infty$, $V\rightarrow 0$. 
         \end{itemize}
 
-    \item In most cases, it is preferrable to have a biased estimation ($\lambda >0$).
+    \item In most cases, it is preferrable to have a biased estimation ($\lambda >0$). We look for the value of $\lambda$ that yields the best bias/variance tradeoff.
 \end{itemize}
 
 \subsubsection{\large\color{Periwinkle}Choice of $\lambda$}
@@ -2400,8 +2406,10 @@ Reference: \cite{Bach2021}
 \end{theorem}
 
 \subsubsection{\large\color{Periwinkle}Convergence for a strongly convex objective}
+\label{ssub:sgd_strongly_convex}
 
-We replace $f$ by $g$ to obtain a strongly convex objective and consider the minimization of $u$.
+
+We consider the regularized problem of minimizing the strongly convex function $u$, defined as:
 
 \begin{equation*}
     u(\theta) = f(\theta)+ \frac{\mu}{2} ||\theta||_2^2
@@ -2421,7 +2429,7 @@ Now, the SGD iteration for $u$ reads:
     $\gamma_t =  \frac{1}{\mu t} $ and the update \ref{eq:udate}, we have
 
     \begin{equation}
-	E[g( \hat{\theta}_t)-g(\theta^*)]\leq \frac{2L^2 (1+\log t)}{\mu t} 
+	E[u( \hat{\theta}_t)-u(\theta^*)]\leq \frac{2L^2 (1+\log t)}{\mu t} 
     \end{equation}
 
     where 
@@ -2431,6 +2439,10 @@ Now, the SGD iteration for $u$ reads:
     \end{equation}
 
 \end{theorem}
+
+\begin{remark}
+    The $\log t$ factor at the numerator is often ignored when considering the computational complexities.
+\end{remark}
 
 \subsubsection{\large\color{Periwinkle}Convergence for a strongly convex L-smooth objective}
 
@@ -2462,17 +2474,16 @@ Now, the SGD iteration for $u$ reads:
     \end{equation}
 \end{theorem}
 
-\begin{remark}
-    The $\log t$ factors at the numerator are often ignored when considering the computational complexities.
-\end{remark}
 
 \subsubsection{\large\color{Periwinkle}Computational complexity of GD and SGD}
 
-Roughly speaking, in most situations the computational complexity of one
-iteration of GD will be $n$ times that of one iteration of SGD. For instance, in the case of least-squares regression, computing a batch gradient (GD) costs $ \mathcal{O} (nd)$. Computing a SGD gradient estimate costs $ \mathcal{O} (d)$. In the case of Ridge regression, the loss is $\mu$-strongly convex and $L$-smooth, with a condition number $\kappa = \frac{L}{\mu} $. If $t$ denotes de number of iterations, then
+Roughly speaking, in most situations, the computational complexity of one
+iteration of GD will be $n$ times that of one iteration of SGD. For instance, in the case of least-squares regression, computing a batch gradient (GD) costs $ \mathcal{O} (nd)$. Computing a SGD gradient estimate costs $ \mathcal{O} (d)$.
+
+We also recall that in the case of Ridge regression, the loss is $\mu$-strongly convex and $L$-smooth, with a condition number $\kappa = \frac{L}{\mu} $. If $t$ denotes de number of iterations, then
 \begin{itemize}
-    \item GD has a convergence rate of $\mathcal{O} (\exp( - \frac{t}{\kappa} ))$. To get an error of $\epsilon$, we must have $ t= \mathcal{O} ( \kappa \log \frac{1}{\epsilon} )$. Since each iteration requires $ \mathcal{O} (nd)$ computations, the computation time will be $ \mathcal{O} (\kappa nd\log\frac{1}{\epsilon}) $.
-    \item SGD has a convergence rate of $ \mathcal{O} ( \frac{\kappa}{t} )$. To get an error of $\epsilon$, we must have $ t = \mathcal{O}( \frac{\kappa}{\epsilon} ) $. Since each iteration is $ \mathcal{O} (d)$, we have a computation time of $ \mathcal{O} ( \frac{\kappa d}{\epsilon} )$.
+    \item As discussed in \ref{ssub:gd_strongly_convex}, GD has a convergence rate of $\mathcal{O} (\exp( - \frac{t}{\kappa} ))$. To get an error of $\epsilon$, we must have $ t= \mathcal{O} ( \kappa \log \frac{1}{\epsilon} )$. Since each iteration requires $ \mathcal{O} (nd)$ computations, the computation time will be $ \mathcal{O} (\kappa nd\log\frac{1}{\epsilon}) $.
+    \item As discussed in \ref{ssub:sgd_strongly_convex}, SGD has a convergence rate of $ \mathcal{O} ( \frac{\kappa}{t} )$. To get an error of $\epsilon$, we must have $ t = \mathcal{O}( \frac{\kappa}{\epsilon} ) $. Since each iteration is $ \mathcal{O} (d)$, we have a computation time of $ \mathcal{O} ( \frac{\kappa d}{\epsilon} )$.
 
 \end{itemize}
 
@@ -2501,9 +2512,10 @@ of the method exist, such as variance reduction methods, SAG or SAGA \cite[]{Sch
 
 \subsubsection{\large\color{Periwinkle}Context}
 
-When using \textbf{{Kernel methods}}, we replace inputs $x\in  \mathcal{X} $ by a function $\phi(x)\in \mathcal{H}$, with $ \mathcal{H} $ a $ \mathbb{R} $-Hilbert space. We then perform linear predictions on $\phi(x)$. This means that estimators have the form: 
+When using a \textbf{{feature map}}, we replace inputs $x\in  \mathcal{X} $ by a function $\phi(x)\in \mathcal{H}$, with $ \mathcal{H} $ a $ \mathbb{R} $-Hilbert space. We then perform linear predictions on $\phi(x)$. This means that estimators have the form: 
 
 \begin{equation}
+    \label{eq:scalar_feature_map}
     f(x) = \langle\theta, \phi(x) \rangle_{ \mathcal{H} }
 \end{equation}
 
@@ -2511,6 +2523,7 @@ When using \textbf{{Kernel methods}}, we replace inputs $x\in  \mathcal{X} $ by 
     \item $ \langle ., . \rangle_{ \mathcal{H} }$ is the inner product defined on $ \mathcal{H} $. When there is no ambiguity, we will note $ \langle ., . \rangle= \langle ., . \rangle_{ \mathcal{H} }$.
     \item $ \theta\in  \mathcal{H} $
     \item $ \phi(x)$ is called the \textbf{{feature}} associated to $x$, and $ \mathcal{H} $ is called the feature space.
+    \item We note that equation \ref{eq:scalar_feature_map} is rather general and might also describe other estimators, beyond kernel methods. Linear regression, Ridge regression, might also be performed on a feature map. Some neural networks might also be written like that, and in this case $\phi$ is the representation of $x$ learned by the network.
 \end{itemize}
 
 Often, $ \mathcal{H} = \mathbb{R}^d $, but importantly, we will see that $d$ can even be \textbf{{infinite}}, thanks to a computation trick called the \textbf{{kernel trick}}. The reason why these methods are called "kernel methods" is not obvious at first glance but will be also justified after some calculations.  A \textit{{kernel}} will be a function of the form
@@ -2568,7 +2581,7 @@ In some supervised learning problems with many observations, such as computer vi
 
 \subsubsection{\large\color{Periwinkle}Representer theorem}
 
-We consider a framework where we look for a minimizer $ \hat{\theta}$ of a loss such as
+We consider a usual, regularized supervised learning problem, that leads to the minimization problem:
 
 \begin{equation}
     \label{eq:genloss}
@@ -2588,12 +2601,12 @@ With $\lambda>0$ and $\phi(x_i)\in \mathbb{R}^d$. The following theorem states t
     is attained for $ \hat{\theta}\in Vect(\{\phi(x_i)\}$. We can write
     
     \begin{equation*}
-	\theta = \sum^{n}_{i=1} \alpha_i\phi(x_i), \alpha\in \mathbb{R}^n
+        \hat{\theta} = \sum^{n}_{i=1} \alpha_i\phi(x_i), \alpha\in \mathbb{R}^n
     \end{equation*}
 \end{theorem}
 
 \begin{corollary}
-    As a direct consequence, the minimum of loss \ref{eq:genloss} is attained at $\theta = \sum^{n}_{i=1} \alpha_i\phi(x_i), \alpha_i\in \mathbb{R}$.
+    As a direct consequence, the minimum of loss \ref{eq:genloss} is attained at $\hat{\theta} = \sum^{n}_{i=1} \alpha_i\phi(x_i), \alpha_i\in \mathbb{R}$.
 
     We note that no convexity hypothesis on $l$ is required.
 \end{corollary}
@@ -2634,7 +2647,7 @@ With $\lambda>0$ and $\phi(x_i)\in \mathbb{R}^d$. The following theorem states t
 
 \subsubsection{\large\color{Periwinkle}Consequence}
 
-We note
+We use the usual $\theta$ notation instead of $\hat{\theta}$ and note
 \begin{itemize}
     \item $\alpha$ the vector such that $\theta = \sum^{n}_{i=1} \alpha_i\phi(x_i)$.
     \item $K\in \mathbb{R}^{n ,n}$ the matrix defined by
@@ -2870,7 +2883,9 @@ Without loss of generality, we assume the data are \textbf{{centered}}, which me
 \bar{x} = \sum^{n}_{i=1} x_n=0\in \mathbb{R}^d
 \end{equation}
 
-We note $X$ is the design matrix as in \ref{con:ols}. We look for $w\in \mathbb{R}^d$, with $||w||=1$, such that $ \hat{Var}(w^Tx)$ is maximal, where $ \hat{Var}$ denotes the empirical variance (see \ref{sec:empstats}).
+If the data are not centered, we can always remove their mean and keep this mean in memory.
+
+We note $X$ is the design matrix as in \ref{con:ols}. We look for $w\in \mathbb{R}^d$, with $||w||=1$, such that $ \hat{Var}(w^Tx)$ is maximal, where $ \hat{Var}$ denotes the empirical variance (see \ref{sec:empstats}). $w$ is called the first \textbf{principal component}.
 
 \begin{proposition}
     $w$ is the eigenvector of $X^TX$ with largest eigenvalue $\lambda_{max}$.
@@ -2918,46 +2933,46 @@ Another point of view on the problem is to define $w$ as
 
 Most of the time we project on a \textbf{{subspace}}, not only on a vector. The sequence of vectors obtained are the first normalized eigenvectors of $X^TX$, which are orthogonal.
 
-\subsection{\large\color{MidnightBlue}Density etimation}
-\label{sec:density}
-
-\subsubsection{\large\color{Periwinkle}Context}
-
-From points $ (x_1, \dots, x_n)\in \mathbb{R}^d$, we would like to estimate their unknown distribution probability $\rho$. What we have access to is the empirical distribution $ \rho_n$, 
-
-\begin{equation*}
-    \rho_n(x) = \frac{1}{n} \sum^{n}_{i=1} \delta_{x_i}
-\end{equation*}
-
-Where $\delta_{x_i}$ is the Dirac distribution in $x_i$.
-
-\subsubsection{\large\color{Periwinkle}Kernel density estimation (KDE) and Convolution}
-
-Let $q$ be a probability density on $ \mathbb{R}^d$, for instance, as $q(x) = e^{-||x||^2}$. Let $\tau>0$. We define a scaling of $q$ as 
-
-\begin{equation*}
-    q_{\tau}(x) = \tau^{-d} q( \frac{x}{\tau} )
-\end{equation*}
-
-We verify that $q_{\tau}$ is also a probabilty density.
-\begin{equation*}
-    \begin{aligned}
-	\int_{ \mathbb{R}^d} q_{\tau}(x)& =\int_{ \mathbb{R}^d} \tau^{-d} q( \frac{x}{\tau} )\\
-	&= 1
-    \end{aligned}
-\end{equation*}
-
-We define the estimator $ \hat{\rho}_{\tau}$ as
-
-\begin{equation*}
-    \hat{\rho}_{\tau}(x) = \frac{1}{n} \sum^{n}_{i=1} q_{\tau}(x-x_i)
-\end{equation*}
-
-This estimation method is called \textbf{{Kernel density estimation (KDE)}}, or \textbf{{Parzen method}}. If $*$ is the convolution of $f$ and $g$, $(f*g)(x)= \int f(y)g(x-y)  dx $, then 
-
-\begin{equation*}
-    \hat{\rho}_{\tau}(x) =  (\rho_n * q_{\tau})(x)
-\end{equation*}
+% \subsection{\large\color{MidnightBlue}Density etimation}
+% \label{sec:density}
+%
+% \subsubsection{\large\color{Periwinkle}Context}
+%
+% From points $ (x_1, \dots, x_n)\in \mathbb{R}^d$, we would like to estimate their unknown distribution probability $\rho$. What we have access to is the empirical distribution $ \rho_n$, 
+%
+% \begin{equation*}
+%     \rho_n(x) = \frac{1}{n} \sum^{n}_{i=1} \delta_{x_i}
+% \end{equation*}
+%
+% Where $\delta_{x_i}$ is the Dirac distribution in $x_i$.
+%
+% \subsubsection{\large\color{Periwinkle}Kernel density estimation (KDE) and Convolution}
+%
+% Let $q$ be a probability density on $ \mathbb{R}^d$, for instance, as $q(x) = e^{-||x||^2}$. Let $\tau>0$. We define a scaling of $q$ as 
+%
+% \begin{equation*}
+%     q_{\tau}(x) = \tau^{-d} q( \frac{x}{\tau} )
+% \end{equation*}
+%
+% We verify that $q_{\tau}$ is also a probabilty density.
+% \begin{equation*}
+%     \begin{aligned}
+% 	\int_{ \mathbb{R}^d} q_{\tau}(x)& =\int_{ \mathbb{R}^d} \tau^{-d} q( \frac{x}{\tau} )\\
+% 	&= 1
+%     \end{aligned}
+% \end{equation*}
+%
+% We define the estimator $ \hat{\rho}_{\tau}$ as
+%
+% \begin{equation*}
+%     \hat{\rho}_{\tau}(x) = \frac{1}{n} \sum^{n}_{i=1} q_{\tau}(x-x_i)
+% \end{equation*}
+%
+% This estimation method is called \textbf{{Kernel density estimation (KDE)}}, or \textbf{{Parzen method}}. If $*$ is the convolution of $f$ and $g$, $(f*g)(x)= \int f(y)g(x-y)  dx $, then 
+%
+% \begin{equation*}
+%     \hat{\rho}_{\tau}(x) =  (\rho_n * q_{\tau})(x)
+% \end{equation*}
 
 % \subsubsection{\large\color{Periwinkle}Consistency of density estimation}
 % 
@@ -2982,7 +2997,7 @@ We are given a set of observations $\{y_1, \dots, y_n\}\in \mathcal{Y} $ that we
 
 \begin{definition}{Parametric model}
 
-    Let $\mu$ be a measure on $ \mathcal{Y}$. Most of time times in Machine Learning, $\mu$ is the counting measure if $ \mathcal{R} \subset \mathbb{N} $ and the Lebesgue measure if $ \mathcal{Y} \subset \mathbb{R}^d$.
+    Let $\mu$ be a measure on $ \mathcal{Y}$. Most of time in Machine Learning, $\mu$ is the counting measure if $ \mathcal{R} \subset \mathbb{N} $ and the Lebesgue measure if $ \mathcal{Y} \subset \mathbb{R}^d$.
 
     Let $d>1$ and $ \Theta\subset \mathbb{R}^p$ be a set of parameters. A parametric model $ \mathcal{P} $ is a set of probability distributions on $ \mathcal{Y} $ with a density with respect to $\mu$, indexed by $ \Theta $.
 
@@ -3082,7 +3097,7 @@ This model, called the \textbf{{Gaussian model}}, assumes that the outputs $y_i$
 where $\epsilon\sim \mathcal{N}(0, \sigma_*^2)$. Based on a finite dataset, we look for an estimation of $\theta^*$. For a parameter $\theta=(w, \sigma)$, the conditional density of $y$ is:
 
 \begin{equation}
-    p_{\theta}(y|x) = \frac{1}{ \sqrt{2\pi} \sigma} e^{- \frac{(y-w^Tx)}{2\sigma^2} }
+    p_{\theta}(y|x) = \frac{1}{ \sqrt{2\pi} \sigma} e^{- \frac{(y-w^Tx)^2}{2\sigma^2} }
 \end{equation}
 
 Hence 
